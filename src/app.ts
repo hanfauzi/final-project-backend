@@ -5,13 +5,13 @@ import express, {
   Request,
   Response,
   NextFunction,
-} from 'express';
-import cors from 'cors';
-import { PORT } from './config';
-import { MainRouter } from './routers/main.router';
-import { AppError } from './utils/app.error';
-import { NotFoundMiddleware } from './middlewares/not-found.middleware';
-import { ErrorHandlerMiddleware } from './middlewares/error-handler.middleware';
+} from "express";
+import cors from "cors";
+import { PORT } from "./config/config";
+import { AppError } from "./utils/app.error";
+import { NotFoundMiddleware } from "./middlewares/not-found.middleware";
+import { ErrorHandlerMiddleware } from "./middlewares/error-handler.middleware";
+import { SampleRouter } from "./modules/sample/sample.router";
 
 export default class App {
   private app: Express;
@@ -44,15 +44,15 @@ export default class App {
   }
 
   private routes(): void {
-    const mainRouter = new MainRouter();
+    const sampleRouter = new SampleRouter();
 
-    this.app.get('/api', (req: Request, res: Response) => {
+    this.app.get("/api", (req: Request, res: Response) => {
       res.send(
         `Hello, Purwadhika student 👋. Have fun working on your mini project ☺️`
       );
     });
 
-    this.app.use(mainRouter.getRouter());
+    this.app.use("/api", sampleRouter.getRouter());
   }
 
   public start(): void {
