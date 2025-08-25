@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import { AppError } from '../utils/app.error';
-import { SampleService } from '../services/sample.service';
+import { AppError } from '../../utils/app.error';
+import { SampleService } from './sample.service';
+
 
 export class SampleController {
   private sampleService = new SampleService();
