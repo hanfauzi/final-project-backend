@@ -102,6 +102,13 @@ enum TaskStatus {
   @@map("task_status")
 }
 
+enum Label {
+  HOME
+  OFFICE
+  APARTMENT
+  OTHER
+}
+
 model Customer {
   id                 String    @id @default(uuid()) @map("id")
   role               String    @default("CUSTOMER") @map("role")
@@ -124,7 +131,7 @@ model Customer {
 model CustomerAddress {
   id         String    @id @default(uuid()) @map("id")
   customerId String    @map("customer_id")
-  label      String    @map("label")
+  label      Label     @default(HOME) @map("label")
   address    String    @map("address")
   city       String    @map("city")
   postalCode String    @map("postal_code")
@@ -202,8 +209,8 @@ model OutletSchedule {
   id         String    @id @default(uuid()) @map("id")
   outletId   String    @map("outlet_id")
   detailDays String    @map("detail_days")
-  openHour   String    @map("open_hour")
-  closeHour  String    @map("close_hour")
+  openHour   DateTime  @map("open_hour") @db.Timestamp()
+  closeHour  DateTime  @map("close_hour") @db.Timestamp()
   createdAt  DateTime  @default(now()) @map("created_at")
   updatedAt  DateTime  @updatedAt @map("updated_at")
   deletedAt  DateTime? @map("deleted_at")
@@ -249,8 +256,8 @@ model Employee {
 model Shift {
   id        String    @id @default(uuid()) @map("id")
   name      String    @unique @map("name")
-  startTime String    @map("start_time")
-  endTime   String    @map("end_time")
+  startTime DateTime  @map("start_time") @db.Timestamp()
+  endTime   DateTime  @map("end_time") @db.Timestamp()
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
@@ -268,8 +275,8 @@ model Attendance {
   outletId      String           @map("outlet_id")
   date          DateTime         @map("date")
   status        AttendanceStatus @map("status")
-  clockInAt     DateTime?        @map("clock_in_at")
-  clockOutAt    DateTime?        @map("clock_out_at")
+  clockInAt     DateTime?        @map("clock_in_at") @db.Timestamp()
+  clockOutAt    DateTime?        @map("clock_out_at") @db.Timestamp()
   workMinutes   Int?             @map("work_minutes")
   lateMinutes   Int?             @map("late_minutes")
   earlyLeaveMin Int?             @map("early_leave_min")
@@ -347,6 +354,7 @@ model OrderItem {
   orderId   String    @map("order_id")
   serviceId String    @map("service_id")
   qty       Float     @map("qty")
+  note      String    @map("note")
   unitPrice Int       @map("unit_price")
   subTotal  Int       @map("sub_total")
   createdAt DateTime  @default(now()) @map("created_at")
