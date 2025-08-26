@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.7.0
- * Query Engine version: 3cff47a7f5d65c3ea74883f1d736e41d68ce91ed
+ * Prisma Client JS version: 6.14.0
+ * Query Engine version: 717184b7b35ea05dfa71a3236b7af656013e1e49
  */
 Prisma.prismaVersion = {
-  client: "6.7.0",
-  engine: "3cff47a7f5d65c3ea74883f1d736e41d68ce91ed"
+  client: "6.14.0",
+  engine: "717184b7b35ea05dfa71a3236b7af656013e1e49"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -120,12 +120,198 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.SampleScalarFieldEnum = {
+exports.Prisma.CustomerScalarFieldEnum = {
+  id: 'id',
+  role: 'role',
+  name: 'name',
+  email: 'email',
+  password: 'password',
+  phoneNumber: 'phoneNumber',
+  isVerified: 'isVerified',
+  resetPasswordToken: 'resetPasswordToken',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.CustomerAddressScalarFieldEnum = {
+  id: 'id',
+  customerId: 'customerId',
+  label: 'label',
+  address: 'address',
+  city: 'city',
+  postalCode: 'postalCode',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  notes: 'notes',
+  isPrimary: 'isPrimary',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.ServiceCategoryScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  code: 'code',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.ServiceScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  serviceCategoryId: 'serviceCategoryId',
+  unit: 'unit',
+  basePrice: 'basePrice',
+  minQty: 'minQty',
+  estHours: 'estHours',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.OutletScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  address: 'address',
+  phoneNumber: 'phoneNumber',
+  city: 'city',
+  postalCode: 'postalCode',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  coverageArea: 'coverageArea',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.OutletScheduleScalarFieldEnum = {
+  id: 'id',
+  outletId: 'outletId',
+  detailDays: 'detailDays',
+  openHour: 'openHour',
+  closeHour: 'closeHour',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.EmployeeScalarFieldEnum = {
+  id: 'id',
+  outletId: 'outletId',
+  shiftId: 'shiftId',
+  role: 'role',
+  name: 'name',
+  email: 'email',
+  password: 'password',
+  phoneNumber: 'phoneNumber',
+  address: 'address',
+  isActive: 'isActive',
+  resetPasswordToken: 'resetPasswordToken',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.ShiftScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.AttendanceScalarFieldEnum = {
+  id: 'id',
+  employeeId: 'employeeId',
+  shiftId: 'shiftId',
+  outletId: 'outletId',
+  date: 'date',
+  status: 'status',
+  clockInAt: 'clockInAt',
+  clockOutAt: 'clockOutAt',
+  workMinutes: 'workMinutes',
+  lateMinutes: 'lateMinutes',
+  earlyLeaveMin: 'earlyLeaveMin',
+  notes: 'notes',
+  approvedById: 'approvedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.LeaveRequestScalarFieldEnum = {
+  id: 'id',
+  employeeId: 'employeeId',
+  outletId: 'outletId',
+  type: 'type',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  status: 'status',
+  approvedById: 'approvedById',
+  approvedAt: 'approvedAt',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.OrderHeaderScalarFieldEnum = {
+  id: 'id',
+  customerId: 'customerId',
+  outletId: 'outletId',
+  handledById: 'handledById',
+  status: 'status',
+  notes: 'notes',
+  pickupAt: 'pickupAt',
+  deliveryAt: 'deliveryAt',
+  paymentMethod: 'paymentMethod',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.OrderItemScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  serviceId: 'serviceId',
+  qty: 'qty',
+  unitPrice: 'unitPrice',
+  subTotal: 'subTotal',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.WorkerStationScalarFieldEnum = {
+  id: 'id',
+  station: 'station',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.EmployeeTaskScalarFieldEnum = {
+  id: 'id',
+  employeeId: 'employeeId',
+  assignedById: 'assignedById',
+  orderId: 'orderId',
+  outletId: 'outletId',
+  workStationId: 'workStationId',
+  type: 'type',
+  status: 'status',
+  startAt: 'startAt',
+  finishedAt: 'finishedAt',
+  qty: 'qty',
+  isApproved: 'isApproved',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -133,14 +319,107 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.SampleOrderByRelevanceFieldEnum = {
-  name: 'name',
-  code: 'code'
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+exports.EmployeeRole = exports.$Enums.EmployeeRole = {
+  SUPER_ADMIN: 'SUPER_ADMIN',
+  OUTLET_ADMIN: 'OUTLET_ADMIN',
+  DRIVER: 'DRIVER',
+  WORKER: 'WORKER'
+};
+
+exports.AttendanceStatus = exports.$Enums.AttendanceStatus = {
+  PRESENT: 'PRESENT',
+  ABSENT: 'ABSENT',
+  LATE: 'LATE',
+  EARLY_LEAVE: 'EARLY_LEAVE',
+  ON_LEAVE: 'ON_LEAVE',
+  SICK: 'SICK',
+  HOLIDAY: 'HOLIDAY'
+};
+
+exports.LeaveType = exports.$Enums.LeaveType = {
+  SICK: 'SICK',
+  ANNUAL: 'ANNUAL',
+  MATERNITY: 'MATERNITY',
+  PATERNITY: 'PATERNITY',
+  MARRIAGE: 'MARRIAGE',
+  BEREAVEMENT: 'BEREAVEMENT',
+  UNPAID: 'UNPAID',
+  OTHER: 'OTHER'
+};
+
+exports.LeaveReqStat = exports.$Enums.LeaveReqStat = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+};
+
+exports.OrderStatus = exports.$Enums.OrderStatus = {
+  WAITING_FOR_DRIVER_PICKUP: 'WAITING_FOR_DRIVER_PICKUP',
+  ON_THE_WAY_TO_OUTLET: 'ON_THE_WAY_TO_OUTLET',
+  ARRIVED_AT_OUTLET: 'ARRIVED_AT_OUTLET',
+  WASHING_IN_PROGRESS: 'WASHING_IN_PROGRESS',
+  IRONING_IN_PROGRESS: 'IRONING_IN_PROGRESS',
+  PACKING_IN_PROGRESS: 'PACKING_IN_PROGRESS',
+  WAITING_FOR_PAYMENT: 'WAITING_FOR_PAYMENT',
+  READY_FOR_DELIVERY: 'READY_FOR_DELIVERY',
+  OUT_FOR_DELIVERY: 'OUT_FOR_DELIVERY',
+  DELIVERED_TO_CUSTOMER: 'DELIVERED_TO_CUSTOMER'
+};
+
+exports.PaymentMethod = exports.$Enums.PaymentMethod = {
+  CASH: 'CASH',
+  DEBIT: 'DEBIT',
+  CREDIT: 'CREDIT',
+  BANK_TRANSFER: 'BANK_TRANSFER',
+  QRIS: 'QRIS',
+  E_WALLET: 'E_WALLET'
+};
+
+exports.Station = exports.$Enums.Station = {
+  WASHING: 'WASHING',
+  IRONING: 'IRONING',
+  PACKING: 'PACKING',
+  DRIVING_PICKUP: 'DRIVING_PICKUP',
+  DRIVING_DELIVERY: 'DRIVING_DELIVERY',
+  QA: 'QA',
+  ADMIN: 'ADMIN'
+};
+
+exports.TaskStatus = exports.$Enums.TaskStatus = {
+  PENDING: 'PENDING',
+  ASSIGNED: 'ASSIGNED',
+  IN_PROGRESS: 'IN_PROGRESS',
+  ON_HOLD: 'ON_HOLD',
+  DONE: 'DONE',
+  CANCELLED: 'CANCELLED',
+  REJECTED: 'REJECTED',
+  REQUEST_BYPASS: 'REQUEST_BYPASS'
+};
 
 exports.Prisma.ModelName = {
-  Sample: 'Sample'
+  Customer: 'Customer',
+  CustomerAddress: 'CustomerAddress',
+  ServiceCategory: 'ServiceCategory',
+  Service: 'Service',
+  Outlet: 'Outlet',
+  OutletSchedule: 'OutletSchedule',
+  Employee: 'Employee',
+  Shift: 'Shift',
+  Attendance: 'Attendance',
+  LeaveRequest: 'LeaveRequest',
+  OrderHeader: 'OrderHeader',
+  OrderItem: 'OrderItem',
+  WorkerStation: 'WorkerStation',
+  EmployeeTask: 'EmployeeTask'
 };
 
 /**
