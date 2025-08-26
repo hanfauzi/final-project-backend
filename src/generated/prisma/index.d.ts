@@ -188,6 +188,16 @@ export const TaskStatus: {
 
 export type TaskStatus = (typeof TaskStatus)[keyof typeof TaskStatus]
 
+
+export const Label: {
+  HOME: 'HOME',
+  OFFICE: 'OFFICE',
+  APARTMENT: 'APARTMENT',
+  OTHER: 'OTHER'
+};
+
+export type Label = (typeof Label)[keyof typeof Label]
+
 }
 
 export type EmployeeRole = $Enums.EmployeeRole
@@ -221,6 +231,10 @@ export const Station: typeof $Enums.Station
 export type TaskStatus = $Enums.TaskStatus
 
 export const TaskStatus: typeof $Enums.TaskStatus
+
+export type Label = $Enums.Label
+
+export const Label: typeof $Enums.Label
 
 /**
  * ##  Prisma Client ʲˢ
@@ -3751,7 +3765,7 @@ export namespace Prisma {
   export type CustomerAddressMinAggregateOutputType = {
     id: string | null
     customerId: string | null
-    label: string | null
+    label: $Enums.Label | null
     address: string | null
     city: string | null
     postalCode: string | null
@@ -3767,7 +3781,7 @@ export namespace Prisma {
   export type CustomerAddressMaxAggregateOutputType = {
     id: string | null
     customerId: string | null
-    label: string | null
+    label: $Enums.Label | null
     address: string | null
     city: string | null
     postalCode: string | null
@@ -3946,7 +3960,7 @@ export namespace Prisma {
   export type CustomerAddressGroupByOutputType = {
     id: string
     customerId: string
-    label: string
+    label: $Enums.Label
     address: string
     city: string
     postalCode: string
@@ -4064,7 +4078,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       customerId: string
-      label: string
+      label: $Enums.Label
       address: string
       city: string
       postalCode: string
@@ -4501,7 +4515,7 @@ export namespace Prisma {
   interface CustomerAddressFieldRefs {
     readonly id: FieldRef<"CustomerAddress", 'String'>
     readonly customerId: FieldRef<"CustomerAddress", 'String'>
-    readonly label: FieldRef<"CustomerAddress", 'String'>
+    readonly label: FieldRef<"CustomerAddress", 'Label'>
     readonly address: FieldRef<"CustomerAddress", 'String'>
     readonly city: FieldRef<"CustomerAddress", 'String'>
     readonly postalCode: FieldRef<"CustomerAddress", 'String'>
@@ -8557,8 +8571,8 @@ export namespace Prisma {
     id: string | null
     outletId: string | null
     detailDays: string | null
-    openHour: string | null
-    closeHour: string | null
+    openHour: Date | null
+    closeHour: Date | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
@@ -8568,8 +8582,8 @@ export namespace Prisma {
     id: string | null
     outletId: string | null
     detailDays: string | null
-    openHour: string | null
-    closeHour: string | null
+    openHour: Date | null
+    closeHour: Date | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
@@ -8698,8 +8712,8 @@ export namespace Prisma {
     id: string
     outletId: string
     detailDays: string
-    openHour: string
-    closeHour: string
+    openHour: Date
+    closeHour: Date
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -8789,8 +8803,8 @@ export namespace Prisma {
       id: string
       outletId: string
       detailDays: string
-      openHour: string
-      closeHour: string
+      openHour: Date
+      closeHour: Date
       createdAt: Date
       updatedAt: Date
       deletedAt: Date | null
@@ -9221,8 +9235,8 @@ export namespace Prisma {
     readonly id: FieldRef<"OutletSchedule", 'String'>
     readonly outletId: FieldRef<"OutletSchedule", 'String'>
     readonly detailDays: FieldRef<"OutletSchedule", 'String'>
-    readonly openHour: FieldRef<"OutletSchedule", 'String'>
-    readonly closeHour: FieldRef<"OutletSchedule", 'String'>
+    readonly openHour: FieldRef<"OutletSchedule", 'DateTime'>
+    readonly closeHour: FieldRef<"OutletSchedule", 'DateTime'>
     readonly createdAt: FieldRef<"OutletSchedule", 'DateTime'>
     readonly updatedAt: FieldRef<"OutletSchedule", 'DateTime'>
     readonly deletedAt: FieldRef<"OutletSchedule", 'DateTime'>
@@ -11034,8 +11048,8 @@ export namespace Prisma {
   export type ShiftMinAggregateOutputType = {
     id: string | null
     name: string | null
-    startTime: string | null
-    endTime: string | null
+    startTime: Date | null
+    endTime: Date | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
@@ -11044,8 +11058,8 @@ export namespace Prisma {
   export type ShiftMaxAggregateOutputType = {
     id: string | null
     name: string | null
-    startTime: string | null
-    endTime: string | null
+    startTime: Date | null
+    endTime: Date | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
@@ -11169,8 +11183,8 @@ export namespace Prisma {
   export type ShiftGroupByOutputType = {
     id: string
     name: string
-    startTime: string
-    endTime: string
+    startTime: Date
+    endTime: Date
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -11254,8 +11268,8 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
-      startTime: string
-      endTime: string
+      startTime: Date
+      endTime: Date
       createdAt: Date
       updatedAt: Date
       deletedAt: Date | null
@@ -11686,8 +11700,8 @@ export namespace Prisma {
   interface ShiftFieldRefs {
     readonly id: FieldRef<"Shift", 'String'>
     readonly name: FieldRef<"Shift", 'String'>
-    readonly startTime: FieldRef<"Shift", 'String'>
-    readonly endTime: FieldRef<"Shift", 'String'>
+    readonly startTime: FieldRef<"Shift", 'DateTime'>
+    readonly endTime: FieldRef<"Shift", 'DateTime'>
     readonly createdAt: FieldRef<"Shift", 'DateTime'>
     readonly updatedAt: FieldRef<"Shift", 'DateTime'>
     readonly deletedAt: FieldRef<"Shift", 'DateTime'>
@@ -15899,6 +15913,7 @@ export namespace Prisma {
     orderId: string | null
     serviceId: string | null
     qty: number | null
+    note: string | null
     unitPrice: number | null
     subTotal: number | null
     createdAt: Date | null
@@ -15911,6 +15926,7 @@ export namespace Prisma {
     orderId: string | null
     serviceId: string | null
     qty: number | null
+    note: string | null
     unitPrice: number | null
     subTotal: number | null
     createdAt: Date | null
@@ -15923,6 +15939,7 @@ export namespace Prisma {
     orderId: number
     serviceId: number
     qty: number
+    note: number
     unitPrice: number
     subTotal: number
     createdAt: number
@@ -15949,6 +15966,7 @@ export namespace Prisma {
     orderId?: true
     serviceId?: true
     qty?: true
+    note?: true
     unitPrice?: true
     subTotal?: true
     createdAt?: true
@@ -15961,6 +15979,7 @@ export namespace Prisma {
     orderId?: true
     serviceId?: true
     qty?: true
+    note?: true
     unitPrice?: true
     subTotal?: true
     createdAt?: true
@@ -15973,6 +15992,7 @@ export namespace Prisma {
     orderId?: true
     serviceId?: true
     qty?: true
+    note?: true
     unitPrice?: true
     subTotal?: true
     createdAt?: true
@@ -16072,6 +16092,7 @@ export namespace Prisma {
     orderId: string
     serviceId: string
     qty: number
+    note: string
     unitPrice: number
     subTotal: number
     createdAt: Date
@@ -16103,6 +16124,7 @@ export namespace Prisma {
     orderId?: boolean
     serviceId?: boolean
     qty?: boolean
+    note?: boolean
     unitPrice?: boolean
     subTotal?: boolean
     createdAt?: boolean
@@ -16117,6 +16139,7 @@ export namespace Prisma {
     orderId?: boolean
     serviceId?: boolean
     qty?: boolean
+    note?: boolean
     unitPrice?: boolean
     subTotal?: boolean
     createdAt?: boolean
@@ -16131,6 +16154,7 @@ export namespace Prisma {
     orderId?: boolean
     serviceId?: boolean
     qty?: boolean
+    note?: boolean
     unitPrice?: boolean
     subTotal?: boolean
     createdAt?: boolean
@@ -16145,6 +16169,7 @@ export namespace Prisma {
     orderId?: boolean
     serviceId?: boolean
     qty?: boolean
+    note?: boolean
     unitPrice?: boolean
     subTotal?: boolean
     createdAt?: boolean
@@ -16152,7 +16177,7 @@ export namespace Prisma {
     deletedAt?: boolean
   }
 
-  export type OrderItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "orderId" | "serviceId" | "qty" | "unitPrice" | "subTotal" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["orderItem"]>
+  export type OrderItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "orderId" | "serviceId" | "qty" | "note" | "unitPrice" | "subTotal" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["orderItem"]>
   export type OrderItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     order?: boolean | OrderHeaderDefaultArgs<ExtArgs>
     service?: boolean | ServiceDefaultArgs<ExtArgs>
@@ -16177,6 +16202,7 @@ export namespace Prisma {
       orderId: string
       serviceId: string
       qty: number
+      note: string
       unitPrice: number
       subTotal: number
       createdAt: Date
@@ -16611,6 +16637,7 @@ export namespace Prisma {
     readonly orderId: FieldRef<"OrderItem", 'String'>
     readonly serviceId: FieldRef<"OrderItem", 'String'>
     readonly qty: FieldRef<"OrderItem", 'Float'>
+    readonly note: FieldRef<"OrderItem", 'String'>
     readonly unitPrice: FieldRef<"OrderItem", 'Int'>
     readonly subTotal: FieldRef<"OrderItem", 'Int'>
     readonly createdAt: FieldRef<"OrderItem", 'DateTime'>
@@ -19650,6 +19677,7 @@ export namespace Prisma {
     orderId: 'orderId',
     serviceId: 'serviceId',
     qty: 'qty',
+    note: 'note',
     unitPrice: 'unitPrice',
     subTotal: 'subTotal',
     createdAt: 'createdAt',
@@ -19754,6 +19782,20 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Label'
+   */
+  export type EnumLabelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Label'>
+    
+
+
+  /**
+   * Reference to a field of type 'Label[]'
+   */
+  export type ListEnumLabelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Label[]'>
     
 
 
@@ -19994,7 +20036,7 @@ export namespace Prisma {
     NOT?: CustomerAddressWhereInput | CustomerAddressWhereInput[]
     id?: StringFilter<"CustomerAddress"> | string
     customerId?: StringFilter<"CustomerAddress"> | string
-    label?: StringFilter<"CustomerAddress"> | string
+    label?: EnumLabelFilter<"CustomerAddress"> | $Enums.Label
     address?: StringFilter<"CustomerAddress"> | string
     city?: StringFilter<"CustomerAddress"> | string
     postalCode?: StringFilter<"CustomerAddress"> | string
@@ -20031,7 +20073,7 @@ export namespace Prisma {
     OR?: CustomerAddressWhereInput[]
     NOT?: CustomerAddressWhereInput | CustomerAddressWhereInput[]
     customerId?: StringFilter<"CustomerAddress"> | string
-    label?: StringFilter<"CustomerAddress"> | string
+    label?: EnumLabelFilter<"CustomerAddress"> | $Enums.Label
     address?: StringFilter<"CustomerAddress"> | string
     city?: StringFilter<"CustomerAddress"> | string
     postalCode?: StringFilter<"CustomerAddress"> | string
@@ -20072,7 +20114,7 @@ export namespace Prisma {
     NOT?: CustomerAddressScalarWhereWithAggregatesInput | CustomerAddressScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"CustomerAddress"> | string
     customerId?: StringWithAggregatesFilter<"CustomerAddress"> | string
-    label?: StringWithAggregatesFilter<"CustomerAddress"> | string
+    label?: EnumLabelWithAggregatesFilter<"CustomerAddress"> | $Enums.Label
     address?: StringWithAggregatesFilter<"CustomerAddress"> | string
     city?: StringWithAggregatesFilter<"CustomerAddress"> | string
     postalCode?: StringWithAggregatesFilter<"CustomerAddress"> | string
@@ -20344,8 +20386,8 @@ export namespace Prisma {
     id?: StringFilter<"OutletSchedule"> | string
     outletId?: StringFilter<"OutletSchedule"> | string
     detailDays?: StringFilter<"OutletSchedule"> | string
-    openHour?: StringFilter<"OutletSchedule"> | string
-    closeHour?: StringFilter<"OutletSchedule"> | string
+    openHour?: DateTimeFilter<"OutletSchedule"> | Date | string
+    closeHour?: DateTimeFilter<"OutletSchedule"> | Date | string
     createdAt?: DateTimeFilter<"OutletSchedule"> | Date | string
     updatedAt?: DateTimeFilter<"OutletSchedule"> | Date | string
     deletedAt?: DateTimeNullableFilter<"OutletSchedule"> | Date | string | null
@@ -20371,8 +20413,8 @@ export namespace Prisma {
     NOT?: OutletScheduleWhereInput | OutletScheduleWhereInput[]
     outletId?: StringFilter<"OutletSchedule"> | string
     detailDays?: StringFilter<"OutletSchedule"> | string
-    openHour?: StringFilter<"OutletSchedule"> | string
-    closeHour?: StringFilter<"OutletSchedule"> | string
+    openHour?: DateTimeFilter<"OutletSchedule"> | Date | string
+    closeHour?: DateTimeFilter<"OutletSchedule"> | Date | string
     createdAt?: DateTimeFilter<"OutletSchedule"> | Date | string
     updatedAt?: DateTimeFilter<"OutletSchedule"> | Date | string
     deletedAt?: DateTimeNullableFilter<"OutletSchedule"> | Date | string | null
@@ -20400,8 +20442,8 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"OutletSchedule"> | string
     outletId?: StringWithAggregatesFilter<"OutletSchedule"> | string
     detailDays?: StringWithAggregatesFilter<"OutletSchedule"> | string
-    openHour?: StringWithAggregatesFilter<"OutletSchedule"> | string
-    closeHour?: StringWithAggregatesFilter<"OutletSchedule"> | string
+    openHour?: DateTimeWithAggregatesFilter<"OutletSchedule"> | Date | string
+    closeHour?: DateTimeWithAggregatesFilter<"OutletSchedule"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"OutletSchedule"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"OutletSchedule"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"OutletSchedule"> | Date | string | null
@@ -20537,8 +20579,8 @@ export namespace Prisma {
     NOT?: ShiftWhereInput | ShiftWhereInput[]
     id?: StringFilter<"Shift"> | string
     name?: StringFilter<"Shift"> | string
-    startTime?: StringFilter<"Shift"> | string
-    endTime?: StringFilter<"Shift"> | string
+    startTime?: DateTimeFilter<"Shift"> | Date | string
+    endTime?: DateTimeFilter<"Shift"> | Date | string
     createdAt?: DateTimeFilter<"Shift"> | Date | string
     updatedAt?: DateTimeFilter<"Shift"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Shift"> | Date | string | null
@@ -20564,8 +20606,8 @@ export namespace Prisma {
     AND?: ShiftWhereInput | ShiftWhereInput[]
     OR?: ShiftWhereInput[]
     NOT?: ShiftWhereInput | ShiftWhereInput[]
-    startTime?: StringFilter<"Shift"> | string
-    endTime?: StringFilter<"Shift"> | string
+    startTime?: DateTimeFilter<"Shift"> | Date | string
+    endTime?: DateTimeFilter<"Shift"> | Date | string
     createdAt?: DateTimeFilter<"Shift"> | Date | string
     updatedAt?: DateTimeFilter<"Shift"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Shift"> | Date | string | null
@@ -20592,8 +20634,8 @@ export namespace Prisma {
     NOT?: ShiftScalarWhereWithAggregatesInput | ShiftScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Shift"> | string
     name?: StringWithAggregatesFilter<"Shift"> | string
-    startTime?: StringWithAggregatesFilter<"Shift"> | string
-    endTime?: StringWithAggregatesFilter<"Shift"> | string
+    startTime?: DateTimeWithAggregatesFilter<"Shift"> | Date | string
+    endTime?: DateTimeWithAggregatesFilter<"Shift"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"Shift"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Shift"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"Shift"> | Date | string | null
@@ -20931,6 +20973,7 @@ export namespace Prisma {
     orderId?: StringFilter<"OrderItem"> | string
     serviceId?: StringFilter<"OrderItem"> | string
     qty?: FloatFilter<"OrderItem"> | number
+    note?: StringFilter<"OrderItem"> | string
     unitPrice?: IntFilter<"OrderItem"> | number
     subTotal?: IntFilter<"OrderItem"> | number
     createdAt?: DateTimeFilter<"OrderItem"> | Date | string
@@ -20945,6 +20988,7 @@ export namespace Prisma {
     orderId?: SortOrder
     serviceId?: SortOrder
     qty?: SortOrder
+    note?: SortOrder
     unitPrice?: SortOrder
     subTotal?: SortOrder
     createdAt?: SortOrder
@@ -20962,6 +21006,7 @@ export namespace Prisma {
     orderId?: StringFilter<"OrderItem"> | string
     serviceId?: StringFilter<"OrderItem"> | string
     qty?: FloatFilter<"OrderItem"> | number
+    note?: StringFilter<"OrderItem"> | string
     unitPrice?: IntFilter<"OrderItem"> | number
     subTotal?: IntFilter<"OrderItem"> | number
     createdAt?: DateTimeFilter<"OrderItem"> | Date | string
@@ -20976,6 +21021,7 @@ export namespace Prisma {
     orderId?: SortOrder
     serviceId?: SortOrder
     qty?: SortOrder
+    note?: SortOrder
     unitPrice?: SortOrder
     subTotal?: SortOrder
     createdAt?: SortOrder
@@ -20996,6 +21042,7 @@ export namespace Prisma {
     orderId?: StringWithAggregatesFilter<"OrderItem"> | string
     serviceId?: StringWithAggregatesFilter<"OrderItem"> | string
     qty?: FloatWithAggregatesFilter<"OrderItem"> | number
+    note?: StringWithAggregatesFilter<"OrderItem"> | string
     unitPrice?: IntWithAggregatesFilter<"OrderItem"> | number
     subTotal?: IntWithAggregatesFilter<"OrderItem"> | number
     createdAt?: DateTimeWithAggregatesFilter<"OrderItem"> | Date | string
@@ -21290,7 +21337,7 @@ export namespace Prisma {
 
   export type CustomerAddressCreateInput = {
     id?: string
-    label: string
+    label?: $Enums.Label
     address: string
     city: string
     postalCode: string
@@ -21307,7 +21354,7 @@ export namespace Prisma {
   export type CustomerAddressUncheckedCreateInput = {
     id?: string
     customerId: string
-    label: string
+    label?: $Enums.Label
     address: string
     city: string
     postalCode: string
@@ -21322,7 +21369,7 @@ export namespace Prisma {
 
   export type CustomerAddressUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    label?: StringFieldUpdateOperationsInput | string
+    label?: EnumLabelFieldUpdateOperationsInput | $Enums.Label
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     postalCode?: StringFieldUpdateOperationsInput | string
@@ -21339,7 +21386,7 @@ export namespace Prisma {
   export type CustomerAddressUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     customerId?: StringFieldUpdateOperationsInput | string
-    label?: StringFieldUpdateOperationsInput | string
+    label?: EnumLabelFieldUpdateOperationsInput | $Enums.Label
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     postalCode?: StringFieldUpdateOperationsInput | string
@@ -21355,7 +21402,7 @@ export namespace Prisma {
   export type CustomerAddressCreateManyInput = {
     id?: string
     customerId: string
-    label: string
+    label?: $Enums.Label
     address: string
     city: string
     postalCode: string
@@ -21370,7 +21417,7 @@ export namespace Prisma {
 
   export type CustomerAddressUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    label?: StringFieldUpdateOperationsInput | string
+    label?: EnumLabelFieldUpdateOperationsInput | $Enums.Label
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     postalCode?: StringFieldUpdateOperationsInput | string
@@ -21386,7 +21433,7 @@ export namespace Prisma {
   export type CustomerAddressUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     customerId?: StringFieldUpdateOperationsInput | string
-    label?: StringFieldUpdateOperationsInput | string
+    label?: EnumLabelFieldUpdateOperationsInput | $Enums.Label
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     postalCode?: StringFieldUpdateOperationsInput | string
@@ -21692,8 +21739,8 @@ export namespace Prisma {
   export type OutletScheduleCreateInput = {
     id?: string
     detailDays: string
-    openHour: string
-    closeHour: string
+    openHour: Date | string
+    closeHour: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -21704,8 +21751,8 @@ export namespace Prisma {
     id?: string
     outletId: string
     detailDays: string
-    openHour: string
-    closeHour: string
+    openHour: Date | string
+    closeHour: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -21714,8 +21761,8 @@ export namespace Prisma {
   export type OutletScheduleUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     detailDays?: StringFieldUpdateOperationsInput | string
-    openHour?: StringFieldUpdateOperationsInput | string
-    closeHour?: StringFieldUpdateOperationsInput | string
+    openHour?: DateTimeFieldUpdateOperationsInput | Date | string
+    closeHour?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21726,8 +21773,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     outletId?: StringFieldUpdateOperationsInput | string
     detailDays?: StringFieldUpdateOperationsInput | string
-    openHour?: StringFieldUpdateOperationsInput | string
-    closeHour?: StringFieldUpdateOperationsInput | string
+    openHour?: DateTimeFieldUpdateOperationsInput | Date | string
+    closeHour?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21737,8 +21784,8 @@ export namespace Prisma {
     id?: string
     outletId: string
     detailDays: string
-    openHour: string
-    closeHour: string
+    openHour: Date | string
+    closeHour: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -21747,8 +21794,8 @@ export namespace Prisma {
   export type OutletScheduleUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     detailDays?: StringFieldUpdateOperationsInput | string
-    openHour?: StringFieldUpdateOperationsInput | string
-    closeHour?: StringFieldUpdateOperationsInput | string
+    openHour?: DateTimeFieldUpdateOperationsInput | Date | string
+    closeHour?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21758,8 +21805,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     outletId?: StringFieldUpdateOperationsInput | string
     detailDays?: StringFieldUpdateOperationsInput | string
-    openHour?: StringFieldUpdateOperationsInput | string
-    closeHour?: StringFieldUpdateOperationsInput | string
+    openHour?: DateTimeFieldUpdateOperationsInput | Date | string
+    closeHour?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21913,8 +21960,8 @@ export namespace Prisma {
   export type ShiftCreateInput = {
     id?: string
     name: string
-    startTime: string
-    endTime: string
+    startTime: Date | string
+    endTime: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -21925,8 +21972,8 @@ export namespace Prisma {
   export type ShiftUncheckedCreateInput = {
     id?: string
     name: string
-    startTime: string
-    endTime: string
+    startTime: Date | string
+    endTime: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -21937,8 +21984,8 @@ export namespace Prisma {
   export type ShiftUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    startTime?: StringFieldUpdateOperationsInput | string
-    endTime?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21949,8 +21996,8 @@ export namespace Prisma {
   export type ShiftUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    startTime?: StringFieldUpdateOperationsInput | string
-    endTime?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21961,8 +22008,8 @@ export namespace Prisma {
   export type ShiftCreateManyInput = {
     id?: string
     name: string
-    startTime: string
-    endTime: string
+    startTime: Date | string
+    endTime: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -21971,8 +22018,8 @@ export namespace Prisma {
   export type ShiftUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    startTime?: StringFieldUpdateOperationsInput | string
-    endTime?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21981,8 +22028,8 @@ export namespace Prisma {
   export type ShiftUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    startTime?: StringFieldUpdateOperationsInput | string
-    endTime?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22339,6 +22386,7 @@ export namespace Prisma {
   export type OrderItemCreateInput = {
     id?: string
     qty: number
+    note: string
     unitPrice: number
     subTotal: number
     createdAt?: Date | string
@@ -22353,6 +22401,7 @@ export namespace Prisma {
     orderId: string
     serviceId: string
     qty: number
+    note: string
     unitPrice: number
     subTotal: number
     createdAt?: Date | string
@@ -22363,6 +22412,7 @@ export namespace Prisma {
   export type OrderItemUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     qty?: FloatFieldUpdateOperationsInput | number
+    note?: StringFieldUpdateOperationsInput | string
     unitPrice?: IntFieldUpdateOperationsInput | number
     subTotal?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22377,6 +22427,7 @@ export namespace Prisma {
     orderId?: StringFieldUpdateOperationsInput | string
     serviceId?: StringFieldUpdateOperationsInput | string
     qty?: FloatFieldUpdateOperationsInput | number
+    note?: StringFieldUpdateOperationsInput | string
     unitPrice?: IntFieldUpdateOperationsInput | number
     subTotal?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22389,6 +22440,7 @@ export namespace Prisma {
     orderId: string
     serviceId: string
     qty: number
+    note: string
     unitPrice: number
     subTotal: number
     createdAt?: Date | string
@@ -22399,6 +22451,7 @@ export namespace Prisma {
   export type OrderItemUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     qty?: FloatFieldUpdateOperationsInput | number
+    note?: StringFieldUpdateOperationsInput | string
     unitPrice?: IntFieldUpdateOperationsInput | number
     subTotal?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22411,6 +22464,7 @@ export namespace Prisma {
     orderId?: StringFieldUpdateOperationsInput | string
     serviceId?: StringFieldUpdateOperationsInput | string
     qty?: FloatFieldUpdateOperationsInput | number
+    note?: StringFieldUpdateOperationsInput | string
     unitPrice?: IntFieldUpdateOperationsInput | number
     subTotal?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22802,6 +22856,13 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type EnumLabelFilter<$PrismaModel = never> = {
+    equals?: $Enums.Label | EnumLabelFieldRefInput<$PrismaModel>
+    in?: $Enums.Label[] | ListEnumLabelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Label[] | ListEnumLabelFieldRefInput<$PrismaModel>
+    not?: NestedEnumLabelFilter<$PrismaModel> | $Enums.Label
+  }
+
   export type FloatFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -22874,6 +22935,16 @@ export namespace Prisma {
   export type CustomerAddressSumOrderByAggregateInput = {
     latitude?: SortOrder
     longitude?: SortOrder
+  }
+
+  export type EnumLabelWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Label | EnumLabelFieldRefInput<$PrismaModel>
+    in?: $Enums.Label[] | ListEnumLabelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Label[] | ListEnumLabelFieldRefInput<$PrismaModel>
+    not?: NestedEnumLabelWithAggregatesFilter<$PrismaModel> | $Enums.Label
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumLabelFilter<$PrismaModel>
+    _max?: NestedEnumLabelFilter<$PrismaModel>
   }
 
   export type FloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -23567,6 +23638,7 @@ export namespace Prisma {
     orderId?: SortOrder
     serviceId?: SortOrder
     qty?: SortOrder
+    note?: SortOrder
     unitPrice?: SortOrder
     subTotal?: SortOrder
     createdAt?: SortOrder
@@ -23585,6 +23657,7 @@ export namespace Prisma {
     orderId?: SortOrder
     serviceId?: SortOrder
     qty?: SortOrder
+    note?: SortOrder
     unitPrice?: SortOrder
     subTotal?: SortOrder
     createdAt?: SortOrder
@@ -23597,6 +23670,7 @@ export namespace Prisma {
     orderId?: SortOrder
     serviceId?: SortOrder
     qty?: SortOrder
+    note?: SortOrder
     unitPrice?: SortOrder
     subTotal?: SortOrder
     createdAt?: SortOrder
@@ -23891,6 +23965,10 @@ export namespace Prisma {
     create?: XOR<CustomerCreateWithoutAddressesInput, CustomerUncheckedCreateWithoutAddressesInput>
     connectOrCreate?: CustomerCreateOrConnectWithoutAddressesInput
     connect?: CustomerWhereUniqueInput
+  }
+
+  export type EnumLabelFieldUpdateOperationsInput = {
+    set?: $Enums.Label
   }
 
   export type FloatFieldUpdateOperationsInput = {
@@ -25264,6 +25342,13 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumLabelFilter<$PrismaModel = never> = {
+    equals?: $Enums.Label | EnumLabelFieldRefInput<$PrismaModel>
+    in?: $Enums.Label[] | ListEnumLabelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Label[] | ListEnumLabelFieldRefInput<$PrismaModel>
+    not?: NestedEnumLabelFilter<$PrismaModel> | $Enums.Label
+  }
+
   export type NestedFloatFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -25273,6 +25358,16 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedEnumLabelWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Label | EnumLabelFieldRefInput<$PrismaModel>
+    in?: $Enums.Label[] | ListEnumLabelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Label[] | ListEnumLabelFieldRefInput<$PrismaModel>
+    not?: NestedEnumLabelWithAggregatesFilter<$PrismaModel> | $Enums.Label
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumLabelFilter<$PrismaModel>
+    _max?: NestedEnumLabelFilter<$PrismaModel>
   }
 
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -25501,7 +25596,7 @@ export namespace Prisma {
 
   export type CustomerAddressCreateWithoutCustomerInput = {
     id?: string
-    label: string
+    label?: $Enums.Label
     address: string
     city: string
     postalCode: string
@@ -25516,7 +25611,7 @@ export namespace Prisma {
 
   export type CustomerAddressUncheckedCreateWithoutCustomerInput = {
     id?: string
-    label: string
+    label?: $Enums.Label
     address: string
     city: string
     postalCode: string
@@ -25603,7 +25698,7 @@ export namespace Prisma {
     NOT?: CustomerAddressScalarWhereInput | CustomerAddressScalarWhereInput[]
     id?: StringFilter<"CustomerAddress"> | string
     customerId?: StringFilter<"CustomerAddress"> | string
-    label?: StringFilter<"CustomerAddress"> | string
+    label?: EnumLabelFilter<"CustomerAddress"> | $Enums.Label
     address?: StringFilter<"CustomerAddress"> | string
     city?: StringFilter<"CustomerAddress"> | string
     postalCode?: StringFilter<"CustomerAddress"> | string
@@ -25818,6 +25913,7 @@ export namespace Prisma {
   export type OrderItemCreateWithoutServiceInput = {
     id?: string
     qty: number
+    note: string
     unitPrice: number
     subTotal: number
     createdAt?: Date | string
@@ -25830,6 +25926,7 @@ export namespace Prisma {
     id?: string
     orderId: string
     qty: number
+    note: string
     unitPrice: number
     subTotal: number
     createdAt?: Date | string
@@ -25898,6 +25995,7 @@ export namespace Prisma {
     orderId?: StringFilter<"OrderItem"> | string
     serviceId?: StringFilter<"OrderItem"> | string
     qty?: FloatFilter<"OrderItem"> | number
+    note?: StringFilter<"OrderItem"> | string
     unitPrice?: IntFilter<"OrderItem"> | number
     subTotal?: IntFilter<"OrderItem"> | number
     createdAt?: DateTimeFilter<"OrderItem"> | Date | string
@@ -25908,8 +26006,8 @@ export namespace Prisma {
   export type OutletScheduleCreateWithoutOutletInput = {
     id?: string
     detailDays: string
-    openHour: string
-    closeHour: string
+    openHour: Date | string
+    closeHour: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -25918,8 +26016,8 @@ export namespace Prisma {
   export type OutletScheduleUncheckedCreateWithoutOutletInput = {
     id?: string
     detailDays: string
-    openHour: string
-    closeHour: string
+    openHour: Date | string
+    closeHour: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -26188,8 +26286,8 @@ export namespace Prisma {
     id?: StringFilter<"OutletSchedule"> | string
     outletId?: StringFilter<"OutletSchedule"> | string
     detailDays?: StringFilter<"OutletSchedule"> | string
-    openHour?: StringFilter<"OutletSchedule"> | string
-    closeHour?: StringFilter<"OutletSchedule"> | string
+    openHour?: DateTimeFilter<"OutletSchedule"> | Date | string
+    closeHour?: DateTimeFilter<"OutletSchedule"> | Date | string
     createdAt?: DateTimeFilter<"OutletSchedule"> | Date | string
     updatedAt?: DateTimeFilter<"OutletSchedule"> | Date | string
     deletedAt?: DateTimeNullableFilter<"OutletSchedule"> | Date | string | null
@@ -26508,8 +26606,8 @@ export namespace Prisma {
   export type ShiftCreateWithoutEmployeesInput = {
     id?: string
     name: string
-    startTime: string
-    endTime: string
+    startTime: Date | string
+    endTime: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -26519,8 +26617,8 @@ export namespace Prisma {
   export type ShiftUncheckedCreateWithoutEmployeesInput = {
     id?: string
     name: string
-    startTime: string
-    endTime: string
+    startTime: Date | string
+    endTime: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -26905,8 +27003,8 @@ export namespace Prisma {
   export type ShiftUpdateWithoutEmployeesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    startTime?: StringFieldUpdateOperationsInput | string
-    endTime?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -26916,8 +27014,8 @@ export namespace Prisma {
   export type ShiftUncheckedUpdateWithoutEmployeesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    startTime?: StringFieldUpdateOperationsInput | string
-    endTime?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -27224,8 +27322,8 @@ export namespace Prisma {
   export type ShiftCreateWithoutAttendancesInput = {
     id?: string
     name: string
-    startTime: string
-    endTime: string
+    startTime: Date | string
+    endTime: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -27235,8 +27333,8 @@ export namespace Prisma {
   export type ShiftUncheckedCreateWithoutAttendancesInput = {
     id?: string
     name: string
-    startTime: string
-    endTime: string
+    startTime: Date | string
+    endTime: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -27417,8 +27515,8 @@ export namespace Prisma {
   export type ShiftUpdateWithoutAttendancesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    startTime?: StringFieldUpdateOperationsInput | string
-    endTime?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -27428,8 +27526,8 @@ export namespace Prisma {
   export type ShiftUncheckedUpdateWithoutAttendancesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    startTime?: StringFieldUpdateOperationsInput | string
-    endTime?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -27998,6 +28096,7 @@ export namespace Prisma {
   export type OrderItemCreateWithoutOrderInput = {
     id?: string
     qty: number
+    note: string
     unitPrice: number
     subTotal: number
     createdAt?: Date | string
@@ -28010,6 +28109,7 @@ export namespace Prisma {
     id?: string
     serviceId: string
     qty: number
+    note: string
     unitPrice: number
     subTotal: number
     createdAt?: Date | string
@@ -28912,7 +29012,7 @@ export namespace Prisma {
 
   export type CustomerAddressCreateManyCustomerInput = {
     id?: string
-    label: string
+    label?: $Enums.Label
     address: string
     city: string
     postalCode: string
@@ -28941,7 +29041,7 @@ export namespace Prisma {
 
   export type CustomerAddressUpdateWithoutCustomerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    label?: StringFieldUpdateOperationsInput | string
+    label?: EnumLabelFieldUpdateOperationsInput | $Enums.Label
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     postalCode?: StringFieldUpdateOperationsInput | string
@@ -28956,7 +29056,7 @@ export namespace Prisma {
 
   export type CustomerAddressUncheckedUpdateWithoutCustomerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    label?: StringFieldUpdateOperationsInput | string
+    label?: EnumLabelFieldUpdateOperationsInput | $Enums.Label
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     postalCode?: StringFieldUpdateOperationsInput | string
@@ -28971,7 +29071,7 @@ export namespace Prisma {
 
   export type CustomerAddressUncheckedUpdateManyWithoutCustomerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    label?: StringFieldUpdateOperationsInput | string
+    label?: EnumLabelFieldUpdateOperationsInput | $Enums.Label
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     postalCode?: StringFieldUpdateOperationsInput | string
@@ -29084,6 +29184,7 @@ export namespace Prisma {
     id?: string
     orderId: string
     qty: number
+    note: string
     unitPrice: number
     subTotal: number
     createdAt?: Date | string
@@ -29094,6 +29195,7 @@ export namespace Prisma {
   export type OrderItemUpdateWithoutServiceInput = {
     id?: StringFieldUpdateOperationsInput | string
     qty?: FloatFieldUpdateOperationsInput | number
+    note?: StringFieldUpdateOperationsInput | string
     unitPrice?: IntFieldUpdateOperationsInput | number
     subTotal?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29106,6 +29208,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     orderId?: StringFieldUpdateOperationsInput | string
     qty?: FloatFieldUpdateOperationsInput | number
+    note?: StringFieldUpdateOperationsInput | string
     unitPrice?: IntFieldUpdateOperationsInput | number
     subTotal?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29117,6 +29220,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     orderId?: StringFieldUpdateOperationsInput | string
     qty?: FloatFieldUpdateOperationsInput | number
+    note?: StringFieldUpdateOperationsInput | string
     unitPrice?: IntFieldUpdateOperationsInput | number
     subTotal?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29127,8 +29231,8 @@ export namespace Prisma {
   export type OutletScheduleCreateManyOutletInput = {
     id?: string
     detailDays: string
-    openHour: string
-    closeHour: string
+    openHour: Date | string
+    closeHour: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -29218,8 +29322,8 @@ export namespace Prisma {
   export type OutletScheduleUpdateWithoutOutletInput = {
     id?: StringFieldUpdateOperationsInput | string
     detailDays?: StringFieldUpdateOperationsInput | string
-    openHour?: StringFieldUpdateOperationsInput | string
-    closeHour?: StringFieldUpdateOperationsInput | string
+    openHour?: DateTimeFieldUpdateOperationsInput | Date | string
+    closeHour?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -29228,8 +29332,8 @@ export namespace Prisma {
   export type OutletScheduleUncheckedUpdateWithoutOutletInput = {
     id?: StringFieldUpdateOperationsInput | string
     detailDays?: StringFieldUpdateOperationsInput | string
-    openHour?: StringFieldUpdateOperationsInput | string
-    closeHour?: StringFieldUpdateOperationsInput | string
+    openHour?: DateTimeFieldUpdateOperationsInput | Date | string
+    closeHour?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -29238,8 +29342,8 @@ export namespace Prisma {
   export type OutletScheduleUncheckedUpdateManyWithoutOutletInput = {
     id?: StringFieldUpdateOperationsInput | string
     detailDays?: StringFieldUpdateOperationsInput | string
-    openHour?: StringFieldUpdateOperationsInput | string
-    closeHour?: StringFieldUpdateOperationsInput | string
+    openHour?: DateTimeFieldUpdateOperationsInput | Date | string
+    closeHour?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -30128,6 +30232,7 @@ export namespace Prisma {
     id?: string
     serviceId: string
     qty: number
+    note: string
     unitPrice: number
     subTotal: number
     createdAt?: Date | string
@@ -30156,6 +30261,7 @@ export namespace Prisma {
   export type OrderItemUpdateWithoutOrderInput = {
     id?: StringFieldUpdateOperationsInput | string
     qty?: FloatFieldUpdateOperationsInput | number
+    note?: StringFieldUpdateOperationsInput | string
     unitPrice?: IntFieldUpdateOperationsInput | number
     subTotal?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -30168,6 +30274,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     serviceId?: StringFieldUpdateOperationsInput | string
     qty?: FloatFieldUpdateOperationsInput | number
+    note?: StringFieldUpdateOperationsInput | string
     unitPrice?: IntFieldUpdateOperationsInput | number
     subTotal?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -30179,6 +30286,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     serviceId?: StringFieldUpdateOperationsInput | string
     qty?: FloatFieldUpdateOperationsInput | number
+    note?: StringFieldUpdateOperationsInput | string
     unitPrice?: IntFieldUpdateOperationsInput | number
     subTotal?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

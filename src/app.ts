@@ -11,7 +11,7 @@ import { PORT } from "./config/config";
 import { AppError } from "./utils/app.error";
 import { NotFoundMiddleware } from "./middlewares/not-found.middleware";
 import { ErrorHandlerMiddleware } from "./middlewares/error-handler.middleware";
-import { SampleRouter } from "./modules/sample/sample.router";
+// import { SampleRouter } from "./modules/sample/sample.router";
 
 export default class App {
   private app: Express;
@@ -44,7 +44,7 @@ export default class App {
   }
 
   private routes(): void {
-    const sampleRouter = new SampleRouter();
+    // const sampleRouter = new SampleRouter();
 
     this.app.get("/api", (req: Request, res: Response) => {
       res.send(
@@ -52,7 +52,7 @@ export default class App {
       );
     });
 
-    this.app.use("/api", sampleRouter.getRouter());
+    // this.app.use("/api", sampleRouter.getRouter());
   }
 
   public start(): void {

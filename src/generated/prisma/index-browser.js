@@ -280,6 +280,7 @@ exports.Prisma.OrderItemScalarFieldEnum = {
   orderId: 'orderId',
   serviceId: 'serviceId',
   qty: 'qty',
+  note: 'note',
   unitPrice: 'unitPrice',
   subTotal: 'subTotal',
   createdAt: 'createdAt',
@@ -328,6 +329,13 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.Label = exports.$Enums.Label = {
+  HOME: 'HOME',
+  OFFICE: 'OFFICE',
+  APARTMENT: 'APARTMENT',
+  OTHER: 'OTHER'
+};
+
 exports.EmployeeRole = exports.$Enums.EmployeeRole = {
   SUPER_ADMIN: 'SUPER_ADMIN',
   OUTLET_ADMIN: 'OUTLET_ADMIN',
