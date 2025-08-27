@@ -9,7 +9,12 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-enum EmployeeRole {
+/**
+ * ===================== ENUMS =====================
+ */
+
+enum Role {
+  CUSTOMER     @map("customer")
   SUPER_ADMIN  @map("super_admin")
   OUTLET_ADMIN @map("outlet_admin")
   DRIVER       @map("driver")
@@ -19,85 +24,73 @@ enum EmployeeRole {
 }
 
 enum AttendanceStatus {
-  PRESENT     @map("present") // Hadir
-  ABSENT      @map("absent") // Tidak hadir
-  LATE        @map("late") // Hadir tapi terlambat
-  EARLY_LEAVE @map("early_leave") // Pulang lebih awal
-  ON_LEAVE    @map("on_leave") // Cuti
-  SICK        @map("sick") // Izin sakit
-  HOLIDAY     @map("holiday") // Libur resmi
+  PRESENT     @map("present")
+  ABSENT      @map("absent")
+  LATE        @map("late")
+  EARLY_LEAVE @map("early_leave")
+  ON_LEAVE    @map("on_leave")
+  SICK        @map("sick")
+  HOLIDAY     @map("holiday")
 
   @@map("attendance_status")
 }
 
-enum LeaveType {
-  SICK        @map("sick") // Sakit
-  ANNUAL      @map("annual") // Cuti tahunan
-  MATERNITY   @map("maternity") // Cuti melahirkan
-  PATERNITY   @map("paternity") // Cuti ayah
-  MARRIAGE    @map("marriage") // Izin menikah
-  BEREAVEMENT @map("bereavement") // Izin duka cita (meninggal keluarga)
-  UNPAID      @map("unpaid") // Cuti tanpa bayaran
-  OTHER       @map("other") // Lain-lain
-
-  @@map("leave_type")
-}
-
-enum LeaveReqStat {
-  PENDING  @map("pending")
-  APPROVED @map("approved")
-  REJECTED @map("rejected")
-
-  @@map("leave_req_status")
-}
-
 enum OrderStatus {
-  WAITING_FOR_DRIVER_PICKUP @map("waiting_for_driver_pickup") // Menunggu Penjemputan Driver
-  ON_THE_WAY_TO_OUTLET      @map("on_the_way_to_outlet") // Laundry Sedang Menuju Outlet
-  ARRIVED_AT_OUTLET         @map("arrived_at_outlet") // Laundry Telah Sampai Outlet
-  WASHING_IN_PROGRESS       @map("washing_in_progress") // Laundry Sedang Dicuci
-  IRONING_IN_PROGRESS       @map("ironing_in_progress") // Laundry Sedang Disetrika
-  PACKING_IN_PROGRESS       @map("packing_in_progress") // Laundry Sedang Di Packing
-  WAITING_FOR_PAYMENT       @map("waiting_for_payment") // Menunggu Pembayaran
-  READY_FOR_DELIVERY        @map("ready_for_delivery") // Laundry Siap Diantar
-  OUT_FOR_DELIVERY          @map("out_for_delivery") // Laundry Sedang Dikirim Menuju Customer
-  DELIVERED_TO_CUSTOMER     @map("delivered_to_customer") // Laundry Telah Diterima Customer
+  WAITING_FOR_CONFIRMATION  @map("waiting_for_confirmation")
+  WAITING_FOR_DRIVER_PICKUP @map("waiting_for_driver_pickup")
+  ON_THE_WAY_TO_OUTLET      @map("on_the_way_to_outlet")
+  ARRIVED_AT_OUTLET         @map("arrived_at_outlet")
+  WASHING_IN_PROGRESS       @map("washing_in_progress")
+  IRONING_IN_PROGRESS       @map("ironing_in_progress")
+  PACKING_IN_PROGRESS       @map("packing_in_progress")
+  WAITING_FOR_PAYMENT       @map("waiting_for_payment")
+  READY_FOR_DELIVERY        @map("ready_for_delivery")
+  OUT_FOR_DELIVERY          @map("out_for_delivery")
+  DELIVERED_TO_CUSTOMER     @map("delivered_to_customer")
 
   @@map("order_status")
 }
 
 enum PaymentMethod {
-  CASH          @map("cash") // Bayar tunai
-  DEBIT         @map("debit") // Kartu debit
-  CREDIT        @map("credit") // Kartu kredit
-  BANK_TRANSFER @map("bank_transfer") // Transfer bank
-  QRIS          @map("qris") // QRIS (QR code Indonesian standard)
-  E_WALLET      @map("e_wallet") // Dompet digital (GoPay, OVO, Dana, dll)
+  CASH          @map("cash")
+  DEBIT         @map("debit")
+  CREDIT        @map("credit")
+  BANK_TRANSFER @map("bank_transfer")
+  QRIS          @map("qris")
+  E_WALLET      @map("e_wallet")
 
   @@map("payment_method")
 }
 
 enum Station {
-  WASHING          @map("washing")
-  IRONING          @map("ironing")
-  PACKING          @map("packing")
-  DRIVING_PICKUP   @map("driving_pickup")
-  DRIVING_DELIVERY @map("driving_delivery")
-  QA               @map("qa")
-  ADMIN            @map("admin")
+  WASHING @map("washing")
+  IRONING @map("ironing")
+  PACKING @map("packing")
+  QA      @map("qa")
+  ADMIN   @map("admin")
 
   @@map("station")
 }
 
+enum PaymentStatus {
+  WAITING  @map("waiting")
+  PAID     @map("paid")
+  FAILED   @map("failed")
+  EXPIRED  @map("expired")
+  CANCELED @map("canceled")
+
+  @@map("payment_status")
+}
+
 enum TaskStatus {
-  PENDING        @map("pending") // Task baru, belum dikerjakan
-  ASSIGNED       @map("assigned") // Sudah ditugaskan ke karyawan
-  IN_PROGRESS    @map("in_progress") // Sedang dikerjakan
-  ON_HOLD        @map("on_hold") // Ditunda sementara
-  DONE           @map("done") // Selesai
-  CANCELLED      @map("cancelled") // Dibatalkan
-  REJECTED       @map("rejected") // Ditolak (misalnya QA gagal)
-  REQUEST_BYPASS @map("request_bypass") // Task dilewati (manual bypass)
+  PENDING        @map("pending")
+  ASSIGNED       @map("assigned")
+  IN_PROGRESS    @map("in_progress")
+  ON_HOLD        @map("on_hold")
+  DONE           @map("done")
+  CANCELLED      @map("cancelled")
+  REJECTED       @map("rejected")
+  REQUEST_BYPASS @map("request_bypass")
 
   @@map("task_status")
 }
@@ -107,308 +100,392 @@ enum Label {
   OFFICE
   APARTMENT
   OTHER
+
+  @@map("label")
 }
 
-model Customer {
-  id                 String    @id @default(uuid()) @map("id")
-  role               String    @default("CUSTOMER") @map("role")
-  name               String?   @map("name")
-  email              String    @unique @map("email")
-  password           String    @map("password")
-  phoneNumber        String?   @map("phone_number")
-  isVerified         Boolean   @default(false) @map("is_verified")
-  resetPasswordToken String?   @map("reset_password_token")
-  createdAt          DateTime  @default(now()) @map("created_at")
-  updatedAt          DateTime  @updatedAt @map("updated_at")
-  deletedAt          DateTime? @map("deleted_at")
+enum OAuthProvider {
+  GOOGLE   @map("google")
+  FACEBOOK @map("facebook")
+  TWITTER  @map("twitter")
+  APPLE    @map("apple")
+  GITHUB   @map("github")
+  OTHER    @map("other")
 
-  addresses CustomerAddress[]
-  orders    OrderHeader[]
+  @@map("oauth_provider")
+}
+
+enum PickupStatus {
+  WAITING_FOR_DRIVER
+  ON_THE_WAY_TO_CUSTOMER
+  ON_THE_WAY_TO_OUTLET
+  RECEIVED_BY_OUTLET
+}
+
+enum DeilveryStatus {
+  NOT_READY_TO_DELIVER
+  WAITING_FOR_DRIVER
+  ON_THE_WAY_TO_OUTLET
+  ON_THE_WAY_TO_CUSTOMER
+  RECEIVED_BY_CUSTOMER
+}
+
+/**
+ * ===================== MODELS =====================
+ */
+
+model Customer {
+  id                          String         @id @default(uuid())
+  role                        Role           @default(CUSTOMER)
+  name                        String?
+  email                       String         @unique
+  password                    String?
+  phoneNumber                 String?        @map("phone_number")
+  photoUrl                    String?        @map("photo_url")
+  isVerified                  Boolean        @default(false) @map("is_verified")
+  selectProvider                  OAuthProvider? @map("select_provider")
+  resetPasswordToken          String?        @map("reset_password_token")
+  resetPasswordTokenExpiresAt DateTime?      @map("reset_password_token_expires_at")
+  verifyToken                 String?        @map("verify_token")
+  verifyTokenExpiresAt        DateTime?      @map("verify_token_expires_at")
+  pendingEmail                String?        @map("pending_email")
+  pendingEmailToken           String?        @map("pending_email_token")
+  pendingEmailTokenExpiresAt  DateTime?      @map("pending_email_token_expires_at")
+
+  createdAt       DateTime          @default(now()) @map("created_at")
+  updatedAt       DateTime          @updatedAt @map("updated_at")
+  deletedAt       DateTime?         @map("deleted_at")
+  customerAddress CustomerAddress[]
+  orderHeader     OrderHeader[]
 
   @@map("customers")
 }
 
 model CustomerAddress {
-  id         String    @id @default(uuid()) @map("id")
-  customerId String    @map("customer_id")
-  label      Label     @default(HOME) @map("label")
-  address    String    @map("address")
-  city       String    @map("city")
-  postalCode String    @map("postal_code")
-  latitude   Float     @map("latitude")
-  longitude  Float     @map("longitude")
-  notes      String?   @map("notes")
-  isPrimary  Boolean   @default(false) @map("is_primary")
-  createdAt  DateTime  @default(now()) @map("created_at")
-  updatedAt  DateTime  @updatedAt @map("updated_at")
-  deletedAt  DateTime? @map("deleted_at")
+  id         String  @id @default(uuid())
+  customerId String  @map("customer_id")
+  label      Label
+  address    String
+  city       String
+  postalCode String  @map("postal_code")
+  latitude   Float
+  longitude  Float
+  notes      String?
+  isPrimary  Boolean @default(false) @map("is_primary")
 
-  customer Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
-
-  @@index([customerId])
-  @@map("customer_addresses")
-}
-
-model ServiceCategory {
-  id        String    @id @default(uuid()) @map("id")
-  name      String    @unique @map("name")
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  services Service[]
+  customers    Customer       @relation(fields: [customerId], references: [id])
+  PickUpTask   PickUpTask[]
+  DeliveryTask DeliveryTask[]
 
-  @@map("service_categories")
+  @@map("customer_addresses")
 }
 
-model Service {
-  id                String    @id @default(uuid()) @map("id")
-  name              String    @map("name")
-  serviceCategoryId String    @map("service_category_id")
-  unit              String    @map("unit")
-  basePrice         Int       @map("base_price")
-  minQty            Float     @map("min_qty")
-  estHours          Int       @map("est_hours")
-  createdAt         DateTime  @default(now()) @map("created_at")
-  updatedAt         DateTime  @updatedAt @map("updated_at")
-  deletedAt         DateTime? @map("deleted_at")
+model Employee {
+  id                 String  @id @default(uuid())
+  outletId           String  @map("outlet_id")
+  shiftId            String  @map("shift_id")
+  role               Role
+  name               String
+  email              String
+  password           String?
+  phoneNumber        String  @map("phone_number")
+  address            String
+  photoUrl           String? @map("photo_url")
+  isActive           Boolean @default(false) @map("is_active")
+  resetPasswordToken String? @map("reset_password_token")
 
-  category   ServiceCategory @relation(fields: [serviceCategoryId], references: [id])
-  orderItems OrderItem[]
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
 
-  @@index([serviceCategoryId])
-  @@map("services")
+  shifts              Shift          @relation(fields: [shiftId], references: [id])
+  outlets             Outlet         @relation(fields: [outletId], references: [id])
+  Attendance          Attendance[]
+  orderHeader         OrderHeader[]
+  WorkStation         WorkStation[]
+  workerTasks         EmployeeTask[] @relation("WorkerTaskEmployee") // pasangan dari EmployeeTask.employee
+  assignedTasks       EmployeeTask[] @relation("WorkerTaskAssignedBy")
+  approvedAttendances Attendance[]   @relation("Approver") // back-relation approver
+  pickUpDriver        PickUpTask[]   @relation("PickUpDriver")
+  pickupAssignedBy    PickUpTask[]   @relation("PickUpAdmin")
+  deliveryDriver      DeliveryTask[] @relation("DeliveryDriver")
+  deliveryAssignedBy  DeliveryTask[] @relation("DeliveryAdmin")
+
+  @@map("employees")
+}
+
+model Shift {
+  id        String   @id @default(uuid())
+  name      String
+  startTime DateTime @map("start_time")
+  endTime   DateTime @map("end_time")
+
+  createdAt   DateTime       @default(now()) @map("created_at")
+  updatedAt   DateTime       @updatedAt @map("updated_at")
+  deletedAt   DateTime?      @map("deleted_at")
+  Employee    Employee[]
+  Attendance  Attendance[]
+  workerTasks EmployeeTask[]
+
+  @@map("shifts")
+}
+
+model WorkStation {
+  id         String    @id @default(uuid())
+  employeeId String    @map("employee_id")
+  station    Station
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @updatedAt @map("updated_at")
+  deletedAt  DateTime? @map("deleted_at")
+
+  employees   Employee       @relation(fields: [employeeId], references: [id])
+  workerTasks EmployeeTask[]
+
+  @@map("work_stations")
+}
+
+model EmployeeTask {
+  id             String     @id @default(uuid())
+  employeeId     String     @map("employee_id")
+  orderHeaderId  String     @map("order_header_id")
+  orderItemId    String     @map("order_item_id")
+  outletId       String     @map("outlet_id")
+  shiftId        String     @map("shift_id")
+  workStationId  String     @map("work_station_id")
+  status         TaskStatus @default(PENDING)
+  itemQty        Int?
+  itemUnit       String?
+  bypassReqNote  String?
+  bypassReq      Boolean?   @default(false)
+  isReqAprooved  Boolean?   @default(false) @map("is_req_aprooved")
+  itemPassedNote String?    @map("item_passed")
+
+  assignedById String? @map("assigned_by_id")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  employee    Employee     @relation("WorkerTaskEmployee", fields: [employeeId], references: [id])
+  assignedBy  Employee?    @relation("WorkerTaskAssignedBy", fields: [assignedById], references: [id])
+  orderHeader OrderHeader? @relation(fields: [orderHeaderId], references: [id])
+  orderItem   OrderItem?   @relation(fields: [orderItemId], references: [id])
+  outlet      Outlet       @relation(fields: [outletId], references: [id])
+  shift       Shift        @relation(fields: [shiftId], references: [id])
+  workStation WorkStation  @relation(fields: [workStationId], references: [id])
+
+  @@map("worker_tasks")
+}
+
+model PickUpTask {
+  id                String       @id @default(uuid())
+  driverId          String       @map("driver_id")
+  outletId          String       @map("outlet_id")
+  customerAddressId String       @map("customer_address_id")
+  assignedByAdminId String       @map("assigned_by_admin_id")
+  orderHeaderId     String       @map("order_header_id")
+  status            PickupStatus @default(WAITING_FOR_DRIVER)
+  distance          Int
+  price             Int
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  driver          Employee        @relation("PickUpDriver", fields: [driverId], references: [id])
+  assignedBy      Employee?       @relation("PickUpAdmin", fields: [assignedByAdminId], references: [id])
+  outlets         Outlet          @relation(fields: [outletId], references: [id])
+  customerAddress CustomerAddress @relation(fields: [customerAddressId], references: [id])
+  orderHeader     OrderHeader     @relation(fields: [orderHeaderId], references: [id])
+
+  @@map("pickup_tasks")
+}
+
+model DeliveryTask {
+  id                String         @id @default(uuid())
+  driverId          String         @map("driver_id")
+  outletId          String         @map("outlet_id")
+  customerAddressId String         @map("customer_address_id")
+  assignedByAdminId String         @map("assigned_by_admin_id")
+  orderHeaderId     String         @map("order_header_id")
+  status            DeilveryStatus
+  distance          Int
+  price             Int
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  driver          Employee        @relation("DeliveryDriver", fields: [driverId], references: [id])
+  assignedBy      Employee?       @relation("DeliveryAdmin", fields: [assignedByAdminId], references: [id])
+  outlets         Outlet          @relation(fields: [outletId], references: [id])
+  customerAddress CustomerAddress @relation(fields: [customerAddressId], references: [id])
+  orderHeader     OrderHeader     @relation(fields: [orderHeaderId], references: [id])
+
+  @@map("delivery_tasks")
+}
+
+model Attendance {
+  id            String           @id @default(uuid())
+  employeeId    String           @map("employee_id")
+  shiftId       String           @map("shift_id")
+  outletId      String           @map("outlet_id")
+  date          DateTime
+  status        AttendanceStatus
+  clockInAt     DateTime?        @map("clock_in_at")
+  clockOutAt    DateTime?        @map("clock_out_at")
+  workMinutes   Int?             @map("work_minutes")
+  lateMinutes   Int?             @map("late_minutes")
+  earlyLeaveMin Int?             @map("early_leave_min")
+  notes         String?
+  approvedById  String?          @map("approved_by_id")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  employees  Employee  @relation(fields: [employeeId], references: [id])
+  outlet     Outlet    @relation(fields: [outletId], references: [id])
+  approvedBy Employee? @relation("Approver", fields: [approvedById], references: [id])
+  shift      Shift     @relation(fields: [shiftId], references: [id])
+
+  @@map("attendances")
 }
 
 model Outlet {
-  id           String    @id @default(uuid()) @map("id")
-  name         String    @map("name")
-  address      String    @map("address")
-  phoneNumber  String    @map("phone_number")
-  city         String    @map("city")
-  postalCode   String    @map("postal_code")
-  latitude     Float     @map("latitude")
-  longitude    Float     @map("longitude")
-  coverageArea String?   @map("coverage_area")
-  isActive     Boolean   @default(true) @map("is_active")
-  createdAt    DateTime  @default(now()) @map("created_at")
-  updatedAt    DateTime  @updatedAt @map("updated_at")
-  deletedAt    DateTime? @map("deleted_at")
+  id           String  @id @default(uuid())
+  name         String
+  address      String
+  phoneNumber  String  @map("phone_number")
+  city         String
+  postalCode   String  @map("postal_code")
+  latitude     Float
+  longitude    Float
+  coverageArea Int     @map("coverage_area")
+  isActive     Boolean @default(false) @map("is_active")
 
-  schedules   OutletSchedule[]
-  employees   Employee[]
-  orders      OrderHeader[]
-  attendances Attendance[]
-  leaves      LeaveRequest[]
-  tasks       EmployeeTask[]
+  createdAt      DateTime         @default(now()) @map("created_at")
+  updatedAt      DateTime         @updatedAt @map("updated_at")
+  deletedAt      DateTime?        @map("deleted_at")
+  Employee       Employee[]
+  Attendance     Attendance[]
+  OutletSchedule OutletSchedule[]
+  orderHeader    OrderHeader[]
+  workerTasks    EmployeeTask[]
+  PickUpTask     PickUpTask[]
+  DeliveryTask   DeliveryTask[]
 
   @@map("outlets")
 }
 
 model OutletSchedule {
-  id         String    @id @default(uuid()) @map("id")
+  id         String    @id @default(uuid())
   outletId   String    @map("outlet_id")
   detailDays String    @map("detail_days")
-  openHour   DateTime  @map("open_hour") @db.Timestamp()
-  closeHour  DateTime  @map("close_hour") @db.Timestamp()
+  openHour   DateTime  @map("open_hour")
+  closeHour  DateTime  @map("close_hour")
   createdAt  DateTime  @default(now()) @map("created_at")
   updatedAt  DateTime  @updatedAt @map("updated_at")
   deletedAt  DateTime? @map("deleted_at")
 
-  outlet Outlet @relation(fields: [outletId], references: [id], onDelete: Cascade)
+  outlet Outlet @relation(fields: [outletId], references: [id])
 
-  @@index([outletId])
   @@map("outlet_schedules")
 }
 
-model Employee {
-  id                 String       @id @default(uuid()) @map("id")
-  outletId           String       @map("outlet_id")
-  shiftId            String       @map("shift_id")
-  role               EmployeeRole @map("role")
-  name               String       @map("name")
-  email              String       @unique @map("email")
-  password           String       @map("password")
-  phoneNumber        String       @map("phone_number")
-  address            String       @map("address")
-  isActive           Boolean      @default(false) @map("is_active")
-  resetPasswordToken String?      @map("reset_password_token")
-  createdAt          DateTime     @default(now()) @map("created_at")
-  updatedAt          DateTime     @updatedAt @map("updated_at")
-  deletedAt          DateTime?    @map("deleted_at")
+model ServiceCategory {
+  id        String    @id @default(uuid())
+  name      String
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+  Service   Service[]
 
-  outlet Outlet @relation(fields: [outletId], references: [id])
-  shift  Shift  @relation(fields: [shiftId], references: [id])
-
-  attendances         Attendance[]
-  leaves              LeaveRequest[] @relation("EmployeeLeaves")
-  leavesApproved      LeaveRequest[] @relation("LeaveApprover")
-  workerTasks         EmployeeTask[] @relation("TaskAssignee")
-  workerTasksAssigned EmployeeTask[] @relation("TaskAssigner")
-  ordersHandled       OrderHeader[]  @relation("OrderHandledBy")
-  approvedBy          Attendance[]   @relation("Approver")
-
-  @@index([outletId])
-  @@index([shiftId])
-  @@map("employees")
+  @@map("service_categories")
 }
 
-model Shift {
-  id        String    @id @default(uuid()) @map("id")
-  name      String    @unique @map("name")
-  startTime DateTime  @map("start_time") @db.Timestamp()
-  endTime   DateTime  @map("end_time") @db.Timestamp()
+model Service {
+  id                String @id @default(uuid())
+  serviceCategoryId String @map("service_category_id")
+  name              String
+  unit              String
+  basePrice         Int    @map("base_price")
+  minQty            Int    @map("min_qty")
+  etaHours          Int    @map("eta_hours")
+
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  employees   Employee[]
-  attendances Attendance[]
+  serviceCatId ServiceCategory @relation(fields: [serviceCategoryId], references: [id])
+  OrderItem    OrderItem[]
 
-  @@map("shifts")
-}
-
-model Attendance {
-  id            String           @id @default(uuid()) @map("id")
-  employeeId    String           @map("employee_id")
-  shiftId       String           @map("shift_id")
-  outletId      String           @map("outlet_id")
-  date          DateTime         @map("date")
-  status        AttendanceStatus @map("status")
-  clockInAt     DateTime?        @map("clock_in_at") @db.Timestamp()
-  clockOutAt    DateTime?        @map("clock_out_at") @db.Timestamp()
-  workMinutes   Int?             @map("work_minutes")
-  lateMinutes   Int?             @map("late_minutes")
-  earlyLeaveMin Int?             @map("early_leave_min")
-  notes         String?          @map("notes")
-  approvedById  String?          @map("approved_by_id")
-  createdAt     DateTime         @default(now()) @map("created_at")
-  updatedAt     DateTime         @updatedAt @map("updated_at")
-  deletedAt     DateTime?        @map("deleted_at")
-
-  employee   Employee  @relation(fields: [employeeId], references: [id])
-  shift      Shift     @relation(fields: [shiftId], references: [id])
-  outlet     Outlet    @relation(fields: [outletId], references: [id])
-  approvedBy Employee? @relation("Approver", fields: [approvedById], references: [id])
-
-  @@index([employeeId, date])
-  @@index([outletId])
-  @@index([shiftId])
-  @@map("attendances")
-}
-
-model LeaveRequest {
-  id           String       @id @default(uuid()) @map("id")
-  employeeId   String       @map("employee_id")
-  outletId     String       @map("outlet_id")
-  type         LeaveType    @map("type")
-  startDate    DateTime     @map("start_date")
-  endDate      DateTime     @map("end_date")
-  status       LeaveReqStat @default(PENDING) @map("status")
-  approvedById String?      @map("approved_by_id")
-  approvedAt   DateTime?    @map("approved_at")
-  notes        String       @map("notes")
-  createdAt    DateTime     @default(now()) @map("created_at")
-  updatedAt    DateTime     @updatedAt @map("updated_at")
-  deletedAt    DateTime?    @map("deleted_at")
-
-  employee   Employee  @relation("EmployeeLeaves", fields: [employeeId], references: [id])
-  outlet     Outlet    @relation(fields: [outletId], references: [id])
-  approvedBy Employee? @relation("LeaveApprover", fields: [approvedById], references: [id])
-
-  @@index([employeeId])
-  @@index([outletId])
-  @@index([approvedById])
-  @@map("leave_requests")
+  @@map("services")
 }
 
 model OrderHeader {
-  id            String         @id @default(uuid()) @map("id")
-  customerId    String         @map("customer_id")
-  outletId      String         @map("outlet_id")
-  handledById   String         @map("handled_by_id")
-  status        OrderStatus    @map("status")
-  notes         String         @map("notes")
-  pickupAt      DateTime?      @map("pickup_at")
-  deliveryAt    DateTime?      @map("delivery_at")
-  paymentMethod PaymentMethod? @map("payment_method")
-  createdAt     DateTime       @default(now()) @map("created_at")
-  updatedAt     DateTime       @updatedAt @map("updated_at")
-  deletedAt     DateTime?      @map("deleted_at")
+  id          String      @id @default(uuid())
+  customerId  String      @map("customer_id")
+  handledById String?     @map("handled_by_id")
+  outletId    String      @map("outlet_id")
+  status      OrderStatus @default(WAITING_FOR_CONFIRMATION)
+  notes       String
+  pickupAt    DateTime    @map("pickup_at")
+  deliverAt   DateTime    @map("deliver_at")
+  estHours    Int         @map("est_hours")
+  createdAt   DateTime    @default(now()) @map("created_at")
+  updatedAt   DateTime    @updatedAt @map("updated_at")
+  deletedAt   DateTime?   @map("deleted_at")
 
-  customer  Customer  @relation(fields: [customerId], references: [id])
-  outlet    Outlet    @relation(fields: [outletId], references: [id])
-  handledBy Employee? @relation("OrderHandledBy", fields: [handledById], references: [id])
+  customers Customer  @relation(fields: [customerId], references: [id])
+  employees Employee? @relation(fields: [handledById], references: [id])
+  outlets   Outlet    @relation(fields: [outletId], references: [id])
 
-  items OrderItem[]
-  tasks EmployeeTask[]
+  OrderItem    OrderItem[]
+  Payment      Payment[]
+  workerTasks  EmployeeTask[]
+  PickUpTask   PickUpTask[]
+  DeliveryTask DeliveryTask[]
 
-  @@index([customerId])
-  @@index([outletId])
-  @@index([handledById])
   @@map("order_headers")
 }
 
 model OrderItem {
-  id        String    @id @default(uuid()) @map("id")
-  orderId   String    @map("order_id")
-  serviceId String    @map("service_id")
-  qty       Float     @map("qty")
-  note      String    @map("note")
-  unitPrice Int       @map("unit_price")
-  subTotal  Int       @map("sub_total")
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime  @updatedAt @map("updated_at")
-  deletedAt DateTime? @map("deleted_at")
+  id            String    @id @default(uuid())
+  orderHeaderId String    @map("order_header_id")
+  serviceId     String    @map("service_id")
+  qty           Int
+  unitPrice     Int       @map("unit_price")
+  subTotal      Int       @map("sub_total")
+  note          String?
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+  deletedAt     DateTime? @map("deleted_at")
 
-  order   OrderHeader @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  service Service     @relation(fields: [serviceId], references: [id])
+  orderheader OrderHeader    @relation(fields: [orderHeaderId], references: [id])
+  service     Service        @relation(fields: [serviceId], references: [id])
+  workerTasks EmployeeTask[]
 
-  @@index([orderId])
-  @@index([serviceId])
   @@map("order_items")
 }
 
-model WorkerStation {
-  id        String    @id @default(uuid()) @map("id")
-  station   Station   @map("station")
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime  @updatedAt @map("updated_at")
-  deletedAt DateTime? @map("deleted_at")
+model Payment {
+  id            String        @id @default(uuid())
+  orderHeaderId String        @map("order_header_id")
+  method        PaymentMethod
+  amount        Int
+  status        PaymentStatus @default(WAITING)
+  providerRef   String        @map("provider_ref")
+  paidAt        DateTime      @map("paid_at")
+  createdAt     DateTime      @default(now()) @map("created_at")
+  updatedAt     DateTime      @updatedAt @map("updated_at")
+  deletedAt     DateTime?     @map("deleted_at")
 
-  tasks EmployeeTask[]
+  orderheader OrderHeader @relation(fields: [orderHeaderId], references: [id])
 
-  @@map("worker_stations")
-}
-
-model EmployeeTask {
-  id            String     @id @default(uuid()) @map("id")
-  employeeId    String     @map("employee_id")
-  assignedById  String?    @map("assigned_by_id")
-  orderId       String?    @map("order_id")
-  outletId      String     @map("outlet_id")
-  workStationId String?    @map("work_station_id")
-  type          Station    @map("type")
-  status        TaskStatus @default(PENDING) @map("status")
-  startAt       DateTime?  @map("start_at")
-  finishedAt    DateTime?  @map("finished_at")
-  qty           Float?     @map("qty")
-  isApproved    Boolean?   @map("is_approved")
-  notes         String?    @map("notes")
-  createdAt     DateTime   @default(now()) @map("created_at")
-  updatedAt     DateTime   @updatedAt @map("updated_at")
-  deletedAt     DateTime?  @map("deleted_at")
-
-  assignee   Employee?      @relation("TaskAssignee", fields: [employeeId], references: [id])
-  assignedBy Employee?      @relation("TaskAssigner", fields: [assignedById], references: [id])
-  order      OrderHeader?   @relation(fields: [orderId], references: [id])
-  outlet     Outlet         @relation(fields: [outletId], references: [id])
-  station    WorkerStation? @relation(fields: [workStationId], references: [id])
-
-  @@index([employeeId])
-  @@index([assignedById])
-  @@index([orderId])
-  @@index([outletId])
-  @@index([workStationId])
-  @@map("employee_tasks")
+  @@map("payments")
 }
