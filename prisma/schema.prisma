@@ -143,7 +143,7 @@ model Customer {
   phoneNumber                 String?        @map("phone_number")
   photoUrl                    String?        @map("photo_url")
   isVerified                  Boolean        @default(false) @map("is_verified")
-  selectProvider                  OAuthProvider? @map("select_provider")
+  selectProvider              OAuthProvider? @map("select_provider")
   resetPasswordToken          String?        @map("reset_password_token")
   resetPasswordTokenExpiresAt DateTime?      @map("reset_password_token_expires_at")
   verifyToken                 String?        @map("verify_token")
