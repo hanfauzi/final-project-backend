@@ -47,8 +47,22 @@ export class AuthRouter {
     );
 
     this.router.post(
-      "/customer/login", validateBody(LoginDTO), this.authController.customerLogin
-    )
+      "/customer/login",
+      validateBody(LoginDTO),
+      this.authController.customerLogin
+    );
+
+    this.router.post(
+      "/customer/reset-password",
+      validateBody(RegisterDTO),
+      this.authController.sendCustomerForgotPasswordEmail
+    );
+
+    this.router.post(
+      "/customer/reset-password-by/:token",
+      validateBody(SetPasswordDTO),
+      this.authController.resetCustomerPasswordByToken
+    );
   };
 
   getRouter = () => {

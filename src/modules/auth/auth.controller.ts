@@ -52,6 +52,25 @@ export class AuthController {
 
   customerLogin = async (req: Request, res: Response) => {
     const result = await this.authService.customerLogin(req.body);
-    res.status(200).json(result)
-  }
+    res.status(200).json(result);
+  };
+
+  sendCustomerForgotPasswordEmail = async (req: Request, res: Response) => {
+    const result = await this.authService.sendCustomerForgotPasswordEmail(
+      req.body
+    );
+    res.status(200).json(result);
+  };
+
+  resetCustomerPasswordByToken = async (req: Request, res: Response) => {
+    const { token } = req.params;
+    const { password } = req.body;
+
+    const result = await this.authService.resetCustomerPasswordByToken({
+      token,
+      password,
+    });
+
+    res.status(200).json(result);
+  };
 }
