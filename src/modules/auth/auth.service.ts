@@ -8,6 +8,7 @@ import prisma from "../prisma/prisma.service";
 import { RegisterDTO } from "./dto/register.dto";
 import { createToken } from "../../lib/jwt";
 import { LoginDTO } from "./dto/login.dto";
+import { SetPasswordDTO } from "./dto/setPassword.dto";
 
 export class AuthService {
   private passwordService: PasswordService;
@@ -229,5 +230,104 @@ export class AuthService {
     });
 
     return { token, payload };
+  };
+
+  sendCustomerForgotPasswordEmail = async ({ email }: RegisterDTO) => {
+    const normalizedEmail = email.trim().toLowerCase();
+    if (!normalizedEmail) throw new AppError("Email is required!", 400);
+
+    const customer = await prisma.customer.findUnique({
+      where: { email: normalizedEmail },
+    });
+
+    if (!customer) {
+      throw new AppError("Customer with that email does not exist!", 404);
+    }
+
+    const token = randomToken();
+    const expiresAt = expiryFromNow(VERIFY_TTL_MS);
+
+    await prisma.customer.update({
+      where: { email: customer.email },
+      data: {
+        resetPasswordToken: token,
+        resetPasswordTokenExpiresAt: expiresAt,
+      },
+    });
+
+    try {
+      const templateHtml = fs.readFileSync(
+        "src/assets/resetPassword.html",
+        "utf-8"
+      );
+      const compiledHtml = Handlebars.compile(templateHtml);
+      const resultHtml = compiledHtml({
+        linkUrl: `${process.env.VERIFY_URL_CUSTOMER!}/${token}`,
+        email: customer?.email,
+        expiresInMinutes: Math.floor(VERIFY_TTL_MS / 60000),
+      });
+
+      await transporter.sendMail({
+        subject: "Reset Password",
+        to: customer.email,
+        html: resultHtml,
+      });
+
+      return {
+        token,
+        message: "Reset password link has been sent to your email!",
+      };
+    } catch (error) {
+      await prisma.customer.update({
+        where: { email: customer.email },
+        data: { resetPasswordToken: null, resetPasswordTokenExpiresAt: null },
+      });
+
+      throw new AppError("Failed to send reset email. Please try again.", 500);
+    }
+  };
+
+  resetCustomerPasswordByToken = async ({
+    token,
+    password,
+  }: SetPasswordDTO & { token: string }) => {
+    if (!token) throw new AppError("Token is required!", 404);
+    if (!password) throw new AppError("Password is required!", 404);
+
+    const now = new Date();
+    const customer = await prisma.customer.findFirst({
+      where: {
+        resetPasswordToken: token,
+        resetPasswordTokenExpiresAt: { gt: now },
+      },
+    });
+
+    if (!customer) {
+      throw new AppError("Invalid or expired token!", 400);
+    }
+
+    const isMatch = await this.passwordService.comparePassword(
+      password,
+      customer.password!
+    );
+    if (isMatch) {
+      throw new AppError("New password cant be the same as old password!", 400);
+    }
+
+    const hashedPassword = await this.passwordService.hashPassword(password);
+
+    await prisma.customer.update({
+      where: { id: customer.id },
+      data: {
+        password: hashedPassword,
+        resetPasswordToken: null,
+        resetPasswordTokenExpiresAt: null,
+      },
+    });
+
+    return {
+      message:
+        "Reset password succesfully! You can login with your new password!",
+    };
   };
 }
