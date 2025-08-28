@@ -15,7 +15,7 @@ export class SampleRouter {
   private initializeRoutes(): void {
     this.router.post(
       '/samples',
-      JwtVerify.verifyToken(process.env.JWT_SECRET_KEY!),
+      JwtVerify.verifyToken,
       this.sampleController.getSampleData
     );
   }
