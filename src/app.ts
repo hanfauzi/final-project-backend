@@ -13,6 +13,7 @@ import { NotFoundMiddleware } from "./middlewares/not-found.middleware";
 import { ErrorHandlerMiddleware } from "./middlewares/error-handler.middleware";
 import { SampleRouter } from "./modules/sample/sample.router";
 import { AuthRouter } from "./modules/auth/auth.router";
+import { ProfileRouter } from "./modules/profile/profile.router";
 
 export default class App {
   private app: Express;
@@ -47,6 +48,7 @@ export default class App {
   private routes(): void {
     const sampleRouter = new SampleRouter();
     const authRouter= new AuthRouter()
+    const profileRouter = new ProfileRouter()
 
     this.app.get("/api", (req: Request, res: Response) => {
       res.send(
@@ -56,6 +58,7 @@ export default class App {
 
     this.app.use("/api", sampleRouter.getRouter());
     this.app.use("/api/auth", authRouter.getRouter())
+    this.app.use("/api/profile",profileRouter.getRouter())
   }
 
   public start(): void {
