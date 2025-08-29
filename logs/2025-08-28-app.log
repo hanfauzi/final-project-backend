@@ -307,3 +307,195 @@
   "ip": "::1",
   "statusCode": 401
 }
+[2025-08-28 20:48:02] ERROR: PATCH /api/profile/edit - No changes to update  {
+  "name": "AppError",
+  "stack": "AppError: No changes to update\n    at new AppError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\utils\\app.error.ts:14:11)\n    at ProfileService.<anonymous> (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:81:11)\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:5:58)",
+  "path": "/api/profile/edit",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 400
+}
+[2025-08-28 20:56:23] ERROR: PATCH /api/profile/edit - This account can't change their email!  {
+  "name": "AppError",
+  "stack": "AppError: This account can't change their email!\n    at new AppError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\utils\\app.error.ts:14:11)\n    at ProfileService.<anonymous> (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:49:13)\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:5:58)",
+  "path": "/api/profile/edit",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-08-28 21:08:01] ERROR: PATCH /api/profile/edit - jwt expired  {
+  "name": "TokenExpiredError",
+  "stack": "TokenExpiredError: jwt expired\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:4:12)\n    at verifyToken (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\router\\lib\\layer.js:152:17)",
+  "path": "/api/profile/edit",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-08-28 21:08:21] ERROR: PATCH /api/profile/edit - No changes to update  {
+  "name": "AppError",
+  "stack": "AppError: No changes to update\n    at new AppError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\utils\\app.error.ts:14:11)\n    at ProfileService.<anonymous> (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:88:13)\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:5:58)",
+  "path": "/api/profile/edit",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 400
+}
+[2025-08-28 21:08:33] ERROR: PATCH /api/profile/edit - No changes to update  {
+  "name": "AppError",
+  "stack": "AppError: No changes to update\n    at new AppError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\utils\\app.error.ts:14:11)\n    at ProfileService.<anonymous> (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:88:13)\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:5:58)",
+  "path": "/api/profile/edit",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 400
+}
+[2025-08-28 21:31:42] ERROR: PATCH /api/profile/edit - No changes to update  {
+  "name": "AppError",
+  "stack": "AppError: No changes to update\n    at new AppError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\utils\\app.error.ts:14:11)\n    at ProfileService.<anonymous> (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:92:13)\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:5:58)",
+  "path": "/api/profile/edit",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 400
+}
+[2025-08-28 21:32:05] ERROR: PATCH /api/profile/edit - No changes to update  {
+  "name": "AppError",
+  "stack": "AppError: No changes to update\n    at new AppError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\utils\\app.error.ts:14:11)\n    at ProfileService.<anonymous> (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:92:13)\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:5:58)",
+  "path": "/api/profile/edit",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 400
+}
+[2025-08-28 21:32:10] ERROR: PATCH /api/profile/edit - No changes to update  {
+  "name": "AppError",
+  "stack": "AppError: No changes to update\n    at new AppError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\utils\\app.error.ts:14:11)\n    at ProfileService.<anonymous> (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:92:13)\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:5:58)",
+  "path": "/api/profile/edit",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 400
+}
+[2025-08-28 21:32:13] ERROR: PATCH /api/profile/edit - No changes to update  {
+  "name": "AppError",
+  "stack": "AppError: No changes to update\n    at new AppError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\utils\\app.error.ts:14:11)\n    at ProfileService.<anonymous> (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:92:13)\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:5:58)",
+  "path": "/api/profile/edit",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 400
+}
+[2025-08-28 21:32:16] ERROR: PATCH /api/profile/edit - No changes to update  {
+  "name": "AppError",
+  "stack": "AppError: No changes to update\n    at new AppError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\utils\\app.error.ts:14:11)\n    at ProfileService.<anonymous> (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:92:13)\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:5:58)",
+  "path": "/api/profile/edit",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 400
+}
+[2025-08-28 21:37:47] ERROR: PATCH /api/profile/edit - This account can't change their email!  {
+  "name": "AppError",
+  "stack": "AppError: This account can't change their email!\n    at new AppError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\utils\\app.error.ts:14:11)\n    at ProfileService.<anonymous> (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:46:13)\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:5:58)",
+  "path": "/api/profile/edit",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-08-28 21:38:11] ERROR: PATCH /api/profile/edit - This account can't change their email!  {
+  "name": "AppError",
+  "stack": "AppError: This account can't change their email!\n    at new AppError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\utils\\app.error.ts:14:11)\n    at ProfileService.<anonymous> (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:46:13)\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:5:58)",
+  "path": "/api/profile/edit",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-08-28 21:40:04] ERROR: POST /api/auth/customer/set-password/a3a156dd7703d19d9681b5f179551bd6174660c82a375585a7142331563c73a6 - Invalid or expired token  {
+  "name": "AppError",
+  "stack": "AppError: Invalid or expired token\n    at new AppError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\utils\\app.error.ts:14:11)\n    at AuthService.<anonymous> (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\auth\\auth.service.ts:174:26)\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\auth\\auth.service.ts:5:58)",
+  "path": "/api/auth/customer/set-password/a3a156dd7703d19d9681b5f179551bd6174660c82a375585a7142331563c73a6",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 400
+}
+[2025-08-28 21:41:49] ERROR: PATCH /api/profile/edit - Internal server error. Please try again later!  {
+  "name": "ReferenceError",
+  "stack": "ReferenceError: Handlebars is not defined\n    at ProfileService.<anonymous> (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:76:28)\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:5:58)",
+  "path": "/api/profile/edit",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-08-28 21:42:15] ERROR: PATCH /api/profile/edit - Internal server error. Please try again later!  {
+  "name": "ReferenceError",
+  "stack": "ReferenceError: Handlebars is not defined\n    at ProfileService.<anonymous> (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:76:28)\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:5:58)",
+  "path": "/api/profile/edit",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-08-28 21:43:41] ERROR: PATCH /api/profile/edit - Internal server error. Please try again later!  {
+  "name": "ReferenceError",
+  "stack": "ReferenceError: Handlebars is not defined\n    at ProfileService.<anonymous> (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:76:28)\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:5:58)",
+  "path": "/api/profile/edit",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-08-28 21:45:47] ERROR: PATCH /api/profile/edit - Internal server error. Please try again later!  {
+  "name": "ReferenceError",
+  "stack": "ReferenceError: Handlebars is not defined\n    at ProfileService.<anonymous> (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:76:28)\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:5:58)",
+  "path": "/api/profile/edit",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-08-28 21:49:03] ERROR: PATCH /api/profile/edit - Internal server error. Please try again later!  {
+  "name": "ReferenceError",
+  "stack": "ReferenceError: Handlebars is not defined\n    at ProfileService.<anonymous> (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:76:28)\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:5:58)",
+  "path": "/api/profile/edit",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-08-28 21:49:32] ERROR: PATCH /api/profile/edit - Internal server error. Please try again later!  {
+  "name": "ReferenceError",
+  "stack": "ReferenceError: Handlebars is not defined\n    at ProfileService.<anonymous> (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:76:28)\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:5:58)",
+  "path": "/api/profile/edit",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-08-28 21:59:18] ERROR: PATCH /api/profile/edit - Failed to send reset verify email. Please try again.  {
+  "name": "AppError",
+  "stack": "AppError: Failed to send reset verify email. Please try again.\n    at new AppError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\utils\\app.error.ts:14:11)\n    at ProfileService.<anonymous> (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:91:16)\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:5:58)",
+  "path": "/api/profile/edit",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-08-28 22:10:15] ERROR: PATCH /api/profile/edit - Failed to send reset verify email. Please try again.  {
+  "name": "AppError",
+  "stack": "AppError: Failed to send reset verify email. Please try again.\n    at new AppError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\utils\\app.error.ts:14:11)\n    at ProfileService.<anonymous> (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:91:16)\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:5:58)",
+  "path": "/api/profile/edit",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-08-28 22:11:50] ERROR: PATCH /api/profile/edit - Failed to send reset verify email. Please try again.  {
+  "name": "AppError",
+  "stack": "AppError: Failed to send reset verify email. Please try again.\n    at new AppError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\utils\\app.error.ts:14:11)\n    at ProfileService.<anonymous> (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:91:16)\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:5:58)",
+  "path": "/api/profile/edit",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-08-28 22:11:53] ERROR: PATCH /api/profile/edit - Failed to send reset verify email. Please try again.  {
+  "name": "AppError",
+  "stack": "AppError: Failed to send reset verify email. Please try again.\n    at new AppError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\utils\\app.error.ts:14:11)\n    at ProfileService.<anonymous> (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:91:16)\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:5:58)",
+  "path": "/api/profile/edit",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-08-28 22:11:55] ERROR: PATCH /api/profile/edit - Failed to send reset verify email. Please try again.  {
+  "name": "AppError",
+  "stack": "AppError: Failed to send reset verify email. Please try again.\n    at new AppError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\utils\\app.error.ts:14:11)\n    at ProfileService.<anonymous> (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:91:16)\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\profile\\profile.service.ts:5:58)",
+  "path": "/api/profile/edit",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 500
+}
