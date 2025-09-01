@@ -265,7 +265,7 @@ export class AuthService {
       );
       const compiledHtml = Handlebars.compile(templateHtml);
       const resultHtml = compiledHtml({
-        linkUrl: `${process.env.VERIFY_URL_CUSTOMER!}/${token}`,
+        linkUrl: `${process.env.RESET_PASSWORD_URL_CUSTOMER!}/${token}`,
         email: customer?.email,
         expiresInMinutes: Math.floor(VERIFY_TTL_MS / 60000),
       });

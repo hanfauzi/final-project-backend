@@ -105,3 +105,21 @@
   "ip": "::1",
   "statusCode": 400
 }
+[2025-09-01 14:22:07] WARN: 404 Not Found  {
+  "method": "PATCH",
+  "path": "/api/auth/customer/reset-password",
+  "ip": "::1"
+}
+[2025-09-01 14:22:59] ERROR: POST /api/auth/customer/reset-password - Internal server error. Please try again later!  {
+  "name": "PrismaClientInitializationError",
+  "stack": "PrismaClientInitializationError: \nInvalid `prisma.customer.findUnique()` invocation in\nC:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\auth\\auth.service.ts:242:44\n\n  239 const normalizedEmail = email.trim().toLowerCase();\n  240 if (!normalizedEmail) throw new AppError(\"Email is required!\", 400);\n  241 \n→ 242 const customer = await prisma.customer.findUnique(\nCan't reach database server at `aws-1-ap-southeast-1.pooler.supabase.com:6543`\n\nPlease make sure your database server is running at `aws-1-ap-southeast-1.pooler.supabase.com:6543`.\n    at ei.handleRequestError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:124:7583)\n    at ei.handleAndLogRequestError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:124:6608)\n    at ei.request (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:124:6315)\n    at async a (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:133:9551)",
+  "path": "/api/auth/customer/reset-password",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-09-01 14:36:26] WARN: 404 Not Found  {
+  "method": "PATCH",
+  "path": "/api/auth/customer/reset-password-by/6fce658e1e132e91c50c54b88e811300de82e30bfa553ef6854ceb54f7df4e24",
+  "ip": "::1"
+}
