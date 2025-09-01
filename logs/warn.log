@@ -824,3 +824,19 @@
   "ip": "::1",
   "statusCode": 500
 }
+[2025-09-01 09:30:19] ERROR: POST /api/auth/customer/google - Internal server error. Please try again later!  {
+  "name": "TypeError",
+  "stack": "TypeError: Cannot read properties of undefined (reading 'constructor')\n    at ValidationExecutor.execute (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\src\\validation\\ValidationExecutor.ts:62:14)\n    at Validator.coreValidate (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\src\\validation\\Validator.ts:107:14)\n    at Validator.validate (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\src\\validation\\Validator.ts:32:17)\n    at validate (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\src\\index.ts:58:40)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\validate.middleware.ts:11:34\n    at Generator.next (<anonymous>)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\validate.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\validate.middleware.ts:4:12)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\validate.middleware.ts:8:68",
+  "path": "/api/auth/customer/google",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-09-01 09:31:23] ERROR: POST /api/auth/customer/google - Internal server error. Please try again later!  {
+  "name": "TypeError",
+  "stack": "TypeError: Cannot read properties of undefined (reading 'constructor')\n    at ValidationExecutor.execute (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\src\\validation\\ValidationExecutor.ts:62:14)\n    at Validator.coreValidate (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\src\\validation\\Validator.ts:107:14)\n    at Validator.validate (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\src\\validation\\Validator.ts:32:17)\n    at validate (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\src\\index.ts:58:40)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\validate.middleware.ts:11:34\n    at Generator.next (<anonymous>)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\validate.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\validate.middleware.ts:4:12)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\validate.middleware.ts:8:68",
+  "path": "/api/auth/customer/google",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 500
+}
