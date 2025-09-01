@@ -36,7 +36,6 @@ export class AuthRouter {
 
     this.router.post(
       "/customer/google",
-      validateBody(GoogleIdTokenDTO),
       this.authController.googleLoginRegister
     );
 
