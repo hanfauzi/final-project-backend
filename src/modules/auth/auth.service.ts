@@ -25,6 +25,10 @@ export class AuthService {
       where: { email: normalizedEmail },
     });
 
+    if (existingCustomer?.email === email){
+      throw new AppError("Email already used!", 400)
+    }
+    
     if (existingCustomer?.isVerified) {
       throw new AppError("Email already registered & verified", 400);
     }
@@ -170,7 +174,6 @@ export class AuthService {
       },
       select: { id: true },
     });
-    console.log(verifyToken);
     if (!customer) throw new AppError("Invalid or expired token", 400);
 
     const hashedPassword = await this.passwordService.hashPassword(password);

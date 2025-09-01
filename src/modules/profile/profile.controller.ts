@@ -47,7 +47,6 @@ export class ProfileController {
       id,
       email,
     });
-console.log(result)
     res.status(200).json(result);
   };
 
