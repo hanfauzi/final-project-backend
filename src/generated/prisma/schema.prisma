@@ -162,16 +162,17 @@ model Customer {
 }
 
 model CustomerAddress {
-  id         String  @id @default(uuid())
-  customerId String  @map("customer_id")
-  label      Label
-  address    String
-  city       String
-  postalCode String  @map("postal_code")
-  latitude   Float
-  longitude  Float
-  notes      String?
-  isPrimary  Boolean @default(false) @map("is_primary")
+  id          String  @id @default(uuid())
+  customerId  String  @map("customer_id")
+  label       Label
+  address     String
+  city        String
+  postalCode  String  @map("postal_code")
+  phoneNumber String  @map("phone_number")
+  latitude    Float
+  longitude   Float
+  notes       String?
+  isPrimary   Boolean @default(false) @map("is_primary")
 
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")

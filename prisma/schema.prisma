@@ -168,6 +168,7 @@ model CustomerAddress {
   address    String
   city       String
   postalCode String  @map("postal_code")
+  phoneNumber String @map("phone_number")
   latitude   Float
   longitude  Float
   notes      String?
