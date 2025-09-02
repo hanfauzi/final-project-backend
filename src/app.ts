@@ -14,6 +14,7 @@ import { ErrorHandlerMiddleware } from "./middlewares/error-handler.middleware";
 import { SampleRouter } from "./modules/sample/sample.router";
 import { AuthRouter } from "./modules/auth/auth.router";
 import { ProfileRouter } from "./modules/profile/profile.router";
+import { AddressRouter } from "./modules/address/address.router";
 
 export default class App {
   private app: Express;
@@ -49,16 +50,18 @@ export default class App {
     const sampleRouter = new SampleRouter();
     const authRouter= new AuthRouter()
     const profileRouter = new ProfileRouter()
-
+    const addressRouter = new AddressRouter();
+    
     this.app.get("/api", (req: Request, res: Response) => {
       res.send(
         `Hello, Purwadhika student 👋. Have fun working on your mini project ☺️`
       );
     });
-
+    
     this.app.use("/api", sampleRouter.getRouter());
     this.app.use("/api/auth", authRouter.getRouter())
     this.app.use("/api/profile",profileRouter.getRouter())
+    this.app.use("/api/address", addressRouter.getRouter());
   }
 
   public start(): void {
