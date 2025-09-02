@@ -16,9 +16,7 @@ export class CustomerProfileUpdateDTO {
   @IsOptional()
   phoneNumber?: string;
 
-  @IsEmail()
-  @IsOptional()
-  email?: string;
+
 
   @IsUrl()
   @IsOptional()

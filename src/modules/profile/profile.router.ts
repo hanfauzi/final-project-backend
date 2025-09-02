@@ -4,6 +4,7 @@ import { JwtVerify } from "../../middlewares/jwt-verify.middleware";
 import { UploaderMiddleware } from "../../middlewares/uploader.middleware";
 import { validateBody } from "../../middlewares/validate.middleware";
 import { CustomerProfileUpdateDTO } from "./dto/customer.dto";
+import { CustomerEmailUpdateDTO } from "./dto/customer.email.dto";
 
 export class ProfileRouter {
   private router: Router;
@@ -36,7 +37,6 @@ export class ProfileRouter {
       "/edit/email",
       JwtVerify.verifyToken,
       JwtVerify.verifyRole(["CUSTOMER"]),
-      validateBody(CustomerProfileUpdateDTO),
       this.profileController.customerEmailUpdate
     );
 

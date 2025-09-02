@@ -6,6 +6,7 @@ import prisma from "../prisma/prisma.service";
 import { CustomerProfileUpdateDTO } from "./dto/customer.dto";
 import fs from "fs";
 import Handlebars from "handlebars";
+import { CustomerEmailUpdateDTO } from "./dto/customer.email.dto";
 
 export class ProfileService {
   private passwordService: PasswordService;
@@ -22,6 +23,7 @@ export class ProfileService {
         email: true,
         phoneNumber: true,
         photoUrl: true,
+        isVerified: true
       },
     });
 
@@ -54,7 +56,7 @@ export class ProfileService {
   customerEmailUpdate = async ({
     id,
     email,
-  }: CustomerProfileUpdateDTO & { id: string }) => {
+  }: CustomerEmailUpdateDTO & { id: string }) => {
     const customer = await prisma.customer.findUnique({ where: { id } });
 
     if (!customer) throw new AppError("Customer not found!", 404);
@@ -94,7 +96,7 @@ export class ProfileService {
       );
       const compiledHtml = Handlebars.compile(templateHtml);
       const resultHtml = compiledHtml({
-        linkUrl: `${process.env.VERIFY_URL_CUSTOMER!}/${token}`,
+        linkUrl: `${process.env.VERIFY_EMAIL_URL_CUSTOMER!}/${token}`,
         email: updated?.email,
         expiresInMinutes: Math.floor(VERIFY_TTL_MS / 60000),
         year: new Date().getFullYear(),
