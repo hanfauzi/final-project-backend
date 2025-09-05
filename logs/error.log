@@ -926,3 +926,11 @@
   "ip": "::1",
   "statusCode": 500
 }
+[2025-09-05 13:54:32] ERROR: GET /api - Internal server error. Please try again later!  {
+  "name": "SyntaxError",
+  "stack": "SyntaxError: Unexpected token '}', \"{\n    \"email\": \n}\" is not valid JSON\n    at JSON.parse (<anonymous>)\n    at parse (/Users/hafisyusril/Project/final-project-backend/node_modules/body-parser/lib/types/json.js:77:19)\n    at /Users/hafisyusril/Project/final-project-backend/node_modules/body-parser/lib/read.js:123:18\n    at AsyncResource.runInAsyncScope (node:async_hooks:211:14)\n    at invokeCallback (/Users/hafisyusril/Project/final-project-backend/node_modules/raw-body/index.js:238:16)\n    at done (/Users/hafisyusril/Project/final-project-backend/node_modules/raw-body/index.js:227:7)\n    at IncomingMessage.onEnd (/Users/hafisyusril/Project/final-project-backend/node_modules/raw-body/index.js:287:7)\n    at IncomingMessage.emit (node:events:524:28)\n    at IncomingMessage.emit (node:domain:489:12)\n    at endReadableNT (node:internal/streams/readable:1698:12)",
+  "path": "/api",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 400
+}
