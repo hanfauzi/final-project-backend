@@ -5664,7 +5664,7 @@ export namespace Prisma {
 
   export type EmployeeGroupByOutputType = {
     id: string
-    outletId: string
+    outletId: string | null
     shiftId: string
     role: $Enums.Role
     name: string
@@ -5714,7 +5714,7 @@ export namespace Prisma {
     updatedAt?: boolean
     deletedAt?: boolean
     shifts?: boolean | ShiftDefaultArgs<ExtArgs>
-    outlets?: boolean | OutletDefaultArgs<ExtArgs>
+    outlets?: boolean | Employee$outletsArgs<ExtArgs>
     Attendance?: boolean | Employee$AttendanceArgs<ExtArgs>
     orderHeader?: boolean | Employee$orderHeaderArgs<ExtArgs>
     WorkStation?: boolean | Employee$WorkStationArgs<ExtArgs>
@@ -5745,7 +5745,7 @@ export namespace Prisma {
     updatedAt?: boolean
     deletedAt?: boolean
     shifts?: boolean | ShiftDefaultArgs<ExtArgs>
-    outlets?: boolean | OutletDefaultArgs<ExtArgs>
+    outlets?: boolean | Employee$outletsArgs<ExtArgs>
   }, ExtArgs["result"]["employee"]>
 
   export type EmployeeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -5765,7 +5765,7 @@ export namespace Prisma {
     updatedAt?: boolean
     deletedAt?: boolean
     shifts?: boolean | ShiftDefaultArgs<ExtArgs>
-    outlets?: boolean | OutletDefaultArgs<ExtArgs>
+    outlets?: boolean | Employee$outletsArgs<ExtArgs>
   }, ExtArgs["result"]["employee"]>
 
   export type EmployeeSelectScalar = {
@@ -5789,7 +5789,7 @@ export namespace Prisma {
   export type EmployeeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "outletId" | "shiftId" | "role" | "name" | "email" | "password" | "phoneNumber" | "address" | "photoUrl" | "isActive" | "resetPasswordToken" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["employee"]>
   export type EmployeeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     shifts?: boolean | ShiftDefaultArgs<ExtArgs>
-    outlets?: boolean | OutletDefaultArgs<ExtArgs>
+    outlets?: boolean | Employee$outletsArgs<ExtArgs>
     Attendance?: boolean | Employee$AttendanceArgs<ExtArgs>
     orderHeader?: boolean | Employee$orderHeaderArgs<ExtArgs>
     WorkStation?: boolean | Employee$WorkStationArgs<ExtArgs>
@@ -5804,18 +5804,18 @@ export namespace Prisma {
   }
   export type EmployeeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     shifts?: boolean | ShiftDefaultArgs<ExtArgs>
-    outlets?: boolean | OutletDefaultArgs<ExtArgs>
+    outlets?: boolean | Employee$outletsArgs<ExtArgs>
   }
   export type EmployeeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     shifts?: boolean | ShiftDefaultArgs<ExtArgs>
-    outlets?: boolean | OutletDefaultArgs<ExtArgs>
+    outlets?: boolean | Employee$outletsArgs<ExtArgs>
   }
 
   export type $EmployeePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Employee"
     objects: {
       shifts: Prisma.$ShiftPayload<ExtArgs>
-      outlets: Prisma.$OutletPayload<ExtArgs>
+      outlets: Prisma.$OutletPayload<ExtArgs> | null
       Attendance: Prisma.$AttendancePayload<ExtArgs>[]
       orderHeader: Prisma.$OrderHeaderPayload<ExtArgs>[]
       WorkStation: Prisma.$WorkStationPayload<ExtArgs>[]
@@ -5829,7 +5829,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      outletId: string
+      outletId: string | null
       shiftId: string
       role: $Enums.Role
       name: string
@@ -6238,7 +6238,7 @@ export namespace Prisma {
   export interface Prisma__EmployeeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     shifts<T extends ShiftDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ShiftDefaultArgs<ExtArgs>>): Prisma__ShiftClient<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    outlets<T extends OutletDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OutletDefaultArgs<ExtArgs>>): Prisma__OutletClient<$Result.GetResult<Prisma.$OutletPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    outlets<T extends Employee$outletsArgs<ExtArgs> = {}>(args?: Subset<T, Employee$outletsArgs<ExtArgs>>): Prisma__OutletClient<$Result.GetResult<Prisma.$OutletPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     Attendance<T extends Employee$AttendanceArgs<ExtArgs> = {}>(args?: Subset<T, Employee$AttendanceArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     orderHeader<T extends Employee$orderHeaderArgs<ExtArgs> = {}>(args?: Subset<T, Employee$orderHeaderArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderHeaderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     WorkStation<T extends Employee$WorkStationArgs<ExtArgs> = {}>(args?: Subset<T, Employee$WorkStationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkStationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -6686,6 +6686,25 @@ export namespace Prisma {
      * Limit how many Employees to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Employee.outlets
+   */
+  export type Employee$outletsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Outlet
+     */
+    select?: OutletSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Outlet
+     */
+    omit?: OutletOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OutletInclude<ExtArgs> | null
+    where?: OutletWhereInput
   }
 
   /**
@@ -23581,7 +23600,7 @@ export namespace Prisma {
     OR?: EmployeeWhereInput[]
     NOT?: EmployeeWhereInput | EmployeeWhereInput[]
     id?: StringFilter<"Employee"> | string
-    outletId?: StringFilter<"Employee"> | string
+    outletId?: StringNullableFilter<"Employee"> | string | null
     shiftId?: StringFilter<"Employee"> | string
     role?: EnumRoleFilter<"Employee"> | $Enums.Role
     name?: StringFilter<"Employee"> | string
@@ -23596,7 +23615,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Employee"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Employee"> | Date | string | null
     shifts?: XOR<ShiftScalarRelationFilter, ShiftWhereInput>
-    outlets?: XOR<OutletScalarRelationFilter, OutletWhereInput>
+    outlets?: XOR<OutletNullableScalarRelationFilter, OutletWhereInput> | null
     Attendance?: AttendanceListRelationFilter
     orderHeader?: OrderHeaderListRelationFilter
     WorkStation?: WorkStationListRelationFilter
@@ -23611,7 +23630,7 @@ export namespace Prisma {
 
   export type EmployeeOrderByWithRelationInput = {
     id?: SortOrder
-    outletId?: SortOrder
+    outletId?: SortOrderInput | SortOrder
     shiftId?: SortOrder
     role?: SortOrder
     name?: SortOrder
@@ -23641,14 +23660,14 @@ export namespace Prisma {
 
   export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    email?: string
     AND?: EmployeeWhereInput | EmployeeWhereInput[]
     OR?: EmployeeWhereInput[]
     NOT?: EmployeeWhereInput | EmployeeWhereInput[]
-    outletId?: StringFilter<"Employee"> | string
+    outletId?: StringNullableFilter<"Employee"> | string | null
     shiftId?: StringFilter<"Employee"> | string
     role?: EnumRoleFilter<"Employee"> | $Enums.Role
     name?: StringFilter<"Employee"> | string
-    email?: StringFilter<"Employee"> | string
     password?: StringNullableFilter<"Employee"> | string | null
     phoneNumber?: StringFilter<"Employee"> | string
     address?: StringFilter<"Employee"> | string
@@ -23659,7 +23678,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Employee"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Employee"> | Date | string | null
     shifts?: XOR<ShiftScalarRelationFilter, ShiftWhereInput>
-    outlets?: XOR<OutletScalarRelationFilter, OutletWhereInput>
+    outlets?: XOR<OutletNullableScalarRelationFilter, OutletWhereInput> | null
     Attendance?: AttendanceListRelationFilter
     orderHeader?: OrderHeaderListRelationFilter
     WorkStation?: WorkStationListRelationFilter
@@ -23670,11 +23689,11 @@ export namespace Prisma {
     pickupAssignedBy?: PickUpTaskListRelationFilter
     deliveryDriver?: DeliveryTaskListRelationFilter
     deliveryAssignedBy?: DeliveryTaskListRelationFilter
-  }, "id">
+  }, "id" | "email">
 
   export type EmployeeOrderByWithAggregationInput = {
     id?: SortOrder
-    outletId?: SortOrder
+    outletId?: SortOrderInput | SortOrder
     shiftId?: SortOrder
     role?: SortOrder
     name?: SortOrder
@@ -23698,7 +23717,7 @@ export namespace Prisma {
     OR?: EmployeeScalarWhereWithAggregatesInput[]
     NOT?: EmployeeScalarWhereWithAggregatesInput | EmployeeScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Employee"> | string
-    outletId?: StringWithAggregatesFilter<"Employee"> | string
+    outletId?: StringNullableWithAggregatesFilter<"Employee"> | string | null
     shiftId?: StringWithAggregatesFilter<"Employee"> | string
     role?: EnumRoleWithAggregatesFilter<"Employee"> | $Enums.Role
     name?: StringWithAggregatesFilter<"Employee"> | string
@@ -25228,7 +25247,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     shifts: ShiftCreateNestedOneWithoutEmployeeInput
-    outlets: OutletCreateNestedOneWithoutEmployeeInput
+    outlets?: OutletCreateNestedOneWithoutEmployeeInput
     Attendance?: AttendanceCreateNestedManyWithoutEmployeesInput
     orderHeader?: OrderHeaderCreateNestedManyWithoutEmployeesInput
     WorkStation?: WorkStationCreateNestedManyWithoutEmployeesInput
@@ -25243,7 +25262,7 @@ export namespace Prisma {
 
   export type EmployeeUncheckedCreateInput = {
     id?: string
-    outletId: string
+    outletId?: string | null
     shiftId: string
     role: $Enums.Role
     name: string
@@ -25284,7 +25303,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     shifts?: ShiftUpdateOneRequiredWithoutEmployeeNestedInput
-    outlets?: OutletUpdateOneRequiredWithoutEmployeeNestedInput
+    outlets?: OutletUpdateOneWithoutEmployeeNestedInput
     Attendance?: AttendanceUpdateManyWithoutEmployeesNestedInput
     orderHeader?: OrderHeaderUpdateManyWithoutEmployeesNestedInput
     WorkStation?: WorkStationUpdateManyWithoutEmployeesNestedInput
@@ -25299,7 +25318,7 @@ export namespace Prisma {
 
   export type EmployeeUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    outletId?: StringFieldUpdateOperationsInput | string
+    outletId?: NullableStringFieldUpdateOperationsInput | string | null
     shiftId?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     name?: StringFieldUpdateOperationsInput | string
@@ -25327,7 +25346,7 @@ export namespace Prisma {
 
   export type EmployeeCreateManyInput = {
     id?: string
-    outletId: string
+    outletId?: string | null
     shiftId: string
     role: $Enums.Role
     name: string
@@ -25361,7 +25380,7 @@ export namespace Prisma {
 
   export type EmployeeUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    outletId?: StringFieldUpdateOperationsInput | string
+    outletId?: NullableStringFieldUpdateOperationsInput | string | null
     shiftId?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     name?: StringFieldUpdateOperationsInput | string
@@ -27058,9 +27077,9 @@ export namespace Prisma {
     isNot?: ShiftWhereInput
   }
 
-  export type OutletScalarRelationFilter = {
-    is?: OutletWhereInput
-    isNot?: OutletWhereInput
+  export type OutletNullableScalarRelationFilter = {
+    is?: OutletWhereInput | null
+    isNot?: OutletWhereInput | null
   }
 
   export type AttendanceListRelationFilter = {
@@ -27272,6 +27291,11 @@ export namespace Prisma {
   export type OrderItemNullableScalarRelationFilter = {
     is?: OrderItemWhereInput | null
     isNot?: OrderItemWhereInput | null
+  }
+
+  export type OutletScalarRelationFilter = {
+    is?: OutletWhereInput
+    isNot?: OutletWhereInput
   }
 
   export type WorkStationScalarRelationFilter = {
@@ -28453,10 +28477,12 @@ export namespace Prisma {
     update?: XOR<XOR<ShiftUpdateToOneWithWhereWithoutEmployeeInput, ShiftUpdateWithoutEmployeeInput>, ShiftUncheckedUpdateWithoutEmployeeInput>
   }
 
-  export type OutletUpdateOneRequiredWithoutEmployeeNestedInput = {
+  export type OutletUpdateOneWithoutEmployeeNestedInput = {
     create?: XOR<OutletCreateWithoutEmployeeInput, OutletUncheckedCreateWithoutEmployeeInput>
     connectOrCreate?: OutletCreateOrConnectWithoutEmployeeInput
     upsert?: OutletUpsertWithoutEmployeeInput
+    disconnect?: OutletWhereInput | boolean
+    delete?: OutletWhereInput | boolean
     connect?: OutletWhereUniqueInput
     update?: XOR<XOR<OutletUpdateToOneWithWhereWithoutEmployeeInput, OutletUpdateWithoutEmployeeInput>, OutletUncheckedUpdateWithoutEmployeeInput>
   }
@@ -31678,7 +31704,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    outlets: OutletCreateNestedOneWithoutEmployeeInput
+    outlets?: OutletCreateNestedOneWithoutEmployeeInput
     Attendance?: AttendanceCreateNestedManyWithoutEmployeesInput
     orderHeader?: OrderHeaderCreateNestedManyWithoutEmployeesInput
     WorkStation?: WorkStationCreateNestedManyWithoutEmployeesInput
@@ -31693,7 +31719,7 @@ export namespace Prisma {
 
   export type EmployeeUncheckedCreateWithoutShiftsInput = {
     id?: string
-    outletId: string
+    outletId?: string | null
     role: $Enums.Role
     name: string
     email: string
@@ -31845,7 +31871,7 @@ export namespace Prisma {
     OR?: EmployeeScalarWhereInput[]
     NOT?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
     id?: StringFilter<"Employee"> | string
-    outletId?: StringFilter<"Employee"> | string
+    outletId?: StringNullableFilter<"Employee"> | string | null
     shiftId?: StringFilter<"Employee"> | string
     role?: EnumRoleFilter<"Employee"> | $Enums.Role
     name?: StringFilter<"Employee"> | string
@@ -31908,7 +31934,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     shifts: ShiftCreateNestedOneWithoutEmployeeInput
-    outlets: OutletCreateNestedOneWithoutEmployeeInput
+    outlets?: OutletCreateNestedOneWithoutEmployeeInput
     Attendance?: AttendanceCreateNestedManyWithoutEmployeesInput
     orderHeader?: OrderHeaderCreateNestedManyWithoutEmployeesInput
     workerTasks?: EmployeeTaskCreateNestedManyWithoutEmployeeInput
@@ -31922,7 +31948,7 @@ export namespace Prisma {
 
   export type EmployeeUncheckedCreateWithoutWorkStationInput = {
     id?: string
-    outletId: string
+    outletId?: string | null
     shiftId: string
     role: $Enums.Role
     name: string
@@ -32028,7 +32054,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     shifts?: ShiftUpdateOneRequiredWithoutEmployeeNestedInput
-    outlets?: OutletUpdateOneRequiredWithoutEmployeeNestedInput
+    outlets?: OutletUpdateOneWithoutEmployeeNestedInput
     Attendance?: AttendanceUpdateManyWithoutEmployeesNestedInput
     orderHeader?: OrderHeaderUpdateManyWithoutEmployeesNestedInput
     workerTasks?: EmployeeTaskUpdateManyWithoutEmployeeNestedInput
@@ -32042,7 +32068,7 @@ export namespace Prisma {
 
   export type EmployeeUncheckedUpdateWithoutWorkStationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    outletId?: StringFieldUpdateOperationsInput | string
+    outletId?: NullableStringFieldUpdateOperationsInput | string | null
     shiftId?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     name?: StringFieldUpdateOperationsInput | string
@@ -32098,7 +32124,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     shifts: ShiftCreateNestedOneWithoutEmployeeInput
-    outlets: OutletCreateNestedOneWithoutEmployeeInput
+    outlets?: OutletCreateNestedOneWithoutEmployeeInput
     Attendance?: AttendanceCreateNestedManyWithoutEmployeesInput
     orderHeader?: OrderHeaderCreateNestedManyWithoutEmployeesInput
     WorkStation?: WorkStationCreateNestedManyWithoutEmployeesInput
@@ -32112,7 +32138,7 @@ export namespace Prisma {
 
   export type EmployeeUncheckedCreateWithoutWorkerTasksInput = {
     id?: string
-    outletId: string
+    outletId?: string | null
     shiftId: string
     role: $Enums.Role
     name: string
@@ -32157,7 +32183,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     shifts: ShiftCreateNestedOneWithoutEmployeeInput
-    outlets: OutletCreateNestedOneWithoutEmployeeInput
+    outlets?: OutletCreateNestedOneWithoutEmployeeInput
     Attendance?: AttendanceCreateNestedManyWithoutEmployeesInput
     orderHeader?: OrderHeaderCreateNestedManyWithoutEmployeesInput
     WorkStation?: WorkStationCreateNestedManyWithoutEmployeesInput
@@ -32171,7 +32197,7 @@ export namespace Prisma {
 
   export type EmployeeUncheckedCreateWithoutAssignedTasksInput = {
     id?: string
-    outletId: string
+    outletId?: string | null
     shiftId: string
     role: $Enums.Role
     name: string
@@ -32402,7 +32428,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     shifts?: ShiftUpdateOneRequiredWithoutEmployeeNestedInput
-    outlets?: OutletUpdateOneRequiredWithoutEmployeeNestedInput
+    outlets?: OutletUpdateOneWithoutEmployeeNestedInput
     Attendance?: AttendanceUpdateManyWithoutEmployeesNestedInput
     orderHeader?: OrderHeaderUpdateManyWithoutEmployeesNestedInput
     WorkStation?: WorkStationUpdateManyWithoutEmployeesNestedInput
@@ -32416,7 +32442,7 @@ export namespace Prisma {
 
   export type EmployeeUncheckedUpdateWithoutWorkerTasksInput = {
     id?: StringFieldUpdateOperationsInput | string
-    outletId?: StringFieldUpdateOperationsInput | string
+    outletId?: NullableStringFieldUpdateOperationsInput | string | null
     shiftId?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     name?: StringFieldUpdateOperationsInput | string
@@ -32467,7 +32493,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     shifts?: ShiftUpdateOneRequiredWithoutEmployeeNestedInput
-    outlets?: OutletUpdateOneRequiredWithoutEmployeeNestedInput
+    outlets?: OutletUpdateOneWithoutEmployeeNestedInput
     Attendance?: AttendanceUpdateManyWithoutEmployeesNestedInput
     orderHeader?: OrderHeaderUpdateManyWithoutEmployeesNestedInput
     WorkStation?: WorkStationUpdateManyWithoutEmployeesNestedInput
@@ -32481,7 +32507,7 @@ export namespace Prisma {
 
   export type EmployeeUncheckedUpdateWithoutAssignedTasksInput = {
     id?: StringFieldUpdateOperationsInput | string
-    outletId?: StringFieldUpdateOperationsInput | string
+    outletId?: NullableStringFieldUpdateOperationsInput | string | null
     shiftId?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     name?: StringFieldUpdateOperationsInput | string
@@ -32726,7 +32752,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     shifts: ShiftCreateNestedOneWithoutEmployeeInput
-    outlets: OutletCreateNestedOneWithoutEmployeeInput
+    outlets?: OutletCreateNestedOneWithoutEmployeeInput
     Attendance?: AttendanceCreateNestedManyWithoutEmployeesInput
     orderHeader?: OrderHeaderCreateNestedManyWithoutEmployeesInput
     WorkStation?: WorkStationCreateNestedManyWithoutEmployeesInput
@@ -32740,7 +32766,7 @@ export namespace Prisma {
 
   export type EmployeeUncheckedCreateWithoutPickUpDriverInput = {
     id?: string
-    outletId: string
+    outletId?: string | null
     shiftId: string
     role: $Enums.Role
     name: string
@@ -32785,7 +32811,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     shifts: ShiftCreateNestedOneWithoutEmployeeInput
-    outlets: OutletCreateNestedOneWithoutEmployeeInput
+    outlets?: OutletCreateNestedOneWithoutEmployeeInput
     Attendance?: AttendanceCreateNestedManyWithoutEmployeesInput
     orderHeader?: OrderHeaderCreateNestedManyWithoutEmployeesInput
     WorkStation?: WorkStationCreateNestedManyWithoutEmployeesInput
@@ -32799,7 +32825,7 @@ export namespace Prisma {
 
   export type EmployeeUncheckedCreateWithoutPickupAssignedByInput = {
     id?: string
-    outletId: string
+    outletId?: string | null
     shiftId: string
     role: $Enums.Role
     name: string
@@ -32988,7 +33014,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     shifts?: ShiftUpdateOneRequiredWithoutEmployeeNestedInput
-    outlets?: OutletUpdateOneRequiredWithoutEmployeeNestedInput
+    outlets?: OutletUpdateOneWithoutEmployeeNestedInput
     Attendance?: AttendanceUpdateManyWithoutEmployeesNestedInput
     orderHeader?: OrderHeaderUpdateManyWithoutEmployeesNestedInput
     WorkStation?: WorkStationUpdateManyWithoutEmployeesNestedInput
@@ -33002,7 +33028,7 @@ export namespace Prisma {
 
   export type EmployeeUncheckedUpdateWithoutPickUpDriverInput = {
     id?: StringFieldUpdateOperationsInput | string
-    outletId?: StringFieldUpdateOperationsInput | string
+    outletId?: NullableStringFieldUpdateOperationsInput | string | null
     shiftId?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     name?: StringFieldUpdateOperationsInput | string
@@ -33053,7 +33079,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     shifts?: ShiftUpdateOneRequiredWithoutEmployeeNestedInput
-    outlets?: OutletUpdateOneRequiredWithoutEmployeeNestedInput
+    outlets?: OutletUpdateOneWithoutEmployeeNestedInput
     Attendance?: AttendanceUpdateManyWithoutEmployeesNestedInput
     orderHeader?: OrderHeaderUpdateManyWithoutEmployeesNestedInput
     WorkStation?: WorkStationUpdateManyWithoutEmployeesNestedInput
@@ -33067,7 +33093,7 @@ export namespace Prisma {
 
   export type EmployeeUncheckedUpdateWithoutPickupAssignedByInput = {
     id?: StringFieldUpdateOperationsInput | string
-    outletId?: StringFieldUpdateOperationsInput | string
+    outletId?: NullableStringFieldUpdateOperationsInput | string | null
     shiftId?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     name?: StringFieldUpdateOperationsInput | string
@@ -33258,7 +33284,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     shifts: ShiftCreateNestedOneWithoutEmployeeInput
-    outlets: OutletCreateNestedOneWithoutEmployeeInput
+    outlets?: OutletCreateNestedOneWithoutEmployeeInput
     Attendance?: AttendanceCreateNestedManyWithoutEmployeesInput
     orderHeader?: OrderHeaderCreateNestedManyWithoutEmployeesInput
     WorkStation?: WorkStationCreateNestedManyWithoutEmployeesInput
@@ -33272,7 +33298,7 @@ export namespace Prisma {
 
   export type EmployeeUncheckedCreateWithoutDeliveryDriverInput = {
     id?: string
-    outletId: string
+    outletId?: string | null
     shiftId: string
     role: $Enums.Role
     name: string
@@ -33317,7 +33343,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     shifts: ShiftCreateNestedOneWithoutEmployeeInput
-    outlets: OutletCreateNestedOneWithoutEmployeeInput
+    outlets?: OutletCreateNestedOneWithoutEmployeeInput
     Attendance?: AttendanceCreateNestedManyWithoutEmployeesInput
     orderHeader?: OrderHeaderCreateNestedManyWithoutEmployeesInput
     WorkStation?: WorkStationCreateNestedManyWithoutEmployeesInput
@@ -33331,7 +33357,7 @@ export namespace Prisma {
 
   export type EmployeeUncheckedCreateWithoutDeliveryAssignedByInput = {
     id?: string
-    outletId: string
+    outletId?: string | null
     shiftId: string
     role: $Enums.Role
     name: string
@@ -33520,7 +33546,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     shifts?: ShiftUpdateOneRequiredWithoutEmployeeNestedInput
-    outlets?: OutletUpdateOneRequiredWithoutEmployeeNestedInput
+    outlets?: OutletUpdateOneWithoutEmployeeNestedInput
     Attendance?: AttendanceUpdateManyWithoutEmployeesNestedInput
     orderHeader?: OrderHeaderUpdateManyWithoutEmployeesNestedInput
     WorkStation?: WorkStationUpdateManyWithoutEmployeesNestedInput
@@ -33534,7 +33560,7 @@ export namespace Prisma {
 
   export type EmployeeUncheckedUpdateWithoutDeliveryDriverInput = {
     id?: StringFieldUpdateOperationsInput | string
-    outletId?: StringFieldUpdateOperationsInput | string
+    outletId?: NullableStringFieldUpdateOperationsInput | string | null
     shiftId?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     name?: StringFieldUpdateOperationsInput | string
@@ -33585,7 +33611,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     shifts?: ShiftUpdateOneRequiredWithoutEmployeeNestedInput
-    outlets?: OutletUpdateOneRequiredWithoutEmployeeNestedInput
+    outlets?: OutletUpdateOneWithoutEmployeeNestedInput
     Attendance?: AttendanceUpdateManyWithoutEmployeesNestedInput
     orderHeader?: OrderHeaderUpdateManyWithoutEmployeesNestedInput
     WorkStation?: WorkStationUpdateManyWithoutEmployeesNestedInput
@@ -33599,7 +33625,7 @@ export namespace Prisma {
 
   export type EmployeeUncheckedUpdateWithoutDeliveryAssignedByInput = {
     id?: StringFieldUpdateOperationsInput | string
-    outletId?: StringFieldUpdateOperationsInput | string
+    outletId?: NullableStringFieldUpdateOperationsInput | string | null
     shiftId?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     name?: StringFieldUpdateOperationsInput | string
@@ -33790,7 +33816,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     shifts: ShiftCreateNestedOneWithoutEmployeeInput
-    outlets: OutletCreateNestedOneWithoutEmployeeInput
+    outlets?: OutletCreateNestedOneWithoutEmployeeInput
     orderHeader?: OrderHeaderCreateNestedManyWithoutEmployeesInput
     WorkStation?: WorkStationCreateNestedManyWithoutEmployeesInput
     workerTasks?: EmployeeTaskCreateNestedManyWithoutEmployeeInput
@@ -33804,7 +33830,7 @@ export namespace Prisma {
 
   export type EmployeeUncheckedCreateWithoutAttendanceInput = {
     id?: string
-    outletId: string
+    outletId?: string | null
     shiftId: string
     role: $Enums.Role
     name: string
@@ -33898,7 +33924,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     shifts: ShiftCreateNestedOneWithoutEmployeeInput
-    outlets: OutletCreateNestedOneWithoutEmployeeInput
+    outlets?: OutletCreateNestedOneWithoutEmployeeInput
     Attendance?: AttendanceCreateNestedManyWithoutEmployeesInput
     orderHeader?: OrderHeaderCreateNestedManyWithoutEmployeesInput
     WorkStation?: WorkStationCreateNestedManyWithoutEmployeesInput
@@ -33912,7 +33938,7 @@ export namespace Prisma {
 
   export type EmployeeUncheckedCreateWithoutApprovedAttendancesInput = {
     id?: string
-    outletId: string
+    outletId?: string | null
     shiftId: string
     role: $Enums.Role
     name: string
@@ -33997,7 +34023,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     shifts?: ShiftUpdateOneRequiredWithoutEmployeeNestedInput
-    outlets?: OutletUpdateOneRequiredWithoutEmployeeNestedInput
+    outlets?: OutletUpdateOneWithoutEmployeeNestedInput
     orderHeader?: OrderHeaderUpdateManyWithoutEmployeesNestedInput
     WorkStation?: WorkStationUpdateManyWithoutEmployeesNestedInput
     workerTasks?: EmployeeTaskUpdateManyWithoutEmployeeNestedInput
@@ -34011,7 +34037,7 @@ export namespace Prisma {
 
   export type EmployeeUncheckedUpdateWithoutAttendanceInput = {
     id?: StringFieldUpdateOperationsInput | string
-    outletId?: StringFieldUpdateOperationsInput | string
+    outletId?: NullableStringFieldUpdateOperationsInput | string | null
     shiftId?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     name?: StringFieldUpdateOperationsInput | string
@@ -34117,7 +34143,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     shifts?: ShiftUpdateOneRequiredWithoutEmployeeNestedInput
-    outlets?: OutletUpdateOneRequiredWithoutEmployeeNestedInput
+    outlets?: OutletUpdateOneWithoutEmployeeNestedInput
     Attendance?: AttendanceUpdateManyWithoutEmployeesNestedInput
     orderHeader?: OrderHeaderUpdateManyWithoutEmployeesNestedInput
     WorkStation?: WorkStationUpdateManyWithoutEmployeesNestedInput
@@ -34131,7 +34157,7 @@ export namespace Prisma {
 
   export type EmployeeUncheckedUpdateWithoutApprovedAttendancesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    outletId?: StringFieldUpdateOperationsInput | string
+    outletId?: NullableStringFieldUpdateOperationsInput | string | null
     shiftId?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     name?: StringFieldUpdateOperationsInput | string
@@ -34985,7 +35011,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     shifts: ShiftCreateNestedOneWithoutEmployeeInput
-    outlets: OutletCreateNestedOneWithoutEmployeeInput
+    outlets?: OutletCreateNestedOneWithoutEmployeeInput
     Attendance?: AttendanceCreateNestedManyWithoutEmployeesInput
     WorkStation?: WorkStationCreateNestedManyWithoutEmployeesInput
     workerTasks?: EmployeeTaskCreateNestedManyWithoutEmployeeInput
@@ -34999,7 +35025,7 @@ export namespace Prisma {
 
   export type EmployeeUncheckedCreateWithoutOrderHeaderInput = {
     id?: string
-    outletId: string
+    outletId?: string | null
     shiftId: string
     role: $Enums.Role
     name: string
@@ -35357,7 +35383,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     shifts?: ShiftUpdateOneRequiredWithoutEmployeeNestedInput
-    outlets?: OutletUpdateOneRequiredWithoutEmployeeNestedInput
+    outlets?: OutletUpdateOneWithoutEmployeeNestedInput
     Attendance?: AttendanceUpdateManyWithoutEmployeesNestedInput
     WorkStation?: WorkStationUpdateManyWithoutEmployeesNestedInput
     workerTasks?: EmployeeTaskUpdateManyWithoutEmployeeNestedInput
@@ -35371,7 +35397,7 @@ export namespace Prisma {
 
   export type EmployeeUncheckedUpdateWithoutOrderHeaderInput = {
     id?: StringFieldUpdateOperationsInput | string
-    outletId?: StringFieldUpdateOperationsInput | string
+    outletId?: NullableStringFieldUpdateOperationsInput | string | null
     shiftId?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     name?: StringFieldUpdateOperationsInput | string
@@ -36741,7 +36767,7 @@ export namespace Prisma {
 
   export type EmployeeCreateManyShiftsInput = {
     id?: string
-    outletId: string
+    outletId?: string | null
     role: $Enums.Role
     name: string
     email: string
@@ -36808,7 +36834,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    outlets?: OutletUpdateOneRequiredWithoutEmployeeNestedInput
+    outlets?: OutletUpdateOneWithoutEmployeeNestedInput
     Attendance?: AttendanceUpdateManyWithoutEmployeesNestedInput
     orderHeader?: OrderHeaderUpdateManyWithoutEmployeesNestedInput
     WorkStation?: WorkStationUpdateManyWithoutEmployeesNestedInput
@@ -36823,7 +36849,7 @@ export namespace Prisma {
 
   export type EmployeeUncheckedUpdateWithoutShiftsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    outletId?: StringFieldUpdateOperationsInput | string
+    outletId?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -36850,7 +36876,7 @@ export namespace Prisma {
 
   export type EmployeeUncheckedUpdateManyWithoutShiftsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    outletId?: StringFieldUpdateOperationsInput | string
+    outletId?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string

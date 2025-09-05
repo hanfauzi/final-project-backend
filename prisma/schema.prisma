@@ -179,11 +179,11 @@ model CustomerAddress {
 
 model Employee {
   id                 String  @id @default(uuid())
-  outletId           String  @map("outlet_id")
+  outletId           String?  @map("outlet_id")
   shiftId            String  @map("shift_id")
   role               Role
   name               String
-  email              String
+  email              String @unique
   password           String?
   phoneNumber        String  @map("phone_number")
   address            String
@@ -196,7 +196,7 @@ model Employee {
   deletedAt DateTime? @map("deleted_at")
 
   shifts              Shift          @relation(fields: [shiftId], references: [id])
-  outlets             Outlet         @relation(fields: [outletId], references: [id])
+  outlets             Outlet?         @relation(fields: [outletId], references: [id])
   Attendance          Attendance[]
   orderHeader         OrderHeader[]
   WorkStation         WorkStation[]
