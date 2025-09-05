@@ -15,6 +15,7 @@ import { SampleRouter } from "./modules/sample/sample.router";
 import { AuthRouter } from "./modules/auth/auth.router";
 import { ProfileRouter } from "./modules/profile/profile.router";
 import { AddressRouter } from "./modules/address/address.router";
+import { AdminRouter } from "./modules/admin/admin.router";
 
 export default class App {
   private app: Express;
@@ -51,6 +52,7 @@ export default class App {
     const authRouter= new AuthRouter()
     const profileRouter = new ProfileRouter()
     const addressRouter = new AddressRouter();
+    const adminRouter = new AdminRouter();
     
     this.app.get("/api", (req: Request, res: Response) => {
       res.send(
@@ -62,6 +64,7 @@ export default class App {
     this.app.use("/api/auth", authRouter.getRouter())
     this.app.use("/api/profile",profileRouter.getRouter())
     this.app.use("/api/address", addressRouter.getRouter());
+    this.app.use("/api/admin", adminRouter.getRouter());
   }
 
   public start(): void {

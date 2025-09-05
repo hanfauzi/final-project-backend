@@ -62,6 +62,12 @@ export class AuthRouter {
       validateBody(SetPasswordDTO),
       this.authController.resetCustomerPasswordByToken
     );
+
+    this.router.post(
+      "/super-admin/login",
+      validateBody(LoginDTO),
+      this.authController.superAdminLogin
+    );
   };
 
   getRouter = () => {
