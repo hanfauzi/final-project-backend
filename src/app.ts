@@ -14,6 +14,7 @@ import { ErrorHandlerMiddleware } from "./middlewares/error-handler.middleware";
 import { SampleRouter } from "./modules/sample/sample.router";
 import { AuthRouter } from "./modules/auth/auth.router";
 import { ProfileRouter } from "./modules/profile/profile.router";
+import { AdminRouter } from "./modules/admin/admin.router";
 
 export default class App {
   private app: Express;
@@ -49,6 +50,7 @@ export default class App {
     const sampleRouter = new SampleRouter();
     const authRouter= new AuthRouter()
     const profileRouter = new ProfileRouter()
+    const adminRouter = new AdminRouter();
 
     this.app.get("/api", (req: Request, res: Response) => {
       res.send(
@@ -59,6 +61,7 @@ export default class App {
     this.app.use("/api", sampleRouter.getRouter());
     this.app.use("/api/auth", authRouter.getRouter())
     this.app.use("/api/profile",profileRouter.getRouter())
+    this.app.use("/api/admin", adminRouter.getRouter());
   }
 
   public start(): void {

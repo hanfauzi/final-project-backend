@@ -149,6 +149,7 @@ exports.Prisma.CustomerAddressScalarFieldEnum = {
   address: 'address',
   city: 'city',
   postalCode: 'postalCode',
+  phoneNumber: 'phoneNumber',
   latitude: 'latitude',
   longitude: 'longitude',
   notes: 'notes',

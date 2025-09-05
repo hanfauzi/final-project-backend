@@ -1,0 +1,64 @@
+[2025-09-05 10:13:13] ERROR: GET /api/admin/employees - jwt expired  {
+  "name": "TokenExpiredError",
+  "stack": "TokenExpiredError: jwt expired\n    at /Users/hafisyusril/Project/final-project-backend/node_modules/jsonwebtoken/verify.js:190:21\n    at getSecret (/Users/hafisyusril/Project/final-project-backend/node_modules/jsonwebtoken/verify.js:97:14)\n    at Object.module.exports [as verify] (/Users/hafisyusril/Project/final-project-backend/node_modules/jsonwebtoken/verify.js:101:10)\n    at /Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at /Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:4:12)\n    at verifyToken (/Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (/Users/hafisyusril/Project/final-project-backend/node_modules/router/lib/layer.js:152:17)",
+  "path": "/api/admin/employees",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-05 10:47:04] ERROR: POST /api/admin/employees - jwt expired  {
+  "name": "TokenExpiredError",
+  "stack": "TokenExpiredError: jwt expired\n    at /Users/hafisyusril/Project/final-project-backend/node_modules/jsonwebtoken/verify.js:190:21\n    at getSecret (/Users/hafisyusril/Project/final-project-backend/node_modules/jsonwebtoken/verify.js:97:14)\n    at Object.module.exports [as verify] (/Users/hafisyusril/Project/final-project-backend/node_modules/jsonwebtoken/verify.js:101:10)\n    at /Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at /Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:4:12)\n    at verifyToken (/Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (/Users/hafisyusril/Project/final-project-backend/node_modules/router/lib/layer.js:152:17)",
+  "path": "/api/admin/employees",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-05 10:59:19] ERROR: POST /api/admin/employees - Password must be at least 8 characters  {
+  "name": "AppError",
+  "stack": "AppError: Password must be at least 8 characters\n    at new AppError (/Users/hafisyusril/Project/final-project-backend/src/utils/app.error.ts:14:11)\n    at /Users/hafisyusril/Project/final-project-backend/src/middlewares/validate.middleware.ts:18:13\n    at Generator.next (<anonymous>)\n    at fulfilled (/Users/hafisyusril/Project/final-project-backend/src/middlewares/validate.middleware.ts:5:58)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "path": "/api/admin/employees",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 400
+}
+[2025-09-05 11:24:53] ERROR: POST /api/admin/employees - Employee data already exists  {
+  "name": "AppError",
+  "stack": "AppError: Employee data already exists\n    at new AppError (/Users/hafisyusril/Project/final-project-backend/src/utils/app.error.ts:14:11)\n    at AdminService.<anonymous> (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/admin.service.ts:33:13)\n    at Generator.next (<anonymous>)\n    at fulfilled (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/admin.service.ts:5:58)",
+  "path": "/api/admin/employees",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 400
+}
+[2025-09-05 11:27:12] ERROR: POST /api/admin/employees - Employee email already exists  {
+  "name": "AppError",
+  "stack": "AppError: Employee email already exists\n    at new AppError (/Users/hafisyusril/Project/final-project-backend/src/utils/app.error.ts:14:11)\n    at AdminService.<anonymous> (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/admin.service.ts:33:13)\n    at Generator.next (<anonymous>)\n    at fulfilled (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/admin.service.ts:5:58)",
+  "path": "/api/admin/employees",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 400
+}
+[2025-09-05 11:27:52] ERROR: POST /api/admin/employees - Internal server error. Please try again later!  {
+  "name": "MulterError",
+  "stack": "MulterError: File too large\n    at abortWithCode (/Users/hafisyusril/Project/final-project-backend/node_modules/multer/lib/make-middleware.js:85:22)\n    at FileStream.<anonymous> (/Users/hafisyusril/Project/final-project-backend/node_modules/multer/lib/make-middleware.js:155:11)\n    at FileStream.emit (node:events:524:28)\n    at FileStream.emit (node:domain:489:12)\n    at SBMH.ssCb [as _cb] (/Users/hafisyusril/Project/final-project-backend/node_modules/busboy/lib/types/multipart.js:479:32)\n    at feed (/Users/hafisyusril/Project/final-project-backend/node_modules/streamsearch/lib/sbmh.js:248:10)\n    at SBMH.push (/Users/hafisyusril/Project/final-project-backend/node_modules/streamsearch/lib/sbmh.js:104:16)\n    at Multipart._write (/Users/hafisyusril/Project/final-project-backend/node_modules/busboy/lib/types/multipart.js:567:19)\n    at writeOrBuffer (node:internal/streams/writable:572:12)\n    at _write (node:internal/streams/writable:501:10)",
+  "path": "/api/admin/employees",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-09-05 11:31:40] ERROR: POST /api/admin/employees - Internal server error. Please try again later!  {
+  "name": "MulterError",
+  "stack": "MulterError: File too large\n    at abortWithCode (/Users/hafisyusril/Project/final-project-backend/node_modules/multer/lib/make-middleware.js:85:22)\n    at FileStream.<anonymous> (/Users/hafisyusril/Project/final-project-backend/node_modules/multer/lib/make-middleware.js:155:11)\n    at FileStream.emit (node:events:524:28)\n    at FileStream.emit (node:domain:489:12)\n    at SBMH.ssCb [as _cb] (/Users/hafisyusril/Project/final-project-backend/node_modules/busboy/lib/types/multipart.js:479:32)\n    at feed (/Users/hafisyusril/Project/final-project-backend/node_modules/streamsearch/lib/sbmh.js:248:10)\n    at SBMH.push (/Users/hafisyusril/Project/final-project-backend/node_modules/streamsearch/lib/sbmh.js:104:16)\n    at Multipart._write (/Users/hafisyusril/Project/final-project-backend/node_modules/busboy/lib/types/multipart.js:567:19)\n    at writeOrBuffer (node:internal/streams/writable:572:12)\n    at _write (node:internal/streams/writable:501:10)",
+  "path": "/api/admin/employees",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-09-05 11:32:11] ERROR: POST /api/admin/employees - Internal server error. Please try again later!  {
+  "name": "MulterError",
+  "stack": "MulterError: File too large\n    at abortWithCode (/Users/hafisyusril/Project/final-project-backend/node_modules/multer/lib/make-middleware.js:85:22)\n    at FileStream.<anonymous> (/Users/hafisyusril/Project/final-project-backend/node_modules/multer/lib/make-middleware.js:155:11)\n    at FileStream.emit (node:events:524:28)\n    at FileStream.emit (node:domain:489:12)\n    at SBMH.ssCb [as _cb] (/Users/hafisyusril/Project/final-project-backend/node_modules/busboy/lib/types/multipart.js:479:32)\n    at feed (/Users/hafisyusril/Project/final-project-backend/node_modules/streamsearch/lib/sbmh.js:248:10)\n    at SBMH.push (/Users/hafisyusril/Project/final-project-backend/node_modules/streamsearch/lib/sbmh.js:104:16)\n    at Multipart._write (/Users/hafisyusril/Project/final-project-backend/node_modules/busboy/lib/types/multipart.js:567:19)\n    at writeOrBuffer (node:internal/streams/writable:572:12)\n    at _write (node:internal/streams/writable:501:10)",
+  "path": "/api/admin/employees",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 500
+}

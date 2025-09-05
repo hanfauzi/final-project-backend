@@ -4227,6 +4227,7 @@ export namespace Prisma {
     address: string | null
     city: string | null
     postalCode: string | null
+    phoneNumber: string | null
     latitude: number | null
     longitude: number | null
     notes: string | null
@@ -4243,6 +4244,7 @@ export namespace Prisma {
     address: string | null
     city: string | null
     postalCode: string | null
+    phoneNumber: string | null
     latitude: number | null
     longitude: number | null
     notes: string | null
@@ -4259,6 +4261,7 @@ export namespace Prisma {
     address: number
     city: number
     postalCode: number
+    phoneNumber: number
     latitude: number
     longitude: number
     notes: number
@@ -4287,6 +4290,7 @@ export namespace Prisma {
     address?: true
     city?: true
     postalCode?: true
+    phoneNumber?: true
     latitude?: true
     longitude?: true
     notes?: true
@@ -4303,6 +4307,7 @@ export namespace Prisma {
     address?: true
     city?: true
     postalCode?: true
+    phoneNumber?: true
     latitude?: true
     longitude?: true
     notes?: true
@@ -4319,6 +4324,7 @@ export namespace Prisma {
     address?: true
     city?: true
     postalCode?: true
+    phoneNumber?: true
     latitude?: true
     longitude?: true
     notes?: true
@@ -4422,6 +4428,7 @@ export namespace Prisma {
     address: string
     city: string
     postalCode: string
+    phoneNumber: string
     latitude: number
     longitude: number
     notes: string | null
@@ -4457,6 +4464,7 @@ export namespace Prisma {
     address?: boolean
     city?: boolean
     postalCode?: boolean
+    phoneNumber?: boolean
     latitude?: boolean
     longitude?: boolean
     notes?: boolean
@@ -4477,6 +4485,7 @@ export namespace Prisma {
     address?: boolean
     city?: boolean
     postalCode?: boolean
+    phoneNumber?: boolean
     latitude?: boolean
     longitude?: boolean
     notes?: boolean
@@ -4494,6 +4503,7 @@ export namespace Prisma {
     address?: boolean
     city?: boolean
     postalCode?: boolean
+    phoneNumber?: boolean
     latitude?: boolean
     longitude?: boolean
     notes?: boolean
@@ -4511,6 +4521,7 @@ export namespace Prisma {
     address?: boolean
     city?: boolean
     postalCode?: boolean
+    phoneNumber?: boolean
     latitude?: boolean
     longitude?: boolean
     notes?: boolean
@@ -4520,7 +4531,7 @@ export namespace Prisma {
     deletedAt?: boolean
   }
 
-  export type CustomerAddressOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "customerId" | "label" | "address" | "city" | "postalCode" | "latitude" | "longitude" | "notes" | "isPrimary" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["customerAddress"]>
+  export type CustomerAddressOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "customerId" | "label" | "address" | "city" | "postalCode" | "phoneNumber" | "latitude" | "longitude" | "notes" | "isPrimary" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["customerAddress"]>
   export type CustomerAddressInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     customers?: boolean | CustomerDefaultArgs<ExtArgs>
     PickUpTask?: boolean | CustomerAddress$PickUpTaskArgs<ExtArgs>
@@ -4548,6 +4559,7 @@ export namespace Prisma {
       address: string
       city: string
       postalCode: string
+      phoneNumber: string
       latitude: number
       longitude: number
       notes: string | null
@@ -4987,6 +4999,7 @@ export namespace Prisma {
     readonly address: FieldRef<"CustomerAddress", 'String'>
     readonly city: FieldRef<"CustomerAddress", 'String'>
     readonly postalCode: FieldRef<"CustomerAddress", 'String'>
+    readonly phoneNumber: FieldRef<"CustomerAddress", 'String'>
     readonly latitude: FieldRef<"CustomerAddress", 'Float'>
     readonly longitude: FieldRef<"CustomerAddress", 'Float'>
     readonly notes: FieldRef<"CustomerAddress", 'String'>
@@ -22827,6 +22840,7 @@ export namespace Prisma {
     address: 'address',
     city: 'city',
     postalCode: 'postalCode',
+    phoneNumber: 'phoneNumber',
     latitude: 'latitude',
     longitude: 'longitude',
     notes: 'notes',
@@ -23464,6 +23478,7 @@ export namespace Prisma {
     address?: StringFilter<"CustomerAddress"> | string
     city?: StringFilter<"CustomerAddress"> | string
     postalCode?: StringFilter<"CustomerAddress"> | string
+    phoneNumber?: StringFilter<"CustomerAddress"> | string
     latitude?: FloatFilter<"CustomerAddress"> | number
     longitude?: FloatFilter<"CustomerAddress"> | number
     notes?: StringNullableFilter<"CustomerAddress"> | string | null
@@ -23483,6 +23498,7 @@ export namespace Prisma {
     address?: SortOrder
     city?: SortOrder
     postalCode?: SortOrder
+    phoneNumber?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
     notes?: SortOrderInput | SortOrder
@@ -23505,6 +23521,7 @@ export namespace Prisma {
     address?: StringFilter<"CustomerAddress"> | string
     city?: StringFilter<"CustomerAddress"> | string
     postalCode?: StringFilter<"CustomerAddress"> | string
+    phoneNumber?: StringFilter<"CustomerAddress"> | string
     latitude?: FloatFilter<"CustomerAddress"> | number
     longitude?: FloatFilter<"CustomerAddress"> | number
     notes?: StringNullableFilter<"CustomerAddress"> | string | null
@@ -23524,6 +23541,7 @@ export namespace Prisma {
     address?: SortOrder
     city?: SortOrder
     postalCode?: SortOrder
+    phoneNumber?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
     notes?: SortOrderInput | SortOrder
@@ -23548,6 +23566,7 @@ export namespace Prisma {
     address?: StringWithAggregatesFilter<"CustomerAddress"> | string
     city?: StringWithAggregatesFilter<"CustomerAddress"> | string
     postalCode?: StringWithAggregatesFilter<"CustomerAddress"> | string
+    phoneNumber?: StringWithAggregatesFilter<"CustomerAddress"> | string
     latitude?: FloatWithAggregatesFilter<"CustomerAddress"> | number
     longitude?: FloatWithAggregatesFilter<"CustomerAddress"> | number
     notes?: StringNullableWithAggregatesFilter<"CustomerAddress"> | string | null
@@ -23622,6 +23641,7 @@ export namespace Prisma {
 
   export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    email?: string
     AND?: EmployeeWhereInput | EmployeeWhereInput[]
     OR?: EmployeeWhereInput[]
     NOT?: EmployeeWhereInput | EmployeeWhereInput[]
@@ -23629,7 +23649,6 @@ export namespace Prisma {
     shiftId?: StringFilter<"Employee"> | string
     role?: EnumRoleFilter<"Employee"> | $Enums.Role
     name?: StringFilter<"Employee"> | string
-    email?: StringFilter<"Employee"> | string
     password?: StringNullableFilter<"Employee"> | string | null
     phoneNumber?: StringFilter<"Employee"> | string
     address?: StringFilter<"Employee"> | string
@@ -23651,7 +23670,7 @@ export namespace Prisma {
     pickupAssignedBy?: PickUpTaskListRelationFilter
     deliveryDriver?: DeliveryTaskListRelationFilter
     deliveryAssignedBy?: DeliveryTaskListRelationFilter
-  }, "id">
+  }, "id" | "email">
 
   export type EmployeeOrderByWithAggregationInput = {
     id?: SortOrder
@@ -25074,6 +25093,7 @@ export namespace Prisma {
     address: string
     city: string
     postalCode: string
+    phoneNumber: string
     latitude: number
     longitude: number
     notes?: string | null
@@ -25093,6 +25113,7 @@ export namespace Prisma {
     address: string
     city: string
     postalCode: string
+    phoneNumber: string
     latitude: number
     longitude: number
     notes?: string | null
@@ -25110,6 +25131,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     postalCode?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25129,6 +25151,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     postalCode?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25147,6 +25170,7 @@ export namespace Prisma {
     address: string
     city: string
     postalCode: string
+    phoneNumber: string
     latitude: number
     longitude: number
     notes?: string | null
@@ -25162,6 +25186,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     postalCode?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25178,6 +25203,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     postalCode?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26947,6 +26973,7 @@ export namespace Prisma {
     address?: SortOrder
     city?: SortOrder
     postalCode?: SortOrder
+    phoneNumber?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
     notes?: SortOrder
@@ -26968,6 +26995,7 @@ export namespace Prisma {
     address?: SortOrder
     city?: SortOrder
     postalCode?: SortOrder
+    phoneNumber?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
     notes?: SortOrder
@@ -26984,6 +27012,7 @@ export namespace Prisma {
     address?: SortOrder
     city?: SortOrder
     postalCode?: SortOrder
+    phoneNumber?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
     notes?: SortOrder
@@ -30419,6 +30448,7 @@ export namespace Prisma {
     address: string
     city: string
     postalCode: string
+    phoneNumber: string
     latitude: number
     longitude: number
     notes?: string | null
@@ -30436,6 +30466,7 @@ export namespace Prisma {
     address: string
     city: string
     postalCode: string
+    phoneNumber: string
     latitude: number
     longitude: number
     notes?: string | null
@@ -30531,6 +30562,7 @@ export namespace Prisma {
     address?: StringFilter<"CustomerAddress"> | string
     city?: StringFilter<"CustomerAddress"> | string
     postalCode?: StringFilter<"CustomerAddress"> | string
+    phoneNumber?: StringFilter<"CustomerAddress"> | string
     latitude?: FloatFilter<"CustomerAddress"> | number
     longitude?: FloatFilter<"CustomerAddress"> | number
     notes?: StringNullableFilter<"CustomerAddress"> | string | null
@@ -32852,6 +32884,7 @@ export namespace Prisma {
     address: string
     city: string
     postalCode: string
+    phoneNumber: string
     latitude: number
     longitude: number
     notes?: string | null
@@ -32870,6 +32903,7 @@ export namespace Prisma {
     address: string
     city: string
     postalCode: string
+    phoneNumber: string
     latitude: number
     longitude: number
     notes?: string | null
@@ -33130,6 +33164,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     postalCode?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -33148,6 +33183,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     postalCode?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -33380,6 +33416,7 @@ export namespace Prisma {
     address: string
     city: string
     postalCode: string
+    phoneNumber: string
     latitude: number
     longitude: number
     notes?: string | null
@@ -33398,6 +33435,7 @@ export namespace Prisma {
     address: string
     city: string
     postalCode: string
+    phoneNumber: string
     latitude: number
     longitude: number
     notes?: string | null
@@ -33658,6 +33696,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     postalCode?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -33676,6 +33715,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     postalCode?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -35831,6 +35871,7 @@ export namespace Prisma {
     address: string
     city: string
     postalCode: string
+    phoneNumber: string
     latitude: number
     longitude: number
     notes?: string | null
@@ -35860,6 +35901,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     postalCode?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -35877,6 +35919,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     postalCode?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -35894,6 +35937,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     postalCode?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null

@@ -10,9 +10,11 @@ import { LoginDTO } from "./dto/login.dto";
 export class AuthRouter {
   private router: Router;
   private authController: AuthController;
+  private authAdminController: AuthController;
   constructor() {
     this.router = Router();
     this.authController = new AuthController();
+    this.authAdminController = new AuthController();
     this.initializedRoutes();
   }
 
@@ -62,6 +64,12 @@ export class AuthRouter {
       "/customer/reset-password-by/:token",
       validateBody(SetPasswordDTO),
       this.authController.resetCustomerPasswordByToken
+    );
+
+    this.router.post(
+      "/super-admin/login",
+      validateBody(LoginDTO),
+      this.authAdminController.superAdminLogin
     );
   };
 
