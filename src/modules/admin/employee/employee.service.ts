@@ -1,11 +1,11 @@
-import { Role } from "../../generated/prisma";
-import { AppError } from "../../utils/app.error";
-import { PasswordService } from "../password/password.service";
-import prisma from "../prisma/prisma.service";
+import { Role } from "../../../generated/prisma";
+import { AppError } from "../../../utils/app.error";
+import { PasswordService } from "../../password/password.service";
+import prisma from "../../prisma/prisma.service";
 import { CreateEmployeeDTO } from "./dto/create.employee.dto";
 import { UpdateEmployeeDTO } from "./dto/update.employee.dto";
 
-export class AdminService {
+export class EmployeeService {
   private passwordService: PasswordService;
 
   constructor() {
@@ -145,4 +145,5 @@ export class AdminService {
     const { password, ...result } = deletedEmployee;
     return result;
   };
+
 }

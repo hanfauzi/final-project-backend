@@ -1,5 +1,5 @@
 import { IsEmail, IsEnum, IsOptional, IsString, IsBoolean, MinLength } from "class-validator";
-import { Role } from "../../../generated/prisma";
+import { Role } from "../../../../generated/prisma";
 
 export class UpdateEmployeeDTO {
   @IsOptional()

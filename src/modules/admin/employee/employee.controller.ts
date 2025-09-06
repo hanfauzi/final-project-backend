@@ -1,19 +1,20 @@
 import { NextFunction, Request, Response } from "express";
-import { AdminService } from "./admin.service";
-import { CloudinaryService } from "../../cloudinary/cloudinary.service";
-import { AppError } from "../../utils/app.error";
+import {  EmployeeService } from "./employee.service";
+import { CloudinaryService } from "../../../cloudinary/cloudinary.service";
+import { AppError } from "../../../utils/app.error";
 
-export class AdminController {
-  private adminService: AdminService;
+
+export class EmployeeController {
+  private employeeService: EmployeeService;
   private cloudinaryService: CloudinaryService;
   constructor() {
-    this.adminService = new AdminService();
+    this.employeeService = new EmployeeService();
     this.cloudinaryService = new CloudinaryService();
   }
 
   getAllEmployees = async (_: Request, res: Response, next: NextFunction) => {
     try {
-      const employees = await this.adminService.getAllEmployees();
+      const employees = await this.employeeService.getAllEmployees();
       res.status(200).json({ data: employees });
     } catch (error) {
       next(error);
@@ -43,7 +44,7 @@ export class AdminController {
         }
       }
       
-      const employee = await this.adminService.createEmployeeBySuperAdmin(
+      const employee = await this.employeeService.createEmployeeBySuperAdmin(
         req.body
       );
       res.status(201).json({ data: employee });
@@ -75,7 +76,7 @@ export class AdminController {
       }
     }
 
-      const updated = await this.adminService.updateEmployeeBySuperAdmin(
+      const updated = await this.employeeService.updateEmployeeBySuperAdmin(
         id,
         data
       );
@@ -97,7 +98,7 @@ export class AdminController {
       const { id } = req.params;
 
       const deletedEmployee =
-        await this.adminService.deleteEmployeeBySuperAdmin(id);
+        await this.employeeService.deleteEmployeeBySuperAdmin(id);
 
       return res.status(200).json({
         message: "Employee deleted successfully",
