@@ -27,6 +27,13 @@ export class EmployeeRouter {
       this.employeeController.getAllEmployees
     );
 
+    this.router.get(
+      "/:id",
+      JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["SUPER_ADMIN"]),
+      this.employeeController.getEmployeeDetailById
+    );
+
     this.router.post(
       "/",
       JwtVerify.verifyToken,
@@ -52,6 +59,20 @@ export class EmployeeRouter {
       JwtVerify.verifyToken,
       JwtVerify.verifyRole(["SUPER_ADMIN"]),
       this.employeeController.deleteEmployeeBySuperAdmin
+    );
+
+    this.router.patch(
+      "/:id/outlet",
+      JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["SUPER_ADMIN"]),
+      this.employeeController.assignEmployeeToOutlet
+    );
+
+    this.router.patch(
+      "/:id/outlet/unassign",
+      JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["SUPER_ADMIN"]),
+      this.employeeController.unnasignEmployeeFromOutlet
     );
   }
 

@@ -5,26 +5,76 @@ import { validateBody } from "../../../middlewares/validate.middleware";
 import { CreateOutletDTO } from "./dto/create.outlet.dto";
 import { UpdateOutletDTO } from "./dto/update.outlet.dto";
 
-
 export class OutletRouter {
-    private outletController: OutletController;
-    private router: Router;
+  private outletController: OutletController;
+  private router: Router;
 
-    constructor() {
-        this.outletController = new OutletController();
-        this.router = Router();
-        this.initializeRoutes();
-    }
+  constructor() {
+    this.outletController = new OutletController();
+    this.router = Router();
+    this.initializeRoutes();
+  }
 
-    private initializeRoutes(): void {
-        this.router.get("/", JwtVerify.verifyToken, JwtVerify.verifyRole(["SUPER_ADMIN"]), this.outletController.getAllOutlets);
-        this.router.get("/:id", JwtVerify.verifyToken, JwtVerify.verifyRole(["SUPER_ADMIN"]), this.outletController.getOutletDetailById);
-        this.router.post("/", JwtVerify.verifyToken, JwtVerify.verifyRole(["SUPER_ADMIN"]), validateBody(CreateOutletDTO), this.outletController.createOutlet);
-        this.router.patch("/:id", JwtVerify.verifyToken, JwtVerify.verifyRole(["SUPER_ADMIN"]), validateBody(UpdateOutletDTO), this.outletController.updateOutlet);
-        this.router.delete("/:id", JwtVerify.verifyToken, JwtVerify.verifyRole(["SUPER_ADMIN"]), this.outletController.deleteOutlet);
-    }
+  private initializeRoutes(): void {
+    this.router.get(
+      "/",
+      JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["SUPER_ADMIN"]),
+      this.outletController.getAllOutlets
+    );
+    this.router.get(
+      "/:id",
+      JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["SUPER_ADMIN"]),
+      this.outletController.getOutletDetailById
+    );
+    this.router.post(
+      "/",
+      JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["SUPER_ADMIN"]),
+      validateBody(CreateOutletDTO),
+      this.outletController.createOutlet
+    );
+    this.router.patch(
+      "/:id",
+      JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["SUPER_ADMIN"]),
+      validateBody(UpdateOutletDTO),
+      this.outletController.updateOutlet
+    );
+    this.router.delete(
+      "/:id",
+      JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["SUPER_ADMIN"]),
+      this.outletController.deleteOutlet
+    );
+    this.router.get(
+      "/:id/employees",
+      JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["SUPER_ADMIN"]),
+      this.outletController.getAssignedEmployeesByOutlet
+    );
+    this.router.post(
+      "/:id/assign-employees",
+      JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["SUPER_ADMIN"]),
+      this.outletController.assignEmployee
+    );
+    this.router.patch(
+      "/:id/unassign-employees",
+      JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["SUPER_ADMIN"]),
+      this.outletController.unassignEmployee
+    );
+    this.router.patch(
+      "/:id/restore",
+      JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["SUPER_ADMIN"]),
+      this.outletController.restoreOutlet
+    );
+  }
 
-    getRouter(): Router {
-        return this.router;
-    }
+  getRouter(): Router {
+    return this.router;
+  }
 }
