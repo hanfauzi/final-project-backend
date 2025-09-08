@@ -165,4 +165,21 @@ export class OutletService {
 
     return deletedOutlet;
   };
+
+  restoreOutlet = async (outletId: string) => {
+    const deletedOutlet = await prisma.outlet.findFirst({
+      where: { id: outletId, deletedAt: { not: null } },
+    });
+
+    if (!deletedOutlet) {
+      throw new AppError("Outlet not found or not deleted", 404);
+    }
+
+    const restoredOutlet = await prisma.outlet.update({
+      where: { id: outletId },
+      data: { deletedAt: null },
+    });
+    
+    return restoredOutlet;
+  };
 }

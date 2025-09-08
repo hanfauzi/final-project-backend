@@ -28,6 +28,27 @@ export class EmployeeService {
     });
   };
 
+  getEmployeeDetailById = async (employeeId: string) => {
+    const employee = await prisma.employee.findFirst({
+      where: { id: employeeId, NOT :{ role: "CUSTOMER" }, deletedAt: null },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        phoneNumber: true,
+        address: true,
+        photoUrl: true,
+        outlets: true,
+        shifts: true,
+      },
+    });
+    if (!employee) {
+      throw new AppError("Employee not found", 404);
+    }
+    return employee;
+  }
+
   createEmployeeBySuperAdmin = async (body: CreateEmployeeDTO) => {
     const existingEmployee = await prisma.employee.findUnique({
       where: { email: body.email },
@@ -89,15 +110,6 @@ export class EmployeeService {
         }
       }
 
-      if (body.outletId) {
-        const outlet = await prisma.outlet.findUnique({
-          where: { id: body.outletId },
-        });
-        if (!outlet) {
-          throw new AppError("Invalid outletId. Outlet not found.", 400);
-        }
-      }
-
       if (body.shiftId) {
         const shift = await prisma.shift.findUnique({
           where: { id: body.shiftId },
@@ -110,7 +122,6 @@ export class EmployeeService {
       const updatedEmployee = await prisma.employee.update({
         where: { id: employeeId },
         data: {
-          ...(body.outletId && { outletId: body.outletId }),
           ...(body.shiftId && { shiftId: body.shiftId }),
           ...(body.role && { role: body.role as any }),
           ...(body.name && { name: body.name }),

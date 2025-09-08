@@ -33958,3 +33958,246 @@
   "ip": "::1",
   "statusCode": 404
 }
+[2025-09-06 21:19:05] ERROR: GET /api/admin/outlets/2177732a-a617-4b7e-985e-0650db277d33 - jwt expired  {
+  "name": "TokenExpiredError",
+  "stack": "TokenExpiredError: jwt expired\n    at /Users/hafisyusril/Project/final-project-backend/node_modules/jsonwebtoken/verify.js:190:21\n    at getSecret (/Users/hafisyusril/Project/final-project-backend/node_modules/jsonwebtoken/verify.js:97:14)\n    at Object.module.exports [as verify] (/Users/hafisyusril/Project/final-project-backend/node_modules/jsonwebtoken/verify.js:101:10)\n    at /Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at /Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:4:12)\n    at verifyToken (/Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (/Users/hafisyusril/Project/final-project-backend/node_modules/router/lib/layer.js:152:17)",
+  "path": "/api/admin/outlets/2177732a-a617-4b7e-985e-0650db277d33",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-06 21:21:54] ERROR: GET /api/admin/outlets/2177732a-a617-4b7e-985e-0650db277d33/employees - token must be provided  {
+  "name": "AppError",
+  "stack": "AppError: token must be provided\n    at new AppError (/Users/hafisyusril/Project/final-project-backend/src/utils/app.error.ts:14:11)\n    at /Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:10:25\n    at Generator.next (<anonymous>)\n    at /Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:4:12)\n    at verifyToken (/Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (/Users/hafisyusril/Project/final-project-backend/node_modules/router/lib/layer.js:152:17)\n    at next (/Users/hafisyusril/Project/final-project-backend/node_modules/router/lib/route.js:157:13)\n    at Route.dispatch (/Users/hafisyusril/Project/final-project-backend/node_modules/router/lib/route.js:117:3)",
+  "path": "/api/admin/outlets/2177732a-a617-4b7e-985e-0650db277d33/employees",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-09-06 21:22:40] ERROR: GET /api/admin/outlets/85f64a29-b382-439a-8275-d5b98bda8c43/employees - Outlet not found  {
+  "name": "AppError",
+  "stack": "AppError: Outlet not found\n    at new AppError (/Users/hafisyusril/Project/final-project-backend/src/utils/app.error.ts:14:11)\n    at AssignmentService.<anonymous> (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/assignment/assignment.service.ts:69:13)\n    at Generator.next (<anonymous>)\n    at fulfilled (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/assignment/assignment.service.ts:5:58)",
+  "path": "/api/admin/outlets/85f64a29-b382-439a-8275-d5b98bda8c43/employees",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 404
+}
+[2025-09-06 21:36:00] ERROR: GET /api/admin/outlets/85f64a29-b382-439a-8275-d5b98bda8c43/employees - Outlet not found  {
+  "name": "AppError",
+  "stack": "AppError: Outlet not found\n    at new AppError (/Users/hafisyusril/Project/final-project-backend/src/utils/app.error.ts:14:11)\n    at AssignmentService.<anonymous> (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/assignment/assignment.service.ts:69:13)\n    at Generator.next (<anonymous>)\n    at fulfilled (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/assignment/assignment.service.ts:5:58)",
+  "path": "/api/admin/outlets/85f64a29-b382-439a-8275-d5b98bda8c43/employees",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 404
+}
+[2025-09-06 21:36:23] ERROR: GET /api/admin/outlets/85f64a29-b382-439a-8275-d5b98bda8c43/employees - Outlet not found  {
+  "name": "AppError",
+  "stack": "AppError: Outlet not found\n    at new AppError (/Users/hafisyusril/Project/final-project-backend/src/utils/app.error.ts:14:11)\n    at AssignmentService.<anonymous> (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/assignment/assignment.service.ts:69:13)\n    at Generator.next (<anonymous>)\n    at fulfilled (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/assignment/assignment.service.ts:5:58)",
+  "path": "/api/admin/outlets/85f64a29-b382-439a-8275-d5b98bda8c43/employees",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 404
+}
+[2025-09-06 21:36:56] WARN: 404 Not Found  {
+  "method": "GET",
+  "path": "/api/admin/outlets/85f64a29-b382-439a-8275-d5b98bda8c43/restore",
+  "ip": "::1"
+}
+[2025-09-06 21:37:42] WARN: 404 Not Found  {
+  "method": "GET",
+  "path": "/api/admin/outlets/85f64a29-b382-439a-8275-d5b98bda8c43/restore",
+  "ip": "::1"
+}
+[2025-09-06 21:45:11] ERROR: PATCH /api/admin/employees/e724e1e0-fb2e-4eac-8445-c76999041841/outlet/unassign - token must be provided  {
+  "name": "AppError",
+  "stack": "AppError: token must be provided\n    at new AppError (/Users/hafisyusril/Project/final-project-backend/src/utils/app.error.ts:14:11)\n    at /Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:10:25\n    at Generator.next (<anonymous>)\n    at /Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:4:12)\n    at verifyToken (/Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (/Users/hafisyusril/Project/final-project-backend/node_modules/router/lib/layer.js:152:17)\n    at next (/Users/hafisyusril/Project/final-project-backend/node_modules/router/lib/route.js:157:13)\n    at Route.dispatch (/Users/hafisyusril/Project/final-project-backend/node_modules/router/lib/route.js:117:3)",
+  "path": "/api/admin/employees/e724e1e0-fb2e-4eac-8445-c76999041841/outlet/unassign",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-09-06 21:45:28] ERROR: PATCH /api/admin/employees/e724e1e0-fb2e-4eac-8445-c76999041841/outlet/unassign - Employee not found or cannot unassign SUPER ADMIN  {
+  "name": "AppError",
+  "stack": "AppError: Employee not found or cannot unassign SUPER ADMIN\n    at new AppError (/Users/hafisyusril/Project/final-project-backend/src/utils/app.error.ts:14:11)\n    at AssignmentService.<anonymous> (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/assignment/assignment.service.ts:48:13)\n    at Generator.next (<anonymous>)\n    at fulfilled (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/assignment/assignment.service.ts:5:58)",
+  "path": "/api/admin/employees/e724e1e0-fb2e-4eac-8445-c76999041841/outlet/unassign",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 404
+}
+[2025-09-06 22:04:55] WARN: 404 Not Found  {
+  "method": "PATCH",
+  "path": "/api/admin/employees/2177732a-a617-4b7e-985e-0650db277d33/outlet/assign",
+  "ip": "::1"
+}
+[2025-09-06 22:06:47] ERROR: PATCH /api/admin/employees/2177732a-a617-4b7e-985e-0650db277d33/outlet - token must be provided  {
+  "name": "AppError",
+  "stack": "AppError: token must be provided\n    at new AppError (/Users/hafisyusril/Project/final-project-backend/src/utils/app.error.ts:14:11)\n    at /Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:10:25\n    at Generator.next (<anonymous>)\n    at /Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:4:12)\n    at verifyToken (/Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (/Users/hafisyusril/Project/final-project-backend/node_modules/router/lib/layer.js:152:17)\n    at next (/Users/hafisyusril/Project/final-project-backend/node_modules/router/lib/route.js:157:13)\n    at Route.dispatch (/Users/hafisyusril/Project/final-project-backend/node_modules/router/lib/route.js:117:3)",
+  "path": "/api/admin/employees/2177732a-a617-4b7e-985e-0650db277d33/outlet",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-09-06 22:07:07] ERROR: PATCH /api/admin/employees/2177732a-a617-4b7e-985e-0650db277d33/outlet - Internal server error. Please try again later!  {
+  "name": "TypeError",
+  "stack": "TypeError: Cannot destructure property 'outletId' of 'req.body' as it is undefined.\n    at EmployeeController.<anonymous> (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/employee/employee.controller.ts:121:15)\n    at Generator.next (<anonymous>)\n    at /Users/hafisyusril/Project/final-project-backend/src/modules/admin/employee/employee.controller.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/employee/employee.controller.ts:4:12)\n    at EmployeeController.assignEmployeeToOutlet (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/employee/employee.controller.ts:118:7)\n    at Layer.handleRequest (/Users/hafisyusril/Project/final-project-backend/node_modules/router/lib/layer.js:152:17)\n    at next (/Users/hafisyusril/Project/final-project-backend/node_modules/router/lib/route.js:157:13)\n    at Function.<anonymous> (/Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:28:9)\n    at Generator.next (<anonymous>)",
+  "path": "/api/admin/employees/2177732a-a617-4b7e-985e-0650db277d33/outlet",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-09-06 22:08:18] ERROR: PATCH /api/admin/employees/2177732a-a617-4b7e-985e-0650db277d33/outlet - Internal server error. Please try again later!  {
+  "name": "TypeError",
+  "stack": "TypeError: Cannot destructure property 'outletId' of 'req.body' as it is undefined.\n    at EmployeeController.<anonymous> (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/employee/employee.controller.ts:121:15)\n    at Generator.next (<anonymous>)\n    at /Users/hafisyusril/Project/final-project-backend/src/modules/admin/employee/employee.controller.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/employee/employee.controller.ts:4:12)\n    at EmployeeController.assignEmployeeToOutlet (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/employee/employee.controller.ts:118:7)\n    at Layer.handleRequest (/Users/hafisyusril/Project/final-project-backend/node_modules/router/lib/layer.js:152:17)\n    at next (/Users/hafisyusril/Project/final-project-backend/node_modules/router/lib/route.js:157:13)\n    at Function.<anonymous> (/Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:28:9)\n    at Generator.next (<anonymous>)",
+  "path": "/api/admin/employees/2177732a-a617-4b7e-985e-0650db277d33/outlet",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-09-06 22:16:03] ERROR: PATCH /api/admin/employees/2177732a-a617-4b7e-985e-0650db277d33/outlet - Employee not found or cannot assign SUPER ADMIN  {
+  "name": "AppError",
+  "stack": "AppError: Employee not found or cannot assign SUPER ADMIN\n    at new AppError (/Users/hafisyusril/Project/final-project-backend/src/utils/app.error.ts:14:11)\n    at AssignmentService.<anonymous> (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/assignment/assignment.service.ts:17:13)\n    at Generator.next (<anonymous>)\n    at fulfilled (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/assignment/assignment.service.ts:5:58)",
+  "path": "/api/admin/employees/2177732a-a617-4b7e-985e-0650db277d33/outlet",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 404
+}
+[2025-09-08 12:06:22] ERROR: PATCH /api/admin/employees/a52a0363-dce7-4481-a32c-8705f91f69f9/outlet/unassign - jwt expired  {
+  "name": "TokenExpiredError",
+  "stack": "TokenExpiredError: jwt expired\n    at /Users/hafisyusril/Project/final-project-backend/node_modules/jsonwebtoken/verify.js:190:21\n    at getSecret (/Users/hafisyusril/Project/final-project-backend/node_modules/jsonwebtoken/verify.js:97:14)\n    at Object.module.exports [as verify] (/Users/hafisyusril/Project/final-project-backend/node_modules/jsonwebtoken/verify.js:101:10)\n    at /Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at /Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:4:12)\n    at verifyToken (/Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (/Users/hafisyusril/Project/final-project-backend/node_modules/router/lib/layer.js:152:17)",
+  "path": "/api/admin/employees/a52a0363-dce7-4481-a32c-8705f91f69f9/outlet/unassign",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-08 12:08:20] ERROR: GET /api/admin/outlets/85f64a29-b382-439a-8275-d5b98bda8c43/employees - jwt expired  {
+  "name": "TokenExpiredError",
+  "stack": "TokenExpiredError: jwt expired\n    at /Users/hafisyusril/Project/final-project-backend/node_modules/jsonwebtoken/verify.js:190:21\n    at getSecret (/Users/hafisyusril/Project/final-project-backend/node_modules/jsonwebtoken/verify.js:97:14)\n    at Object.module.exports [as verify] (/Users/hafisyusril/Project/final-project-backend/node_modules/jsonwebtoken/verify.js:101:10)\n    at /Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at /Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:4:12)\n    at verifyToken (/Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (/Users/hafisyusril/Project/final-project-backend/node_modules/router/lib/layer.js:152:17)",
+  "path": "/api/admin/outlets/85f64a29-b382-439a-8275-d5b98bda8c43/employees",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-08 12:38:35] ERROR: GET /api/admin/employees/00d6552e-6145-4405-bc5a-9b7ea753477c - token must be provided  {
+  "name": "AppError",
+  "stack": "AppError: token must be provided\n    at new AppError (/Users/hafisyusril/Project/final-project-backend/src/utils/app.error.ts:14:11)\n    at /Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:10:25\n    at Generator.next (<anonymous>)\n    at /Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:4:12)\n    at verifyToken (/Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (/Users/hafisyusril/Project/final-project-backend/node_modules/router/lib/layer.js:152:17)\n    at next (/Users/hafisyusril/Project/final-project-backend/node_modules/router/lib/route.js:157:13)\n    at Route.dispatch (/Users/hafisyusril/Project/final-project-backend/node_modules/router/lib/route.js:117:3)",
+  "path": "/api/admin/employees/00d6552e-6145-4405-bc5a-9b7ea753477c",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-09-08 12:58:23] WARN: 404 Not Found  {
+  "method": "POST",
+  "path": "/api/admin/outlets/2177732a-a617-4b7e-985e-0650db277d33/assign",
+  "ip": "::1"
+}
+[2025-09-08 12:58:50] WARN: 404 Not Found  {
+  "method": "POST",
+  "path": "/api/admin/outlets/2177732a-a617-4b7e-985e-0650db277d33/assign-employee",
+  "ip": "::1"
+}
+[2025-09-08 13:02:26] WARN: 404 Not Found  {
+  "method": "POST",
+  "path": "/api/admin/outlets/2177732a-a617-4b7e-985e-0650db277d33/assign-employee",
+  "ip": "::1"
+}
+[2025-09-08 13:07:14] WARN: 404 Not Found  {
+  "method": "POST",
+  "path": "/api/admin/outlets/2177732a-a617-4b7e-985e-0650db277d33/assign-employee",
+  "ip": "::1"
+}
+[2025-09-08 13:28:13] ERROR: PATCH /api/admin/employees/85f64a29-b382-439a-8275-d5b98bda8c43/outlet - jwt expired  {
+  "name": "TokenExpiredError",
+  "stack": "TokenExpiredError: jwt expired\n    at /Users/hafisyusril/Project/final-project-backend/node_modules/jsonwebtoken/verify.js:190:21\n    at getSecret (/Users/hafisyusril/Project/final-project-backend/node_modules/jsonwebtoken/verify.js:97:14)\n    at Object.module.exports [as verify] (/Users/hafisyusril/Project/final-project-backend/node_modules/jsonwebtoken/verify.js:101:10)\n    at /Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at /Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:4:12)\n    at verifyToken (/Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (/Users/hafisyusril/Project/final-project-backend/node_modules/router/lib/layer.js:152:17)",
+  "path": "/api/admin/employees/85f64a29-b382-439a-8275-d5b98bda8c43/outlet",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-08 13:28:36] ERROR: PATCH /api/admin/employees/85f64a29-b382-439a-8275-d5b98bda8c43/outlet - Employee not found or cannot assign SUPER ADMIN  {
+  "name": "AppError",
+  "stack": "AppError: Employee not found or cannot assign SUPER ADMIN\n    at new AppError (/Users/hafisyusril/Project/final-project-backend/src/utils/app.error.ts:14:11)\n    at AssignmentService.<anonymous> (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/assignment/assignment.service.ts:17:13)\n    at Generator.next (<anonymous>)\n    at fulfilled (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/assignment/assignment.service.ts:5:58)",
+  "path": "/api/admin/employees/85f64a29-b382-439a-8275-d5b98bda8c43/outlet",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 404
+}
+[2025-09-08 14:34:43] ERROR: PATCH /api/admin/outlets/2177732a-a617-4b7e-985e-0650db277d33/unassign-employees - token must be provided  {
+  "name": "AppError",
+  "stack": "AppError: token must be provided\n    at new AppError (/Users/hafisyusril/Project/final-project-backend/src/utils/app.error.ts:14:11)\n    at /Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:10:25\n    at Generator.next (<anonymous>)\n    at /Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:4:12)\n    at verifyToken (/Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (/Users/hafisyusril/Project/final-project-backend/node_modules/router/lib/layer.js:152:17)\n    at next (/Users/hafisyusril/Project/final-project-backend/node_modules/router/lib/route.js:157:13)\n    at Route.dispatch (/Users/hafisyusril/Project/final-project-backend/node_modules/router/lib/route.js:117:3)",
+  "path": "/api/admin/outlets/2177732a-a617-4b7e-985e-0650db277d33/unassign-employees",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-09-08 14:38:30] ERROR: PATCH /api/admin/outlets/2177732a-a617-4b7e-985e-0650db277d33/unassign-employees - Internal server error. Please try again later!  {
+  "name": "PrismaClientInitializationError",
+  "stack": "PrismaClientInitializationError: \nInvalid `prisma.employee.findFirst()` invocation in\n/Users/hafisyusril/Project/final-project-backend/src/modules/admin/assignment/assignment.service.ts:40:65\n\n  37 };\n  38 \n  39 unassignEmployeeFromOutlet = async (employeeId: string) => {\n→ 40   const employeeWithoutSuperAdminRole = await prisma.employee.findFirst(\nCan't reach database server at `aws-1-ap-southeast-1.pooler.supabase.com:6543`\n\nPlease make sure your database server is running at `aws-1-ap-southeast-1.pooler.supabase.com:6543`.\n    at ei.handleRequestError (/Users/hafisyusril/Project/final-project-backend/src/generated/prisma/runtime/library.js:124:7583)\n    at ei.handleAndLogRequestError (/Users/hafisyusril/Project/final-project-backend/src/generated/prisma/runtime/library.js:124:6608)\n    at ei.request (/Users/hafisyusril/Project/final-project-backend/src/generated/prisma/runtime/library.js:124:6315)\n    at async a (/Users/hafisyusril/Project/final-project-backend/src/generated/prisma/runtime/library.js:133:9551)",
+  "path": "/api/admin/outlets/2177732a-a617-4b7e-985e-0650db277d33/unassign-employees",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-09-08 14:39:25] ERROR: PATCH /api/admin/outlets/85f64a29-b382-439a-8275-d5b98bda8c43/unassign-employees - Internal server error. Please try again later!  {
+  "name": "PrismaClientInitializationError",
+  "stack": "PrismaClientInitializationError: \nInvalid `prisma.employee.findFirst()` invocation in\n/Users/hafisyusril/Project/final-project-backend/src/modules/admin/assignment/assignment.service.ts:40:65\n\n  37 };\n  38 \n  39 unassignEmployeeFromOutlet = async (employeeId: string) => {\n→ 40   const employeeWithoutSuperAdminRole = await prisma.employee.findFirst(\nCan't reach database server at `aws-1-ap-southeast-1.pooler.supabase.com:6543`\n\nPlease make sure your database server is running at `aws-1-ap-southeast-1.pooler.supabase.com:6543`.\n    at ei.handleRequestError (/Users/hafisyusril/Project/final-project-backend/src/generated/prisma/runtime/library.js:124:7583)\n    at ei.handleAndLogRequestError (/Users/hafisyusril/Project/final-project-backend/src/generated/prisma/runtime/library.js:124:6608)\n    at ei.request (/Users/hafisyusril/Project/final-project-backend/src/generated/prisma/runtime/library.js:124:6315)\n    at async a (/Users/hafisyusril/Project/final-project-backend/src/generated/prisma/runtime/library.js:133:9551)",
+  "path": "/api/admin/outlets/85f64a29-b382-439a-8275-d5b98bda8c43/unassign-employees",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-09-08 15:00:25] ERROR: PATCH /api/admin/outlets/85f64a29-b382-439a-8275-d5b98bda8c43/unassign-employees - Employee is not assigned to any outlet  {
+  "name": "AppError",
+  "stack": "AppError: Employee is not assigned to any outlet\n    at new AppError (/Users/hafisyusril/Project/final-project-backend/src/utils/app.error.ts:14:11)\n    at AssignmentService.<anonymous> (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/assignment/assignment.service.ts:57:11)\n    at Generator.next (<anonymous>)\n    at fulfilled (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/assignment/assignment.service.ts:5:58)",
+  "path": "/api/admin/outlets/85f64a29-b382-439a-8275-d5b98bda8c43/unassign-employees",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 400
+}
+[2025-09-08 15:07:34] ERROR: PATCH /api/admin/outlets/85f64a29-b382-439a-8275-d5b98bda8c43/unassign-employees - Employee is not assigned to any outlet  {
+  "name": "AppError",
+  "stack": "AppError: Employee is not assigned to any outlet\n    at new AppError (/Users/hafisyusril/Project/final-project-backend/src/utils/app.error.ts:14:11)\n    at AssignmentService.<anonymous> (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/assignment/assignment.service.ts:57:11)\n    at Generator.next (<anonymous>)\n    at fulfilled (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/assignment/assignment.service.ts:5:58)",
+  "path": "/api/admin/outlets/85f64a29-b382-439a-8275-d5b98bda8c43/unassign-employees",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 400
+}
+[2025-09-08 15:10:50] ERROR: PATCH /api/admin/outlets/85f64a29-b382-439a-8275-d5b98bda8c43/unassign-employees - Employee is not assigned to this outlet  {
+  "name": "AppError",
+  "stack": "AppError: Employee is not assigned to this outlet\n    at new AppError (/Users/hafisyusril/Project/final-project-backend/src/utils/app.error.ts:14:11)\n    at AssignmentService.<anonymous> (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/assignment/assignment.service.ts:61:11)\n    at Generator.next (<anonymous>)\n    at fulfilled (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/assignment/assignment.service.ts:5:58)",
+  "path": "/api/admin/outlets/85f64a29-b382-439a-8275-d5b98bda8c43/unassign-employees",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 400
+}
+[2025-09-08 15:11:08] ERROR: PATCH /api/admin/outlets/85f64a29-b382-439a-8275-d5b98bda8c43/unassign-employees - Employee is not assigned to this outlet  {
+  "name": "AppError",
+  "stack": "AppError: Employee is not assigned to this outlet\n    at new AppError (/Users/hafisyusril/Project/final-project-backend/src/utils/app.error.ts:14:11)\n    at AssignmentService.<anonymous> (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/assignment/assignment.service.ts:61:11)\n    at Generator.next (<anonymous>)\n    at fulfilled (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/assignment/assignment.service.ts:5:58)",
+  "path": "/api/admin/outlets/85f64a29-b382-439a-8275-d5b98bda8c43/unassign-employees",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 400
+}
+[2025-09-08 15:12:53] ERROR: PATCH /api/admin/outlets/2177732a-a617-4b7e-985e-0650db277d33/unassign-employees - Employee is not assigned to any outlet  {
+  "name": "AppError",
+  "stack": "AppError: Employee is not assigned to any outlet\n    at new AppError (/Users/hafisyusril/Project/final-project-backend/src/utils/app.error.ts:14:11)\n    at AssignmentService.<anonymous> (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/assignment/assignment.service.ts:57:11)\n    at Generator.next (<anonymous>)\n    at fulfilled (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/assignment/assignment.service.ts:5:58)",
+  "path": "/api/admin/outlets/2177732a-a617-4b7e-985e-0650db277d33/unassign-employees",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 400
+}
+[2025-09-08 15:14:22] ERROR: PATCH /api/admin/outlets/2177732a-a617-4b7e-985e-0650db277d33/unassign-employees - Employee worker1 is not assigned to any outlet  {
+  "name": "AppError",
+  "stack": "AppError: Employee worker1 is not assigned to any outlet\n    at new AppError (/Users/hafisyusril/Project/final-project-backend/src/utils/app.error.ts:14:11)\n    at AssignmentService.<anonymous> (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/assignment/assignment.service.ts:57:11)\n    at Generator.next (<anonymous>)\n    at fulfilled (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/assignment/assignment.service.ts:5:58)",
+  "path": "/api/admin/outlets/2177732a-a617-4b7e-985e-0650db277d33/unassign-employees",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 400
+}
+[2025-09-08 15:15:17] ERROR: PATCH /api/admin/outlets/2177732a-a617-4b7e-985e-0650db277d33/unassign-employees - Employee worker1 is not assigned to any outlet  {
+  "name": "AppError",
+  "stack": "AppError: Employee worker1 is not assigned to any outlet\n    at new AppError (/Users/hafisyusril/Project/final-project-backend/src/utils/app.error.ts:14:11)\n    at AssignmentService.<anonymous> (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/assignment/assignment.service.ts:57:11)\n    at Generator.next (<anonymous>)\n    at fulfilled (/Users/hafisyusril/Project/final-project-backend/src/modules/admin/assignment/assignment.service.ts:5:58)",
+  "path": "/api/admin/outlets/2177732a-a617-4b7e-985e-0650db277d33/unassign-employees",
+  "method": "PATCH",
+  "ip": "::1",
+  "statusCode": 400
+}
