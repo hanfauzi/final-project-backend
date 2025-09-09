@@ -49,7 +49,7 @@ export class GoogleService {
 
     if (mode === "LOGIN") {
       const payload = {
-        sub: customer.id,
+        id: customer.id,
         role: customer.role,
         email: customer.email,
       };

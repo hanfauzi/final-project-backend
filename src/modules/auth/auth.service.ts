@@ -222,7 +222,7 @@ export class AuthService {
       throw new AppError("Invalid email or password.", 401);
 
     const payload = {
-      sub: customer.id,
+      id: customer.id,
       role: customer.role,
       email: customer.email,
     };
