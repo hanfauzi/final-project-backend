@@ -33726,3 +33726,251 @@
   "ip": "::1",
   "statusCode": 401
 }
+[2025-09-06 10:31:12] ERROR: POST /api/auth/customer/reset-password - Internal server error. Please try again later!  {
+  "name": "PrismaClientInitializationError",
+  "stack": "PrismaClientInitializationError: \nInvalid `prisma.customer.findUnique()` invocation in\nC:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\auth\\auth.service.ts:242:44\n\n  239 const normalizedEmail = email.trim().toLowerCase();\n  240 if (!normalizedEmail) throw new AppError(\"Email is required!\", 400);\n  241 \n→ 242 const customer = await prisma.customer.findUnique(\nerror: Environment variable not found: DATABASE_URL.\n  -->  schema.prisma:8\n   | \n 7 |   provider  = \"postgresql\"\n 8 |   url       = env(\"DATABASE_URL\")\n   | \n\nValidation Error Count: 1\n    at ei.handleRequestError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:124:7583)\n    at ei.handleAndLogRequestError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:124:6608)\n    at ei.request (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:124:6315)\n    at async a (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:133:9551)",
+  "path": "/api/auth/customer/reset-password",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-09-06 10:32:50] ERROR: POST /api/auth/customer/reset-password - Internal server error. Please try again later!  {
+  "name": "PrismaClientInitializationError",
+  "stack": "PrismaClientInitializationError: \nInvalid `prisma.customer.findUnique()` invocation in\nC:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\auth\\auth.service.ts:242:44\n\n  239 const normalizedEmail = email.trim().toLowerCase();\n  240 if (!normalizedEmail) throw new AppError(\"Email is required!\", 400);\n  241 \n→ 242 const customer = await prisma.customer.findUnique(\nerror: Environment variable not found: DATABASE_URL.\n  -->  schema.prisma:8\n   | \n 7 |   provider  = \"postgresql\"\n 8 |   url       = env(\"DATABASE_URL\")\n   | \n\nValidation Error Count: 1\n    at ei.handleRequestError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:124:7583)\n    at ei.handleAndLogRequestError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:124:6608)\n    at ei.request (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:124:6315)\n    at async a (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:133:9551)",
+  "path": "/api/auth/customer/reset-password",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-09-06 10:34:26] ERROR: POST /api/auth/customer/reset-password - Internal server error. Please try again later!  {
+  "name": "PrismaClientInitializationError",
+  "stack": "PrismaClientInitializationError: \nInvalid `prisma.customer.findUnique()` invocation in\nC:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\auth\\auth.service.ts:242:44\n\n  239 const normalizedEmail = email.trim().toLowerCase();\n  240 if (!normalizedEmail) throw new AppError(\"Email is required!\", 400);\n  241 \n→ 242 const customer = await prisma.customer.findUnique(\nerror: Environment variable not found: DATABASE_URL.\n  -->  schema.prisma:8\n   | \n 7 |   provider  = \"postgresql\"\n 8 |   url       = env(\"DATABASE_URL\")\n   | \n\nValidation Error Count: 1\n    at ei.handleRequestError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:124:7583)\n    at ei.handleAndLogRequestError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:124:6608)\n    at ei.request (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:124:6315)\n    at async a (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:133:9551)",
+  "path": "/api/auth/customer/reset-password",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-09-06 10:36:31] ERROR: POST /api/auth/customer/reset-password - Internal server error. Please try again later!  {
+  "name": "PrismaClientInitializationError",
+  "stack": "PrismaClientInitializationError: \nInvalid `prisma.customer.findUnique()` invocation in\nC:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\auth\\auth.service.ts:242:44\n\n  239 const normalizedEmail = email.trim().toLowerCase();\n  240 if (!normalizedEmail) throw new AppError(\"Email is required!\", 400);\n  241 \n→ 242 const customer = await prisma.customer.findUnique(\nerror: Environment variable not found: DATABASE_URL.\n  -->  schema.prisma:8\n   | \n 7 |   provider  = \"postgresql\"\n 8 |   url       = env(\"DATABASE_URL\")\n   | \n\nValidation Error Count: 1\n    at ei.handleRequestError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:124:7583)\n    at ei.handleAndLogRequestError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:124:6608)\n    at ei.request (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:124:6315)\n    at async a (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:133:9551)",
+  "path": "/api/auth/customer/reset-password",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-09-06 10:36:32] ERROR: POST /api/auth/customer/reset-password - Internal server error. Please try again later!  {
+  "name": "PrismaClientInitializationError",
+  "stack": "PrismaClientInitializationError: \nInvalid `prisma.customer.findUnique()` invocation in\nC:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\auth\\auth.service.ts:242:44\n\n  239 const normalizedEmail = email.trim().toLowerCase();\n  240 if (!normalizedEmail) throw new AppError(\"Email is required!\", 400);\n  241 \n→ 242 const customer = await prisma.customer.findUnique(\nerror: Environment variable not found: DATABASE_URL.\n  -->  schema.prisma:8\n   | \n 7 |   provider  = \"postgresql\"\n 8 |   url       = env(\"DATABASE_URL\")\n   | \n\nValidation Error Count: 1\n    at ei.handleRequestError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:124:7583)\n    at ei.handleAndLogRequestError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:124:6608)\n    at ei.request (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:124:6315)\n    at async a (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:133:9551)",
+  "path": "/api/auth/customer/reset-password",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-09-06 12:23:13] ERROR: POST /api/auth/customer/login - Invalid email or password.  {
+  "name": "AppError",
+  "stack": "AppError: Invalid email or password.\n    at new AppError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\utils\\app.error.ts:14:11)\n    at AuthService.<anonymous> (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\auth\\auth.service.ts:222:13)\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\auth\\auth.service.ts:5:58)",
+  "path": "/api/auth/customer/login",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-06 12:33:30] ERROR: GET /api/profile/customer - jwt malformed  {
+  "name": "JsonWebTokenError",
+  "stack": "JsonWebTokenError: jwt malformed\n    at Object.module.exports [as verify] (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:70:17)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:4:12)\n    at verifyToken (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\router\\lib\\route.js:157:13)\n    at Route.dispatch (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\router\\lib\\route.js:117:3)",
+  "path": "/api/profile/customer",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-08 10:44:35] ERROR: GET /api/profile/customer - jwt expired  {
+  "name": "TokenExpiredError",
+  "stack": "TokenExpiredError: jwt expired\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:4:12)\n    at verifyToken (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\router\\lib\\layer.js:152:17)",
+  "path": "/api/profile/customer",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-08 10:48:50] ERROR: GET /api/profile/customer - jwt expired  {
+  "name": "TokenExpiredError",
+  "stack": "TokenExpiredError: jwt expired\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:4:12)\n    at verifyToken (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\router\\lib\\layer.js:152:17)",
+  "path": "/api/profile/customer",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-08 10:50:09] ERROR: GET /api/profile/customer - jwt expired  {
+  "name": "TokenExpiredError",
+  "stack": "TokenExpiredError: jwt expired\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:4:12)\n    at verifyToken (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\router\\lib\\layer.js:152:17)",
+  "path": "/api/profile/customer",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-08 10:50:11] ERROR: GET /api/profile/customer - jwt expired  {
+  "name": "TokenExpiredError",
+  "stack": "TokenExpiredError: jwt expired\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:4:12)\n    at verifyToken (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\router\\lib\\layer.js:152:17)",
+  "path": "/api/profile/customer",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-08 10:50:14] ERROR: GET /api/profile/customer - jwt expired  {
+  "name": "TokenExpiredError",
+  "stack": "TokenExpiredError: jwt expired\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:4:12)\n    at verifyToken (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\router\\lib\\layer.js:152:17)",
+  "path": "/api/profile/customer",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-08 10:50:15] ERROR: GET /api/profile/customer - jwt expired  {
+  "name": "TokenExpiredError",
+  "stack": "TokenExpiredError: jwt expired\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:4:12)\n    at verifyToken (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\router\\lib\\layer.js:152:17)",
+  "path": "/api/profile/customer",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-08 10:50:17] ERROR: GET /api/profile/customer - jwt expired  {
+  "name": "TokenExpiredError",
+  "stack": "TokenExpiredError: jwt expired\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:4:12)\n    at verifyToken (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\router\\lib\\layer.js:152:17)",
+  "path": "/api/profile/customer",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-08 12:49:34] ERROR: GET /api/address/ - jwt expired  {
+  "name": "TokenExpiredError",
+  "stack": "TokenExpiredError: jwt expired\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:4:12)\n    at verifyToken (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\router\\lib\\layer.js:152:17)",
+  "path": "/api/address/",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-08 12:49:43] ERROR: GET /api/address/ - jwt expired  {
+  "name": "TokenExpiredError",
+  "stack": "TokenExpiredError: jwt expired\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:4:12)\n    at verifyToken (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\router\\lib\\layer.js:152:17)",
+  "path": "/api/address/",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-08 12:49:45] ERROR: GET /api/address/ - jwt expired  {
+  "name": "TokenExpiredError",
+  "stack": "TokenExpiredError: jwt expired\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:4:12)\n    at verifyToken (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\router\\lib\\layer.js:152:17)",
+  "path": "/api/address/",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-08 12:49:48] ERROR: GET /api/address/ - jwt expired  {
+  "name": "TokenExpiredError",
+  "stack": "TokenExpiredError: jwt expired\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:4:12)\n    at verifyToken (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\router\\lib\\layer.js:152:17)",
+  "path": "/api/address/",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-08 12:49:49] ERROR: GET /api/address/ - jwt expired  {
+  "name": "TokenExpiredError",
+  "stack": "TokenExpiredError: jwt expired\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:4:12)\n    at verifyToken (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\router\\lib\\layer.js:152:17)",
+  "path": "/api/address/",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-08 12:49:51] ERROR: GET /api/address/ - jwt expired  {
+  "name": "TokenExpiredError",
+  "stack": "TokenExpiredError: jwt expired\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:4:12)\n    at verifyToken (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\router\\lib\\layer.js:152:17)",
+  "path": "/api/address/",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-08 12:50:00] ERROR: GET /api/address/ - jwt expired  {
+  "name": "TokenExpiredError",
+  "stack": "TokenExpiredError: jwt expired\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:4:12)\n    at verifyToken (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\router\\lib\\layer.js:152:17)",
+  "path": "/api/address/",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-08 12:50:06] ERROR: GET /api/address/ - jwt expired  {
+  "name": "TokenExpiredError",
+  "stack": "TokenExpiredError: jwt expired\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:4:12)\n    at verifyToken (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\router\\lib\\layer.js:152:17)",
+  "path": "/api/address/",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-08 12:50:07] ERROR: GET /api/address/ - jwt expired  {
+  "name": "TokenExpiredError",
+  "stack": "TokenExpiredError: jwt expired\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:4:12)\n    at verifyToken (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\router\\lib\\layer.js:152:17)",
+  "path": "/api/address/",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-08 12:50:09] ERROR: GET /api/address/ - jwt expired  {
+  "name": "TokenExpiredError",
+  "stack": "TokenExpiredError: jwt expired\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:4:12)\n    at verifyToken (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\router\\lib\\layer.js:152:17)",
+  "path": "/api/address/",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-08 14:30:48] ERROR: GET /api/profile/customer - jwt expired  {
+  "name": "TokenExpiredError",
+  "stack": "TokenExpiredError: jwt expired\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:4:12)\n    at verifyToken (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\router\\lib\\layer.js:152:17)",
+  "path": "/api/profile/customer",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-08 14:30:49] ERROR: GET /api/profile/customer - jwt expired  {
+  "name": "TokenExpiredError",
+  "stack": "TokenExpiredError: jwt expired\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:4:12)\n    at verifyToken (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\router\\lib\\layer.js:152:17)",
+  "path": "/api/profile/customer",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-08 14:30:51] ERROR: GET /api/profile/customer - jwt expired  {
+  "name": "TokenExpiredError",
+  "stack": "TokenExpiredError: jwt expired\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:4:12)\n    at verifyToken (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\router\\lib\\layer.js:152:17)",
+  "path": "/api/profile/customer",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-08 14:30:55] ERROR: GET /api/profile/customer - jwt expired  {
+  "name": "TokenExpiredError",
+  "stack": "TokenExpiredError: jwt expired\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:4:12)\n    at verifyToken (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\router\\lib\\layer.js:152:17)",
+  "path": "/api/profile/customer",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-08 14:34:12] ERROR: GET /api/profile/customer - jwt expired  {
+  "name": "TokenExpiredError",
+  "stack": "TokenExpiredError: jwt expired\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:4:12)\n    at verifyToken (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\router\\lib\\layer.js:152:17)",
+  "path": "/api/profile/customer",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-08 14:34:13] ERROR: GET /api/profile/customer - jwt expired  {
+  "name": "TokenExpiredError",
+  "stack": "TokenExpiredError: jwt expired\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:4:12)\n    at verifyToken (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\router\\lib\\layer.js:152:17)",
+  "path": "/api/profile/customer",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-08 16:53:34] ERROR: POST /api/address/create - postalCode harus 5 digit  {
+  "name": "AppError",
+  "stack": "AppError: postalCode harus 5 digit\n    at new AppError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\utils\\app.error.ts:14:11)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\validate.middleware.ts:18:13\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\validate.middleware.ts:5:58)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "path": "/api/address/create",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 400
+}

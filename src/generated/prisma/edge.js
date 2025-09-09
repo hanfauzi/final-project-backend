@@ -469,7 +469,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/hafisyusril/Project/final-project-backend/src/generated/prisma",
+      "value": "C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -478,16 +478,16 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "darwin-arm64",
+        "value": "windows",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/hafisyusril/Project/final-project-backend/prisma/schema.prisma",
+    "sourceFilePath": "C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../../../prisma",
