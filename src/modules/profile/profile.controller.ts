@@ -11,7 +11,7 @@ export class ProfileController {
   }
 
   getCustomerProfileById = async (req: Request, res: Response) => {
-    const id = res.locals.payload.sub;
+    const id = res.locals.payload.id;
     const result = await this.profileService.getCustomerProfileById(id);
 
     res.status(200).json(result);
@@ -19,7 +19,7 @@ export class ProfileController {
 
   customerProfileUpdate = async (req: Request, res: Response) => {
     const file = req.file;
-    const id = res.locals.payload.sub;
+    const id = res.locals.payload.id;
 
     let photoUrl;
 
@@ -41,7 +41,7 @@ export class ProfileController {
   };
 
   customerEmailUpdate = async (req: Request, res: Response) => {
-    const id = res.locals.payload.sub;
+    const id = res.locals.payload.id;
     const {email } = req.body
     const result = await this.profileService.customerEmailUpdate({
       id,
