@@ -34297,3 +34297,43 @@
   "ip": "::1",
   "statusCode": 500
 }
+[2025-09-11 13:02:37] ERROR: GET /api/admin/laundry-items/ - secret or public key must be provided  {
+  "name": "JsonWebTokenError",
+  "stack": "JsonWebTokenError: secret or public key must be provided\n    at /Users/hafisyusril/Project/final-project-backend/node_modules/jsonwebtoken/verify.js:113:19\n    at getSecret (/Users/hafisyusril/Project/final-project-backend/node_modules/jsonwebtoken/verify.js:97:14)\n    at Object.module.exports [as verify] (/Users/hafisyusril/Project/final-project-backend/node_modules/jsonwebtoken/verify.js:101:10)\n    at /Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:11:33\n    at Generator.next (<anonymous>)\n    at /Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:4:12)\n    at verifyToken (/Users/hafisyusril/Project/final-project-backend/src/middlewares/jwt-verify.middleware.ts:20:16)\n    at Layer.handleRequest (/Users/hafisyusril/Project/final-project-backend/node_modules/router/lib/layer.js:152:17)",
+  "path": "/api/admin/laundry-items/",
+  "method": "GET",
+  "ip": "::1",
+  "statusCode": 401
+}
+[2025-09-11 13:03:04] ERROR: POST /api/auth/super-admin/login - Internal server error. Please try again later!  {
+  "name": "PrismaClientInitializationError",
+  "stack": "PrismaClientInitializationError: \nInvalid `prisma.employee.findUnique()` invocation in\n/Users/hafisyusril/Project/final-project-backend/src/modules/auth/auth-admin.service.ts:18:46\n\n  15 if (!normalizedEmail) throw new AppError(\"Email is required!\", 400);\n  16 if (!password) throw new AppError(\"Password is required!\", 400);\n  17 \n→ 18 const superAdmin = await prisma.employee.findUnique(\nerror: Environment variable not found: DATABASE_URL.\n  -->  schema.prisma:8\n   | \n 7 |   provider  = \"postgresql\"\n 8 |   url       = env(\"DATABASE_URL\")\n   | \n\nValidation Error Count: 1\n    at ei.handleRequestError (/Users/hafisyusril/Project/final-project-backend/src/generated/prisma/runtime/library.js:124:7583)\n    at ei.handleAndLogRequestError (/Users/hafisyusril/Project/final-project-backend/src/generated/prisma/runtime/library.js:124:6608)\n    at ei.request (/Users/hafisyusril/Project/final-project-backend/src/generated/prisma/runtime/library.js:124:6315)\n    at async a (/Users/hafisyusril/Project/final-project-backend/src/generated/prisma/runtime/library.js:133:9551)",
+  "path": "/api/auth/super-admin/login",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-09-11 13:03:32] ERROR: POST /api/auth/super-admin/login - Internal server error. Please try again later!  {
+  "name": "PrismaClientInitializationError",
+  "stack": "PrismaClientInitializationError: \nInvalid `prisma.employee.findUnique()` invocation in\n/Users/hafisyusril/Project/final-project-backend/src/modules/auth/auth-admin.service.ts:18:46\n\n  15 if (!normalizedEmail) throw new AppError(\"Email is required!\", 400);\n  16 if (!password) throw new AppError(\"Password is required!\", 400);\n  17 \n→ 18 const superAdmin = await prisma.employee.findUnique(\nerror: Environment variable not found: DATABASE_URL.\n  -->  schema.prisma:8\n   | \n 7 |   provider  = \"postgresql\"\n 8 |   url       = env(\"DATABASE_URL\")\n   | \n\nValidation Error Count: 1\n    at ei.handleRequestError (/Users/hafisyusril/Project/final-project-backend/src/generated/prisma/runtime/library.js:124:7583)\n    at ei.handleAndLogRequestError (/Users/hafisyusril/Project/final-project-backend/src/generated/prisma/runtime/library.js:124:6608)\n    at ei.request (/Users/hafisyusril/Project/final-project-backend/src/generated/prisma/runtime/library.js:124:6315)\n    at async a (/Users/hafisyusril/Project/final-project-backend/src/generated/prisma/runtime/library.js:133:9551)",
+  "path": "/api/auth/super-admin/login",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-09-11 13:03:57] ERROR: POST /api/auth/super-admin/login - Internal server error. Please try again later!  {
+  "name": "PrismaClientInitializationError",
+  "stack": "PrismaClientInitializationError: \nInvalid `prisma.employee.findUnique()` invocation in\n/Users/hafisyusril/Project/final-project-backend/src/modules/auth/auth-admin.service.ts:18:46\n\n  15 if (!normalizedEmail) throw new AppError(\"Email is required!\", 400);\n  16 if (!password) throw new AppError(\"Password is required!\", 400);\n  17 \n→ 18 const superAdmin = await prisma.employee.findUnique(\nerror: Environment variable not found: DATABASE_URL.\n  -->  schema.prisma:8\n   | \n 7 |   provider  = \"postgresql\"\n 8 |   url       = env(\"DATABASE_URL\")\n   | \n\nValidation Error Count: 1\n    at ei.handleRequestError (/Users/hafisyusril/Project/final-project-backend/src/generated/prisma/runtime/library.js:124:7583)\n    at ei.handleAndLogRequestError (/Users/hafisyusril/Project/final-project-backend/src/generated/prisma/runtime/library.js:124:6608)\n    at ei.request (/Users/hafisyusril/Project/final-project-backend/src/generated/prisma/runtime/library.js:124:6315)\n    at async a (/Users/hafisyusril/Project/final-project-backend/src/generated/prisma/runtime/library.js:133:9551)",
+  "path": "/api/auth/super-admin/login",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-09-11 13:05:03] ERROR: POST /api/auth/super-admin/login - Internal server error. Please try again later!  {
+  "name": "PrismaClientInitializationError",
+  "stack": "PrismaClientInitializationError: \nInvalid `prisma.employee.findUnique()` invocation in\n/Users/hafisyusril/Project/final-project-backend/src/modules/auth/auth-admin.service.ts:18:46\n\n  15 if (!normalizedEmail) throw new AppError(\"Email is required!\", 400);\n  16 if (!password) throw new AppError(\"Password is required!\", 400);\n  17 \n→ 18 const superAdmin = await prisma.employee.findUnique(\nerror: Environment variable not found: DATABASE_URL.\n  -->  schema.prisma:8\n   | \n 7 |   provider  = \"postgresql\"\n 8 |   url       = env(\"DATABASE_URL\")\n   | \n\nValidation Error Count: 1\n    at ei.handleRequestError (/Users/hafisyusril/Project/final-project-backend/src/generated/prisma/runtime/library.js:124:7583)\n    at ei.handleAndLogRequestError (/Users/hafisyusril/Project/final-project-backend/src/generated/prisma/runtime/library.js:124:6608)\n    at ei.request (/Users/hafisyusril/Project/final-project-backend/src/generated/prisma/runtime/library.js:124:6315)\n    at async a (/Users/hafisyusril/Project/final-project-backend/src/generated/prisma/runtime/library.js:133:9551)",
+  "path": "/api/auth/super-admin/login",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 500
+}
