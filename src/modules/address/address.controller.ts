@@ -7,7 +7,7 @@ export class AddressController {
     this.addressService = new AddressService();
   }
   createCustomerAddress = async (req: Request, res: Response) => {
-    const customerId = res.locals.payload.sub;
+    const customerId = res.locals.payload.id;
     const body = req.body;
     const result = await this.addressService.createCustomerAddress({
       customerId,
@@ -17,13 +17,13 @@ export class AddressController {
   };
 
   getCustomerAddresses = async (req: Request, res: Response) => {
-    const customerId = res.locals.payload.sub;
+    const customerId = res.locals.payload.id;
     const result = await this.addressService.getCustomerAddresses(customerId);
     res.status(200).json(result);
   };
 
   getCustomerAddressById = async (req: Request, res: Response) => {
-    const customerId = res.locals.payload.sub;
+    const customerId = res.locals.payload.id;
     const { id } = req.params;
     const result = await this.addressService.getCustomerAddressById(
       customerId,
@@ -33,7 +33,7 @@ export class AddressController {
   };
 
   editCustomerAddressById = async (req: Request, res: Response) => {
-    const customerId = res.locals.payload.sub;
+    const customerId = res.locals.payload.id;
     const { id } = req.params;
     const body = req.body;
     const result = await this.addressService.editCustomerAddressById(
@@ -45,24 +45,24 @@ export class AddressController {
   };
 
   deleteCustomerAddress = async (req: Request, res: Response) => {
-    const customerId = res.locals.payload.sub;
+    const customerId = res.locals.payload.id;
     const { id } = req.params;
 
     const result = await this.addressService.deleteCustomerAddress(
       customerId,
       id
     );
-    res.status(200).json(result)
+    res.status(200).json(result);
   };
 
-    setPrimaryCustomerAddress = async (req: Request, res: Response) => {
-    const customerId = res.locals.payload.sub;
+  setPrimaryCustomerAddress = async (req: Request, res: Response) => {
+    const customerId = res.locals.payload.id;
     const { id } = req.params;
 
     const result = await this.addressService.setPrimaryCustomerAddress(
       customerId,
       id
     );
-    res.status(200).json(result)
+    res.status(200).json(result);
   };
 }

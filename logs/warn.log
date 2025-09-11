@@ -34201,3 +34201,99 @@
   "ip": "::1",
   "statusCode": 400
 }
+[2025-09-10 10:58:18] ERROR: POST /api/order/create - customerId should not be empty,customerId must be a string  {
+  "name": "AppError",
+  "stack": "AppError: customerId should not be empty,customerId must be a string\n    at new AppError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\utils\\app.error.ts:14:11)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\validate.middleware.ts:18:13\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\validate.middleware.ts:5:58)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "path": "/api/order/create",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 400
+}
+[2025-09-10 10:58:59] ERROR: POST /api/order/create - Internal server error. Please try again later!  {
+  "name": "Error",
+  "stack": "Error: No outlet covers this address\n    at OrderService.<anonymous> (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\order\\order.service.ts:48:24)\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\order\\order.service.ts:5:58)",
+  "path": "/api/order/create",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-09-10 10:59:18] ERROR: POST /api/order/create - Internal server error. Please try again later!  {
+  "name": "Error",
+  "stack": "Error: No outlet covers this address\n    at OrderService.<anonymous> (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\order\\order.service.ts:48:24)\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\order\\order.service.ts:5:58)",
+  "path": "/api/order/create",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-09-10 10:59:56] ERROR: POST /api/order/create - Internal server error. Please try again later!  {
+  "name": "Error",
+  "stack": "Error: No outlet covers this address\n    at OrderService.<anonymous> (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\order\\order.service.ts:48:24)\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\order\\order.service.ts:5:58)",
+  "path": "/api/order/create",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-09-10 11:00:57] ERROR: POST /api/order/create - No outlet covers this address  {
+  "name": "AppError",
+  "stack": "AppError: No outlet covers this address\n    at new AppError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\utils\\app.error.ts:14:11)\n    at OrderService.<anonymous> (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\order\\order.service.ts:49:13)\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\order\\order.service.ts:5:58)",
+  "path": "/api/order/create",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 400
+}
+[2025-09-10 11:08:02] ERROR: POST /api/address/create - Internal server error. Please try again later!  {
+  "name": "SyntaxError",
+  "stack": "SyntaxError: Expected double-quoted property name in JSON at position 195 (line 7 column 18)\n    at JSON.parse (<anonymous>)\n    at parse (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\body-parser\\lib\\types\\json.js:77:19)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\body-parser\\lib\\read.js:123:18\n    at AsyncResource.runInAsyncScope (node:async_hooks:214:14)\n    at invokeCallback (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\raw-body\\index.js:238:16)\n    at done (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\raw-body\\index.js:227:7)\n    at IncomingMessage.onEnd (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\raw-body\\index.js:287:7)\n    at IncomingMessage.emit (node:events:518:28)\n    at IncomingMessage.emit (node:domain:489:12)\n    at endReadableNT (node:internal/streams/readable:1698:12)",
+  "path": "/api/address/create",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 400
+}
+[2025-09-10 11:08:07] ERROR: POST /api/address/create - Internal server error. Please try again later!  {
+  "name": "SyntaxError",
+  "stack": "SyntaxError: Expected double-quoted property name in JSON at position 195 (line 7 column 18)\n    at JSON.parse (<anonymous>)\n    at parse (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\body-parser\\lib\\types\\json.js:77:19)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\body-parser\\lib\\read.js:123:18\n    at AsyncResource.runInAsyncScope (node:async_hooks:214:14)\n    at invokeCallback (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\raw-body\\index.js:238:16)\n    at done (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\raw-body\\index.js:227:7)\n    at IncomingMessage.onEnd (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\raw-body\\index.js:287:7)\n    at IncomingMessage.emit (node:events:518:28)\n    at IncomingMessage.emit (node:domain:489:12)\n    at endReadableNT (node:internal/streams/readable:1698:12)",
+  "path": "/api/address/create",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 400
+}
+[2025-09-10 11:08:52] ERROR: POST /api/address/create - Internal server error. Please try again later!  {
+  "name": "SyntaxError",
+  "stack": "SyntaxError: Expected double-quoted property name in JSON at position 195 (line 7 column 18)\n    at JSON.parse (<anonymous>)\n    at parse (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\body-parser\\lib\\types\\json.js:77:19)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\body-parser\\lib\\read.js:123:18\n    at AsyncResource.runInAsyncScope (node:async_hooks:214:14)\n    at invokeCallback (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\raw-body\\index.js:238:16)\n    at done (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\raw-body\\index.js:227:7)\n    at IncomingMessage.onEnd (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\raw-body\\index.js:287:7)\n    at IncomingMessage.emit (node:events:518:28)\n    at IncomingMessage.emit (node:domain:489:12)\n    at endReadableNT (node:internal/streams/readable:1698:12)",
+  "path": "/api/address/create",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 400
+}
+[2025-09-10 11:09:21] ERROR: POST /api/address/create - Internal server error. Please try again later!  {
+  "name": "SyntaxError",
+  "stack": "SyntaxError: Expected double-quoted property name in JSON at position 195 (line 7 column 18)\n    at JSON.parse (<anonymous>)\n    at parse (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\body-parser\\lib\\types\\json.js:77:19)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\body-parser\\lib\\read.js:123:18\n    at AsyncResource.runInAsyncScope (node:async_hooks:214:14)\n    at invokeCallback (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\raw-body\\index.js:238:16)\n    at done (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\raw-body\\index.js:227:7)\n    at IncomingMessage.onEnd (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\node_modules\\raw-body\\index.js:287:7)\n    at IncomingMessage.emit (node:events:518:28)\n    at IncomingMessage.emit (node:domain:489:12)\n    at endReadableNT (node:internal/streams/readable:1698:12)",
+  "path": "/api/address/create",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 400
+}
+[2025-09-10 11:09:59] ERROR: POST /api/address/create - latitude must not be greater than 90,latitude must not be less than -90,latitude must be a number conforming to the specified constraints, longitude must not be greater than 180,longitude must not be less than -180,longitude must be a number conforming to the specified constraints  {
+  "name": "AppError",
+  "stack": "AppError: latitude must not be greater than 90,latitude must not be less than -90,latitude must be a number conforming to the specified constraints, longitude must not be greater than 180,longitude must not be less than -180,longitude must be a number conforming to the specified constraints\n    at new AppError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\utils\\app.error.ts:14:11)\n    at C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\validate.middleware.ts:18:13\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\middlewares\\validate.middleware.ts:5:58)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "path": "/api/address/create",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 400
+}
+[2025-09-10 11:12:11] ERROR: POST /api/address/create - Internal server error. Please try again later!  {
+  "name": "PrismaClientValidationError",
+  "stack": "PrismaClientValidationError: \nInvalid `tx.customer.findUnique()` invocation in\nC:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\address\\address.service.ts:23:42\n\n  20   phoneNumber,\n  21 }: CreateCustomerAddressDTO & { customerId: string }) => {\n  22   const created = await prisma.$transaction(async (tx) => {\n→ 23     const customer = await tx.customer.findUnique({\n           where: {\n             id: undefined,\n         ?   email?: String,\n         ?   AND?: CustomerWhereInput | CustomerWhereInput[],\n         ?   OR?: CustomerWhereInput[],\n         ?   NOT?: CustomerWhereInput | CustomerWhereInput[],\n         ?   role?: EnumRoleFilter | Role,\n         ?   name?: StringNullableFilter | String | Null,\n         ?   password?: StringNullableFilter | String | Null,\n         ?   phoneNumber?: StringNullableFilter | String | Null,\n         ?   photoUrl?: StringNullableFilter | String | Null,\n         ?   isVerified?: BoolFilter | Boolean,\n         ?   selectProvider?: EnumOAuthProviderNullableFilter | OAuthProvider | Null,\n         ?   resetPasswordToken?: StringNullableFilter | String | Null,\n         ?   resetPasswordTokenExpiresAt?: DateTimeNullableFilter | DateTime | Null,\n         ?   verifyToken?: StringNullableFilter | String | Null,\n         ?   verifyTokenExpiresAt?: DateTimeNullableFilter | DateTime | Null,\n         ?   pendingEmail?: StringNullableFilter | String | Null,\n         ?   pendingEmailToken?: StringNullableFilter | String | Null,\n         ?   pendingEmailTokenExpiresAt?: DateTimeNullableFilter | DateTime | Null,\n         ?   createdAt?: DateTimeFilter | DateTime,\n         ?   updatedAt?: DateTimeFilter | DateTime,\n         ?   deletedAt?: DateTimeNullableFilter | DateTime | Null,\n         ?   customerAddress?: CustomerAddressListRelationFilter,\n         ?   orderHeader?: OrderHeaderListRelationFilter\n           },\n           select: {\n             id: true\n           }\n         })\n\nArgument `where` of type CustomerWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.\n    at _n (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:32:1363)\n    at ei.handleRequestError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:124:6926)\n    at ei.handleAndLogRequestError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:124:6608)\n    at ei.request (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:124:6315)\n    at async a (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:133:9551)",
+  "path": "/api/address/create",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 500
+}
+[2025-09-10 11:12:58] ERROR: POST /api/address/create - Internal server error. Please try again later!  {
+  "name": "PrismaClientValidationError",
+  "stack": "PrismaClientValidationError: \nInvalid `tx.customer.findUnique()` invocation in\nC:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\modules\\address\\address.service.ts:23:42\n\n  20   phoneNumber,\n  21 }: CreateCustomerAddressDTO & { customerId: string }) => {\n  22   const created = await prisma.$transaction(async (tx) => {\n→ 23     const customer = await tx.customer.findUnique({\n           where: {\n             id: undefined,\n         ?   email?: String,\n         ?   AND?: CustomerWhereInput | CustomerWhereInput[],\n         ?   OR?: CustomerWhereInput[],\n         ?   NOT?: CustomerWhereInput | CustomerWhereInput[],\n         ?   role?: EnumRoleFilter | Role,\n         ?   name?: StringNullableFilter | String | Null,\n         ?   password?: StringNullableFilter | String | Null,\n         ?   phoneNumber?: StringNullableFilter | String | Null,\n         ?   photoUrl?: StringNullableFilter | String | Null,\n         ?   isVerified?: BoolFilter | Boolean,\n         ?   selectProvider?: EnumOAuthProviderNullableFilter | OAuthProvider | Null,\n         ?   resetPasswordToken?: StringNullableFilter | String | Null,\n         ?   resetPasswordTokenExpiresAt?: DateTimeNullableFilter | DateTime | Null,\n         ?   verifyToken?: StringNullableFilter | String | Null,\n         ?   verifyTokenExpiresAt?: DateTimeNullableFilter | DateTime | Null,\n         ?   pendingEmail?: StringNullableFilter | String | Null,\n         ?   pendingEmailToken?: StringNullableFilter | String | Null,\n         ?   pendingEmailTokenExpiresAt?: DateTimeNullableFilter | DateTime | Null,\n         ?   createdAt?: DateTimeFilter | DateTime,\n         ?   updatedAt?: DateTimeFilter | DateTime,\n         ?   deletedAt?: DateTimeNullableFilter | DateTime | Null,\n         ?   customerAddress?: CustomerAddressListRelationFilter,\n         ?   orderHeader?: OrderHeaderListRelationFilter\n           },\n           select: {\n             id: true\n           }\n         })\n\nArgument `where` of type CustomerWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.\n    at _n (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:32:1363)\n    at ei.handleRequestError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:124:6926)\n    at ei.handleAndLogRequestError (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:124:6608)\n    at ei.request (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:124:6315)\n    at async a (C:\\Hanif (Penting)\\PURWADHIKA\\final-project\\final-project-backend\\src\\generated\\prisma\\runtime\\library.js:133:9551)",
+  "path": "/api/address/create",
+  "method": "POST",
+  "ip": "::1",
+  "statusCode": 500
+}
