@@ -1,5 +1,0 @@
-[2025-09-05 16:01:37] WARN: 404 Not Found  {
-  "method": "POST",
-  "path": "/api/auth/super-admin/login",
-  "ip": "::1"
-}
