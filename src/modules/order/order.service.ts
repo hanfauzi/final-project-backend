@@ -68,4 +68,30 @@ export class OrderService {
       },
     };
   };
+
+  getCustomerOrders = async (customerId: string) => {
+    const orders = await prisma.orderHeader.findMany({
+      where: { customerId },
+      orderBy: { createdAt: "desc" },
+    });
+
+    return orders;
+  };
+
+  getCustomerOrderById = async (customerId: string, id: string) => {
+    const order = await prisma.orderHeader.findFirst({
+      where: { id, customerId },
+      select: {
+        id: true,
+        outletId: true,
+        status: true,
+        notes: true,
+        estHours: true,
+        createdAt: true,
+        updatedAt: true,
+        outlets: { select: { name: true } },
+      },
+    });
+    return order;
+  };
 }

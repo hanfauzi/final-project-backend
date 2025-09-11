@@ -28,6 +28,20 @@ export class OrderRouter {
       validateBody(PickUpOrderDTO),
       this.orderController.createPickUpOrderRequest
     );
+
+    this.router.get(
+      "/",
+      JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["CUSTOMER"]),
+      this.orderController.getCustomerOrders
+    );
+
+    this.router.get(
+      "/:id",
+      JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["CUSTOMER"]),
+      this.orderController.getCustomerOrderById
+    );
   };
 
   getRouter = () => {
