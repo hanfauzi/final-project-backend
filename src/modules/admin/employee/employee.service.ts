@@ -39,8 +39,8 @@ export class EmployeeService {
         phoneNumber: true,
         address: true,
         photoUrl: true,
-        outlets: true,
-        shifts: true,
+        outlet: true,
+        shift: true,
       },
     });
     if (!employee) {

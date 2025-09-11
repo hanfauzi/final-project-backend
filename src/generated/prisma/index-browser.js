@@ -196,7 +196,7 @@ exports.Prisma.WorkStationScalarFieldEnum = {
   deletedAt: 'deletedAt'
 };
 
-exports.Prisma.EmployeeTaskScalarFieldEnum = {
+exports.Prisma.WorkerTaskScalarFieldEnum = {
   id: 'id',
   employeeId: 'employeeId',
   orderHeaderId: 'orderHeaderId',
@@ -308,7 +308,7 @@ exports.Prisma.ServiceScalarFieldEnum = {
   unit: 'unit',
   basePrice: 'basePrice',
   minQty: 'minQty',
-  etaHours: 'etaHours',
+  estHours: 'estHours',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
@@ -321,8 +321,6 @@ exports.Prisma.OrderHeaderScalarFieldEnum = {
   outletId: 'outletId',
   status: 'status',
   notes: 'notes',
-  pickupAt: 'pickupAt',
-  deliverAt: 'deliverAt',
   estHours: 'estHours',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -337,6 +335,24 @@ exports.Prisma.OrderItemScalarFieldEnum = {
   unitPrice: 'unitPrice',
   subTotal: 'subTotal',
   note: 'note',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.OrderItemLaundryScalarFieldEnum = {
+  id: 'id',
+  orderItemId: 'orderItemId',
+  laundryItemId: 'laundryItemId',
+  qty: 'qty',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.LaundryItemScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
@@ -474,7 +490,7 @@ exports.Prisma.ModelName = {
   Employee: 'Employee',
   Shift: 'Shift',
   WorkStation: 'WorkStation',
-  EmployeeTask: 'EmployeeTask',
+  workerTask: 'workerTask',
   PickUpTask: 'PickUpTask',
   DeliveryTask: 'DeliveryTask',
   Attendance: 'Attendance',
@@ -484,6 +500,8 @@ exports.Prisma.ModelName = {
   Service: 'Service',
   OrderHeader: 'OrderHeader',
   OrderItem: 'OrderItem',
+  OrderItemLaundry: 'OrderItemLaundry',
+  LaundryItem: 'LaundryItem',
   Payment: 'Payment'
 };
 
