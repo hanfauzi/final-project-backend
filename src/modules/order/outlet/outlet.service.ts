@@ -1,6 +1,6 @@
-import { AppError } from "../../utils/app.error";
+import { AppError } from "../../../utils/app.error";
 import { DistanceService } from "../distance/distance.service";
-import prisma from "../prisma/prisma.service";
+import prisma from "../../prisma/prisma.service";
 
 export class OutletService {
   private distanceService: DistanceService;

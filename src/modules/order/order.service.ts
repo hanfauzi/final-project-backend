@@ -1,4 +1,4 @@
-import { OutletService } from "../outlet/outlet.service";
+import { OutletService } from "./outlet/outlet.service";
 import prisma from "../prisma/prisma.service";
 import { PickUpOrderDTO } from "./dto/pickup-order.dto";
 
