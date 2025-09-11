@@ -435,7 +435,7 @@ exports.PickupStatus = exports.$Enums.PickupStatus = {
   RECEIVED_BY_OUTLET: 'RECEIVED_BY_OUTLET'
 };
 
-exports.DeilveryStatus = exports.$Enums.DeilveryStatus = {
+exports.DeliveryStatus = exports.$Enums.DeliveryStatus = {
   NOT_READY_TO_DELIVER: 'NOT_READY_TO_DELIVER',
   WAITING_FOR_DRIVER: 'WAITING_FOR_DRIVER',
   ON_THE_WAY_TO_OUTLET: 'ON_THE_WAY_TO_OUTLET',

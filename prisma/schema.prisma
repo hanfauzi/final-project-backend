@@ -116,14 +116,18 @@ enum PickupStatus {
   ON_THE_WAY_TO_CUSTOMER
   ON_THE_WAY_TO_OUTLET
   RECEIVED_BY_OUTLET
+
+  @@map("pickup_status")
 }
 
-enum DeilveryStatus {
+enum DeliveryStatus {
   NOT_READY_TO_DELIVER
   WAITING_FOR_DRIVER
   ON_THE_WAY_TO_OUTLET
   ON_THE_WAY_TO_CUSTOMER
   RECEIVED_BY_CUSTOMER
+
+  @@map("delivery_status")
 }
 
 model Customer {
@@ -305,7 +309,7 @@ model DeliveryTask {
   customerAddressId String         @map("customer_address_id")
   assignedByAdminId String         @map("assigned_by_admin_id")
   orderHeaderId     String         @map("order_header_id")
-  status            DeilveryStatus
+  status            DeliveryStatus
   distance          Int
   price             Int
 
@@ -507,7 +511,7 @@ model Payment {
   updatedAt     DateTime      @updatedAt @map("updated_at")
   deletedAt     DateTime?     @map("deleted_at")
 
-  orderheader OrderHeader @relation(fields: [orderHeaderId], references: [id])
+  orderHeader OrderHeader @relation(fields: [orderHeaderId], references: [id])
 
   @@map("payments")
 }

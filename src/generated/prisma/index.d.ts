@@ -229,7 +229,7 @@ export const PickupStatus: {
 export type PickupStatus = (typeof PickupStatus)[keyof typeof PickupStatus]
 
 
-export const DeilveryStatus: {
+export const DeliveryStatus: {
   NOT_READY_TO_DELIVER: 'NOT_READY_TO_DELIVER',
   WAITING_FOR_DRIVER: 'WAITING_FOR_DRIVER',
   ON_THE_WAY_TO_OUTLET: 'ON_THE_WAY_TO_OUTLET',
@@ -237,7 +237,7 @@ export const DeilveryStatus: {
   RECEIVED_BY_CUSTOMER: 'RECEIVED_BY_CUSTOMER'
 };
 
-export type DeilveryStatus = (typeof DeilveryStatus)[keyof typeof DeilveryStatus]
+export type DeliveryStatus = (typeof DeliveryStatus)[keyof typeof DeliveryStatus]
 
 }
 
@@ -281,9 +281,9 @@ export type PickupStatus = $Enums.PickupStatus
 
 export const PickupStatus: typeof $Enums.PickupStatus
 
-export type DeilveryStatus = $Enums.DeilveryStatus
+export type DeliveryStatus = $Enums.DeliveryStatus
 
-export const DeilveryStatus: typeof $Enums.DeilveryStatus
+export const DeliveryStatus: typeof $Enums.DeliveryStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -12074,7 +12074,7 @@ export namespace Prisma {
     customerAddressId: string | null
     assignedByAdminId: string | null
     orderHeaderId: string | null
-    status: $Enums.DeilveryStatus | null
+    status: $Enums.DeliveryStatus | null
     distance: number | null
     price: number | null
     createdAt: Date | null
@@ -12089,7 +12089,7 @@ export namespace Prisma {
     customerAddressId: string | null
     assignedByAdminId: string | null
     orderHeaderId: string | null
-    status: $Enums.DeilveryStatus | null
+    status: $Enums.DeliveryStatus | null
     distance: number | null
     price: number | null
     createdAt: Date | null
@@ -12263,7 +12263,7 @@ export namespace Prisma {
     customerAddressId: string
     assignedByAdminId: string
     orderHeaderId: string
-    status: $Enums.DeilveryStatus
+    status: $Enums.DeliveryStatus
     distance: number
     price: number
     createdAt: Date
@@ -12404,7 +12404,7 @@ export namespace Prisma {
       customerAddressId: string
       assignedByAdminId: string
       orderHeaderId: string
-      status: $Enums.DeilveryStatus
+      status: $Enums.DeliveryStatus
       distance: number
       price: number
       createdAt: Date
@@ -12844,7 +12844,7 @@ export namespace Prisma {
     readonly customerAddressId: FieldRef<"DeliveryTask", 'String'>
     readonly assignedByAdminId: FieldRef<"DeliveryTask", 'String'>
     readonly orderHeaderId: FieldRef<"DeliveryTask", 'String'>
-    readonly status: FieldRef<"DeliveryTask", 'DeilveryStatus'>
+    readonly status: FieldRef<"DeliveryTask", 'DeliveryStatus'>
     readonly distance: FieldRef<"DeliveryTask", 'Int'>
     readonly price: FieldRef<"DeliveryTask", 'Int'>
     readonly createdAt: FieldRef<"DeliveryTask", 'DateTime'>
@@ -24314,7 +24314,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
-    orderheader?: boolean | OrderHeaderDefaultArgs<ExtArgs>
+    orderHeader?: boolean | OrderHeaderDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["payment"]>
 
   export type PaymentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -24328,7 +24328,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
-    orderheader?: boolean | OrderHeaderDefaultArgs<ExtArgs>
+    orderHeader?: boolean | OrderHeaderDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["payment"]>
 
   export type PaymentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -24342,7 +24342,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
-    orderheader?: boolean | OrderHeaderDefaultArgs<ExtArgs>
+    orderHeader?: boolean | OrderHeaderDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["payment"]>
 
   export type PaymentSelectScalar = {
@@ -24360,19 +24360,19 @@ export namespace Prisma {
 
   export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "orderHeaderId" | "method" | "amount" | "status" | "providerRef" | "paidAt" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["payment"]>
   export type PaymentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    orderheader?: boolean | OrderHeaderDefaultArgs<ExtArgs>
+    orderHeader?: boolean | OrderHeaderDefaultArgs<ExtArgs>
   }
   export type PaymentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    orderheader?: boolean | OrderHeaderDefaultArgs<ExtArgs>
+    orderHeader?: boolean | OrderHeaderDefaultArgs<ExtArgs>
   }
   export type PaymentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    orderheader?: boolean | OrderHeaderDefaultArgs<ExtArgs>
+    orderHeader?: boolean | OrderHeaderDefaultArgs<ExtArgs>
   }
 
   export type $PaymentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Payment"
     objects: {
-      orderheader: Prisma.$OrderHeaderPayload<ExtArgs>
+      orderHeader: Prisma.$OrderHeaderPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -24779,7 +24779,7 @@ export namespace Prisma {
    */
   export interface Prisma__PaymentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    orderheader<T extends OrderHeaderDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrderHeaderDefaultArgs<ExtArgs>>): Prisma__OrderHeaderClient<$Result.GetResult<Prisma.$OrderHeaderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    orderHeader<T extends OrderHeaderDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrderHeaderDefaultArgs<ExtArgs>>): Prisma__OrderHeaderClient<$Result.GetResult<Prisma.$OrderHeaderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -25729,16 +25729,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'DeilveryStatus'
+   * Reference to a field of type 'DeliveryStatus'
    */
-  export type EnumDeilveryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DeilveryStatus'>
+  export type EnumDeliveryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DeliveryStatus'>
     
 
 
   /**
-   * Reference to a field of type 'DeilveryStatus[]'
+   * Reference to a field of type 'DeliveryStatus[]'
    */
-  export type ListEnumDeilveryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DeilveryStatus[]'>
+  export type ListEnumDeliveryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DeliveryStatus[]'>
     
 
 
@@ -26563,7 +26563,7 @@ export namespace Prisma {
     customerAddressId?: StringFilter<"DeliveryTask"> | string
     assignedByAdminId?: StringFilter<"DeliveryTask"> | string
     orderHeaderId?: StringFilter<"DeliveryTask"> | string
-    status?: EnumDeilveryStatusFilter<"DeliveryTask"> | $Enums.DeilveryStatus
+    status?: EnumDeliveryStatusFilter<"DeliveryTask"> | $Enums.DeliveryStatus
     distance?: IntFilter<"DeliveryTask"> | number
     price?: IntFilter<"DeliveryTask"> | number
     createdAt?: DateTimeFilter<"DeliveryTask"> | Date | string
@@ -26606,7 +26606,7 @@ export namespace Prisma {
     customerAddressId?: StringFilter<"DeliveryTask"> | string
     assignedByAdminId?: StringFilter<"DeliveryTask"> | string
     orderHeaderId?: StringFilter<"DeliveryTask"> | string
-    status?: EnumDeilveryStatusFilter<"DeliveryTask"> | $Enums.DeilveryStatus
+    status?: EnumDeliveryStatusFilter<"DeliveryTask"> | $Enums.DeliveryStatus
     distance?: IntFilter<"DeliveryTask"> | number
     price?: IntFilter<"DeliveryTask"> | number
     createdAt?: DateTimeFilter<"DeliveryTask"> | Date | string
@@ -26649,7 +26649,7 @@ export namespace Prisma {
     customerAddressId?: StringWithAggregatesFilter<"DeliveryTask"> | string
     assignedByAdminId?: StringWithAggregatesFilter<"DeliveryTask"> | string
     orderHeaderId?: StringWithAggregatesFilter<"DeliveryTask"> | string
-    status?: EnumDeilveryStatusWithAggregatesFilter<"DeliveryTask"> | $Enums.DeilveryStatus
+    status?: EnumDeliveryStatusWithAggregatesFilter<"DeliveryTask"> | $Enums.DeliveryStatus
     distance?: IntWithAggregatesFilter<"DeliveryTask"> | number
     price?: IntWithAggregatesFilter<"DeliveryTask"> | number
     createdAt?: DateTimeWithAggregatesFilter<"DeliveryTask"> | Date | string
@@ -27437,7 +27437,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Payment"> | Date | string
     updatedAt?: DateTimeFilter<"Payment"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Payment"> | Date | string | null
-    orderheader?: XOR<OrderHeaderScalarRelationFilter, OrderHeaderWhereInput>
+    orderHeader?: XOR<OrderHeaderScalarRelationFilter, OrderHeaderWhereInput>
   }
 
   export type PaymentOrderByWithRelationInput = {
@@ -27451,7 +27451,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
-    orderheader?: OrderHeaderOrderByWithRelationInput
+    orderHeader?: OrderHeaderOrderByWithRelationInput
   }
 
   export type PaymentWhereUniqueInput = Prisma.AtLeast<{
@@ -27468,7 +27468,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Payment"> | Date | string
     updatedAt?: DateTimeFilter<"Payment"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Payment"> | Date | string | null
-    orderheader?: XOR<OrderHeaderScalarRelationFilter, OrderHeaderWhereInput>
+    orderHeader?: XOR<OrderHeaderScalarRelationFilter, OrderHeaderWhereInput>
   }, "id">
 
   export type PaymentOrderByWithAggregationInput = {
@@ -28347,7 +28347,7 @@ export namespace Prisma {
 
   export type DeliveryTaskCreateInput = {
     id?: string
-    status: $Enums.DeilveryStatus
+    status: $Enums.DeliveryStatus
     distance: number
     price: number
     createdAt?: Date | string
@@ -28367,7 +28367,7 @@ export namespace Prisma {
     customerAddressId: string
     assignedByAdminId: string
     orderHeaderId: string
-    status: $Enums.DeilveryStatus
+    status: $Enums.DeliveryStatus
     distance: number
     price: number
     createdAt?: Date | string
@@ -28377,7 +28377,7 @@ export namespace Prisma {
 
   export type DeliveryTaskUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: EnumDeilveryStatusFieldUpdateOperationsInput | $Enums.DeilveryStatus
+    status?: EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
     distance?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28397,7 +28397,7 @@ export namespace Prisma {
     customerAddressId?: StringFieldUpdateOperationsInput | string
     assignedByAdminId?: StringFieldUpdateOperationsInput | string
     orderHeaderId?: StringFieldUpdateOperationsInput | string
-    status?: EnumDeilveryStatusFieldUpdateOperationsInput | $Enums.DeilveryStatus
+    status?: EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
     distance?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28412,7 +28412,7 @@ export namespace Prisma {
     customerAddressId: string
     assignedByAdminId: string
     orderHeaderId: string
-    status: $Enums.DeilveryStatus
+    status: $Enums.DeliveryStatus
     distance: number
     price: number
     createdAt?: Date | string
@@ -28422,7 +28422,7 @@ export namespace Prisma {
 
   export type DeliveryTaskUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: EnumDeilveryStatusFieldUpdateOperationsInput | $Enums.DeilveryStatus
+    status?: EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
     distance?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28437,7 +28437,7 @@ export namespace Prisma {
     customerAddressId?: StringFieldUpdateOperationsInput | string
     assignedByAdminId?: StringFieldUpdateOperationsInput | string
     orderHeaderId?: StringFieldUpdateOperationsInput | string
-    status?: EnumDeilveryStatusFieldUpdateOperationsInput | $Enums.DeilveryStatus
+    status?: EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
     distance?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28956,7 +28956,7 @@ export namespace Prisma {
     employees?: EmployeeCreateNestedOneWithoutOrderHeaderInput
     outlets: OutletCreateNestedOneWithoutOrderHeaderInput
     OrderItem?: OrderItemCreateNestedManyWithoutOrderheaderInput
-    Payment?: PaymentCreateNestedManyWithoutOrderheaderInput
+    Payment?: PaymentCreateNestedManyWithoutOrderHeaderInput
     workerTasks?: workerTaskCreateNestedManyWithoutOrderHeaderInput
     PickUpTask?: PickUpTaskCreateNestedManyWithoutOrderHeaderInput
     DeliveryTask?: DeliveryTaskCreateNestedManyWithoutOrderHeaderInput
@@ -28974,7 +28974,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     OrderItem?: OrderItemUncheckedCreateNestedManyWithoutOrderheaderInput
-    Payment?: PaymentUncheckedCreateNestedManyWithoutOrderheaderInput
+    Payment?: PaymentUncheckedCreateNestedManyWithoutOrderHeaderInput
     workerTasks?: workerTaskUncheckedCreateNestedManyWithoutOrderHeaderInput
     PickUpTask?: PickUpTaskUncheckedCreateNestedManyWithoutOrderHeaderInput
     DeliveryTask?: DeliveryTaskUncheckedCreateNestedManyWithoutOrderHeaderInput
@@ -28992,7 +28992,7 @@ export namespace Prisma {
     employees?: EmployeeUpdateOneWithoutOrderHeaderNestedInput
     outlets?: OutletUpdateOneRequiredWithoutOrderHeaderNestedInput
     OrderItem?: OrderItemUpdateManyWithoutOrderheaderNestedInput
-    Payment?: PaymentUpdateManyWithoutOrderheaderNestedInput
+    Payment?: PaymentUpdateManyWithoutOrderHeaderNestedInput
     workerTasks?: workerTaskUpdateManyWithoutOrderHeaderNestedInput
     PickUpTask?: PickUpTaskUpdateManyWithoutOrderHeaderNestedInput
     DeliveryTask?: DeliveryTaskUpdateManyWithoutOrderHeaderNestedInput
@@ -29010,7 +29010,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     OrderItem?: OrderItemUncheckedUpdateManyWithoutOrderheaderNestedInput
-    Payment?: PaymentUncheckedUpdateManyWithoutOrderheaderNestedInput
+    Payment?: PaymentUncheckedUpdateManyWithoutOrderHeaderNestedInput
     workerTasks?: workerTaskUncheckedUpdateManyWithoutOrderHeaderNestedInput
     PickUpTask?: PickUpTaskUncheckedUpdateManyWithoutOrderHeaderNestedInput
     DeliveryTask?: DeliveryTaskUncheckedUpdateManyWithoutOrderHeaderNestedInput
@@ -29287,7 +29287,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    orderheader: OrderHeaderCreateNestedOneWithoutPaymentInput
+    orderHeader: OrderHeaderCreateNestedOneWithoutPaymentInput
   }
 
   export type PaymentUncheckedCreateInput = {
@@ -29313,7 +29313,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    orderheader?: OrderHeaderUpdateOneRequiredWithoutPaymentNestedInput
+    orderHeader?: OrderHeaderUpdateOneRequiredWithoutPaymentNestedInput
   }
 
   export type PaymentUncheckedUpdateInput = {
@@ -30196,11 +30196,11 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type EnumDeilveryStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.DeilveryStatus | EnumDeilveryStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.DeilveryStatus[] | ListEnumDeilveryStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.DeilveryStatus[] | ListEnumDeilveryStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumDeilveryStatusFilter<$PrismaModel> | $Enums.DeilveryStatus
+  export type EnumDeliveryStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.DeliveryStatus | EnumDeliveryStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DeliveryStatus[] | ListEnumDeliveryStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DeliveryStatus[] | ListEnumDeliveryStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDeliveryStatusFilter<$PrismaModel> | $Enums.DeliveryStatus
   }
 
   export type DeliveryTaskCountOrderByAggregateInput = {
@@ -30258,14 +30258,14 @@ export namespace Prisma {
     price?: SortOrder
   }
 
-  export type EnumDeilveryStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.DeilveryStatus | EnumDeilveryStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.DeilveryStatus[] | ListEnumDeilveryStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.DeilveryStatus[] | ListEnumDeilveryStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumDeilveryStatusWithAggregatesFilter<$PrismaModel> | $Enums.DeilveryStatus
+  export type EnumDeliveryStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DeliveryStatus | EnumDeliveryStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DeliveryStatus[] | ListEnumDeliveryStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DeliveryStatus[] | ListEnumDeliveryStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDeliveryStatusWithAggregatesFilter<$PrismaModel> | $Enums.DeliveryStatus
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumDeilveryStatusFilter<$PrismaModel>
-    _max?: NestedEnumDeilveryStatusFilter<$PrismaModel>
+    _min?: NestedEnumDeliveryStatusFilter<$PrismaModel>
+    _max?: NestedEnumDeliveryStatusFilter<$PrismaModel>
   }
 
   export type EnumAttendanceStatusFilter<$PrismaModel = never> = {
@@ -31948,8 +31948,8 @@ export namespace Prisma {
     connect?: OrderHeaderWhereUniqueInput
   }
 
-  export type EnumDeilveryStatusFieldUpdateOperationsInput = {
-    set?: $Enums.DeilveryStatus
+  export type EnumDeliveryStatusFieldUpdateOperationsInput = {
+    set?: $Enums.DeliveryStatus
   }
 
   export type EmployeeUpdateOneRequiredWithoutDeliveryDriverNestedInput = {
@@ -32487,10 +32487,10 @@ export namespace Prisma {
     connect?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
   }
 
-  export type PaymentCreateNestedManyWithoutOrderheaderInput = {
-    create?: XOR<PaymentCreateWithoutOrderheaderInput, PaymentUncheckedCreateWithoutOrderheaderInput> | PaymentCreateWithoutOrderheaderInput[] | PaymentUncheckedCreateWithoutOrderheaderInput[]
-    connectOrCreate?: PaymentCreateOrConnectWithoutOrderheaderInput | PaymentCreateOrConnectWithoutOrderheaderInput[]
-    createMany?: PaymentCreateManyOrderheaderInputEnvelope
+  export type PaymentCreateNestedManyWithoutOrderHeaderInput = {
+    create?: XOR<PaymentCreateWithoutOrderHeaderInput, PaymentUncheckedCreateWithoutOrderHeaderInput> | PaymentCreateWithoutOrderHeaderInput[] | PaymentUncheckedCreateWithoutOrderHeaderInput[]
+    connectOrCreate?: PaymentCreateOrConnectWithoutOrderHeaderInput | PaymentCreateOrConnectWithoutOrderHeaderInput[]
+    createMany?: PaymentCreateManyOrderHeaderInputEnvelope
     connect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
   }
 
@@ -32522,10 +32522,10 @@ export namespace Prisma {
     connect?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
   }
 
-  export type PaymentUncheckedCreateNestedManyWithoutOrderheaderInput = {
-    create?: XOR<PaymentCreateWithoutOrderheaderInput, PaymentUncheckedCreateWithoutOrderheaderInput> | PaymentCreateWithoutOrderheaderInput[] | PaymentUncheckedCreateWithoutOrderheaderInput[]
-    connectOrCreate?: PaymentCreateOrConnectWithoutOrderheaderInput | PaymentCreateOrConnectWithoutOrderheaderInput[]
-    createMany?: PaymentCreateManyOrderheaderInputEnvelope
+  export type PaymentUncheckedCreateNestedManyWithoutOrderHeaderInput = {
+    create?: XOR<PaymentCreateWithoutOrderHeaderInput, PaymentUncheckedCreateWithoutOrderHeaderInput> | PaymentCreateWithoutOrderHeaderInput[] | PaymentUncheckedCreateWithoutOrderHeaderInput[]
+    connectOrCreate?: PaymentCreateOrConnectWithoutOrderHeaderInput | PaymentCreateOrConnectWithoutOrderHeaderInput[]
+    createMany?: PaymentCreateManyOrderHeaderInputEnvelope
     connect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
   }
 
@@ -32594,17 +32594,17 @@ export namespace Prisma {
     deleteMany?: OrderItemScalarWhereInput | OrderItemScalarWhereInput[]
   }
 
-  export type PaymentUpdateManyWithoutOrderheaderNestedInput = {
-    create?: XOR<PaymentCreateWithoutOrderheaderInput, PaymentUncheckedCreateWithoutOrderheaderInput> | PaymentCreateWithoutOrderheaderInput[] | PaymentUncheckedCreateWithoutOrderheaderInput[]
-    connectOrCreate?: PaymentCreateOrConnectWithoutOrderheaderInput | PaymentCreateOrConnectWithoutOrderheaderInput[]
-    upsert?: PaymentUpsertWithWhereUniqueWithoutOrderheaderInput | PaymentUpsertWithWhereUniqueWithoutOrderheaderInput[]
-    createMany?: PaymentCreateManyOrderheaderInputEnvelope
+  export type PaymentUpdateManyWithoutOrderHeaderNestedInput = {
+    create?: XOR<PaymentCreateWithoutOrderHeaderInput, PaymentUncheckedCreateWithoutOrderHeaderInput> | PaymentCreateWithoutOrderHeaderInput[] | PaymentUncheckedCreateWithoutOrderHeaderInput[]
+    connectOrCreate?: PaymentCreateOrConnectWithoutOrderHeaderInput | PaymentCreateOrConnectWithoutOrderHeaderInput[]
+    upsert?: PaymentUpsertWithWhereUniqueWithoutOrderHeaderInput | PaymentUpsertWithWhereUniqueWithoutOrderHeaderInput[]
+    createMany?: PaymentCreateManyOrderHeaderInputEnvelope
     set?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
     disconnect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
     delete?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
     connect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
-    update?: PaymentUpdateWithWhereUniqueWithoutOrderheaderInput | PaymentUpdateWithWhereUniqueWithoutOrderheaderInput[]
-    updateMany?: PaymentUpdateManyWithWhereWithoutOrderheaderInput | PaymentUpdateManyWithWhereWithoutOrderheaderInput[]
+    update?: PaymentUpdateWithWhereUniqueWithoutOrderHeaderInput | PaymentUpdateWithWhereUniqueWithoutOrderHeaderInput[]
+    updateMany?: PaymentUpdateManyWithWhereWithoutOrderHeaderInput | PaymentUpdateManyWithWhereWithoutOrderHeaderInput[]
     deleteMany?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
   }
 
@@ -32664,17 +32664,17 @@ export namespace Prisma {
     deleteMany?: OrderItemScalarWhereInput | OrderItemScalarWhereInput[]
   }
 
-  export type PaymentUncheckedUpdateManyWithoutOrderheaderNestedInput = {
-    create?: XOR<PaymentCreateWithoutOrderheaderInput, PaymentUncheckedCreateWithoutOrderheaderInput> | PaymentCreateWithoutOrderheaderInput[] | PaymentUncheckedCreateWithoutOrderheaderInput[]
-    connectOrCreate?: PaymentCreateOrConnectWithoutOrderheaderInput | PaymentCreateOrConnectWithoutOrderheaderInput[]
-    upsert?: PaymentUpsertWithWhereUniqueWithoutOrderheaderInput | PaymentUpsertWithWhereUniqueWithoutOrderheaderInput[]
-    createMany?: PaymentCreateManyOrderheaderInputEnvelope
+  export type PaymentUncheckedUpdateManyWithoutOrderHeaderNestedInput = {
+    create?: XOR<PaymentCreateWithoutOrderHeaderInput, PaymentUncheckedCreateWithoutOrderHeaderInput> | PaymentCreateWithoutOrderHeaderInput[] | PaymentUncheckedCreateWithoutOrderHeaderInput[]
+    connectOrCreate?: PaymentCreateOrConnectWithoutOrderHeaderInput | PaymentCreateOrConnectWithoutOrderHeaderInput[]
+    upsert?: PaymentUpsertWithWhereUniqueWithoutOrderHeaderInput | PaymentUpsertWithWhereUniqueWithoutOrderHeaderInput[]
+    createMany?: PaymentCreateManyOrderHeaderInputEnvelope
     set?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
     disconnect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
     delete?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
     connect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
-    update?: PaymentUpdateWithWhereUniqueWithoutOrderheaderInput | PaymentUpdateWithWhereUniqueWithoutOrderheaderInput[]
-    updateMany?: PaymentUpdateManyWithWhereWithoutOrderheaderInput | PaymentUpdateManyWithWhereWithoutOrderheaderInput[]
+    update?: PaymentUpdateWithWhereUniqueWithoutOrderHeaderInput | PaymentUpdateWithWhereUniqueWithoutOrderHeaderInput[]
+    updateMany?: PaymentUpdateManyWithWhereWithoutOrderHeaderInput | PaymentUpdateManyWithWhereWithoutOrderHeaderInput[]
     deleteMany?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
   }
 
@@ -33256,21 +33256,21 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type NestedEnumDeilveryStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.DeilveryStatus | EnumDeilveryStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.DeilveryStatus[] | ListEnumDeilveryStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.DeilveryStatus[] | ListEnumDeilveryStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumDeilveryStatusFilter<$PrismaModel> | $Enums.DeilveryStatus
+  export type NestedEnumDeliveryStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.DeliveryStatus | EnumDeliveryStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DeliveryStatus[] | ListEnumDeliveryStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DeliveryStatus[] | ListEnumDeliveryStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDeliveryStatusFilter<$PrismaModel> | $Enums.DeliveryStatus
   }
 
-  export type NestedEnumDeilveryStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.DeilveryStatus | EnumDeilveryStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.DeilveryStatus[] | ListEnumDeilveryStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.DeilveryStatus[] | ListEnumDeilveryStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumDeilveryStatusWithAggregatesFilter<$PrismaModel> | $Enums.DeilveryStatus
+  export type NestedEnumDeliveryStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DeliveryStatus | EnumDeliveryStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DeliveryStatus[] | ListEnumDeliveryStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DeliveryStatus[] | ListEnumDeliveryStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDeliveryStatusWithAggregatesFilter<$PrismaModel> | $Enums.DeliveryStatus
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumDeilveryStatusFilter<$PrismaModel>
-    _max?: NestedEnumDeilveryStatusFilter<$PrismaModel>
+    _min?: NestedEnumDeliveryStatusFilter<$PrismaModel>
+    _max?: NestedEnumDeliveryStatusFilter<$PrismaModel>
   }
 
   export type NestedEnumAttendanceStatusFilter<$PrismaModel = never> = {
@@ -33398,7 +33398,7 @@ export namespace Prisma {
     employees?: EmployeeCreateNestedOneWithoutOrderHeaderInput
     outlets: OutletCreateNestedOneWithoutOrderHeaderInput
     OrderItem?: OrderItemCreateNestedManyWithoutOrderheaderInput
-    Payment?: PaymentCreateNestedManyWithoutOrderheaderInput
+    Payment?: PaymentCreateNestedManyWithoutOrderHeaderInput
     workerTasks?: workerTaskCreateNestedManyWithoutOrderHeaderInput
     PickUpTask?: PickUpTaskCreateNestedManyWithoutOrderHeaderInput
     DeliveryTask?: DeliveryTaskCreateNestedManyWithoutOrderHeaderInput
@@ -33415,7 +33415,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     OrderItem?: OrderItemUncheckedCreateNestedManyWithoutOrderheaderInput
-    Payment?: PaymentUncheckedCreateNestedManyWithoutOrderheaderInput
+    Payment?: PaymentUncheckedCreateNestedManyWithoutOrderHeaderInput
     workerTasks?: workerTaskUncheckedCreateNestedManyWithoutOrderHeaderInput
     PickUpTask?: PickUpTaskUncheckedCreateNestedManyWithoutOrderHeaderInput
     DeliveryTask?: DeliveryTaskUncheckedCreateNestedManyWithoutOrderHeaderInput
@@ -33590,7 +33590,7 @@ export namespace Prisma {
 
   export type DeliveryTaskCreateWithoutCustomerAddressInput = {
     id?: string
-    status: $Enums.DeilveryStatus
+    status: $Enums.DeliveryStatus
     distance: number
     price: number
     createdAt?: Date | string
@@ -33608,7 +33608,7 @@ export namespace Prisma {
     outletId: string
     assignedByAdminId: string
     orderHeaderId: string
-    status: $Enums.DeilveryStatus
+    status: $Enums.DeliveryStatus
     distance: number
     price: number
     createdAt?: Date | string
@@ -33743,7 +33743,7 @@ export namespace Prisma {
     customerAddressId?: StringFilter<"DeliveryTask"> | string
     assignedByAdminId?: StringFilter<"DeliveryTask"> | string
     orderHeaderId?: StringFilter<"DeliveryTask"> | string
-    status?: EnumDeilveryStatusFilter<"DeliveryTask"> | $Enums.DeilveryStatus
+    status?: EnumDeliveryStatusFilter<"DeliveryTask"> | $Enums.DeliveryStatus
     distance?: IntFilter<"DeliveryTask"> | number
     price?: IntFilter<"DeliveryTask"> | number
     createdAt?: DateTimeFilter<"DeliveryTask"> | Date | string
@@ -33886,7 +33886,7 @@ export namespace Prisma {
     customers: CustomerCreateNestedOneWithoutOrderHeaderInput
     outlets: OutletCreateNestedOneWithoutOrderHeaderInput
     OrderItem?: OrderItemCreateNestedManyWithoutOrderheaderInput
-    Payment?: PaymentCreateNestedManyWithoutOrderheaderInput
+    Payment?: PaymentCreateNestedManyWithoutOrderHeaderInput
     workerTasks?: workerTaskCreateNestedManyWithoutOrderHeaderInput
     PickUpTask?: PickUpTaskCreateNestedManyWithoutOrderHeaderInput
     DeliveryTask?: DeliveryTaskCreateNestedManyWithoutOrderHeaderInput
@@ -33903,7 +33903,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     OrderItem?: OrderItemUncheckedCreateNestedManyWithoutOrderheaderInput
-    Payment?: PaymentUncheckedCreateNestedManyWithoutOrderheaderInput
+    Payment?: PaymentUncheckedCreateNestedManyWithoutOrderHeaderInput
     workerTasks?: workerTaskUncheckedCreateNestedManyWithoutOrderHeaderInput
     PickUpTask?: PickUpTaskUncheckedCreateNestedManyWithoutOrderHeaderInput
     DeliveryTask?: DeliveryTaskUncheckedCreateNestedManyWithoutOrderHeaderInput
@@ -34171,7 +34171,7 @@ export namespace Prisma {
 
   export type DeliveryTaskCreateWithoutDriverInput = {
     id?: string
-    status: $Enums.DeilveryStatus
+    status: $Enums.DeliveryStatus
     distance: number
     price: number
     createdAt?: Date | string
@@ -34189,7 +34189,7 @@ export namespace Prisma {
     customerAddressId: string
     assignedByAdminId: string
     orderHeaderId: string
-    status: $Enums.DeilveryStatus
+    status: $Enums.DeliveryStatus
     distance: number
     price: number
     createdAt?: Date | string
@@ -34209,7 +34209,7 @@ export namespace Prisma {
 
   export type DeliveryTaskCreateWithoutAssignedByInput = {
     id?: string
-    status: $Enums.DeilveryStatus
+    status: $Enums.DeliveryStatus
     distance: number
     price: number
     createdAt?: Date | string
@@ -34227,7 +34227,7 @@ export namespace Prisma {
     outletId: string
     customerAddressId: string
     orderHeaderId: string
-    status: $Enums.DeilveryStatus
+    status: $Enums.DeliveryStatus
     distance: number
     price: number
     createdAt?: Date | string
@@ -35102,7 +35102,7 @@ export namespace Prisma {
     employees?: EmployeeCreateNestedOneWithoutOrderHeaderInput
     outlets: OutletCreateNestedOneWithoutOrderHeaderInput
     OrderItem?: OrderItemCreateNestedManyWithoutOrderheaderInput
-    Payment?: PaymentCreateNestedManyWithoutOrderheaderInput
+    Payment?: PaymentCreateNestedManyWithoutOrderHeaderInput
     PickUpTask?: PickUpTaskCreateNestedManyWithoutOrderHeaderInput
     DeliveryTask?: DeliveryTaskCreateNestedManyWithoutOrderHeaderInput
   }
@@ -35119,7 +35119,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     OrderItem?: OrderItemUncheckedCreateNestedManyWithoutOrderheaderInput
-    Payment?: PaymentUncheckedCreateNestedManyWithoutOrderheaderInput
+    Payment?: PaymentUncheckedCreateNestedManyWithoutOrderHeaderInput
     PickUpTask?: PickUpTaskUncheckedCreateNestedManyWithoutOrderHeaderInput
     DeliveryTask?: DeliveryTaskUncheckedCreateNestedManyWithoutOrderHeaderInput
   }
@@ -35416,7 +35416,7 @@ export namespace Prisma {
     employees?: EmployeeUpdateOneWithoutOrderHeaderNestedInput
     outlets?: OutletUpdateOneRequiredWithoutOrderHeaderNestedInput
     OrderItem?: OrderItemUpdateManyWithoutOrderheaderNestedInput
-    Payment?: PaymentUpdateManyWithoutOrderheaderNestedInput
+    Payment?: PaymentUpdateManyWithoutOrderHeaderNestedInput
     PickUpTask?: PickUpTaskUpdateManyWithoutOrderHeaderNestedInput
     DeliveryTask?: DeliveryTaskUpdateManyWithoutOrderHeaderNestedInput
   }
@@ -35433,7 +35433,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     OrderItem?: OrderItemUncheckedUpdateManyWithoutOrderheaderNestedInput
-    Payment?: PaymentUncheckedUpdateManyWithoutOrderheaderNestedInput
+    Payment?: PaymentUncheckedUpdateManyWithoutOrderHeaderNestedInput
     PickUpTask?: PickUpTaskUncheckedUpdateManyWithoutOrderHeaderNestedInput
     DeliveryTask?: DeliveryTaskUncheckedUpdateManyWithoutOrderHeaderNestedInput
   }
@@ -35816,7 +35816,7 @@ export namespace Prisma {
     employees?: EmployeeCreateNestedOneWithoutOrderHeaderInput
     outlets: OutletCreateNestedOneWithoutOrderHeaderInput
     OrderItem?: OrderItemCreateNestedManyWithoutOrderheaderInput
-    Payment?: PaymentCreateNestedManyWithoutOrderheaderInput
+    Payment?: PaymentCreateNestedManyWithoutOrderHeaderInput
     workerTasks?: workerTaskCreateNestedManyWithoutOrderHeaderInput
     DeliveryTask?: DeliveryTaskCreateNestedManyWithoutOrderHeaderInput
   }
@@ -35833,7 +35833,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     OrderItem?: OrderItemUncheckedCreateNestedManyWithoutOrderheaderInput
-    Payment?: PaymentUncheckedCreateNestedManyWithoutOrderheaderInput
+    Payment?: PaymentUncheckedCreateNestedManyWithoutOrderHeaderInput
     workerTasks?: workerTaskUncheckedCreateNestedManyWithoutOrderHeaderInput
     DeliveryTask?: DeliveryTaskUncheckedCreateNestedManyWithoutOrderHeaderInput
   }
@@ -36098,7 +36098,7 @@ export namespace Prisma {
     employees?: EmployeeUpdateOneWithoutOrderHeaderNestedInput
     outlets?: OutletUpdateOneRequiredWithoutOrderHeaderNestedInput
     OrderItem?: OrderItemUpdateManyWithoutOrderheaderNestedInput
-    Payment?: PaymentUpdateManyWithoutOrderheaderNestedInput
+    Payment?: PaymentUpdateManyWithoutOrderHeaderNestedInput
     workerTasks?: workerTaskUpdateManyWithoutOrderHeaderNestedInput
     DeliveryTask?: DeliveryTaskUpdateManyWithoutOrderHeaderNestedInput
   }
@@ -36115,7 +36115,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     OrderItem?: OrderItemUncheckedUpdateManyWithoutOrderheaderNestedInput
-    Payment?: PaymentUncheckedUpdateManyWithoutOrderheaderNestedInput
+    Payment?: PaymentUncheckedUpdateManyWithoutOrderHeaderNestedInput
     workerTasks?: workerTaskUncheckedUpdateManyWithoutOrderHeaderNestedInput
     DeliveryTask?: DeliveryTaskUncheckedUpdateManyWithoutOrderHeaderNestedInput
   }
@@ -36340,7 +36340,7 @@ export namespace Prisma {
     employees?: EmployeeCreateNestedOneWithoutOrderHeaderInput
     outlets: OutletCreateNestedOneWithoutOrderHeaderInput
     OrderItem?: OrderItemCreateNestedManyWithoutOrderheaderInput
-    Payment?: PaymentCreateNestedManyWithoutOrderheaderInput
+    Payment?: PaymentCreateNestedManyWithoutOrderHeaderInput
     workerTasks?: workerTaskCreateNestedManyWithoutOrderHeaderInput
     PickUpTask?: PickUpTaskCreateNestedManyWithoutOrderHeaderInput
   }
@@ -36357,7 +36357,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     OrderItem?: OrderItemUncheckedCreateNestedManyWithoutOrderheaderInput
-    Payment?: PaymentUncheckedCreateNestedManyWithoutOrderheaderInput
+    Payment?: PaymentUncheckedCreateNestedManyWithoutOrderHeaderInput
     workerTasks?: workerTaskUncheckedCreateNestedManyWithoutOrderHeaderInput
     PickUpTask?: PickUpTaskUncheckedCreateNestedManyWithoutOrderHeaderInput
   }
@@ -36622,7 +36622,7 @@ export namespace Prisma {
     employees?: EmployeeUpdateOneWithoutOrderHeaderNestedInput
     outlets?: OutletUpdateOneRequiredWithoutOrderHeaderNestedInput
     OrderItem?: OrderItemUpdateManyWithoutOrderheaderNestedInput
-    Payment?: PaymentUpdateManyWithoutOrderheaderNestedInput
+    Payment?: PaymentUpdateManyWithoutOrderHeaderNestedInput
     workerTasks?: workerTaskUpdateManyWithoutOrderHeaderNestedInput
     PickUpTask?: PickUpTaskUpdateManyWithoutOrderHeaderNestedInput
   }
@@ -36639,7 +36639,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     OrderItem?: OrderItemUncheckedUpdateManyWithoutOrderheaderNestedInput
-    Payment?: PaymentUncheckedUpdateManyWithoutOrderheaderNestedInput
+    Payment?: PaymentUncheckedUpdateManyWithoutOrderHeaderNestedInput
     workerTasks?: workerTaskUncheckedUpdateManyWithoutOrderHeaderNestedInput
     PickUpTask?: PickUpTaskUncheckedUpdateManyWithoutOrderHeaderNestedInput
   }
@@ -37211,7 +37211,7 @@ export namespace Prisma {
     customers: CustomerCreateNestedOneWithoutOrderHeaderInput
     employees?: EmployeeCreateNestedOneWithoutOrderHeaderInput
     OrderItem?: OrderItemCreateNestedManyWithoutOrderheaderInput
-    Payment?: PaymentCreateNestedManyWithoutOrderheaderInput
+    Payment?: PaymentCreateNestedManyWithoutOrderHeaderInput
     workerTasks?: workerTaskCreateNestedManyWithoutOrderHeaderInput
     PickUpTask?: PickUpTaskCreateNestedManyWithoutOrderHeaderInput
     DeliveryTask?: DeliveryTaskCreateNestedManyWithoutOrderHeaderInput
@@ -37228,7 +37228,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     OrderItem?: OrderItemUncheckedCreateNestedManyWithoutOrderheaderInput
-    Payment?: PaymentUncheckedCreateNestedManyWithoutOrderheaderInput
+    Payment?: PaymentUncheckedCreateNestedManyWithoutOrderHeaderInput
     workerTasks?: workerTaskUncheckedCreateNestedManyWithoutOrderHeaderInput
     PickUpTask?: PickUpTaskUncheckedCreateNestedManyWithoutOrderHeaderInput
     DeliveryTask?: DeliveryTaskUncheckedCreateNestedManyWithoutOrderHeaderInput
@@ -37334,7 +37334,7 @@ export namespace Prisma {
 
   export type DeliveryTaskCreateWithoutOutletsInput = {
     id?: string
-    status: $Enums.DeilveryStatus
+    status: $Enums.DeliveryStatus
     distance: number
     price: number
     createdAt?: Date | string
@@ -37352,7 +37352,7 @@ export namespace Prisma {
     customerAddressId: string
     assignedByAdminId: string
     orderHeaderId: string
-    status: $Enums.DeilveryStatus
+    status: $Enums.DeliveryStatus
     distance: number
     price: number
     createdAt?: Date | string
@@ -37983,7 +37983,7 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type PaymentCreateWithoutOrderheaderInput = {
+  export type PaymentCreateWithoutOrderHeaderInput = {
     id?: string
     method: $Enums.PaymentMethod
     amount: number
@@ -37995,7 +37995,7 @@ export namespace Prisma {
     deletedAt?: Date | string | null
   }
 
-  export type PaymentUncheckedCreateWithoutOrderheaderInput = {
+  export type PaymentUncheckedCreateWithoutOrderHeaderInput = {
     id?: string
     method: $Enums.PaymentMethod
     amount: number
@@ -38007,13 +38007,13 @@ export namespace Prisma {
     deletedAt?: Date | string | null
   }
 
-  export type PaymentCreateOrConnectWithoutOrderheaderInput = {
+  export type PaymentCreateOrConnectWithoutOrderHeaderInput = {
     where: PaymentWhereUniqueInput
-    create: XOR<PaymentCreateWithoutOrderheaderInput, PaymentUncheckedCreateWithoutOrderheaderInput>
+    create: XOR<PaymentCreateWithoutOrderHeaderInput, PaymentUncheckedCreateWithoutOrderHeaderInput>
   }
 
-  export type PaymentCreateManyOrderheaderInputEnvelope = {
-    data: PaymentCreateManyOrderheaderInput | PaymentCreateManyOrderheaderInput[]
+  export type PaymentCreateManyOrderHeaderInputEnvelope = {
+    data: PaymentCreateManyOrderHeaderInput | PaymentCreateManyOrderHeaderInput[]
     skipDuplicates?: boolean
   }
 
@@ -38107,7 +38107,7 @@ export namespace Prisma {
 
   export type DeliveryTaskCreateWithoutOrderHeaderInput = {
     id?: string
-    status: $Enums.DeilveryStatus
+    status: $Enums.DeliveryStatus
     distance: number
     price: number
     createdAt?: Date | string
@@ -38125,7 +38125,7 @@ export namespace Prisma {
     outletId: string
     customerAddressId: string
     assignedByAdminId: string
-    status: $Enums.DeilveryStatus
+    status: $Enums.DeliveryStatus
     distance: number
     price: number
     createdAt?: Date | string
@@ -38336,20 +38336,20 @@ export namespace Prisma {
     data: XOR<OrderItemUpdateManyMutationInput, OrderItemUncheckedUpdateManyWithoutOrderheaderInput>
   }
 
-  export type PaymentUpsertWithWhereUniqueWithoutOrderheaderInput = {
+  export type PaymentUpsertWithWhereUniqueWithoutOrderHeaderInput = {
     where: PaymentWhereUniqueInput
-    update: XOR<PaymentUpdateWithoutOrderheaderInput, PaymentUncheckedUpdateWithoutOrderheaderInput>
-    create: XOR<PaymentCreateWithoutOrderheaderInput, PaymentUncheckedCreateWithoutOrderheaderInput>
+    update: XOR<PaymentUpdateWithoutOrderHeaderInput, PaymentUncheckedUpdateWithoutOrderHeaderInput>
+    create: XOR<PaymentCreateWithoutOrderHeaderInput, PaymentUncheckedCreateWithoutOrderHeaderInput>
   }
 
-  export type PaymentUpdateWithWhereUniqueWithoutOrderheaderInput = {
+  export type PaymentUpdateWithWhereUniqueWithoutOrderHeaderInput = {
     where: PaymentWhereUniqueInput
-    data: XOR<PaymentUpdateWithoutOrderheaderInput, PaymentUncheckedUpdateWithoutOrderheaderInput>
+    data: XOR<PaymentUpdateWithoutOrderHeaderInput, PaymentUncheckedUpdateWithoutOrderHeaderInput>
   }
 
-  export type PaymentUpdateManyWithWhereWithoutOrderheaderInput = {
+  export type PaymentUpdateManyWithWhereWithoutOrderHeaderInput = {
     where: PaymentScalarWhereInput
-    data: XOR<PaymentUpdateManyMutationInput, PaymentUncheckedUpdateManyWithoutOrderheaderInput>
+    data: XOR<PaymentUpdateManyMutationInput, PaymentUncheckedUpdateManyWithoutOrderHeaderInput>
   }
 
   export type PaymentScalarWhereInput = {
@@ -38427,7 +38427,7 @@ export namespace Prisma {
     customers: CustomerCreateNestedOneWithoutOrderHeaderInput
     employees?: EmployeeCreateNestedOneWithoutOrderHeaderInput
     outlets: OutletCreateNestedOneWithoutOrderHeaderInput
-    Payment?: PaymentCreateNestedManyWithoutOrderheaderInput
+    Payment?: PaymentCreateNestedManyWithoutOrderHeaderInput
     workerTasks?: workerTaskCreateNestedManyWithoutOrderHeaderInput
     PickUpTask?: PickUpTaskCreateNestedManyWithoutOrderHeaderInput
     DeliveryTask?: DeliveryTaskCreateNestedManyWithoutOrderHeaderInput
@@ -38444,7 +38444,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    Payment?: PaymentUncheckedCreateNestedManyWithoutOrderheaderInput
+    Payment?: PaymentUncheckedCreateNestedManyWithoutOrderHeaderInput
     workerTasks?: workerTaskUncheckedCreateNestedManyWithoutOrderHeaderInput
     PickUpTask?: PickUpTaskUncheckedCreateNestedManyWithoutOrderHeaderInput
     DeliveryTask?: DeliveryTaskUncheckedCreateNestedManyWithoutOrderHeaderInput
@@ -38586,7 +38586,7 @@ export namespace Prisma {
     customers?: CustomerUpdateOneRequiredWithoutOrderHeaderNestedInput
     employees?: EmployeeUpdateOneWithoutOrderHeaderNestedInput
     outlets?: OutletUpdateOneRequiredWithoutOrderHeaderNestedInput
-    Payment?: PaymentUpdateManyWithoutOrderheaderNestedInput
+    Payment?: PaymentUpdateManyWithoutOrderHeaderNestedInput
     workerTasks?: workerTaskUpdateManyWithoutOrderHeaderNestedInput
     PickUpTask?: PickUpTaskUpdateManyWithoutOrderHeaderNestedInput
     DeliveryTask?: DeliveryTaskUpdateManyWithoutOrderHeaderNestedInput
@@ -38603,7 +38603,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    Payment?: PaymentUncheckedUpdateManyWithoutOrderheaderNestedInput
+    Payment?: PaymentUncheckedUpdateManyWithoutOrderHeaderNestedInput
     workerTasks?: workerTaskUncheckedUpdateManyWithoutOrderHeaderNestedInput
     PickUpTask?: PickUpTaskUncheckedUpdateManyWithoutOrderHeaderNestedInput
     DeliveryTask?: DeliveryTaskUncheckedUpdateManyWithoutOrderHeaderNestedInput
@@ -39030,7 +39030,7 @@ export namespace Prisma {
     employees?: EmployeeUpdateOneWithoutOrderHeaderNestedInput
     outlets?: OutletUpdateOneRequiredWithoutOrderHeaderNestedInput
     OrderItem?: OrderItemUpdateManyWithoutOrderheaderNestedInput
-    Payment?: PaymentUpdateManyWithoutOrderheaderNestedInput
+    Payment?: PaymentUpdateManyWithoutOrderHeaderNestedInput
     workerTasks?: workerTaskUpdateManyWithoutOrderHeaderNestedInput
     PickUpTask?: PickUpTaskUpdateManyWithoutOrderHeaderNestedInput
     DeliveryTask?: DeliveryTaskUpdateManyWithoutOrderHeaderNestedInput
@@ -39047,7 +39047,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     OrderItem?: OrderItemUncheckedUpdateManyWithoutOrderheaderNestedInput
-    Payment?: PaymentUncheckedUpdateManyWithoutOrderheaderNestedInput
+    Payment?: PaymentUncheckedUpdateManyWithoutOrderHeaderNestedInput
     workerTasks?: workerTaskUncheckedUpdateManyWithoutOrderHeaderNestedInput
     PickUpTask?: PickUpTaskUncheckedUpdateManyWithoutOrderHeaderNestedInput
     DeliveryTask?: DeliveryTaskUncheckedUpdateManyWithoutOrderHeaderNestedInput
@@ -39085,7 +39085,7 @@ export namespace Prisma {
     outletId: string
     assignedByAdminId: string
     orderHeaderId: string
-    status: $Enums.DeilveryStatus
+    status: $Enums.DeliveryStatus
     distance: number
     price: number
     createdAt?: Date | string
@@ -39137,7 +39137,7 @@ export namespace Prisma {
 
   export type DeliveryTaskUpdateWithoutCustomerAddressInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: EnumDeilveryStatusFieldUpdateOperationsInput | $Enums.DeilveryStatus
+    status?: EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
     distance?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39155,7 +39155,7 @@ export namespace Prisma {
     outletId?: StringFieldUpdateOperationsInput | string
     assignedByAdminId?: StringFieldUpdateOperationsInput | string
     orderHeaderId?: StringFieldUpdateOperationsInput | string
-    status?: EnumDeilveryStatusFieldUpdateOperationsInput | $Enums.DeilveryStatus
+    status?: EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
     distance?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39169,7 +39169,7 @@ export namespace Prisma {
     outletId?: StringFieldUpdateOperationsInput | string
     assignedByAdminId?: StringFieldUpdateOperationsInput | string
     orderHeaderId?: StringFieldUpdateOperationsInput | string
-    status?: EnumDeilveryStatusFieldUpdateOperationsInput | $Enums.DeilveryStatus
+    status?: EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
     distance?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39307,7 +39307,7 @@ export namespace Prisma {
     customerAddressId: string
     assignedByAdminId: string
     orderHeaderId: string
-    status: $Enums.DeilveryStatus
+    status: $Enums.DeliveryStatus
     distance: number
     price: number
     createdAt?: Date | string
@@ -39321,7 +39321,7 @@ export namespace Prisma {
     outletId: string
     customerAddressId: string
     orderHeaderId: string
-    status: $Enums.DeilveryStatus
+    status: $Enums.DeliveryStatus
     distance: number
     price: number
     createdAt?: Date | string
@@ -39394,7 +39394,7 @@ export namespace Prisma {
     customers?: CustomerUpdateOneRequiredWithoutOrderHeaderNestedInput
     outlets?: OutletUpdateOneRequiredWithoutOrderHeaderNestedInput
     OrderItem?: OrderItemUpdateManyWithoutOrderheaderNestedInput
-    Payment?: PaymentUpdateManyWithoutOrderheaderNestedInput
+    Payment?: PaymentUpdateManyWithoutOrderHeaderNestedInput
     workerTasks?: workerTaskUpdateManyWithoutOrderHeaderNestedInput
     PickUpTask?: PickUpTaskUpdateManyWithoutOrderHeaderNestedInput
     DeliveryTask?: DeliveryTaskUpdateManyWithoutOrderHeaderNestedInput
@@ -39411,7 +39411,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     OrderItem?: OrderItemUncheckedUpdateManyWithoutOrderheaderNestedInput
-    Payment?: PaymentUncheckedUpdateManyWithoutOrderheaderNestedInput
+    Payment?: PaymentUncheckedUpdateManyWithoutOrderHeaderNestedInput
     workerTasks?: workerTaskUncheckedUpdateManyWithoutOrderHeaderNestedInput
     PickUpTask?: PickUpTaskUncheckedUpdateManyWithoutOrderHeaderNestedInput
     DeliveryTask?: DeliveryTaskUncheckedUpdateManyWithoutOrderHeaderNestedInput
@@ -39715,7 +39715,7 @@ export namespace Prisma {
 
   export type DeliveryTaskUpdateWithoutDriverInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: EnumDeilveryStatusFieldUpdateOperationsInput | $Enums.DeilveryStatus
+    status?: EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
     distance?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39733,7 +39733,7 @@ export namespace Prisma {
     customerAddressId?: StringFieldUpdateOperationsInput | string
     assignedByAdminId?: StringFieldUpdateOperationsInput | string
     orderHeaderId?: StringFieldUpdateOperationsInput | string
-    status?: EnumDeilveryStatusFieldUpdateOperationsInput | $Enums.DeilveryStatus
+    status?: EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
     distance?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39747,7 +39747,7 @@ export namespace Prisma {
     customerAddressId?: StringFieldUpdateOperationsInput | string
     assignedByAdminId?: StringFieldUpdateOperationsInput | string
     orderHeaderId?: StringFieldUpdateOperationsInput | string
-    status?: EnumDeilveryStatusFieldUpdateOperationsInput | $Enums.DeilveryStatus
+    status?: EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
     distance?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39757,7 +39757,7 @@ export namespace Prisma {
 
   export type DeliveryTaskUpdateWithoutAssignedByInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: EnumDeilveryStatusFieldUpdateOperationsInput | $Enums.DeilveryStatus
+    status?: EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
     distance?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39775,7 +39775,7 @@ export namespace Prisma {
     outletId?: StringFieldUpdateOperationsInput | string
     customerAddressId?: StringFieldUpdateOperationsInput | string
     orderHeaderId?: StringFieldUpdateOperationsInput | string
-    status?: EnumDeilveryStatusFieldUpdateOperationsInput | $Enums.DeilveryStatus
+    status?: EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
     distance?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39789,7 +39789,7 @@ export namespace Prisma {
     outletId?: StringFieldUpdateOperationsInput | string
     customerAddressId?: StringFieldUpdateOperationsInput | string
     orderHeaderId?: StringFieldUpdateOperationsInput | string
-    status?: EnumDeilveryStatusFieldUpdateOperationsInput | $Enums.DeilveryStatus
+    status?: EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
     distance?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -40214,7 +40214,7 @@ export namespace Prisma {
     customerAddressId: string
     assignedByAdminId: string
     orderHeaderId: string
-    status: $Enums.DeilveryStatus
+    status: $Enums.DeliveryStatus
     distance: number
     price: number
     createdAt?: Date | string
@@ -40388,7 +40388,7 @@ export namespace Prisma {
     customers?: CustomerUpdateOneRequiredWithoutOrderHeaderNestedInput
     employees?: EmployeeUpdateOneWithoutOrderHeaderNestedInput
     OrderItem?: OrderItemUpdateManyWithoutOrderheaderNestedInput
-    Payment?: PaymentUpdateManyWithoutOrderheaderNestedInput
+    Payment?: PaymentUpdateManyWithoutOrderHeaderNestedInput
     workerTasks?: workerTaskUpdateManyWithoutOrderHeaderNestedInput
     PickUpTask?: PickUpTaskUpdateManyWithoutOrderHeaderNestedInput
     DeliveryTask?: DeliveryTaskUpdateManyWithoutOrderHeaderNestedInput
@@ -40405,7 +40405,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     OrderItem?: OrderItemUncheckedUpdateManyWithoutOrderheaderNestedInput
-    Payment?: PaymentUncheckedUpdateManyWithoutOrderheaderNestedInput
+    Payment?: PaymentUncheckedUpdateManyWithoutOrderHeaderNestedInput
     workerTasks?: workerTaskUncheckedUpdateManyWithoutOrderHeaderNestedInput
     PickUpTask?: PickUpTaskUncheckedUpdateManyWithoutOrderHeaderNestedInput
     DeliveryTask?: DeliveryTaskUncheckedUpdateManyWithoutOrderHeaderNestedInput
@@ -40527,7 +40527,7 @@ export namespace Prisma {
 
   export type DeliveryTaskUpdateWithoutOutletsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: EnumDeilveryStatusFieldUpdateOperationsInput | $Enums.DeilveryStatus
+    status?: EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
     distance?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -40545,7 +40545,7 @@ export namespace Prisma {
     customerAddressId?: StringFieldUpdateOperationsInput | string
     assignedByAdminId?: StringFieldUpdateOperationsInput | string
     orderHeaderId?: StringFieldUpdateOperationsInput | string
-    status?: EnumDeilveryStatusFieldUpdateOperationsInput | $Enums.DeilveryStatus
+    status?: EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
     distance?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -40559,7 +40559,7 @@ export namespace Prisma {
     customerAddressId?: StringFieldUpdateOperationsInput | string
     assignedByAdminId?: StringFieldUpdateOperationsInput | string
     orderHeaderId?: StringFieldUpdateOperationsInput | string
-    status?: EnumDeilveryStatusFieldUpdateOperationsInput | $Enums.DeilveryStatus
+    status?: EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
     distance?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -40681,7 +40681,7 @@ export namespace Prisma {
     deletedAt?: Date | string | null
   }
 
-  export type PaymentCreateManyOrderheaderInput = {
+  export type PaymentCreateManyOrderHeaderInput = {
     id?: string
     method: $Enums.PaymentMethod
     amount: number
@@ -40733,7 +40733,7 @@ export namespace Prisma {
     outletId: string
     customerAddressId: string
     assignedByAdminId: string
-    status: $Enums.DeilveryStatus
+    status: $Enums.DeliveryStatus
     distance: number
     price: number
     createdAt?: Date | string
@@ -40781,7 +40781,7 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type PaymentUpdateWithoutOrderheaderInput = {
+  export type PaymentUpdateWithoutOrderHeaderInput = {
     id?: StringFieldUpdateOperationsInput | string
     method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     amount?: IntFieldUpdateOperationsInput | number
@@ -40793,7 +40793,7 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type PaymentUncheckedUpdateWithoutOrderheaderInput = {
+  export type PaymentUncheckedUpdateWithoutOrderHeaderInput = {
     id?: StringFieldUpdateOperationsInput | string
     method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     amount?: IntFieldUpdateOperationsInput | number
@@ -40805,7 +40805,7 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type PaymentUncheckedUpdateManyWithoutOrderheaderInput = {
+  export type PaymentUncheckedUpdateManyWithoutOrderHeaderInput = {
     id?: StringFieldUpdateOperationsInput | string
     method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     amount?: IntFieldUpdateOperationsInput | number
@@ -40921,7 +40921,7 @@ export namespace Prisma {
 
   export type DeliveryTaskUpdateWithoutOrderHeaderInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: EnumDeilveryStatusFieldUpdateOperationsInput | $Enums.DeilveryStatus
+    status?: EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
     distance?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -40939,7 +40939,7 @@ export namespace Prisma {
     outletId?: StringFieldUpdateOperationsInput | string
     customerAddressId?: StringFieldUpdateOperationsInput | string
     assignedByAdminId?: StringFieldUpdateOperationsInput | string
-    status?: EnumDeilveryStatusFieldUpdateOperationsInput | $Enums.DeilveryStatus
+    status?: EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
     distance?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -40953,7 +40953,7 @@ export namespace Prisma {
     outletId?: StringFieldUpdateOperationsInput | string
     customerAddressId?: StringFieldUpdateOperationsInput | string
     assignedByAdminId?: StringFieldUpdateOperationsInput | string
-    status?: EnumDeilveryStatusFieldUpdateOperationsInput | $Enums.DeilveryStatus
+    status?: EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
     distance?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
