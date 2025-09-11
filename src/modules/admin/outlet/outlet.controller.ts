@@ -75,7 +75,7 @@ export class OutletController {
         employeeId,
         outletId
       );
-      res.status(200).json({ message: `${result.name} has been assigned to outlet ${result.outlets?.name}` ,data: result });
+      res.status(200).json({ message: `${result.name} has been assigned to outlet ${result.outlet?.name}` ,data: result });
     } catch (err) {
       next(err);
     }

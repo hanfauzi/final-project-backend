@@ -30,7 +30,7 @@ export class AssignmentService {
     const updatedEmployee = await prisma.employee.update({
       where: { id: employeeId },
       data: { outletId },
-      include: { outlets: true },
+      include: { outlet: true },
     });
 
     return updatedEmployee;
@@ -46,7 +46,7 @@ export class AssignmentService {
       role: { notIn: ["SUPER_ADMIN", "CUSTOMER"] },
       deletedAt: null,
     },
-    include: { outlets: true },
+    include: { outlet: true },
   });
 
   if (!employee) {
@@ -64,7 +64,7 @@ export class AssignmentService {
   return await prisma.employee.update({
     where: { id: employeeId },
     data: { outletId: null },
-    include: { outlets: true },
+    include: { outlet: true },
   });
   };
 
