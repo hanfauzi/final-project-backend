@@ -99,6 +99,11 @@ export type OrderItemLaundry = $Result.DefaultSelection<Prisma.$OrderItemLaundry
  */
 export type LaundryItem = $Result.DefaultSelection<Prisma.$LaundryItemPayload>
 /**
+ * Model InvoiceCounter
+ * 
+ */
+export type InvoiceCounter = $Result.DefaultSelection<Prisma.$InvoiceCounterPayload>
+/**
  * Model Payment
  * 
  */
@@ -574,6 +579,16 @@ export class PrismaClient<
   get laundryItem(): Prisma.LaundryItemDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.invoiceCounter`: Exposes CRUD operations for the **InvoiceCounter** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more InvoiceCounters
+    * const invoiceCounters = await prisma.invoiceCounter.findMany()
+    * ```
+    */
+  get invoiceCounter(): Prisma.InvoiceCounterDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.payment`: Exposes CRUD operations for the **Payment** model.
     * Example usage:
     * ```ts
@@ -1039,6 +1054,7 @@ export namespace Prisma {
     OrderItem: 'OrderItem',
     OrderItemLaundry: 'OrderItemLaundry',
     LaundryItem: 'LaundryItem',
+    InvoiceCounter: 'InvoiceCounter',
     Payment: 'Payment'
   };
 
@@ -1058,7 +1074,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "customer" | "customerAddress" | "employee" | "shift" | "workStation" | "workerTask" | "pickUpTask" | "deliveryTask" | "attendance" | "outlet" | "outletSchedule" | "serviceCategory" | "service" | "orderHeader" | "orderItem" | "orderItemLaundry" | "laundryItem" | "payment"
+      modelProps: "customer" | "customerAddress" | "employee" | "shift" | "workStation" | "workerTask" | "pickUpTask" | "deliveryTask" | "attendance" | "outlet" | "outletSchedule" | "serviceCategory" | "service" | "orderHeader" | "orderItem" | "orderItemLaundry" | "laundryItem" | "invoiceCounter" | "payment"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2320,6 +2336,80 @@ export namespace Prisma {
           }
         }
       }
+      InvoiceCounter: {
+        payload: Prisma.$InvoiceCounterPayload<ExtArgs>
+        fields: Prisma.InvoiceCounterFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.InvoiceCounterFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoiceCounterPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.InvoiceCounterFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoiceCounterPayload>
+          }
+          findFirst: {
+            args: Prisma.InvoiceCounterFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoiceCounterPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.InvoiceCounterFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoiceCounterPayload>
+          }
+          findMany: {
+            args: Prisma.InvoiceCounterFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoiceCounterPayload>[]
+          }
+          create: {
+            args: Prisma.InvoiceCounterCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoiceCounterPayload>
+          }
+          createMany: {
+            args: Prisma.InvoiceCounterCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.InvoiceCounterCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoiceCounterPayload>[]
+          }
+          delete: {
+            args: Prisma.InvoiceCounterDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoiceCounterPayload>
+          }
+          update: {
+            args: Prisma.InvoiceCounterUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoiceCounterPayload>
+          }
+          deleteMany: {
+            args: Prisma.InvoiceCounterDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.InvoiceCounterUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.InvoiceCounterUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoiceCounterPayload>[]
+          }
+          upsert: {
+            args: Prisma.InvoiceCounterUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoiceCounterPayload>
+          }
+          aggregate: {
+            args: Prisma.InvoiceCounterAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateInvoiceCounter>
+          }
+          groupBy: {
+            args: Prisma.InvoiceCounterGroupByArgs<ExtArgs>
+            result: $Utils.Optional<InvoiceCounterGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.InvoiceCounterCountArgs<ExtArgs>
+            result: $Utils.Optional<InvoiceCounterCountAggregateOutputType> | number
+          }
+        }
+      }
       Payment: {
         payload: Prisma.$PaymentPayload<ExtArgs>
         fields: Prisma.PaymentFieldRefs
@@ -2503,6 +2593,7 @@ export namespace Prisma {
     orderItem?: OrderItemOmit
     orderItemLaundry?: OrderItemLaundryOmit
     laundryItem?: LaundryItemOmit
+    invoiceCounter?: InvoiceCounterOmit
     payment?: PaymentOmit
   }
 
@@ -14595,6 +14686,7 @@ export namespace Prisma {
 
   export type OutletMinAggregateOutputType = {
     id: string | null
+    code: string | null
     name: string | null
     address: string | null
     phoneNumber: string | null
@@ -14611,6 +14703,7 @@ export namespace Prisma {
 
   export type OutletMaxAggregateOutputType = {
     id: string | null
+    code: string | null
     name: string | null
     address: string | null
     phoneNumber: string | null
@@ -14627,6 +14720,7 @@ export namespace Prisma {
 
   export type OutletCountAggregateOutputType = {
     id: number
+    code: number
     name: number
     address: number
     phoneNumber: number
@@ -14657,6 +14751,7 @@ export namespace Prisma {
 
   export type OutletMinAggregateInputType = {
     id?: true
+    code?: true
     name?: true
     address?: true
     phoneNumber?: true
@@ -14673,6 +14768,7 @@ export namespace Prisma {
 
   export type OutletMaxAggregateInputType = {
     id?: true
+    code?: true
     name?: true
     address?: true
     phoneNumber?: true
@@ -14689,6 +14785,7 @@ export namespace Prisma {
 
   export type OutletCountAggregateInputType = {
     id?: true
+    code?: true
     name?: true
     address?: true
     phoneNumber?: true
@@ -14792,6 +14889,7 @@ export namespace Prisma {
 
   export type OutletGroupByOutputType = {
     id: string
+    code: string | null
     name: string
     address: string
     phoneNumber: string
@@ -14827,6 +14925,7 @@ export namespace Prisma {
 
   export type OutletSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    code?: boolean
     name?: boolean
     address?: boolean
     phoneNumber?: boolean
@@ -14851,6 +14950,7 @@ export namespace Prisma {
 
   export type OutletSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    code?: boolean
     name?: boolean
     address?: boolean
     phoneNumber?: boolean
@@ -14867,6 +14967,7 @@ export namespace Prisma {
 
   export type OutletSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    code?: boolean
     name?: boolean
     address?: boolean
     phoneNumber?: boolean
@@ -14883,6 +14984,7 @@ export namespace Prisma {
 
   export type OutletSelectScalar = {
     id?: boolean
+    code?: boolean
     name?: boolean
     address?: boolean
     phoneNumber?: boolean
@@ -14897,7 +14999,7 @@ export namespace Prisma {
     deletedAt?: boolean
   }
 
-  export type OutletOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "address" | "phoneNumber" | "city" | "postalCode" | "latitude" | "longitude" | "coverageArea" | "isActive" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["outlet"]>
+  export type OutletOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "address" | "phoneNumber" | "city" | "postalCode" | "latitude" | "longitude" | "coverageArea" | "isActive" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["outlet"]>
   export type OutletInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Employee?: boolean | Outlet$EmployeeArgs<ExtArgs>
     Attendance?: boolean | Outlet$AttendanceArgs<ExtArgs>
@@ -14924,6 +15026,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      code: string | null
       name: string
       address: string
       phoneNumber: string
@@ -15367,6 +15470,7 @@ export namespace Prisma {
    */
   interface OutletFieldRefs {
     readonly id: FieldRef<"Outlet", 'String'>
+    readonly code: FieldRef<"Outlet", 'String'>
     readonly name: FieldRef<"Outlet", 'String'>
     readonly address: FieldRef<"Outlet", 'String'>
     readonly phoneNumber: FieldRef<"Outlet", 'String'>
@@ -19340,6 +19444,7 @@ export namespace Prisma {
     customerId: string | null
     handledById: string | null
     outletId: string | null
+    invoiceNo: string | null
     status: $Enums.OrderStatus | null
     notes: string | null
     estHours: number | null
@@ -19353,6 +19458,7 @@ export namespace Prisma {
     customerId: string | null
     handledById: string | null
     outletId: string | null
+    invoiceNo: string | null
     status: $Enums.OrderStatus | null
     notes: string | null
     estHours: number | null
@@ -19366,6 +19472,7 @@ export namespace Prisma {
     customerId: number
     handledById: number
     outletId: number
+    invoiceNo: number
     status: number
     notes: number
     estHours: number
@@ -19389,6 +19496,7 @@ export namespace Prisma {
     customerId?: true
     handledById?: true
     outletId?: true
+    invoiceNo?: true
     status?: true
     notes?: true
     estHours?: true
@@ -19402,6 +19510,7 @@ export namespace Prisma {
     customerId?: true
     handledById?: true
     outletId?: true
+    invoiceNo?: true
     status?: true
     notes?: true
     estHours?: true
@@ -19415,6 +19524,7 @@ export namespace Prisma {
     customerId?: true
     handledById?: true
     outletId?: true
+    invoiceNo?: true
     status?: true
     notes?: true
     estHours?: true
@@ -19515,6 +19625,7 @@ export namespace Prisma {
     customerId: string
     handledById: string | null
     outletId: string
+    invoiceNo: string | null
     status: $Enums.OrderStatus
     notes: string
     estHours: number | null
@@ -19547,6 +19658,7 @@ export namespace Prisma {
     customerId?: boolean
     handledById?: boolean
     outletId?: boolean
+    invoiceNo?: boolean
     status?: boolean
     notes?: boolean
     estHours?: boolean
@@ -19569,6 +19681,7 @@ export namespace Prisma {
     customerId?: boolean
     handledById?: boolean
     outletId?: boolean
+    invoiceNo?: boolean
     status?: boolean
     notes?: boolean
     estHours?: boolean
@@ -19585,6 +19698,7 @@ export namespace Prisma {
     customerId?: boolean
     handledById?: boolean
     outletId?: boolean
+    invoiceNo?: boolean
     status?: boolean
     notes?: boolean
     estHours?: boolean
@@ -19601,6 +19715,7 @@ export namespace Prisma {
     customerId?: boolean
     handledById?: boolean
     outletId?: boolean
+    invoiceNo?: boolean
     status?: boolean
     notes?: boolean
     estHours?: boolean
@@ -19609,7 +19724,7 @@ export namespace Prisma {
     deletedAt?: boolean
   }
 
-  export type OrderHeaderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "customerId" | "handledById" | "outletId" | "status" | "notes" | "estHours" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["orderHeader"]>
+  export type OrderHeaderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "customerId" | "handledById" | "outletId" | "invoiceNo" | "status" | "notes" | "estHours" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["orderHeader"]>
   export type OrderHeaderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     customers?: boolean | CustomerDefaultArgs<ExtArgs>
     employees?: boolean | OrderHeader$employeesArgs<ExtArgs>
@@ -19649,6 +19764,7 @@ export namespace Prisma {
       customerId: string
       handledById: string | null
       outletId: string
+      invoiceNo: string | null
       status: $Enums.OrderStatus
       notes: string
       estHours: number | null
@@ -20090,6 +20206,7 @@ export namespace Prisma {
     readonly customerId: FieldRef<"OrderHeader", 'String'>
     readonly handledById: FieldRef<"OrderHeader", 'String'>
     readonly outletId: FieldRef<"OrderHeader", 'String'>
+    readonly invoiceNo: FieldRef<"OrderHeader", 'String'>
     readonly status: FieldRef<"OrderHeader", 'OrderStatus'>
     readonly notes: FieldRef<"OrderHeader", 'String'>
     readonly estHours: FieldRef<"OrderHeader", 'Int'>
@@ -24077,6 +24194,1009 @@ export namespace Prisma {
 
 
   /**
+   * Model InvoiceCounter
+   */
+
+  export type AggregateInvoiceCounter = {
+    _count: InvoiceCounterCountAggregateOutputType | null
+    _avg: InvoiceCounterAvgAggregateOutputType | null
+    _sum: InvoiceCounterSumAggregateOutputType | null
+    _min: InvoiceCounterMinAggregateOutputType | null
+    _max: InvoiceCounterMaxAggregateOutputType | null
+  }
+
+  export type InvoiceCounterAvgAggregateOutputType = {
+    seq: number | null
+  }
+
+  export type InvoiceCounterSumAggregateOutputType = {
+    seq: number | null
+  }
+
+  export type InvoiceCounterMinAggregateOutputType = {
+    dateKey: string | null
+    outletId: string | null
+    seq: number | null
+  }
+
+  export type InvoiceCounterMaxAggregateOutputType = {
+    dateKey: string | null
+    outletId: string | null
+    seq: number | null
+  }
+
+  export type InvoiceCounterCountAggregateOutputType = {
+    dateKey: number
+    outletId: number
+    seq: number
+    _all: number
+  }
+
+
+  export type InvoiceCounterAvgAggregateInputType = {
+    seq?: true
+  }
+
+  export type InvoiceCounterSumAggregateInputType = {
+    seq?: true
+  }
+
+  export type InvoiceCounterMinAggregateInputType = {
+    dateKey?: true
+    outletId?: true
+    seq?: true
+  }
+
+  export type InvoiceCounterMaxAggregateInputType = {
+    dateKey?: true
+    outletId?: true
+    seq?: true
+  }
+
+  export type InvoiceCounterCountAggregateInputType = {
+    dateKey?: true
+    outletId?: true
+    seq?: true
+    _all?: true
+  }
+
+  export type InvoiceCounterAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which InvoiceCounter to aggregate.
+     */
+    where?: InvoiceCounterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InvoiceCounters to fetch.
+     */
+    orderBy?: InvoiceCounterOrderByWithRelationInput | InvoiceCounterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: InvoiceCounterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InvoiceCounters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InvoiceCounters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned InvoiceCounters
+    **/
+    _count?: true | InvoiceCounterCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: InvoiceCounterAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: InvoiceCounterSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: InvoiceCounterMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: InvoiceCounterMaxAggregateInputType
+  }
+
+  export type GetInvoiceCounterAggregateType<T extends InvoiceCounterAggregateArgs> = {
+        [P in keyof T & keyof AggregateInvoiceCounter]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateInvoiceCounter[P]>
+      : GetScalarType<T[P], AggregateInvoiceCounter[P]>
+  }
+
+
+
+
+  export type InvoiceCounterGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InvoiceCounterWhereInput
+    orderBy?: InvoiceCounterOrderByWithAggregationInput | InvoiceCounterOrderByWithAggregationInput[]
+    by: InvoiceCounterScalarFieldEnum[] | InvoiceCounterScalarFieldEnum
+    having?: InvoiceCounterScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: InvoiceCounterCountAggregateInputType | true
+    _avg?: InvoiceCounterAvgAggregateInputType
+    _sum?: InvoiceCounterSumAggregateInputType
+    _min?: InvoiceCounterMinAggregateInputType
+    _max?: InvoiceCounterMaxAggregateInputType
+  }
+
+  export type InvoiceCounterGroupByOutputType = {
+    dateKey: string
+    outletId: string
+    seq: number
+    _count: InvoiceCounterCountAggregateOutputType | null
+    _avg: InvoiceCounterAvgAggregateOutputType | null
+    _sum: InvoiceCounterSumAggregateOutputType | null
+    _min: InvoiceCounterMinAggregateOutputType | null
+    _max: InvoiceCounterMaxAggregateOutputType | null
+  }
+
+  type GetInvoiceCounterGroupByPayload<T extends InvoiceCounterGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<InvoiceCounterGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof InvoiceCounterGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], InvoiceCounterGroupByOutputType[P]>
+            : GetScalarType<T[P], InvoiceCounterGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type InvoiceCounterSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    dateKey?: boolean
+    outletId?: boolean
+    seq?: boolean
+  }, ExtArgs["result"]["invoiceCounter"]>
+
+  export type InvoiceCounterSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    dateKey?: boolean
+    outletId?: boolean
+    seq?: boolean
+  }, ExtArgs["result"]["invoiceCounter"]>
+
+  export type InvoiceCounterSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    dateKey?: boolean
+    outletId?: boolean
+    seq?: boolean
+  }, ExtArgs["result"]["invoiceCounter"]>
+
+  export type InvoiceCounterSelectScalar = {
+    dateKey?: boolean
+    outletId?: boolean
+    seq?: boolean
+  }
+
+  export type InvoiceCounterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"dateKey" | "outletId" | "seq", ExtArgs["result"]["invoiceCounter"]>
+
+  export type $InvoiceCounterPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "InvoiceCounter"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      dateKey: string
+      outletId: string
+      seq: number
+    }, ExtArgs["result"]["invoiceCounter"]>
+    composites: {}
+  }
+
+  type InvoiceCounterGetPayload<S extends boolean | null | undefined | InvoiceCounterDefaultArgs> = $Result.GetResult<Prisma.$InvoiceCounterPayload, S>
+
+  type InvoiceCounterCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<InvoiceCounterFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: InvoiceCounterCountAggregateInputType | true
+    }
+
+  export interface InvoiceCounterDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['InvoiceCounter'], meta: { name: 'InvoiceCounter' } }
+    /**
+     * Find zero or one InvoiceCounter that matches the filter.
+     * @param {InvoiceCounterFindUniqueArgs} args - Arguments to find a InvoiceCounter
+     * @example
+     * // Get one InvoiceCounter
+     * const invoiceCounter = await prisma.invoiceCounter.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends InvoiceCounterFindUniqueArgs>(args: SelectSubset<T, InvoiceCounterFindUniqueArgs<ExtArgs>>): Prisma__InvoiceCounterClient<$Result.GetResult<Prisma.$InvoiceCounterPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one InvoiceCounter that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {InvoiceCounterFindUniqueOrThrowArgs} args - Arguments to find a InvoiceCounter
+     * @example
+     * // Get one InvoiceCounter
+     * const invoiceCounter = await prisma.invoiceCounter.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends InvoiceCounterFindUniqueOrThrowArgs>(args: SelectSubset<T, InvoiceCounterFindUniqueOrThrowArgs<ExtArgs>>): Prisma__InvoiceCounterClient<$Result.GetResult<Prisma.$InvoiceCounterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first InvoiceCounter that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvoiceCounterFindFirstArgs} args - Arguments to find a InvoiceCounter
+     * @example
+     * // Get one InvoiceCounter
+     * const invoiceCounter = await prisma.invoiceCounter.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends InvoiceCounterFindFirstArgs>(args?: SelectSubset<T, InvoiceCounterFindFirstArgs<ExtArgs>>): Prisma__InvoiceCounterClient<$Result.GetResult<Prisma.$InvoiceCounterPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first InvoiceCounter that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvoiceCounterFindFirstOrThrowArgs} args - Arguments to find a InvoiceCounter
+     * @example
+     * // Get one InvoiceCounter
+     * const invoiceCounter = await prisma.invoiceCounter.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends InvoiceCounterFindFirstOrThrowArgs>(args?: SelectSubset<T, InvoiceCounterFindFirstOrThrowArgs<ExtArgs>>): Prisma__InvoiceCounterClient<$Result.GetResult<Prisma.$InvoiceCounterPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more InvoiceCounters that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvoiceCounterFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all InvoiceCounters
+     * const invoiceCounters = await prisma.invoiceCounter.findMany()
+     * 
+     * // Get first 10 InvoiceCounters
+     * const invoiceCounters = await prisma.invoiceCounter.findMany({ take: 10 })
+     * 
+     * // Only select the `dateKey`
+     * const invoiceCounterWithDateKeyOnly = await prisma.invoiceCounter.findMany({ select: { dateKey: true } })
+     * 
+     */
+    findMany<T extends InvoiceCounterFindManyArgs>(args?: SelectSubset<T, InvoiceCounterFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoiceCounterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a InvoiceCounter.
+     * @param {InvoiceCounterCreateArgs} args - Arguments to create a InvoiceCounter.
+     * @example
+     * // Create one InvoiceCounter
+     * const InvoiceCounter = await prisma.invoiceCounter.create({
+     *   data: {
+     *     // ... data to create a InvoiceCounter
+     *   }
+     * })
+     * 
+     */
+    create<T extends InvoiceCounterCreateArgs>(args: SelectSubset<T, InvoiceCounterCreateArgs<ExtArgs>>): Prisma__InvoiceCounterClient<$Result.GetResult<Prisma.$InvoiceCounterPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many InvoiceCounters.
+     * @param {InvoiceCounterCreateManyArgs} args - Arguments to create many InvoiceCounters.
+     * @example
+     * // Create many InvoiceCounters
+     * const invoiceCounter = await prisma.invoiceCounter.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends InvoiceCounterCreateManyArgs>(args?: SelectSubset<T, InvoiceCounterCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many InvoiceCounters and returns the data saved in the database.
+     * @param {InvoiceCounterCreateManyAndReturnArgs} args - Arguments to create many InvoiceCounters.
+     * @example
+     * // Create many InvoiceCounters
+     * const invoiceCounter = await prisma.invoiceCounter.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many InvoiceCounters and only return the `dateKey`
+     * const invoiceCounterWithDateKeyOnly = await prisma.invoiceCounter.createManyAndReturn({
+     *   select: { dateKey: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends InvoiceCounterCreateManyAndReturnArgs>(args?: SelectSubset<T, InvoiceCounterCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoiceCounterPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a InvoiceCounter.
+     * @param {InvoiceCounterDeleteArgs} args - Arguments to delete one InvoiceCounter.
+     * @example
+     * // Delete one InvoiceCounter
+     * const InvoiceCounter = await prisma.invoiceCounter.delete({
+     *   where: {
+     *     // ... filter to delete one InvoiceCounter
+     *   }
+     * })
+     * 
+     */
+    delete<T extends InvoiceCounterDeleteArgs>(args: SelectSubset<T, InvoiceCounterDeleteArgs<ExtArgs>>): Prisma__InvoiceCounterClient<$Result.GetResult<Prisma.$InvoiceCounterPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one InvoiceCounter.
+     * @param {InvoiceCounterUpdateArgs} args - Arguments to update one InvoiceCounter.
+     * @example
+     * // Update one InvoiceCounter
+     * const invoiceCounter = await prisma.invoiceCounter.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends InvoiceCounterUpdateArgs>(args: SelectSubset<T, InvoiceCounterUpdateArgs<ExtArgs>>): Prisma__InvoiceCounterClient<$Result.GetResult<Prisma.$InvoiceCounterPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more InvoiceCounters.
+     * @param {InvoiceCounterDeleteManyArgs} args - Arguments to filter InvoiceCounters to delete.
+     * @example
+     * // Delete a few InvoiceCounters
+     * const { count } = await prisma.invoiceCounter.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends InvoiceCounterDeleteManyArgs>(args?: SelectSubset<T, InvoiceCounterDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more InvoiceCounters.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvoiceCounterUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many InvoiceCounters
+     * const invoiceCounter = await prisma.invoiceCounter.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends InvoiceCounterUpdateManyArgs>(args: SelectSubset<T, InvoiceCounterUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more InvoiceCounters and returns the data updated in the database.
+     * @param {InvoiceCounterUpdateManyAndReturnArgs} args - Arguments to update many InvoiceCounters.
+     * @example
+     * // Update many InvoiceCounters
+     * const invoiceCounter = await prisma.invoiceCounter.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more InvoiceCounters and only return the `dateKey`
+     * const invoiceCounterWithDateKeyOnly = await prisma.invoiceCounter.updateManyAndReturn({
+     *   select: { dateKey: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends InvoiceCounterUpdateManyAndReturnArgs>(args: SelectSubset<T, InvoiceCounterUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoiceCounterPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one InvoiceCounter.
+     * @param {InvoiceCounterUpsertArgs} args - Arguments to update or create a InvoiceCounter.
+     * @example
+     * // Update or create a InvoiceCounter
+     * const invoiceCounter = await prisma.invoiceCounter.upsert({
+     *   create: {
+     *     // ... data to create a InvoiceCounter
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the InvoiceCounter we want to update
+     *   }
+     * })
+     */
+    upsert<T extends InvoiceCounterUpsertArgs>(args: SelectSubset<T, InvoiceCounterUpsertArgs<ExtArgs>>): Prisma__InvoiceCounterClient<$Result.GetResult<Prisma.$InvoiceCounterPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of InvoiceCounters.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvoiceCounterCountArgs} args - Arguments to filter InvoiceCounters to count.
+     * @example
+     * // Count the number of InvoiceCounters
+     * const count = await prisma.invoiceCounter.count({
+     *   where: {
+     *     // ... the filter for the InvoiceCounters we want to count
+     *   }
+     * })
+    **/
+    count<T extends InvoiceCounterCountArgs>(
+      args?: Subset<T, InvoiceCounterCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], InvoiceCounterCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a InvoiceCounter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvoiceCounterAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends InvoiceCounterAggregateArgs>(args: Subset<T, InvoiceCounterAggregateArgs>): Prisma.PrismaPromise<GetInvoiceCounterAggregateType<T>>
+
+    /**
+     * Group by InvoiceCounter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvoiceCounterGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends InvoiceCounterGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: InvoiceCounterGroupByArgs['orderBy'] }
+        : { orderBy?: InvoiceCounterGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, InvoiceCounterGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetInvoiceCounterGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the InvoiceCounter model
+   */
+  readonly fields: InvoiceCounterFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for InvoiceCounter.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__InvoiceCounterClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the InvoiceCounter model
+   */
+  interface InvoiceCounterFieldRefs {
+    readonly dateKey: FieldRef<"InvoiceCounter", 'String'>
+    readonly outletId: FieldRef<"InvoiceCounter", 'String'>
+    readonly seq: FieldRef<"InvoiceCounter", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * InvoiceCounter findUnique
+   */
+  export type InvoiceCounterFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InvoiceCounter
+     */
+    select?: InvoiceCounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InvoiceCounter
+     */
+    omit?: InvoiceCounterOmit<ExtArgs> | null
+    /**
+     * Filter, which InvoiceCounter to fetch.
+     */
+    where: InvoiceCounterWhereUniqueInput
+  }
+
+  /**
+   * InvoiceCounter findUniqueOrThrow
+   */
+  export type InvoiceCounterFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InvoiceCounter
+     */
+    select?: InvoiceCounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InvoiceCounter
+     */
+    omit?: InvoiceCounterOmit<ExtArgs> | null
+    /**
+     * Filter, which InvoiceCounter to fetch.
+     */
+    where: InvoiceCounterWhereUniqueInput
+  }
+
+  /**
+   * InvoiceCounter findFirst
+   */
+  export type InvoiceCounterFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InvoiceCounter
+     */
+    select?: InvoiceCounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InvoiceCounter
+     */
+    omit?: InvoiceCounterOmit<ExtArgs> | null
+    /**
+     * Filter, which InvoiceCounter to fetch.
+     */
+    where?: InvoiceCounterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InvoiceCounters to fetch.
+     */
+    orderBy?: InvoiceCounterOrderByWithRelationInput | InvoiceCounterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for InvoiceCounters.
+     */
+    cursor?: InvoiceCounterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InvoiceCounters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InvoiceCounters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of InvoiceCounters.
+     */
+    distinct?: InvoiceCounterScalarFieldEnum | InvoiceCounterScalarFieldEnum[]
+  }
+
+  /**
+   * InvoiceCounter findFirstOrThrow
+   */
+  export type InvoiceCounterFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InvoiceCounter
+     */
+    select?: InvoiceCounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InvoiceCounter
+     */
+    omit?: InvoiceCounterOmit<ExtArgs> | null
+    /**
+     * Filter, which InvoiceCounter to fetch.
+     */
+    where?: InvoiceCounterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InvoiceCounters to fetch.
+     */
+    orderBy?: InvoiceCounterOrderByWithRelationInput | InvoiceCounterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for InvoiceCounters.
+     */
+    cursor?: InvoiceCounterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InvoiceCounters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InvoiceCounters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of InvoiceCounters.
+     */
+    distinct?: InvoiceCounterScalarFieldEnum | InvoiceCounterScalarFieldEnum[]
+  }
+
+  /**
+   * InvoiceCounter findMany
+   */
+  export type InvoiceCounterFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InvoiceCounter
+     */
+    select?: InvoiceCounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InvoiceCounter
+     */
+    omit?: InvoiceCounterOmit<ExtArgs> | null
+    /**
+     * Filter, which InvoiceCounters to fetch.
+     */
+    where?: InvoiceCounterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InvoiceCounters to fetch.
+     */
+    orderBy?: InvoiceCounterOrderByWithRelationInput | InvoiceCounterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing InvoiceCounters.
+     */
+    cursor?: InvoiceCounterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InvoiceCounters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InvoiceCounters.
+     */
+    skip?: number
+    distinct?: InvoiceCounterScalarFieldEnum | InvoiceCounterScalarFieldEnum[]
+  }
+
+  /**
+   * InvoiceCounter create
+   */
+  export type InvoiceCounterCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InvoiceCounter
+     */
+    select?: InvoiceCounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InvoiceCounter
+     */
+    omit?: InvoiceCounterOmit<ExtArgs> | null
+    /**
+     * The data needed to create a InvoiceCounter.
+     */
+    data: XOR<InvoiceCounterCreateInput, InvoiceCounterUncheckedCreateInput>
+  }
+
+  /**
+   * InvoiceCounter createMany
+   */
+  export type InvoiceCounterCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many InvoiceCounters.
+     */
+    data: InvoiceCounterCreateManyInput | InvoiceCounterCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * InvoiceCounter createManyAndReturn
+   */
+  export type InvoiceCounterCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InvoiceCounter
+     */
+    select?: InvoiceCounterSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the InvoiceCounter
+     */
+    omit?: InvoiceCounterOmit<ExtArgs> | null
+    /**
+     * The data used to create many InvoiceCounters.
+     */
+    data: InvoiceCounterCreateManyInput | InvoiceCounterCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * InvoiceCounter update
+   */
+  export type InvoiceCounterUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InvoiceCounter
+     */
+    select?: InvoiceCounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InvoiceCounter
+     */
+    omit?: InvoiceCounterOmit<ExtArgs> | null
+    /**
+     * The data needed to update a InvoiceCounter.
+     */
+    data: XOR<InvoiceCounterUpdateInput, InvoiceCounterUncheckedUpdateInput>
+    /**
+     * Choose, which InvoiceCounter to update.
+     */
+    where: InvoiceCounterWhereUniqueInput
+  }
+
+  /**
+   * InvoiceCounter updateMany
+   */
+  export type InvoiceCounterUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update InvoiceCounters.
+     */
+    data: XOR<InvoiceCounterUpdateManyMutationInput, InvoiceCounterUncheckedUpdateManyInput>
+    /**
+     * Filter which InvoiceCounters to update
+     */
+    where?: InvoiceCounterWhereInput
+    /**
+     * Limit how many InvoiceCounters to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * InvoiceCounter updateManyAndReturn
+   */
+  export type InvoiceCounterUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InvoiceCounter
+     */
+    select?: InvoiceCounterSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the InvoiceCounter
+     */
+    omit?: InvoiceCounterOmit<ExtArgs> | null
+    /**
+     * The data used to update InvoiceCounters.
+     */
+    data: XOR<InvoiceCounterUpdateManyMutationInput, InvoiceCounterUncheckedUpdateManyInput>
+    /**
+     * Filter which InvoiceCounters to update
+     */
+    where?: InvoiceCounterWhereInput
+    /**
+     * Limit how many InvoiceCounters to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * InvoiceCounter upsert
+   */
+  export type InvoiceCounterUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InvoiceCounter
+     */
+    select?: InvoiceCounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InvoiceCounter
+     */
+    omit?: InvoiceCounterOmit<ExtArgs> | null
+    /**
+     * The filter to search for the InvoiceCounter to update in case it exists.
+     */
+    where: InvoiceCounterWhereUniqueInput
+    /**
+     * In case the InvoiceCounter found by the `where` argument doesn't exist, create a new InvoiceCounter with this data.
+     */
+    create: XOR<InvoiceCounterCreateInput, InvoiceCounterUncheckedCreateInput>
+    /**
+     * In case the InvoiceCounter was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<InvoiceCounterUpdateInput, InvoiceCounterUncheckedUpdateInput>
+  }
+
+  /**
+   * InvoiceCounter delete
+   */
+  export type InvoiceCounterDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InvoiceCounter
+     */
+    select?: InvoiceCounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InvoiceCounter
+     */
+    omit?: InvoiceCounterOmit<ExtArgs> | null
+    /**
+     * Filter which InvoiceCounter to delete.
+     */
+    where: InvoiceCounterWhereUniqueInput
+  }
+
+  /**
+   * InvoiceCounter deleteMany
+   */
+  export type InvoiceCounterDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which InvoiceCounters to delete
+     */
+    where?: InvoiceCounterWhereInput
+    /**
+     * Limit how many InvoiceCounters to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * InvoiceCounter without action
+   */
+  export type InvoiceCounterDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InvoiceCounter
+     */
+    select?: InvoiceCounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InvoiceCounter
+     */
+    omit?: InvoiceCounterOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Model Payment
    */
 
@@ -25422,6 +26542,7 @@ export namespace Prisma {
 
   export const OutletScalarFieldEnum: {
     id: 'id',
+    code: 'code',
     name: 'name',
     address: 'address',
     phoneNumber: 'phoneNumber',
@@ -25485,6 +26606,7 @@ export namespace Prisma {
     customerId: 'customerId',
     handledById: 'handledById',
     outletId: 'outletId',
+    invoiceNo: 'invoiceNo',
     status: 'status',
     notes: 'notes',
     estHours: 'estHours',
@@ -25534,6 +26656,15 @@ export namespace Prisma {
   };
 
   export type LaundryItemScalarFieldEnum = (typeof LaundryItemScalarFieldEnum)[keyof typeof LaundryItemScalarFieldEnum]
+
+
+  export const InvoiceCounterScalarFieldEnum: {
+    dateKey: 'dateKey',
+    outletId: 'outletId',
+    seq: 'seq'
+  };
+
+  export type InvoiceCounterScalarFieldEnum = (typeof InvoiceCounterScalarFieldEnum)[keyof typeof InvoiceCounterScalarFieldEnum]
 
 
   export const PaymentScalarFieldEnum: {
@@ -26784,6 +27915,7 @@ export namespace Prisma {
     OR?: OutletWhereInput[]
     NOT?: OutletWhereInput | OutletWhereInput[]
     id?: StringFilter<"Outlet"> | string
+    code?: StringNullableFilter<"Outlet"> | string | null
     name?: StringFilter<"Outlet"> | string
     address?: StringFilter<"Outlet"> | string
     phoneNumber?: StringFilter<"Outlet"> | string
@@ -26807,6 +27939,7 @@ export namespace Prisma {
 
   export type OutletOrderByWithRelationInput = {
     id?: SortOrder
+    code?: SortOrderInput | SortOrder
     name?: SortOrder
     address?: SortOrder
     phoneNumber?: SortOrder
@@ -26830,6 +27963,7 @@ export namespace Prisma {
 
   export type OutletWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    code?: string
     AND?: OutletWhereInput | OutletWhereInput[]
     OR?: OutletWhereInput[]
     NOT?: OutletWhereInput | OutletWhereInput[]
@@ -26852,10 +27986,11 @@ export namespace Prisma {
     workerTasks?: WorkerTaskListRelationFilter
     PickUpTask?: PickUpTaskListRelationFilter
     DeliveryTask?: DeliveryTaskListRelationFilter
-  }, "id">
+  }, "id" | "code">
 
   export type OutletOrderByWithAggregationInput = {
     id?: SortOrder
+    code?: SortOrderInput | SortOrder
     name?: SortOrder
     address?: SortOrder
     phoneNumber?: SortOrder
@@ -26880,6 +28015,7 @@ export namespace Prisma {
     OR?: OutletScalarWhereWithAggregatesInput[]
     NOT?: OutletScalarWhereWithAggregatesInput | OutletScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Outlet"> | string
+    code?: StringNullableWithAggregatesFilter<"Outlet"> | string | null
     name?: StringWithAggregatesFilter<"Outlet"> | string
     address?: StringWithAggregatesFilter<"Outlet"> | string
     phoneNumber?: StringWithAggregatesFilter<"Outlet"> | string
@@ -27112,6 +28248,7 @@ export namespace Prisma {
     customerId?: StringFilter<"OrderHeader"> | string
     handledById?: StringNullableFilter<"OrderHeader"> | string | null
     outletId?: StringFilter<"OrderHeader"> | string
+    invoiceNo?: StringNullableFilter<"OrderHeader"> | string | null
     status?: EnumOrderStatusFilter<"OrderHeader"> | $Enums.OrderStatus
     notes?: StringFilter<"OrderHeader"> | string
     estHours?: IntNullableFilter<"OrderHeader"> | number | null
@@ -27133,6 +28270,7 @@ export namespace Prisma {
     customerId?: SortOrder
     handledById?: SortOrderInput | SortOrder
     outletId?: SortOrder
+    invoiceNo?: SortOrderInput | SortOrder
     status?: SortOrder
     notes?: SortOrder
     estHours?: SortOrderInput | SortOrder
@@ -27151,6 +28289,7 @@ export namespace Prisma {
 
   export type OrderHeaderWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    invoiceNo?: string
     AND?: OrderHeaderWhereInput | OrderHeaderWhereInput[]
     OR?: OrderHeaderWhereInput[]
     NOT?: OrderHeaderWhereInput | OrderHeaderWhereInput[]
@@ -27171,13 +28310,14 @@ export namespace Prisma {
     workerTasks?: WorkerTaskListRelationFilter
     PickUpTask?: PickUpTaskListRelationFilter
     DeliveryTask?: DeliveryTaskListRelationFilter
-  }, "id">
+  }, "id" | "invoiceNo">
 
   export type OrderHeaderOrderByWithAggregationInput = {
     id?: SortOrder
     customerId?: SortOrder
     handledById?: SortOrderInput | SortOrder
     outletId?: SortOrder
+    invoiceNo?: SortOrderInput | SortOrder
     status?: SortOrder
     notes?: SortOrder
     estHours?: SortOrderInput | SortOrder
@@ -27199,6 +28339,7 @@ export namespace Prisma {
     customerId?: StringWithAggregatesFilter<"OrderHeader"> | string
     handledById?: StringNullableWithAggregatesFilter<"OrderHeader"> | string | null
     outletId?: StringWithAggregatesFilter<"OrderHeader"> | string
+    invoiceNo?: StringNullableWithAggregatesFilter<"OrderHeader"> | string | null
     status?: EnumOrderStatusWithAggregatesFilter<"OrderHeader"> | $Enums.OrderStatus
     notes?: StringWithAggregatesFilter<"OrderHeader"> | string
     estHours?: IntNullableWithAggregatesFilter<"OrderHeader"> | number | null
@@ -27421,6 +28562,51 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"LaundryItem"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"LaundryItem"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"LaundryItem"> | Date | string | null
+  }
+
+  export type InvoiceCounterWhereInput = {
+    AND?: InvoiceCounterWhereInput | InvoiceCounterWhereInput[]
+    OR?: InvoiceCounterWhereInput[]
+    NOT?: InvoiceCounterWhereInput | InvoiceCounterWhereInput[]
+    dateKey?: StringFilter<"InvoiceCounter"> | string
+    outletId?: StringFilter<"InvoiceCounter"> | string
+    seq?: IntFilter<"InvoiceCounter"> | number
+  }
+
+  export type InvoiceCounterOrderByWithRelationInput = {
+    dateKey?: SortOrder
+    outletId?: SortOrder
+    seq?: SortOrder
+  }
+
+  export type InvoiceCounterWhereUniqueInput = Prisma.AtLeast<{
+    dateKey_outletId?: InvoiceCounterDateKeyOutletIdCompoundUniqueInput
+    AND?: InvoiceCounterWhereInput | InvoiceCounterWhereInput[]
+    OR?: InvoiceCounterWhereInput[]
+    NOT?: InvoiceCounterWhereInput | InvoiceCounterWhereInput[]
+    dateKey?: StringFilter<"InvoiceCounter"> | string
+    outletId?: StringFilter<"InvoiceCounter"> | string
+    seq?: IntFilter<"InvoiceCounter"> | number
+  }, "dateKey_outletId">
+
+  export type InvoiceCounterOrderByWithAggregationInput = {
+    dateKey?: SortOrder
+    outletId?: SortOrder
+    seq?: SortOrder
+    _count?: InvoiceCounterCountOrderByAggregateInput
+    _avg?: InvoiceCounterAvgOrderByAggregateInput
+    _max?: InvoiceCounterMaxOrderByAggregateInput
+    _min?: InvoiceCounterMinOrderByAggregateInput
+    _sum?: InvoiceCounterSumOrderByAggregateInput
+  }
+
+  export type InvoiceCounterScalarWhereWithAggregatesInput = {
+    AND?: InvoiceCounterScalarWhereWithAggregatesInput | InvoiceCounterScalarWhereWithAggregatesInput[]
+    OR?: InvoiceCounterScalarWhereWithAggregatesInput[]
+    NOT?: InvoiceCounterScalarWhereWithAggregatesInput | InvoiceCounterScalarWhereWithAggregatesInput[]
+    dateKey?: StringWithAggregatesFilter<"InvoiceCounter"> | string
+    outletId?: StringWithAggregatesFilter<"InvoiceCounter"> | string
+    seq?: IntWithAggregatesFilter<"InvoiceCounter"> | number
   }
 
   export type PaymentWhereInput = {
@@ -28576,6 +29762,7 @@ export namespace Prisma {
 
   export type OutletCreateInput = {
     id?: string
+    code?: string | null
     name: string
     address: string
     phoneNumber: string
@@ -28599,6 +29786,7 @@ export namespace Prisma {
 
   export type OutletUncheckedCreateInput = {
     id?: string
+    code?: string | null
     name: string
     address: string
     phoneNumber: string
@@ -28622,6 +29810,7 @@ export namespace Prisma {
 
   export type OutletUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
@@ -28645,6 +29834,7 @@ export namespace Prisma {
 
   export type OutletUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
@@ -28668,6 +29858,7 @@ export namespace Prisma {
 
   export type OutletCreateManyInput = {
     id?: string
+    code?: string | null
     name: string
     address: string
     phoneNumber: string
@@ -28684,6 +29875,7 @@ export namespace Prisma {
 
   export type OutletUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
@@ -28700,6 +29892,7 @@ export namespace Prisma {
 
   export type OutletUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
@@ -28946,6 +30139,7 @@ export namespace Prisma {
 
   export type OrderHeaderCreateInput = {
     id?: string
+    invoiceNo?: string | null
     status?: $Enums.OrderStatus
     notes: string
     estHours?: number | null
@@ -28967,6 +30161,7 @@ export namespace Prisma {
     customerId: string
     handledById?: string | null
     outletId: string
+    invoiceNo?: string | null
     status?: $Enums.OrderStatus
     notes: string
     estHours?: number | null
@@ -28982,6 +30177,7 @@ export namespace Prisma {
 
   export type OrderHeaderUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    invoiceNo?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
     estHours?: NullableIntFieldUpdateOperationsInput | number | null
@@ -29003,6 +30199,7 @@ export namespace Prisma {
     customerId?: StringFieldUpdateOperationsInput | string
     handledById?: NullableStringFieldUpdateOperationsInput | string | null
     outletId?: StringFieldUpdateOperationsInput | string
+    invoiceNo?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
     estHours?: NullableIntFieldUpdateOperationsInput | number | null
@@ -29021,6 +30218,7 @@ export namespace Prisma {
     customerId: string
     handledById?: string | null
     outletId: string
+    invoiceNo?: string | null
     status?: $Enums.OrderStatus
     notes: string
     estHours?: number | null
@@ -29031,6 +30229,7 @@ export namespace Prisma {
 
   export type OrderHeaderUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    invoiceNo?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
     estHours?: NullableIntFieldUpdateOperationsInput | number | null
@@ -29044,6 +30243,7 @@ export namespace Prisma {
     customerId?: StringFieldUpdateOperationsInput | string
     handledById?: NullableStringFieldUpdateOperationsInput | string | null
     outletId?: StringFieldUpdateOperationsInput | string
+    invoiceNo?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
     estHours?: NullableIntFieldUpdateOperationsInput | number | null
@@ -29275,6 +30475,48 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type InvoiceCounterCreateInput = {
+    dateKey: string
+    outletId: string
+    seq?: number
+  }
+
+  export type InvoiceCounterUncheckedCreateInput = {
+    dateKey: string
+    outletId: string
+    seq?: number
+  }
+
+  export type InvoiceCounterUpdateInput = {
+    dateKey?: StringFieldUpdateOperationsInput | string
+    outletId?: StringFieldUpdateOperationsInput | string
+    seq?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type InvoiceCounterUncheckedUpdateInput = {
+    dateKey?: StringFieldUpdateOperationsInput | string
+    outletId?: StringFieldUpdateOperationsInput | string
+    seq?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type InvoiceCounterCreateManyInput = {
+    dateKey: string
+    outletId: string
+    seq?: number
+  }
+
+  export type InvoiceCounterUpdateManyMutationInput = {
+    dateKey?: StringFieldUpdateOperationsInput | string
+    outletId?: StringFieldUpdateOperationsInput | string
+    seq?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type InvoiceCounterUncheckedUpdateManyInput = {
+    dateKey?: StringFieldUpdateOperationsInput | string
+    outletId?: StringFieldUpdateOperationsInput | string
+    seq?: IntFieldUpdateOperationsInput | number
   }
 
   export type PaymentCreateInput = {
@@ -30372,6 +31614,7 @@ export namespace Prisma {
 
   export type OutletCountOrderByAggregateInput = {
     id?: SortOrder
+    code?: SortOrder
     name?: SortOrder
     address?: SortOrder
     phoneNumber?: SortOrder
@@ -30394,6 +31637,7 @@ export namespace Prisma {
 
   export type OutletMaxOrderByAggregateInput = {
     id?: SortOrder
+    code?: SortOrder
     name?: SortOrder
     address?: SortOrder
     phoneNumber?: SortOrder
@@ -30410,6 +31654,7 @@ export namespace Prisma {
 
   export type OutletMinOrderByAggregateInput = {
     id?: SortOrder
+    code?: SortOrder
     name?: SortOrder
     address?: SortOrder
     phoneNumber?: SortOrder
@@ -30585,6 +31830,7 @@ export namespace Prisma {
     customerId?: SortOrder
     handledById?: SortOrder
     outletId?: SortOrder
+    invoiceNo?: SortOrder
     status?: SortOrder
     notes?: SortOrder
     estHours?: SortOrder
@@ -30602,6 +31848,7 @@ export namespace Prisma {
     customerId?: SortOrder
     handledById?: SortOrder
     outletId?: SortOrder
+    invoiceNo?: SortOrder
     status?: SortOrder
     notes?: SortOrder
     estHours?: SortOrder
@@ -30615,6 +31862,7 @@ export namespace Prisma {
     customerId?: SortOrder
     handledById?: SortOrder
     outletId?: SortOrder
+    invoiceNo?: SortOrder
     status?: SortOrder
     notes?: SortOrder
     estHours?: SortOrder
@@ -30773,6 +32021,37 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+  }
+
+  export type InvoiceCounterDateKeyOutletIdCompoundUniqueInput = {
+    dateKey: string
+    outletId: string
+  }
+
+  export type InvoiceCounterCountOrderByAggregateInput = {
+    dateKey?: SortOrder
+    outletId?: SortOrder
+    seq?: SortOrder
+  }
+
+  export type InvoiceCounterAvgOrderByAggregateInput = {
+    seq?: SortOrder
+  }
+
+  export type InvoiceCounterMaxOrderByAggregateInput = {
+    dateKey?: SortOrder
+    outletId?: SortOrder
+    seq?: SortOrder
+  }
+
+  export type InvoiceCounterMinOrderByAggregateInput = {
+    dateKey?: SortOrder
+    outletId?: SortOrder
+    seq?: SortOrder
+  }
+
+  export type InvoiceCounterSumOrderByAggregateInput = {
+    seq?: SortOrder
   }
 
   export type EnumPaymentMethodFilter<$PrismaModel = never> = {
@@ -33389,6 +34668,7 @@ export namespace Prisma {
 
   export type OrderHeaderCreateWithoutCustomersInput = {
     id?: string
+    invoiceNo?: string | null
     status?: $Enums.OrderStatus
     notes: string
     estHours?: number | null
@@ -33408,6 +34688,7 @@ export namespace Prisma {
     id?: string
     handledById?: string | null
     outletId: string
+    invoiceNo?: string | null
     status?: $Enums.OrderStatus
     notes: string
     estHours?: number | null
@@ -33491,6 +34772,7 @@ export namespace Prisma {
     customerId?: StringFilter<"OrderHeader"> | string
     handledById?: StringNullableFilter<"OrderHeader"> | string | null
     outletId?: StringFilter<"OrderHeader"> | string
+    invoiceNo?: StringNullableFilter<"OrderHeader"> | string | null
     status?: EnumOrderStatusFilter<"OrderHeader"> | $Enums.OrderStatus
     notes?: StringFilter<"OrderHeader"> | string
     estHours?: IntNullableFilter<"OrderHeader"> | number | null
@@ -33782,6 +35064,7 @@ export namespace Prisma {
 
   export type OutletCreateWithoutEmployeeInput = {
     id?: string
+    code?: string | null
     name: string
     address: string
     phoneNumber: string
@@ -33804,6 +35087,7 @@ export namespace Prisma {
 
   export type OutletUncheckedCreateWithoutEmployeeInput = {
     id?: string
+    code?: string | null
     name: string
     address: string
     phoneNumber: string
@@ -33877,6 +35161,7 @@ export namespace Prisma {
 
   export type OrderHeaderCreateWithoutEmployeesInput = {
     id?: string
+    invoiceNo?: string | null
     status?: $Enums.OrderStatus
     notes: string
     estHours?: number | null
@@ -33896,6 +35181,7 @@ export namespace Prisma {
     id?: string
     customerId: string
     outletId: string
+    invoiceNo?: string | null
     status?: $Enums.OrderStatus
     notes: string
     estHours?: number | null
@@ -34293,6 +35579,7 @@ export namespace Prisma {
 
   export type OutletUpdateWithoutEmployeeInput = {
     id?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
@@ -34315,6 +35602,7 @@ export namespace Prisma {
 
   export type OutletUncheckedUpdateWithoutEmployeeInput = {
     id?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
@@ -35092,6 +36380,7 @@ export namespace Prisma {
 
   export type OrderHeaderCreateWithoutWorkerTasksInput = {
     id?: string
+    invoiceNo?: string | null
     status?: $Enums.OrderStatus
     notes: string
     estHours?: number | null
@@ -35112,6 +36401,7 @@ export namespace Prisma {
     customerId: string
     handledById?: string | null
     outletId: string
+    invoiceNo?: string | null
     status?: $Enums.OrderStatus
     notes: string
     estHours?: number | null
@@ -35164,6 +36454,7 @@ export namespace Prisma {
 
   export type OutletCreateWithoutWorkerTasksInput = {
     id?: string
+    code?: string | null
     name: string
     address: string
     phoneNumber: string
@@ -35186,6 +36477,7 @@ export namespace Prisma {
 
   export type OutletUncheckedCreateWithoutWorkerTasksInput = {
     id?: string
+    code?: string | null
     name: string
     address: string
     phoneNumber: string
@@ -35406,6 +36698,7 @@ export namespace Prisma {
 
   export type OrderHeaderUpdateWithoutWorkerTasksInput = {
     id?: StringFieldUpdateOperationsInput | string
+    invoiceNo?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
     estHours?: NullableIntFieldUpdateOperationsInput | number | null
@@ -35426,6 +36719,7 @@ export namespace Prisma {
     customerId?: StringFieldUpdateOperationsInput | string
     handledById?: NullableStringFieldUpdateOperationsInput | string | null
     outletId?: StringFieldUpdateOperationsInput | string
+    invoiceNo?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
     estHours?: NullableIntFieldUpdateOperationsInput | number | null
@@ -35490,6 +36784,7 @@ export namespace Prisma {
 
   export type OutletUpdateWithoutWorkerTasksInput = {
     id?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
@@ -35512,6 +36807,7 @@ export namespace Prisma {
 
   export type OutletUncheckedUpdateWithoutWorkerTasksInput = {
     id?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
@@ -35716,6 +37012,7 @@ export namespace Prisma {
 
   export type OutletCreateWithoutPickUpTaskInput = {
     id?: string
+    code?: string | null
     name: string
     address: string
     phoneNumber: string
@@ -35738,6 +37035,7 @@ export namespace Prisma {
 
   export type OutletUncheckedCreateWithoutPickUpTaskInput = {
     id?: string
+    code?: string | null
     name: string
     address: string
     phoneNumber: string
@@ -35806,6 +37104,7 @@ export namespace Prisma {
 
   export type OrderHeaderCreateWithoutPickUpTaskInput = {
     id?: string
+    invoiceNo?: string | null
     status?: $Enums.OrderStatus
     notes: string
     estHours?: number | null
@@ -35826,6 +37125,7 @@ export namespace Prisma {
     customerId: string
     handledById?: string | null
     outletId: string
+    invoiceNo?: string | null
     status?: $Enums.OrderStatus
     notes: string
     estHours?: number | null
@@ -35986,6 +37286,7 @@ export namespace Prisma {
 
   export type OutletUpdateWithoutPickUpTaskInput = {
     id?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
@@ -36008,6 +37309,7 @@ export namespace Prisma {
 
   export type OutletUncheckedUpdateWithoutPickUpTaskInput = {
     id?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
@@ -36088,6 +37390,7 @@ export namespace Prisma {
 
   export type OrderHeaderUpdateWithoutPickUpTaskInput = {
     id?: StringFieldUpdateOperationsInput | string
+    invoiceNo?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
     estHours?: NullableIntFieldUpdateOperationsInput | number | null
@@ -36108,6 +37411,7 @@ export namespace Prisma {
     customerId?: StringFieldUpdateOperationsInput | string
     handledById?: NullableStringFieldUpdateOperationsInput | string | null
     outletId?: StringFieldUpdateOperationsInput | string
+    invoiceNo?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
     estHours?: NullableIntFieldUpdateOperationsInput | number | null
@@ -36240,6 +37544,7 @@ export namespace Prisma {
 
   export type OutletCreateWithoutDeliveryTaskInput = {
     id?: string
+    code?: string | null
     name: string
     address: string
     phoneNumber: string
@@ -36262,6 +37567,7 @@ export namespace Prisma {
 
   export type OutletUncheckedCreateWithoutDeliveryTaskInput = {
     id?: string
+    code?: string | null
     name: string
     address: string
     phoneNumber: string
@@ -36330,6 +37636,7 @@ export namespace Prisma {
 
   export type OrderHeaderCreateWithoutDeliveryTaskInput = {
     id?: string
+    invoiceNo?: string | null
     status?: $Enums.OrderStatus
     notes: string
     estHours?: number | null
@@ -36350,6 +37657,7 @@ export namespace Prisma {
     customerId: string
     handledById?: string | null
     outletId: string
+    invoiceNo?: string | null
     status?: $Enums.OrderStatus
     notes: string
     estHours?: number | null
@@ -36510,6 +37818,7 @@ export namespace Prisma {
 
   export type OutletUpdateWithoutDeliveryTaskInput = {
     id?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
@@ -36532,6 +37841,7 @@ export namespace Prisma {
 
   export type OutletUncheckedUpdateWithoutDeliveryTaskInput = {
     id?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
@@ -36612,6 +37922,7 @@ export namespace Prisma {
 
   export type OrderHeaderUpdateWithoutDeliveryTaskInput = {
     id?: StringFieldUpdateOperationsInput | string
+    invoiceNo?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
     estHours?: NullableIntFieldUpdateOperationsInput | number | null
@@ -36632,6 +37943,7 @@ export namespace Prisma {
     customerId?: StringFieldUpdateOperationsInput | string
     handledById?: NullableStringFieldUpdateOperationsInput | string | null
     outletId?: StringFieldUpdateOperationsInput | string
+    invoiceNo?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
     estHours?: NullableIntFieldUpdateOperationsInput | number | null
@@ -36705,6 +38017,7 @@ export namespace Prisma {
 
   export type OutletCreateWithoutAttendanceInput = {
     id?: string
+    code?: string | null
     name: string
     address: string
     phoneNumber: string
@@ -36727,6 +38040,7 @@ export namespace Prisma {
 
   export type OutletUncheckedCreateWithoutAttendanceInput = {
     id?: string
+    code?: string | null
     name: string
     address: string
     phoneNumber: string
@@ -36918,6 +38232,7 @@ export namespace Prisma {
 
   export type OutletUpdateWithoutAttendanceInput = {
     id?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
@@ -36940,6 +38255,7 @@ export namespace Prisma {
 
   export type OutletUncheckedUpdateWithoutAttendanceInput = {
     id?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
@@ -37202,6 +38518,7 @@ export namespace Prisma {
 
   export type OrderHeaderCreateWithoutOutletsInput = {
     id?: string
+    invoiceNo?: string | null
     status?: $Enums.OrderStatus
     notes: string
     estHours?: number | null
@@ -37221,6 +38538,7 @@ export namespace Prisma {
     id?: string
     customerId: string
     handledById?: string | null
+    invoiceNo?: string | null
     status?: $Enums.OrderStatus
     notes: string
     estHours?: number | null
@@ -37498,6 +38816,7 @@ export namespace Prisma {
 
   export type OutletCreateWithoutOutletScheduleInput = {
     id?: string
+    code?: string | null
     name: string
     address: string
     phoneNumber: string
@@ -37520,6 +38839,7 @@ export namespace Prisma {
 
   export type OutletUncheckedCreateWithoutOutletScheduleInput = {
     id?: string
+    code?: string | null
     name: string
     address: string
     phoneNumber: string
@@ -37558,6 +38878,7 @@ export namespace Prisma {
 
   export type OutletUpdateWithoutOutletScheduleInput = {
     id?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
@@ -37580,6 +38901,7 @@ export namespace Prisma {
 
   export type OutletUncheckedUpdateWithoutOutletScheduleInput = {
     id?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
@@ -37898,6 +39220,7 @@ export namespace Prisma {
 
   export type OutletCreateWithoutOrderHeaderInput = {
     id?: string
+    code?: string | null
     name: string
     address: string
     phoneNumber: string
@@ -37920,6 +39243,7 @@ export namespace Prisma {
 
   export type OutletUncheckedCreateWithoutOrderHeaderInput = {
     id?: string
+    code?: string | null
     name: string
     address: string
     phoneNumber: string
@@ -38278,6 +39602,7 @@ export namespace Prisma {
 
   export type OutletUpdateWithoutOrderHeaderInput = {
     id?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
@@ -38300,6 +39625,7 @@ export namespace Prisma {
 
   export type OutletUncheckedUpdateWithoutOrderHeaderInput = {
     id?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
@@ -38418,6 +39744,7 @@ export namespace Prisma {
 
   export type OrderHeaderCreateWithoutOrderItemInput = {
     id?: string
+    invoiceNo?: string | null
     status?: $Enums.OrderStatus
     notes: string
     estHours?: number | null
@@ -38438,6 +39765,7 @@ export namespace Prisma {
     customerId: string
     handledById?: string | null
     outletId: string
+    invoiceNo?: string | null
     status?: $Enums.OrderStatus
     notes: string
     estHours?: number | null
@@ -38577,6 +39905,7 @@ export namespace Prisma {
 
   export type OrderHeaderUpdateWithoutOrderItemInput = {
     id?: StringFieldUpdateOperationsInput | string
+    invoiceNo?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
     estHours?: NullableIntFieldUpdateOperationsInput | number | null
@@ -38597,6 +39926,7 @@ export namespace Prisma {
     customerId?: StringFieldUpdateOperationsInput | string
     handledById?: NullableStringFieldUpdateOperationsInput | string | null
     outletId?: StringFieldUpdateOperationsInput | string
+    invoiceNo?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
     estHours?: NullableIntFieldUpdateOperationsInput | number | null
@@ -38857,6 +40187,7 @@ export namespace Prisma {
 
   export type OrderHeaderCreateWithoutPaymentInput = {
     id?: string
+    invoiceNo?: string | null
     status?: $Enums.OrderStatus
     notes: string
     estHours?: number | null
@@ -38877,6 +40208,7 @@ export namespace Prisma {
     customerId: string
     handledById?: string | null
     outletId: string
+    invoiceNo?: string | null
     status?: $Enums.OrderStatus
     notes: string
     estHours?: number | null
@@ -38907,6 +40239,7 @@ export namespace Prisma {
 
   export type OrderHeaderUpdateWithoutPaymentInput = {
     id?: StringFieldUpdateOperationsInput | string
+    invoiceNo?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
     estHours?: NullableIntFieldUpdateOperationsInput | number | null
@@ -38927,6 +40260,7 @@ export namespace Prisma {
     customerId?: StringFieldUpdateOperationsInput | string
     handledById?: NullableStringFieldUpdateOperationsInput | string | null
     outletId?: StringFieldUpdateOperationsInput | string
+    invoiceNo?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
     estHours?: NullableIntFieldUpdateOperationsInput | number | null
@@ -38959,6 +40293,7 @@ export namespace Prisma {
     id?: string
     handledById?: string | null
     outletId: string
+    invoiceNo?: string | null
     status?: $Enums.OrderStatus
     notes: string
     estHours?: number | null
@@ -39021,6 +40356,7 @@ export namespace Prisma {
 
   export type OrderHeaderUpdateWithoutCustomersInput = {
     id?: StringFieldUpdateOperationsInput | string
+    invoiceNo?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
     estHours?: NullableIntFieldUpdateOperationsInput | number | null
@@ -39040,6 +40376,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     handledById?: NullableStringFieldUpdateOperationsInput | string | null
     outletId?: StringFieldUpdateOperationsInput | string
+    invoiceNo?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
     estHours?: NullableIntFieldUpdateOperationsInput | number | null
@@ -39057,6 +40394,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     handledById?: NullableStringFieldUpdateOperationsInput | string | null
     outletId?: StringFieldUpdateOperationsInput | string
+    invoiceNo?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
     estHours?: NullableIntFieldUpdateOperationsInput | number | null
@@ -39199,6 +40537,7 @@ export namespace Prisma {
     id?: string
     customerId: string
     outletId: string
+    invoiceNo?: string | null
     status?: $Enums.OrderStatus
     notes: string
     estHours?: number | null
@@ -39385,6 +40724,7 @@ export namespace Prisma {
 
   export type OrderHeaderUpdateWithoutEmployeesInput = {
     id?: StringFieldUpdateOperationsInput | string
+    invoiceNo?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
     estHours?: NullableIntFieldUpdateOperationsInput | number | null
@@ -39404,6 +40744,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     customerId?: StringFieldUpdateOperationsInput | string
     outletId?: StringFieldUpdateOperationsInput | string
+    invoiceNo?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
     estHours?: NullableIntFieldUpdateOperationsInput | number | null
@@ -39421,6 +40762,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     customerId?: StringFieldUpdateOperationsInput | string
     outletId?: StringFieldUpdateOperationsInput | string
+    invoiceNo?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
     estHours?: NullableIntFieldUpdateOperationsInput | number | null
@@ -40166,6 +41508,7 @@ export namespace Prisma {
     id?: string
     customerId: string
     handledById?: string | null
+    invoiceNo?: string | null
     status?: $Enums.OrderStatus
     notes: string
     estHours?: number | null
@@ -40379,6 +41722,7 @@ export namespace Prisma {
 
   export type OrderHeaderUpdateWithoutOutletsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    invoiceNo?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
     estHours?: NullableIntFieldUpdateOperationsInput | number | null
@@ -40398,6 +41742,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     customerId?: StringFieldUpdateOperationsInput | string
     handledById?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceNo?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
     estHours?: NullableIntFieldUpdateOperationsInput | number | null
@@ -40415,6 +41760,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     customerId?: StringFieldUpdateOperationsInput | string
     handledById?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceNo?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
     estHours?: NullableIntFieldUpdateOperationsInput | number | null

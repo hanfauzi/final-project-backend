@@ -179,11 +179,11 @@ model CustomerAddress {
 
 model Employee {
   id                 String  @id @default(uuid())
-  outletId           String?  @map("outlet_id")
+  outletId           String? @map("outlet_id")
   shiftId            String  @map("shift_id")
   role               Role
   name               String
-  email              String @unique
+  email              String  @unique
   password           String?
   phoneNumber        String  @map("phone_number")
   address            String
@@ -195,13 +195,13 @@ model Employee {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  shift              Shift          @relation(fields: [shiftId], references: [id])
-  outlet             Outlet?         @relation(fields: [outletId], references: [id])
+  shift               Shift          @relation(fields: [shiftId], references: [id])
+  outlet              Outlet?        @relation(fields: [outletId], references: [id])
   Attendance          Attendance[]
   orderHeader         OrderHeader[]
   WorkStation         WorkStation[]
-  workerTasks         workerTask[] @relation("WorkerTaskEmployee") // pasangan dari workerTask.employee
-  assignedTasks       workerTask[] @relation("WorkerTaskAssignedBy")
+  workerTasks         workerTask[]   @relation("WorkerTaskEmployee") // pasangan dari workerTask.employee
+  assignedTasks       workerTask[]   @relation("WorkerTaskAssignedBy")
   approvedAttendances Attendance[]   @relation("Approver") // back-relation approver
   pickUpDriver        PickUpTask[]   @relation("PickUpDriver")
   pickupAssignedBy    PickUpTask[]   @relation("PickUpAdmin")
@@ -212,14 +212,14 @@ model Employee {
 }
 
 model Shift {
-  id        String   @id @default(uuid())
+  id        String @id @default(uuid())
   name      String
   startTime String @map("start_time")
   endTime   String @map("end_time")
 
-  createdAt   DateTime       @default(now()) @map("created_at")
-  updatedAt   DateTime       @updatedAt @map("updated_at")
-  deletedAt   DateTime?      @map("deleted_at")
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+  deletedAt   DateTime?    @map("deleted_at")
   Employee    Employee[]
   Attendance  Attendance[]
   workerTasks workerTask[]
@@ -235,7 +235,7 @@ model WorkStation {
   updatedAt  DateTime  @updatedAt @map("updated_at")
   deletedAt  DateTime? @map("deleted_at")
 
-  employees   Employee       @relation(fields: [employeeId], references: [id])
+  employees   Employee     @relation(fields: [employeeId], references: [id])
   workerTasks workerTask[]
 
   @@map("work_stations")
@@ -352,6 +352,7 @@ model Attendance {
 
 model Outlet {
   id           String  @id @default(uuid())
+  code         String? @unique
   name         String
   address      String
   phoneNumber  String  @map("phone_number")
@@ -426,9 +427,10 @@ model OrderHeader {
   customerId  String      @map("customer_id")
   handledById String?     @map("handled_by_id")
   outletId    String      @map("outlet_id")
+  invoiceNo   String?     @unique @map("invoice_no")
   status      OrderStatus @default(WAITING_FOR_CONFIRMATION)
   notes       String
-  estHours    Int?         @map("est_hours")
+  estHours    Int?        @map("est_hours")
   createdAt   DateTime    @default(now()) @map("created_at")
   updatedAt   DateTime    @updatedAt @map("updated_at")
   deletedAt   DateTime?   @map("deleted_at")
@@ -458,33 +460,33 @@ model OrderItem {
   updatedAt     DateTime  @updatedAt @map("updated_at")
   deletedAt     DateTime? @map("deleted_at")
 
-  orderheader OrderHeader    @relation(fields: [orderHeaderId], references: [id])
-  service     Service        @relation(fields: [serviceId], references: [id])
+  orderheader OrderHeader @relation(fields: [orderHeaderId], references: [id])
+  service     Service     @relation(fields: [serviceId], references: [id])
 
   orderItemLaundry OrderItemLaundry[]
-  workerTasks workerTask[]
+  workerTasks      workerTask[]
 
   @@map("order_items")
 }
 
-model OrderItemLaundry{
-  id            String       @id @default(uuid())
-  orderItemId   String       @map("order_item_id")
-  laundryItemId String       @map("laundry_item_id")
+model OrderItemLaundry {
+  id            String    @id @default(uuid())
+  orderItemId   String    @map("order_item_id")
+  laundryItemId String    @map("laundry_item_id")
   qty           Int
-  createdAt     DateTime     @default(now()) @map("created_at")
-  updatedAt     DateTime     @updatedAt @map("updated_at")
-  deletedAt     DateTime?    @map("deleted_at")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+  deletedAt     DateTime? @map("deleted_at")
 
-  orderItem   OrderItem    @relation(fields: [orderItemId], references: [id])
-  laundryItem LaundryItem  @relation(fields: [laundryItemId], references: [id])
+  orderItem   OrderItem   @relation(fields: [orderItemId], references: [id])
+  laundryItem LaundryItem @relation(fields: [laundryItemId], references: [id])
 
   @@map("order_item_laundries")
 }
 
 model LaundryItem {
-  id        String   @id @default(uuid())
-  name      String
+  id   String @id @default(uuid())
+  name String
 
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
@@ -493,6 +495,15 @@ model LaundryItem {
   orderItemLaundry OrderItemLaundry[]
 
   @@map("laundry_items")
+}
+
+model InvoiceCounter {
+  dateKey  String
+  outletId String
+  seq      Int    @default(0)
+
+  @@id([dateKey, outletId])
+  @@map("invoice_counters")
 }
 
 model Payment {
