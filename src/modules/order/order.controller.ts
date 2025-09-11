@@ -8,6 +8,16 @@ export class OrderController {
     this.orderService = new OrderService();
   }
 
+  suggestPickUpOutlet = async (req: Request, res: Response) => {
+    const customerId = res.locals.payload.id;
+    const { customerAddressId } = req.query as { customerAddressId: string };
+    const result = await this.orderService.suggestPickUpOutlet({
+      customerId,
+      customerAddressId,
+    });
+    res.status(200).json(result);
+  };
+
   createPickUpOrderRequest = async (req: Request, res: Response) => {
     const customerId = res.locals.payload.id;
     const { customerAddressId, notes } = req.body;
