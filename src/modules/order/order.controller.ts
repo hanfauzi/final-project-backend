@@ -30,4 +30,17 @@ export class OrderController {
 
     res.status(201).json(result);
   };
+
+  getCustomerOrders = async (req: Request, res: Response) => {
+    const customerId = res.locals.payload.id;
+    const result = await this.orderService.getCustomerOrders(customerId);
+    res.status(200).json(result);
+  };
+
+  getCustomerOrderById = async (req: Request, res: Response) => {
+    const cutomerId = res.locals.payload.id;
+    const { id } = req.params;
+    const result = await this.orderService.getCustomerOrderById(cutomerId, id);
+    res.status(200).json(result);
+  };
 }
