@@ -14,6 +14,13 @@ export class OrderRouter {
     this.initializedRoutes();
   }
   private initializedRoutes = () => {
+    this.router.get(
+      "/suggest-outlet",
+      JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["CUSTOMER"]),
+      this.orderController.suggestPickUpOutlet
+    );
+
     this.router.post(
       "/create",
       JwtVerify.verifyToken,
