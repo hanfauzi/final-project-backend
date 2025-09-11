@@ -321,8 +321,6 @@ exports.Prisma.OrderHeaderScalarFieldEnum = {
   outletId: 'outletId',
   status: 'status',
   notes: 'notes',
-  pickupAt: 'pickupAt',
-  deliverAt: 'deliverAt',
   estHours: 'estHours',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',

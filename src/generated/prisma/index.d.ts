@@ -19120,8 +19120,6 @@ export namespace Prisma {
     outletId: string | null
     status: $Enums.OrderStatus | null
     notes: string | null
-    pickupAt: Date | null
-    deliverAt: Date | null
     estHours: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -19135,8 +19133,6 @@ export namespace Prisma {
     outletId: string | null
     status: $Enums.OrderStatus | null
     notes: string | null
-    pickupAt: Date | null
-    deliverAt: Date | null
     estHours: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -19150,8 +19146,6 @@ export namespace Prisma {
     outletId: number
     status: number
     notes: number
-    pickupAt: number
-    deliverAt: number
     estHours: number
     createdAt: number
     updatedAt: number
@@ -19175,8 +19169,6 @@ export namespace Prisma {
     outletId?: true
     status?: true
     notes?: true
-    pickupAt?: true
-    deliverAt?: true
     estHours?: true
     createdAt?: true
     updatedAt?: true
@@ -19190,8 +19182,6 @@ export namespace Prisma {
     outletId?: true
     status?: true
     notes?: true
-    pickupAt?: true
-    deliverAt?: true
     estHours?: true
     createdAt?: true
     updatedAt?: true
@@ -19205,8 +19195,6 @@ export namespace Prisma {
     outletId?: true
     status?: true
     notes?: true
-    pickupAt?: true
-    deliverAt?: true
     estHours?: true
     createdAt?: true
     updatedAt?: true
@@ -19307,9 +19295,7 @@ export namespace Prisma {
     outletId: string
     status: $Enums.OrderStatus
     notes: string
-    pickupAt: Date
-    deliverAt: Date
-    estHours: number
+    estHours: number | null
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -19341,8 +19327,6 @@ export namespace Prisma {
     outletId?: boolean
     status?: boolean
     notes?: boolean
-    pickupAt?: boolean
-    deliverAt?: boolean
     estHours?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -19365,8 +19349,6 @@ export namespace Prisma {
     outletId?: boolean
     status?: boolean
     notes?: boolean
-    pickupAt?: boolean
-    deliverAt?: boolean
     estHours?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -19383,8 +19365,6 @@ export namespace Prisma {
     outletId?: boolean
     status?: boolean
     notes?: boolean
-    pickupAt?: boolean
-    deliverAt?: boolean
     estHours?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -19401,15 +19381,13 @@ export namespace Prisma {
     outletId?: boolean
     status?: boolean
     notes?: boolean
-    pickupAt?: boolean
-    deliverAt?: boolean
     estHours?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
   }
 
-  export type OrderHeaderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "customerId" | "handledById" | "outletId" | "status" | "notes" | "pickupAt" | "deliverAt" | "estHours" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["orderHeader"]>
+  export type OrderHeaderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "customerId" | "handledById" | "outletId" | "status" | "notes" | "estHours" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["orderHeader"]>
   export type OrderHeaderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     customers?: boolean | CustomerDefaultArgs<ExtArgs>
     employees?: boolean | OrderHeader$employeesArgs<ExtArgs>
@@ -19451,9 +19429,7 @@ export namespace Prisma {
       outletId: string
       status: $Enums.OrderStatus
       notes: string
-      pickupAt: Date
-      deliverAt: Date
-      estHours: number
+      estHours: number | null
       createdAt: Date
       updatedAt: Date
       deletedAt: Date | null
@@ -19894,8 +19870,6 @@ export namespace Prisma {
     readonly outletId: FieldRef<"OrderHeader", 'String'>
     readonly status: FieldRef<"OrderHeader", 'OrderStatus'>
     readonly notes: FieldRef<"OrderHeader", 'String'>
-    readonly pickupAt: FieldRef<"OrderHeader", 'DateTime'>
-    readonly deliverAt: FieldRef<"OrderHeader", 'DateTime'>
     readonly estHours: FieldRef<"OrderHeader", 'Int'>
     readonly createdAt: FieldRef<"OrderHeader", 'DateTime'>
     readonly updatedAt: FieldRef<"OrderHeader", 'DateTime'>
@@ -23067,8 +23041,6 @@ export namespace Prisma {
     outletId: 'outletId',
     status: 'status',
     notes: 'notes',
-    pickupAt: 'pickupAt',
-    deliverAt: 'deliverAt',
     estHours: 'estHours',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
@@ -24671,9 +24643,7 @@ export namespace Prisma {
     outletId?: StringFilter<"OrderHeader"> | string
     status?: EnumOrderStatusFilter<"OrderHeader"> | $Enums.OrderStatus
     notes?: StringFilter<"OrderHeader"> | string
-    pickupAt?: DateTimeFilter<"OrderHeader"> | Date | string
-    deliverAt?: DateTimeFilter<"OrderHeader"> | Date | string
-    estHours?: IntFilter<"OrderHeader"> | number
+    estHours?: IntNullableFilter<"OrderHeader"> | number | null
     createdAt?: DateTimeFilter<"OrderHeader"> | Date | string
     updatedAt?: DateTimeFilter<"OrderHeader"> | Date | string
     deletedAt?: DateTimeNullableFilter<"OrderHeader"> | Date | string | null
@@ -24694,9 +24664,7 @@ export namespace Prisma {
     outletId?: SortOrder
     status?: SortOrder
     notes?: SortOrder
-    pickupAt?: SortOrder
-    deliverAt?: SortOrder
-    estHours?: SortOrder
+    estHours?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
@@ -24720,9 +24688,7 @@ export namespace Prisma {
     outletId?: StringFilter<"OrderHeader"> | string
     status?: EnumOrderStatusFilter<"OrderHeader"> | $Enums.OrderStatus
     notes?: StringFilter<"OrderHeader"> | string
-    pickupAt?: DateTimeFilter<"OrderHeader"> | Date | string
-    deliverAt?: DateTimeFilter<"OrderHeader"> | Date | string
-    estHours?: IntFilter<"OrderHeader"> | number
+    estHours?: IntNullableFilter<"OrderHeader"> | number | null
     createdAt?: DateTimeFilter<"OrderHeader"> | Date | string
     updatedAt?: DateTimeFilter<"OrderHeader"> | Date | string
     deletedAt?: DateTimeNullableFilter<"OrderHeader"> | Date | string | null
@@ -24743,9 +24709,7 @@ export namespace Prisma {
     outletId?: SortOrder
     status?: SortOrder
     notes?: SortOrder
-    pickupAt?: SortOrder
-    deliverAt?: SortOrder
-    estHours?: SortOrder
+    estHours?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
@@ -24766,9 +24730,7 @@ export namespace Prisma {
     outletId?: StringWithAggregatesFilter<"OrderHeader"> | string
     status?: EnumOrderStatusWithAggregatesFilter<"OrderHeader"> | $Enums.OrderStatus
     notes?: StringWithAggregatesFilter<"OrderHeader"> | string
-    pickupAt?: DateTimeWithAggregatesFilter<"OrderHeader"> | Date | string
-    deliverAt?: DateTimeWithAggregatesFilter<"OrderHeader"> | Date | string
-    estHours?: IntWithAggregatesFilter<"OrderHeader"> | number
+    estHours?: IntNullableWithAggregatesFilter<"OrderHeader"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"OrderHeader"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"OrderHeader"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"OrderHeader"> | Date | string | null
@@ -26387,9 +26349,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     notes: string
-    pickupAt: Date | string
-    deliverAt: Date | string
-    estHours: number
+    estHours?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -26410,9 +26370,7 @@ export namespace Prisma {
     outletId: string
     status?: $Enums.OrderStatus
     notes: string
-    pickupAt: Date | string
-    deliverAt: Date | string
-    estHours: number
+    estHours?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -26427,9 +26385,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
-    pickupAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deliverAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    estHours?: IntFieldUpdateOperationsInput | number
+    estHours?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -26450,9 +26406,7 @@ export namespace Prisma {
     outletId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
-    pickupAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deliverAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    estHours?: IntFieldUpdateOperationsInput | number
+    estHours?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -26470,9 +26424,7 @@ export namespace Prisma {
     outletId: string
     status?: $Enums.OrderStatus
     notes: string
-    pickupAt: Date | string
-    deliverAt: Date | string
-    estHours: number
+    estHours?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -26482,9 +26434,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
-    pickupAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deliverAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    estHours?: IntFieldUpdateOperationsInput | number
+    estHours?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -26497,9 +26447,7 @@ export namespace Prisma {
     outletId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
-    pickupAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deliverAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    estHours?: IntFieldUpdateOperationsInput | number
+    estHours?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -27902,8 +27850,6 @@ export namespace Prisma {
     outletId?: SortOrder
     status?: SortOrder
     notes?: SortOrder
-    pickupAt?: SortOrder
-    deliverAt?: SortOrder
     estHours?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -27921,8 +27867,6 @@ export namespace Prisma {
     outletId?: SortOrder
     status?: SortOrder
     notes?: SortOrder
-    pickupAt?: SortOrder
-    deliverAt?: SortOrder
     estHours?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -27936,8 +27880,6 @@ export namespace Prisma {
     outletId?: SortOrder
     status?: SortOrder
     notes?: SortOrder
-    pickupAt?: SortOrder
-    deliverAt?: SortOrder
     estHours?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -30518,9 +30460,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     notes: string
-    pickupAt: Date | string
-    deliverAt: Date | string
-    estHours: number
+    estHours?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -30539,9 +30479,7 @@ export namespace Prisma {
     outletId: string
     status?: $Enums.OrderStatus
     notes: string
-    pickupAt: Date | string
-    deliverAt: Date | string
-    estHours: number
+    estHours?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -30624,9 +30562,7 @@ export namespace Prisma {
     outletId?: StringFilter<"OrderHeader"> | string
     status?: EnumOrderStatusFilter<"OrderHeader"> | $Enums.OrderStatus
     notes?: StringFilter<"OrderHeader"> | string
-    pickupAt?: DateTimeFilter<"OrderHeader"> | Date | string
-    deliverAt?: DateTimeFilter<"OrderHeader"> | Date | string
-    estHours?: IntFilter<"OrderHeader"> | number
+    estHours?: IntNullableFilter<"OrderHeader"> | number | null
     createdAt?: DateTimeFilter<"OrderHeader"> | Date | string
     updatedAt?: DateTimeFilter<"OrderHeader"> | Date | string
     deletedAt?: DateTimeNullableFilter<"OrderHeader"> | Date | string | null
@@ -31012,9 +30948,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     notes: string
-    pickupAt: Date | string
-    deliverAt: Date | string
-    estHours: number
+    estHours?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -31033,9 +30967,7 @@ export namespace Prisma {
     outletId: string
     status?: $Enums.OrderStatus
     notes: string
-    pickupAt: Date | string
-    deliverAt: Date | string
-    estHours: number
+    estHours?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -32231,9 +32163,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     notes: string
-    pickupAt: Date | string
-    deliverAt: Date | string
-    estHours: number
+    estHours?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -32253,9 +32183,7 @@ export namespace Prisma {
     outletId: string
     status?: $Enums.OrderStatus
     notes: string
-    pickupAt: Date | string
-    deliverAt: Date | string
-    estHours: number
+    estHours?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -32547,9 +32475,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
-    pickupAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deliverAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    estHours?: IntFieldUpdateOperationsInput | number
+    estHours?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -32569,9 +32495,7 @@ export namespace Prisma {
     outletId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
-    pickupAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deliverAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    estHours?: IntFieldUpdateOperationsInput | number
+    estHours?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -32949,9 +32873,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     notes: string
-    pickupAt: Date | string
-    deliverAt: Date | string
-    estHours: number
+    estHours?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -32971,9 +32893,7 @@ export namespace Prisma {
     outletId: string
     status?: $Enums.OrderStatus
     notes: string
-    pickupAt: Date | string
-    deliverAt: Date | string
-    estHours: number
+    estHours?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -33235,9 +33155,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
-    pickupAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deliverAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    estHours?: IntFieldUpdateOperationsInput | number
+    estHours?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -33257,9 +33175,7 @@ export namespace Prisma {
     outletId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
-    pickupAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deliverAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    estHours?: IntFieldUpdateOperationsInput | number
+    estHours?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -33481,9 +33397,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     notes: string
-    pickupAt: Date | string
-    deliverAt: Date | string
-    estHours: number
+    estHours?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -33503,9 +33417,7 @@ export namespace Prisma {
     outletId: string
     status?: $Enums.OrderStatus
     notes: string
-    pickupAt: Date | string
-    deliverAt: Date | string
-    estHours: number
+    estHours?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -33767,9 +33679,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
-    pickupAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deliverAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    estHours?: IntFieldUpdateOperationsInput | number
+    estHours?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -33789,9 +33699,7 @@ export namespace Prisma {
     outletId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
-    pickupAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deliverAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    estHours?: IntFieldUpdateOperationsInput | number
+    estHours?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -34361,9 +34269,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     notes: string
-    pickupAt: Date | string
-    deliverAt: Date | string
-    estHours: number
+    estHours?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -34382,9 +34288,7 @@ export namespace Prisma {
     handledById?: string | null
     status?: $Enums.OrderStatus
     notes: string
-    pickupAt: Date | string
-    deliverAt: Date | string
-    estHours: number
+    estHours?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -35577,9 +35481,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     notes: string
-    pickupAt: Date | string
-    deliverAt: Date | string
-    estHours: number
+    estHours?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -35599,9 +35501,7 @@ export namespace Prisma {
     outletId: string
     status?: $Enums.OrderStatus
     notes: string
-    pickupAt: Date | string
-    deliverAt: Date | string
-    estHours: number
+    estHours?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -35712,9 +35612,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
-    pickupAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deliverAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    estHours?: IntFieldUpdateOperationsInput | number
+    estHours?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -35734,9 +35632,7 @@ export namespace Prisma {
     outletId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
-    pickupAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deliverAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    estHours?: IntFieldUpdateOperationsInput | number
+    estHours?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -35803,9 +35699,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     notes: string
-    pickupAt: Date | string
-    deliverAt: Date | string
-    estHours: number
+    estHours?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -35825,9 +35719,7 @@ export namespace Prisma {
     outletId: string
     status?: $Enums.OrderStatus
     notes: string
-    pickupAt: Date | string
-    deliverAt: Date | string
-    estHours: number
+    estHours?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -35857,9 +35749,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
-    pickupAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deliverAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    estHours?: IntFieldUpdateOperationsInput | number
+    estHours?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -35879,9 +35769,7 @@ export namespace Prisma {
     outletId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
-    pickupAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deliverAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    estHours?: IntFieldUpdateOperationsInput | number
+    estHours?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -35913,9 +35801,7 @@ export namespace Prisma {
     outletId: string
     status?: $Enums.OrderStatus
     notes: string
-    pickupAt: Date | string
-    deliverAt: Date | string
-    estHours: number
+    estHours?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -35977,9 +35863,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
-    pickupAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deliverAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    estHours?: IntFieldUpdateOperationsInput | number
+    estHours?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -35998,9 +35882,7 @@ export namespace Prisma {
     outletId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
-    pickupAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deliverAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    estHours?: IntFieldUpdateOperationsInput | number
+    estHours?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -36017,9 +35899,7 @@ export namespace Prisma {
     outletId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
-    pickupAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deliverAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    estHours?: IntFieldUpdateOperationsInput | number
+    estHours?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -36161,9 +36041,7 @@ export namespace Prisma {
     outletId: string
     status?: $Enums.OrderStatus
     notes: string
-    pickupAt: Date | string
-    deliverAt: Date | string
-    estHours: number
+    estHours?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -36349,9 +36227,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
-    pickupAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deliverAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    estHours?: IntFieldUpdateOperationsInput | number
+    estHours?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -36370,9 +36246,7 @@ export namespace Prisma {
     outletId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
-    pickupAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deliverAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    estHours?: IntFieldUpdateOperationsInput | number
+    estHours?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -36389,9 +36263,7 @@ export namespace Prisma {
     outletId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
-    pickupAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deliverAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    estHours?: IntFieldUpdateOperationsInput | number
+    estHours?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -37136,9 +37008,7 @@ export namespace Prisma {
     handledById?: string | null
     status?: $Enums.OrderStatus
     notes: string
-    pickupAt: Date | string
-    deliverAt: Date | string
-    estHours: number
+    estHours?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -37351,9 +37221,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
-    pickupAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deliverAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    estHours?: IntFieldUpdateOperationsInput | number
+    estHours?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -37372,9 +37240,7 @@ export namespace Prisma {
     handledById?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
-    pickupAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deliverAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    estHours?: IntFieldUpdateOperationsInput | number
+    estHours?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -37391,9 +37257,7 @@ export namespace Prisma {
     handledById?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     notes?: StringFieldUpdateOperationsInput | string
-    pickupAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deliverAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    estHours?: IntFieldUpdateOperationsInput | number
+    estHours?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
