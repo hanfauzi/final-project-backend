@@ -352,6 +352,7 @@ model Attendance {
 
 model Outlet {
   id           String  @id @default(uuid())
+  code         String? @unique
   name         String
   address      String
   phoneNumber  String  @map("phone_number")
@@ -426,6 +427,7 @@ model OrderHeader {
   customerId  String      @map("customer_id")
   handledById String?     @map("handled_by_id")
   outletId    String      @map("outlet_id")
+  invoiceNo   String?     @unique @map("invoice_no")
   status      OrderStatus @default(WAITING_FOR_CONFIRMATION)
   notes       String
   estHours    Int?        @map("est_hours")
@@ -493,6 +495,15 @@ model LaundryItem {
   orderItemLaundry OrderItemLaundry[]
 
   @@map("laundry_items")
+}
+
+model InvoiceCounter {
+  dateKey  String
+  outletId String
+  seq      Int    @default(0)
+
+  @@id([dateKey, outletId])
+  @@map("invoice_counters")
 }
 
 model Payment {

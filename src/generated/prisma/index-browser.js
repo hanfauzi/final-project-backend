@@ -268,6 +268,7 @@ exports.Prisma.AttendanceScalarFieldEnum = {
 
 exports.Prisma.OutletScalarFieldEnum = {
   id: 'id',
+  code: 'code',
   name: 'name',
   address: 'address',
   phoneNumber: 'phoneNumber',
@@ -319,6 +320,7 @@ exports.Prisma.OrderHeaderScalarFieldEnum = {
   customerId: 'customerId',
   handledById: 'handledById',
   outletId: 'outletId',
+  invoiceNo: 'invoiceNo',
   status: 'status',
   notes: 'notes',
   estHours: 'estHours',
@@ -356,6 +358,12 @@ exports.Prisma.LaundryItemScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
+};
+
+exports.Prisma.InvoiceCounterScalarFieldEnum = {
+  dateKey: 'dateKey',
+  outletId: 'outletId',
+  seq: 'seq'
 };
 
 exports.Prisma.PaymentScalarFieldEnum = {
@@ -502,6 +510,7 @@ exports.Prisma.ModelName = {
   OrderItem: 'OrderItem',
   OrderItemLaundry: 'OrderItemLaundry',
   LaundryItem: 'LaundryItem',
+  InvoiceCounter: 'InvoiceCounter',
   Payment: 'Payment'
 };
 

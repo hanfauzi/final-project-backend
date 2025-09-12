@@ -35,38 +35,54 @@ export class OrderService {
     customerAddressId,
     notes,
   }: PickUpOrderDTO & { customerId: string }) => {
-    const chosen = await this.outletService.pickOutletForAddress({
-      customerId,
-      customerAddressId,
-    });
-
-    const order = await prisma.orderHeader.create({
-      data: {
+    return prisma.$transaction(async (tx) => {
+      const chosen = await this.outletService.pickOutletForAddress({
         customerId,
-        outletId: chosen.id,
-        status: "WAITING_FOR_CONFIRMATION",
-        notes: notes ?? "",
-        estHours: null,
-      },
-      select: {
-        id: true,
-        outletId: true,
-        status: true,
-        createdAt: true,
-        estHours: true,
-        outlets: {
-          select: { name: true },
-        },
-      },
-    });
+        customerAddressId,
+      });
 
-    return {
-      message: "Order request created",
-      data: {
-        ...order,
-        distanceOutletKm: Math.round(chosen.distanceKm),
-      },
-    };
+      const now = new Date();
+      const dateKey = now.toISOString().slice(0, 10).replace(/-/g, "");
+      const counter = await tx.invoiceCounter.upsert({
+        where: { dateKey_outletId: { dateKey, outletId: chosen.id } },
+        create: { dateKey, outletId: chosen.id, seq: 1 },
+        update: { seq: { increment: 1 } },
+      });
+
+      const outlet = await tx.outlet.findFirst({
+        where: { id: chosen.id },
+        select: { code: true },
+      });
+
+      const outletCode = outlet?.code ?? "OUTLET";
+      const invoiceNo = `INV-${dateKey}-${outletCode}-${String(counter.seq).padStart(4, "0")}`;
+
+      const order = await tx.orderHeader.create({
+        data: {
+          customerId,
+          outletId: chosen.id,
+          status: "WAITING_FOR_CONFIRMATION",
+          notes,
+          estHours: null,
+          invoiceNo,
+        },
+        select: {
+          id: true,
+          outletId: true,
+          status: true,
+          notes: true,
+          estHours: true,
+          createdAt: true,
+          invoiceNo: true,
+          outlets: { select: { name: true } },
+        },
+      });
+
+      return {
+        message: "Order request created",
+        data: { ...order, distanceOutletKm: Math.round(chosen.distanceKm) },
+      };
+    });
   };
 
   getCustomerOrders = async (customerId: string) => {
@@ -89,6 +105,7 @@ export class OrderService {
         estHours: true,
         createdAt: true,
         updatedAt: true,
+        invoiceNo: true,   
         outlets: { select: { name: true } },
       },
     });
