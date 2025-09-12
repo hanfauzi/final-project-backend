@@ -3,6 +3,7 @@ import { OrderController } from "./order.controller";
 import { JwtVerify } from "../../middlewares/jwt-verify.middleware";
 import { validateBody } from "../../middlewares/validate.middleware";
 import { PickUpOrderDTO } from "./dto/pickup-order.dto";
+import { requireVerifiedCustomer } from "../../middlewares/require-verified.middleware";
 
 export class OrderRouter {
   private router: Router;
@@ -25,6 +26,7 @@ export class OrderRouter {
       "/create",
       JwtVerify.verifyToken,
       JwtVerify.verifyRole(["CUSTOMER"]),
+      requireVerifiedCustomer,
       validateBody(PickUpOrderDTO),
       this.orderController.createPickUpOrderRequest
     );
@@ -33,6 +35,7 @@ export class OrderRouter {
       "/cancel/:id",
       JwtVerify.verifyToken,
       JwtVerify.verifyRole(["CUSTOMER"]),
+      requireVerifiedCustomer,
       this.orderController.cancelPickUpOrderRequest
     );
 
