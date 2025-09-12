@@ -43,6 +43,8 @@ enum OrderStatus {
   READY_FOR_DELIVERY        @map("ready_for_delivery")
   OUT_FOR_DELIVERY          @map("out_for_delivery")
   DELIVERED_TO_CUSTOMER     @map("delivered_to_customer")
+  CANCELLED                  @map("cancelled")
+  COMPLETED                 @map("completed")
 
   @@map("order_status")
 }

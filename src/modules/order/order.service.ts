@@ -1,6 +1,7 @@
 import { OutletService } from "./outlet/outlet.service";
 import prisma from "../prisma/prisma.service";
 import { PickUpOrderDTO } from "./dto/pickup-order.dto";
+import { AppError } from "../../utils/app.error";
 
 export class OrderService {
   private outletService: OutletService;
@@ -84,6 +85,25 @@ export class OrderService {
       };
     });
   };
+
+  cancelPickUpOrderRequest = async (customerId: string, id: string) => {
+    const order = await prisma.orderHeader.findFirst({
+      where: { id, customerId },
+      select: { status: true },
+    });
+    if (!order) {
+      throw new AppError("Order not found");
+    }
+    if (order.status !== "WAITING_FOR_CONFIRMATION"){
+      throw new AppError("Only orders with status 'WAITING_FOR_CONFIRMATION' can be cancelled");
+    }
+
+    await prisma.orderHeader.update({
+      where: { id },
+      data: { status: "CANCELLED" },
+    });
+    return { message: "Order cancelled" };
+  }
 
   getCustomerOrders = async (customerId: string) => {
     const orders = await prisma.orderHeader.findMany({
