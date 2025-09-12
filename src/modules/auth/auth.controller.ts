@@ -88,4 +88,16 @@ export class AuthController {
       next(error); 
     }
   };
+  
+  outletAdminLogin = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const result = await this.authAdminService.outletAdminLogin(req.body);
+      return res.status(200).json({
+        message: "Outlet admin logged in successfully",
+        data: result,
+      });
+    } catch (error) {
+      next(error); 
+    }
+  }
 }
