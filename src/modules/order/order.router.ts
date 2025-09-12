@@ -29,6 +29,13 @@ export class OrderRouter {
       this.orderController.createPickUpOrderRequest
     );
 
+    this.router.post(
+      "/cancel/:id",
+      JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["CUSTOMER"]),
+      this.orderController.cancelPickUpOrderRequest
+    );
+
     this.router.get(
       "/",
       JwtVerify.verifyToken,

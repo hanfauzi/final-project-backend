@@ -31,6 +31,13 @@ export class OrderController {
     res.status(201).json(result);
   };
 
+  cancelPickUpOrderRequest = async (req: Request, res: Response) => {
+    const customerId = res.locals.payload.id;
+    const { id } = req.params;
+    const result = await this.orderService.cancelPickUpOrderRequest(customerId, id);
+    res.status(200).json(result);
+  }
+
   getCustomerOrders = async (req: Request, res: Response) => {
     const customerId = res.locals.payload.id;
     const result = await this.orderService.getCustomerOrders(customerId);
