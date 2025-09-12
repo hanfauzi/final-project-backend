@@ -68,6 +68,12 @@ export class AuthRouter {
       validateBody(LoginDTO),
       this.authController.superAdminLogin
     );
+
+    this.router.post(
+      "/outlet-admin/login",
+      validateBody(LoginDTO),
+      this.authController.outletAdminLogin
+    );
   };
 
   getRouter = () => {

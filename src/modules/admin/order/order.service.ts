@@ -5,7 +5,6 @@ import { GetAllOrdersDto } from "./dto/get-all-orders.dto";
 
 export class OrderAdminService {
   getAllOrders = async (query: GetAllOrdersDto) => {
-
     const { page, limit, outletId, sortBy, sortOrder } = query;
 
     const superAdmin = await prisma.employee.findFirst({
@@ -16,9 +15,9 @@ export class OrderAdminService {
       throw new AppError("Super admin access only", 404);
     }
 
-    const {skip, take} = getPagination(page, limit)
+    const { skip, take } = getPagination(page, limit);
 
-    const [orders, total] = await Promise.all([
+    const [orders, total] = await prisma.$transaction([
       prisma.orderHeader.findMany({
         where: {
           deletedAt: null,
@@ -56,7 +55,7 @@ export class OrderAdminService {
       }),
     ]);
 
-    return {data: orders, meta: getMeta(total, page, limit)};
+    return { data: orders, meta: getMeta(total, page, limit) };
   };
 
   getOrderDetailById = async (id: string) => {
@@ -87,5 +86,40 @@ export class OrderAdminService {
     }
 
     return order;
+  };
+
+  getAllOrdersForOutletAdmin = async (
+    outletId: string,
+    query: GetAllOrdersDto
+  ) => {
+    const { page, limit, sortBy, sortOrder } = query;
+    const { skip, take } = getPagination(page, limit);
+
+    const outletAdmin = await prisma.employee.findFirst({
+      where: { role: "OUTLET_ADMIN", outletId, deletedAt: null },
+    });
+
+    if (!outletAdmin) {
+      throw new AppError("Outlet admin access only", 404);
+    }
+
+    const [orders, total] = await prisma.$transaction([
+      prisma.orderHeader.findMany({
+        where: { outletId },
+        skip,
+        take,
+        orderBy: { [sortBy]: sortOrder },
+        include: {
+          customers: true,
+          employees: true,
+          outlets: true,
+          OrderItem: true,
+          Payment: true,
+        },
+      }),
+      prisma.orderHeader.count({ where: { outletId } }),
+    ]);
+
+    return { data: orders, meta: getMeta(total, page, limit) };
   };
 }
