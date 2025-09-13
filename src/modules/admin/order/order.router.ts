@@ -29,12 +29,17 @@ export class OrderAdminRouter {
       this.orderAdminController.getAllOrdersForOutletAdmin
     );
     this.router.get(
+      "/tracking",
+      JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["OUTLET_ADMIN"]),
+      this.orderAdminController.getOrdersTracking
+    );
+    this.router.get(
       "/:id",
       JwtVerify.verifyToken,
       JwtVerify.verifyRole(["SUPER_ADMIN", "OUTLET_ADMIN"]),
       this.orderAdminController.getOrderDetailById
     );
-    
   }
 
   getRouter(): Router {
