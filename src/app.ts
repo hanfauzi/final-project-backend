@@ -17,6 +17,7 @@ import { ProfileRouter } from "./modules/profile/profile.router";
 import { AddressRouter } from "./modules/address/address.router";
 import { AdminRouter } from "./modules/admin/admin.router";
 import { OrderRouter } from "./modules/order/order.router";
+import { PaymentRouter } from "./modules/payment/payment.router";
 
 export default class App {
   private app: Express;
@@ -55,6 +56,7 @@ export default class App {
     const addressRouter = new AddressRouter();
     const adminRouter = new AdminRouter();
     const orderRouter = new OrderRouter();
+    const paymentRouter = new PaymentRouter();
 
     this.app.get("/api", (req: Request, res: Response) => {
       res.send(
@@ -68,6 +70,7 @@ export default class App {
     this.app.use("/api/address", addressRouter.getRouter());
     this.app.use("/api/admin", adminRouter.getRouter());
     this.app.use("/api/order", orderRouter.getRouter());
+    this.app.use("/api/payments", paymentRouter.getRouter());
   }
 
   public start(): void {
