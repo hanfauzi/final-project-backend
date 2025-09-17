@@ -17,6 +17,7 @@ import { ProfileRouter } from "./modules/profile/profile.router";
 import { AddressRouter } from "./modules/address/address.router";
 import { AdminRouter } from "./modules/admin/admin.router";
 import { OrderRouter } from "./modules/order/order.router";
+import { PaymentRouter } from "./modules/payment/payment.router";
 import { AttendanceRouter } from "./modules/attendance/attendance.router";
 import { EmployeeRouter } from "./modules/employee/employee.router";
 
@@ -57,6 +58,7 @@ export default class App {
     const addressRouter = new AddressRouter();
     const adminRouter = new AdminRouter();
     const orderRouter = new OrderRouter();
+    const paymentRouter = new PaymentRouter();
     const attendanceRouter = new AttendanceRouter();
     const employeeRouter = new EmployeeRouter();
 
@@ -72,6 +74,7 @@ export default class App {
     this.app.use("/api/address", addressRouter.getRouter());
     this.app.use("/api/admin", adminRouter.getRouter());
     this.app.use("/api/order", orderRouter.getRouter());
+    this.app.use("/api/payments", paymentRouter.getRouter());
     this.app.use("/api/attendance", attendanceRouter.getRouter());
     this.app.use("/api/employee", employeeRouter.getRouter());
   }
