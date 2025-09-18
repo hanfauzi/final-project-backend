@@ -94,8 +94,10 @@ export class OrderService {
     if (!order) {
       throw new AppError("Order not found");
     }
-    if (order.status !== "WAITING_FOR_CONFIRMATION"){
-      throw new AppError("Only orders with status 'WAITING_FOR_CONFIRMATION' can be cancelled");
+    if (order.status !== "WAITING_FOR_CONFIRMATION") {
+      throw new AppError(
+        "Only orders with status 'WAITING_FOR_CONFIRMATION' can be cancelled"
+      );
     }
 
     await prisma.orderHeader.update({
@@ -103,7 +105,7 @@ export class OrderService {
       data: { status: "CANCELLED" },
     });
     return { message: "Order cancelled" };
-  }
+  };
 
   getCustomerOrders = async (customerId: string) => {
     const orders = await prisma.orderHeader.findMany({
@@ -125,10 +127,56 @@ export class OrderService {
         estHours: true,
         createdAt: true,
         updatedAt: true,
-        invoiceNo: true,   
+        invoiceNo: true,
         outlets: { select: { name: true } },
       },
     });
     return order;
+  };
+
+  confirmRecivedByCustomer = async (
+    customerId: string,
+    orderHeaderId: string
+  ) => {
+    const order = await prisma.orderHeader.findFirst({
+      where: { id: orderHeaderId, customerId },
+      select: { status: true },
+    });
+    if (!order) {
+      throw new AppError("Order not found", 404);
+    }
+
+    if (order.status !== "DELIVERED_TO_CUSTOMER") {
+      throw new AppError("Order is not delivered to customer", 400);
+    }
+
+    await prisma.orderHeader.update({
+      where: { id: orderHeaderId },
+      data: { status: "COMPLETED", customerConfirmedAt: new Date() },
+    });
+
+    return { message: "Order confirmed as received by customer" };
+  };
+
+  autoConfirmDueOrders = async () => {
+    const cutoff = new Date(Date.now() - 48 * 60 * 60 * 1000);
+    const toConfirm = await prisma.orderHeader.findMany({
+      where: {
+        status: "DELIVERED_TO_CUSTOMER",
+        deliveredAt: { lte: cutoff },
+        deletedAt: null,
+      },
+      select: { id: true },
+    });
+    if (!toConfirm.length) return { message: "No orders", count: 0 };
+    await prisma.$transaction(
+      toConfirm.map((o) =>
+        prisma.orderHeader.update({
+          where: { id: o.id },
+          data: { status: "COMPLETED", autoConfirmedAt: new Date() },
+        })
+      )
+    );
+    return { message: "Auto-confirmed", count: toConfirm.length };
   };
 }
