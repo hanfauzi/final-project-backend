@@ -2,9 +2,6 @@ import { IsEmail, IsEnum, IsOptional, IsString, IsBoolean, MinLength } from "cla
 import { Role } from "../../../../generated/prisma";
 
 export class UpdateEmployeeDTO {
-  @IsOptional()
-  @IsString()
-  outletId?: string;
 
   @IsOptional()
   @IsString()
@@ -39,7 +36,4 @@ export class UpdateEmployeeDTO {
   @IsString()
   photoUrl?: string;
 
-  @IsOptional()
-  @IsBoolean()
-  isActive?: boolean;
 }

@@ -14,10 +14,17 @@ export class EmployeeController {
     this.assignmentService = new AssignmentService();
   }
 
-  getAllEmployees = async (_: Request, res: Response, next: NextFunction) => {
+  getAllEmployees = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const employees = await this.employeeService.getAllEmployees();
-      res.status(200).json({ data: employees });
+      const { page = "1", limit = "10", sortBy = "createdAt", sortOrder = "desc", search } = req.query;
+      const result = await this.employeeService.getAllEmployees({
+      page: Number(page),
+      limit: Number(limit),
+      sortBy: String(sortBy),
+      sortOrder: sortOrder === "asc" ? "asc" : "desc",
+      search: search ? String(search) : undefined,
+    });
+      res.status(200).json(result);
     } catch (error) {
       next(error);
     }
