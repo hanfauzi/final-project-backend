@@ -1,9 +1,11 @@
-import { Role } from "../../../generated/prisma";
+import { Prisma } from "../../../generated/prisma";
 import { AppError } from "../../../utils/app.error";
+import { getMeta, getPagination } from "../../../utils/pagination.helper";
 import { PasswordService } from "../../password/password.service";
 import prisma from "../../prisma/prisma.service";
 import { CreateEmployeeDTO } from "./dto/create.employee.dto";
 import { UpdateEmployeeDTO } from "./dto/update.employee.dto";
+import { Role } from "../../../generated/prisma";
 
 export class EmployeeService {
   private passwordService: PasswordService;
@@ -11,9 +13,27 @@ export class EmployeeService {
   constructor() {
     this.passwordService = new PasswordService();
   }
-  getAllEmployees = async () => {
-    return await prisma.employee.findMany({
-      where: { NOT :{ role: "CUSTOMER" }, deletedAt: null },
+  getAllEmployees = async (query: { page: number; limit: number; sortBy?: string; sortOrder?: "asc" | "desc"; search?: string }) => {
+    const { page, limit, sortBy = "createdAt", sortOrder = "desc", search } = query;
+  const { skip, take } = getPagination(page, limit);
+
+  
+const whereCondition: Prisma.EmployeeWhereInput = {
+      NOT: { role: Role.CUSTOMER },
+      deletedAt: null,
+      ...(search
+        ? {
+            OR: [
+              { name: { contains: search, mode: "insensitive" } },
+              { email: { contains: search, mode: "insensitive" } },
+            ],
+          }
+        : {}),
+    };
+    
+    const [employees, total] = await prisma.$transaction([
+    prisma.employee.findMany({
+      where: whereCondition,
       select: {
         id: true,
         name: true,
@@ -24,13 +44,28 @@ export class EmployeeService {
         phoneNumber: true,
         address: true,
         photoUrl: true,
+        createdAt: true,
       },
-    });
+      skip,
+      take,
+      orderBy: {
+        [sortBy]: sortOrder,
+      },
+    }),
+    prisma.employee.count({
+      where: whereCondition,
+    }),
+  ]);
+
+  return {
+    data: employees,
+    meta: getMeta(total, page, limit),
+  };
   };
 
   getEmployeeDetailById = async (employeeId: string) => {
     const employee = await prisma.employee.findFirst({
-      where: { id: employeeId, NOT :{ role: "CUSTOMER" }, deletedAt: null },
+      where: { id: employeeId, NOT: { role: "CUSTOMER" }, deletedAt: null },
       select: {
         id: true,
         name: true,
@@ -39,7 +74,7 @@ export class EmployeeService {
         phoneNumber: true,
         address: true,
         photoUrl: true,
-        outlet: true,
+        outlet: { select: { id: true, name: true } },
         shift: true,
       },
     });
@@ -47,7 +82,7 @@ export class EmployeeService {
       throw new AppError("Employee not found", 404);
     }
     return employee;
-  }
+  };
 
   createEmployeeBySuperAdmin = async (body: CreateEmployeeDTO) => {
     const existingEmployee = await prisma.employee.findUnique({
@@ -58,11 +93,13 @@ export class EmployeeService {
       throw new AppError("Employee email already exists", 400);
     }
 
-    const outlet = await prisma.outlet.findUnique({
-      where: { id: body.outletId },
-    });
-    if (!outlet) {
-      throw new AppError("Invalid outletId. Outlet not found.", 400);
+    if (body.role !== "SUPER_ADMIN") {
+      const outlet = await prisma.outlet.findUnique({
+        where: { id: body.outletId },
+      });
+      if (!outlet) {
+        throw new AppError("Invalid outletId. Outlet not found.", 400);
+      }
     }
 
     const shift = await prisma.shift.findUnique({
@@ -79,7 +116,7 @@ export class EmployeeService {
 
     const employee = await prisma.employee.create({
       data: {
-        outletId: body.outletId,
+        outletId: body.role === "SUPER_ADMIN" ? null : body.outletId ,
         shiftId: body.shiftId,
         role: body.role,
         name: body.name,
@@ -88,7 +125,6 @@ export class EmployeeService {
         phoneNumber: body.phoneNumber,
         address: body.address,
         photoUrl: body.photoUrl,
-        isActive: body.isActive ?? false,
       },
     });
 
@@ -132,9 +168,6 @@ export class EmployeeService {
           ...(body.phoneNumber && { phoneNumber: body.phoneNumber }),
           ...(body.address && { address: body.address }),
           ...(body.photoUrl && { photoUrl: body.photoUrl }),
-          ...(typeof body.isActive === "boolean" && {
-            isActive: body.isActive,
-          }),
         },
       });
 
@@ -156,5 +189,4 @@ export class EmployeeService {
     const { password, ...result } = deletedEmployee;
     return result;
   };
-
 }

@@ -3,6 +3,8 @@ import { OrderAdminController } from "./order.controller";
 import { JwtVerify } from "../../../middlewares/jwt-verify.middleware";
 import { validateQuery } from "../../../middlewares/validate-query.middleware";
 import { GetAllOrdersDto } from "./dto/get-all-orders.dto";
+import { validateBody } from "../../../middlewares/validate.middleware";
+import { AddOrderItemsDto } from "./dto/create-order-items.dto";
 
 export class OrderAdminRouter {
   private orderAdminController: OrderAdminController;
@@ -39,6 +41,13 @@ export class OrderAdminRouter {
       JwtVerify.verifyToken,
       JwtVerify.verifyRole(["SUPER_ADMIN", "OUTLET_ADMIN"]),
       this.orderAdminController.getOrderDetailById
+    );
+    this.router.post(
+      "/:orderHeaderId/items",
+      JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["OUTLET_ADMIN"]),
+      validateBody(AddOrderItemsDto),
+      this.orderAdminController.createOrderItemsByOutletAdmin
     );
   }
 

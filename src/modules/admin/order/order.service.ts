@@ -1,7 +1,9 @@
 import { AppError } from "../../../utils/app.error";
 import { getMeta, getPagination } from "../../../utils/pagination.helper";
 import prisma from "../../prisma/prisma.service";
+import { AddOrderItemsDto } from "./dto/create-order-items.dto";
 import { GetAllOrdersDto } from "./dto/get-all-orders.dto";
+import { CreateOrderItem } from "./types/order-items-response.type";
 
 export class OrderAdminService {
   getAllOrders = async (query: GetAllOrdersDto) => {
@@ -110,11 +112,13 @@ export class OrderAdminService {
         take,
         orderBy: { [sortBy]: sortOrder },
         include: {
-          customers: true,
-          employees: true,
-          outlets: true,
+          customers: { select: { id: true, name: true, phoneNumber: true } },
+          employees: { select: { id: true, name: true, role: true } },
+          outlets: {
+            select: { id: true, name: true, address: true, phoneNumber: true },
+          },
           OrderItem: true,
-          Payment: true,
+          Payment: { select: { id: true, amount: true, status: true } },
         },
       }),
       prisma.orderHeader.count({ where: { outletId } }),

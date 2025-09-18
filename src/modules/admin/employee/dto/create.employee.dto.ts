@@ -1,7 +1,8 @@
-import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, MinLength, IsBoolean } from "class-validator";
+import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, MinLength, IsBoolean, ValidateIf } from "class-validator";
 import { Role } from "../../../../generated/prisma";
 
 export class CreateEmployeeDTO {
+  @ValidateIf((o) => o.role !== 'SUPER_ADMIN')
   @IsString()
   @IsNotEmpty()
   outletId?: string;
@@ -37,7 +38,5 @@ export class CreateEmployeeDTO {
   @IsString()
   photoUrl?: string;
 
-  @IsOptional()
-  @IsBoolean()
-  isActive?: boolean;
+ 
 }

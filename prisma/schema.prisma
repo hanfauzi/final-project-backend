@@ -440,6 +440,9 @@ model OrderHeader {
   createdAt   DateTime    @default(now()) @map("created_at")
   updatedAt   DateTime    @updatedAt @map("updated_at")
   deletedAt   DateTime?   @map("deleted_at")
+  deliveredAt       DateTime? @map("delivered_at")
+customerConfirmedAt DateTime? @map("customer_confirmed_at")
+autoConfirmedAt     DateTime? @map("auto_confirmed_at")
 
   customers Customer  @relation(fields: [customerId], references: [id])
   employees Employee? @relation(fields: [handledById], references: [id])
@@ -513,18 +516,22 @@ model InvoiceCounter {
 }
 
 model Payment {
-  id            String        @id @default(uuid())
-  orderHeaderId String        @map("order_header_id")
-  method        PaymentMethod
-  amount        Int
-  status        PaymentStatus @default(WAITING)
-  providerRef   String        @map("provider_ref")
-  paidAt        DateTime      @map("paid_at")
-  createdAt     DateTime      @default(now()) @map("created_at")
-  updatedAt     DateTime      @updatedAt @map("updated_at")
-  deletedAt     DateTime?     @map("deleted_at")
+  id               String         @id @default(uuid())
+  orderHeaderId    String         @map("order_header_id")
+  method           PaymentMethod? 
+  amount           Int
+  status           PaymentStatus  @default(WAITING)
+  providerRef      String?        @map("provider_ref") 
+  provider         String?        
+  snapToken        String?        
+  snapRedirectUrl  String?        
+  paidAt           DateTime?      @map("paid_at")      
+  createdAt        DateTime       @default(now()) @map("created_at")
+  updatedAt        DateTime       @updatedAt @map("updated_at")
+  deletedAt        DateTime?      @map("deleted_at")
 
   orderHeader OrderHeader @relation(fields: [orderHeaderId], references: [id])
 
+  @@index([orderHeaderId, status]) 
   @@map("payments")
 }

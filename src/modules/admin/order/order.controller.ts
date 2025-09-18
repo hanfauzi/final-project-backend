@@ -6,13 +6,17 @@ import { GetAllOrdersDto } from "./dto/get-all-orders.dto";
 import { OrderTrackingService } from "./order-tracking.service";
 import { OrderAdminService } from "./order.service";
 import { OrderStatus } from "../../../generated/prisma";
+import { AddOrderItemsDto } from "./dto/create-order-items.dto";
+import { CreateOrderAdminService } from "./create-order.service";
 
 export class OrderAdminController {
   private orderAdminService: OrderAdminService;
   private orderTrackingService: OrderTrackingService;
+  private createOrderAdminService: CreateOrderAdminService;
   constructor() {
     this.orderAdminService = new OrderAdminService();
     this.orderTrackingService = new OrderTrackingService();
+    this.createOrderAdminService = new CreateOrderAdminService();
   }
 
   getAllOrders = async (req: Request, res: Response) => {
@@ -27,12 +31,10 @@ export class OrderAdminController {
   getOrderDetailById = async (req: Request, res: Response) => {
     const { id } = req.params;
     const order = await this.orderAdminService.getOrderDetailById(id);
-    res
-      .status(200)
-      .json({
-        message: `Order from ${order.customers?.name} loaded successfully`,
-        ...order,
-      });
+    res.status(200).json({
+      message: `Order from ${order.customers?.name} loaded successfully`,
+      ...order,
+    });
   };
 
   getAllOrdersForOutletAdmin = async (req: Request, res: Response) => {
@@ -75,5 +77,21 @@ export class OrderAdminController {
     res
       .status(200)
       .json({ message: "Orders tracking loaded successfully", ...result });
+  };
+
+  createOrderItemsByOutletAdmin = async (req: Request, res: Response) => {
+    const { orderHeaderId } = req.params;
+    const handledById = res.locals.payload.id;
+    const dto: AddOrderItemsDto = req.body;
+    console.log("REQ BODY:", dto);
+
+    const result = await this.createOrderAdminService.createOrderItems(
+      orderHeaderId,
+      handledById,
+      dto
+    );
+    res
+      .status(201)
+      .json({ message: "Order items created successfully", ...result });
   };
 }
