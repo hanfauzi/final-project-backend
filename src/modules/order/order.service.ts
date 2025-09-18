@@ -2,6 +2,8 @@ import { OutletService } from "./outlet/outlet.service";
 import prisma from "../prisma/prisma.service";
 import { PickUpOrderDTO } from "./dto/pickup-order.dto";
 import { AppError } from "../../utils/app.error";
+import { OrderStatus, Prisma } from "../../generated/prisma";
+import { CustomerOrderQueryParams } from "../pagination/pagination.dto";
 
 export class OrderService {
   private outletService: OutletService;
@@ -94,8 +96,10 @@ export class OrderService {
     if (!order) {
       throw new AppError("Order not found");
     }
-    if (order.status !== "WAITING_FOR_CONFIRMATION"){
-      throw new AppError("Only orders with status 'WAITING_FOR_CONFIRMATION' can be cancelled");
+    if (order.status !== "WAITING_FOR_CONFIRMATION") {
+      throw new AppError(
+        "Only orders with status 'WAITING_FOR_CONFIRMATION' can be cancelled"
+      );
     }
 
     await prisma.orderHeader.update({
@@ -103,16 +107,71 @@ export class OrderService {
       data: { status: "CANCELLED" },
     });
     return { message: "Order cancelled" };
+  };
+
+ getCustomerOrders = async (customerId: string ,query: CustomerOrderQueryParams) => {
+  const {
+    page = 1,
+    take = 5,
+    status,
+    invoiceNo,
+    dateFrom,
+    dateTo,
+  } = query;
+
+  const where: Prisma.OrderHeaderWhereInput = {
+    customerId,
+    deletedAt: null,
+  };
+
+  if (status) where.status = status;
+
+  if (invoiceNo) {
+    where.invoiceNo = { contains: invoiceNo, mode: "insensitive" };
   }
 
-  getCustomerOrders = async (customerId: string) => {
-    const orders = await prisma.orderHeader.findMany({
-      where: { customerId },
-      orderBy: { createdAt: "desc" },
-    });
+  if (dateFrom || dateTo) {
+    const start = dateFrom ? new Date(`${dateFrom}T00:00:00.000Z`) : undefined;
+    const endExclusive = dateTo
+      ? new Date(new Date(`${dateTo}T00:00:00.000Z`).getTime() + 24 * 60 * 60 * 1000)
+      : undefined;
 
-    return orders;
+    where.createdAt = {
+      ...(start && { gte: start }),
+      ...(endExclusive && { lt: endExclusive }),
+    };
+  }
+
+  const [orders, total] = await prisma.$transaction([
+    prisma.orderHeader.findMany({
+      where,
+      skip: (page - 1) * take,
+      take,
+      orderBy: { createdAt: "desc" },
+      select: {
+        id: true,
+        invoiceNo: true,
+        status: true,
+        notes: true,
+        createdAt: true,
+        estHours: true,
+        outlets: { select: { id: true, name: true } },
+      },
+    }),
+    prisma.orderHeader.count({ where }),
+  ]);
+
+  return {
+    data: orders,
+    meta: {
+      page,
+      take,
+      total,
+      totalPages: Math.max(Math.ceil(total / take), 1),
+    },
   };
+};
+
 
   getCustomerOrderById = async (customerId: string, id: string) => {
     const order = await prisma.orderHeader.findFirst({
@@ -125,10 +184,56 @@ export class OrderService {
         estHours: true,
         createdAt: true,
         updatedAt: true,
-        invoiceNo: true,   
+        invoiceNo: true,
         outlets: { select: { name: true } },
       },
     });
     return order;
+  };
+
+  confirmRecivedByCustomer = async (
+    customerId: string,
+    orderHeaderId: string
+  ) => {
+    const order = await prisma.orderHeader.findFirst({
+      where: { id: orderHeaderId, customerId },
+      select: { status: true },
+    });
+    if (!order) {
+      throw new AppError("Order not found", 404);
+    }
+
+    if (order.status !== "DELIVERED_TO_CUSTOMER") {
+      throw new AppError("Order is not delivered to customer", 400);
+    }
+
+    await prisma.orderHeader.update({
+      where: { id: orderHeaderId },
+      data: { status: "COMPLETED", customerConfirmedAt: new Date() },
+    });
+
+    return { message: "Order confirmed as received by customer" };
+  };
+
+  autoConfirmDueOrders = async () => {
+    const cutoff = new Date(Date.now() - 48 * 60 * 60 * 1000);
+    const toConfirm = await prisma.orderHeader.findMany({
+      where: {
+        status: "DELIVERED_TO_CUSTOMER",
+        deliveredAt: { lte: cutoff },
+        deletedAt: null,
+      },
+      select: { id: true },
+    });
+    if (!toConfirm.length) return { message: "No orders", count: 0 };
+    await prisma.$transaction(
+      toConfirm.map((o) =>
+        prisma.orderHeader.update({
+          where: { id: o.id },
+          data: { status: "COMPLETED", autoConfirmedAt: new Date() },
+        })
+      )
+    );
+    return { message: "Auto-confirmed", count: toConfirm.length };
   };
 }

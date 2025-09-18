@@ -534,4 +534,5 @@ model Payment {
 
   @@index([orderHeaderId, status]) 
   @@map("payments")
+
 }

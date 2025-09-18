@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { OrderService } from "./order.service";
+import { CustomerOrderQueryParams } from "../pagination/pagination.dto";
+import { plainToInstance } from "class-transformer";
 
 export class OrderController {
   private orderService: OrderService;
@@ -34,13 +36,18 @@ export class OrderController {
   cancelPickUpOrderRequest = async (req: Request, res: Response) => {
     const customerId = res.locals.payload.id;
     const { id } = req.params;
-    const result = await this.orderService.cancelPickUpOrderRequest(customerId, id);
+    const result = await this.orderService.cancelPickUpOrderRequest(
+      customerId,
+      id
+    );
     res.status(200).json(result);
-  }
+  };
 
   getCustomerOrders = async (req: Request, res: Response) => {
     const customerId = res.locals.payload.id;
-    const result = await this.orderService.getCustomerOrders(customerId);
+    const  query = plainToInstance( CustomerOrderQueryParams, req.query); 
+   
+    const result = await this.orderService.getCustomerOrders(customerId ,query);
     res.status(200).json(result);
   };
 
@@ -50,4 +57,19 @@ export class OrderController {
     const result = await this.orderService.getCustomerOrderById(cutomerId, id);
     res.status(200).json(result);
   };
+
+  confirmRecivedByCustomer = async (req: Request, res: Response) => {
+    const customerId = res.locals.payload.id;
+    const { orderHeaderId } = req.params;
+    const result = await this.orderService.confirmRecivedByCustomer(
+      customerId,
+      orderHeaderId
+    );
+    res.status(200).json(result);
+  };
+
+  autoConfirmDueOrders = async () => {
+    const result = await this.orderService.autoConfirmDueOrders();
+    return result;
+  }
 }
