@@ -34,9 +34,12 @@ export class OrderController {
   cancelPickUpOrderRequest = async (req: Request, res: Response) => {
     const customerId = res.locals.payload.id;
     const { id } = req.params;
-    const result = await this.orderService.cancelPickUpOrderRequest(customerId, id);
+    const result = await this.orderService.cancelPickUpOrderRequest(
+      customerId,
+      id
+    );
     res.status(200).json(result);
-  }
+  };
 
   getCustomerOrders = async (req: Request, res: Response) => {
     const customerId = res.locals.payload.id;
@@ -50,4 +53,19 @@ export class OrderController {
     const result = await this.orderService.getCustomerOrderById(cutomerId, id);
     res.status(200).json(result);
   };
+
+  confirmRecivedByCustomer = async (req: Request, res: Response) => {
+    const customerId = res.locals.payload.id;
+    const { orderHeaderId } = req.params;
+    const result = await this.orderService.confirmRecivedByCustomer(
+      customerId,
+      orderHeaderId
+    );
+    res.status(200).json(result);
+  };
+
+  autoConfirmDueOrders = async () => {
+    const result = await this.orderService.autoConfirmDueOrders();
+    return result;
+  }
 }

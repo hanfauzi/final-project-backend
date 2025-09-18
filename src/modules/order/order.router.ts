@@ -52,6 +52,13 @@ export class OrderRouter {
       JwtVerify.verifyRole(["CUSTOMER"]),
       this.orderController.getCustomerOrderById
     );
+
+    this.router.patch(
+      "/confirm/:orderHeaderId",
+      JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["CUSTOMER"]),
+      this.orderController.confirmRecivedByCustomer
+    );
   };
 
   getRouter = () => {

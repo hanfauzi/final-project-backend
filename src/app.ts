@@ -20,6 +20,8 @@ import { OrderRouter } from "./modules/order/order.router";
 import { PaymentRouter } from "./modules/payment/payment.router";
 import { AttendanceRouter } from "./modules/attendance/attendance.router";
 import { EmployeeRouter } from "./modules/employee/employee.router";
+import startAutoConfirmOrdersJob from "./jobs/autoConfirmOrderJob";
+
 
 export default class App {
   private app: Express;
@@ -29,6 +31,7 @@ export default class App {
     this.configure();
     this.routes();
     this.handleError();
+    this.jobs()
   }
 
   private configure(): void {
@@ -79,6 +82,9 @@ export default class App {
     this.app.use("/api/employee", employeeRouter.getRouter());
   }
 
+     private jobs(): void {
+    startAutoConfirmOrdersJob();
+  }
   public start(): void {
     this.app.listen(PORT, () => {
       console.log(`➜ [API] Local: http://localhost:${PORT}/`);

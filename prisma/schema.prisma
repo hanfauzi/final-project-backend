@@ -440,6 +440,9 @@ model OrderHeader {
   createdAt   DateTime    @default(now()) @map("created_at")
   updatedAt   DateTime    @updatedAt @map("updated_at")
   deletedAt   DateTime?   @map("deleted_at")
+  deliveredAt       DateTime? @map("delivered_at")
+customerConfirmedAt DateTime? @map("customer_confirmed_at")
+autoConfirmedAt     DateTime? @map("auto_confirmed_at")
 
   customers Customer  @relation(fields: [customerId], references: [id])
   employees Employee? @relation(fields: [handledById], references: [id])
