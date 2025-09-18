@@ -2,6 +2,8 @@ import { OutletService } from "./outlet/outlet.service";
 import prisma from "../prisma/prisma.service";
 import { PickUpOrderDTO } from "./dto/pickup-order.dto";
 import { AppError } from "../../utils/app.error";
+import { OrderStatus, Prisma } from "../../generated/prisma";
+import { CustomerOrderQueryParams } from "../pagination/pagination.dto";
 
 export class OrderService {
   private outletService: OutletService;
@@ -107,14 +109,69 @@ export class OrderService {
     return { message: "Order cancelled" };
   };
 
-  getCustomerOrders = async (customerId: string) => {
-    const orders = await prisma.orderHeader.findMany({
-      where: { customerId },
-      orderBy: { createdAt: "desc" },
-    });
+ getCustomerOrders = async (customerId: string ,query: CustomerOrderQueryParams) => {
+  const {
+    page = 1,
+    take = 5,
+    status,
+    invoiceNo,
+    dateFrom,
+    dateTo,
+  } = query;
 
-    return orders;
+  const where: Prisma.OrderHeaderWhereInput = {
+    customerId,
+    deletedAt: null,
   };
+
+  if (status) where.status = status;
+
+  if (invoiceNo) {
+    where.invoiceNo = { contains: invoiceNo, mode: "insensitive" };
+  }
+
+  if (dateFrom || dateTo) {
+    const start = dateFrom ? new Date(`${dateFrom}T00:00:00.000Z`) : undefined;
+    const endExclusive = dateTo
+      ? new Date(new Date(`${dateTo}T00:00:00.000Z`).getTime() + 24 * 60 * 60 * 1000)
+      : undefined;
+
+    where.createdAt = {
+      ...(start && { gte: start }),
+      ...(endExclusive && { lt: endExclusive }),
+    };
+  }
+
+  const [orders, total] = await prisma.$transaction([
+    prisma.orderHeader.findMany({
+      where,
+      skip: (page - 1) * take,
+      take,
+      orderBy: { createdAt: "desc" },
+      select: {
+        id: true,
+        invoiceNo: true,
+        status: true,
+        notes: true,
+        createdAt: true,
+        estHours: true,
+        outlets: { select: { id: true, name: true } },
+      },
+    }),
+    prisma.orderHeader.count({ where }),
+  ]);
+
+  return {
+    data: orders,
+    meta: {
+      page,
+      take,
+      total,
+      totalPages: Math.max(Math.ceil(total / take), 1),
+    },
+  };
+};
+
 
   getCustomerOrderById = async (customerId: string, id: string) => {
     const order = await prisma.orderHeader.findFirst({

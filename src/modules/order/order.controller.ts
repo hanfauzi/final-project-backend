@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { OrderService } from "./order.service";
+import { CustomerOrderQueryParams } from "../pagination/pagination.dto";
+import { plainToInstance } from "class-transformer";
 
 export class OrderController {
   private orderService: OrderService;
@@ -43,7 +45,9 @@ export class OrderController {
 
   getCustomerOrders = async (req: Request, res: Response) => {
     const customerId = res.locals.payload.id;
-    const result = await this.orderService.getCustomerOrders(customerId);
+    const  query = plainToInstance( CustomerOrderQueryParams, req.query); 
+   
+    const result = await this.orderService.getCustomerOrders(customerId ,query);
     res.status(200).json(result);
   };
 
