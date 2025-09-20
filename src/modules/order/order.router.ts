@@ -40,6 +40,20 @@ export class OrderRouter {
     );
 
     this.router.get(
+      "/pickups",
+      JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["CUSTOMER"]),
+      this.orderController.getCustomerPickUpOrders
+    );
+
+    this.router.get(
+      "/pickup/:id",
+      JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["CUSTOMER"]),
+      this.orderController.getCustomerPickUpOrderById
+    );
+
+    this.router.get(
       "/",
       JwtVerify.verifyToken,
       JwtVerify.verifyRole(["CUSTOMER"]),

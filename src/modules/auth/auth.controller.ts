@@ -25,8 +25,7 @@ export class AuthController {
   };
 
   googleLoginRegister = async (req: Request, res: Response) => {
-    const auth = req.headers.authorization;
-    const idToken = auth?.startsWith("Bearer ") ? auth.slice(7) : undefined;
+    const idToken = req.body.idToken as string; 
 
     if (!idToken) throw new AppError("Google ID token is required", 400);
     const result = await this.googleService.googleLoginRegister(idToken);
