@@ -10,11 +10,18 @@ export class OutletController {
     this.assignmentService = new AssignmentService();
   }
 
-  getAllOutlets = async (_: Request, res: Response, next: NextFunction) => {
-    const outlets = await this.outletService.getAllOutlets();
+  getAllOutlets = async (req: Request, res: Response, next: NextFunction) => {
+    const { page = "1", limit = "10", sortBy, sortOrder, search } = req.query;
+    const outlets = await this.outletService.getAllOutlets({
+      page: Number(page),
+      limit: Number(limit),
+      sortBy: sortBy as string,
+      sortOrder: sortOrder as "asc" | "desc",
+      search: search as string,
+    });
     res
       .status(200)
-      .json({ message: "Get all outlets data successfully", data: outlets });
+      .json({ message: "Get all outlets data successfully", ...outlets });
   };
 
   getOutletDetailById = async (
@@ -75,7 +82,12 @@ export class OutletController {
         employeeId,
         outletId
       );
-      res.status(200).json({ message: `${result.name} has been assigned to outlet ${result.outlet?.name}` ,data: result });
+      res
+        .status(200)
+        .json({
+          message: `${result.name} has been assigned to outlet ${result.outlet?.name}`,
+          data: result,
+        });
     } catch (err) {
       next(err);
     }
@@ -90,18 +102,27 @@ export class OutletController {
       const { id: outletId } = req.params;
       const { employeeId } = req.body;
       // unassign sama dengan assign outletId = null
-      const result =
-        await this.assignmentService.unassignEmployeeFromOutlet(employeeId, outletId);
-      res.status(200).json({message: `${result.name} has been unassigned`, data: result });
+      const result = await this.assignmentService.unassignEmployeeFromOutlet(
+        employeeId,
+        outletId
+      );
+      res
+        .status(200)
+        .json({ message: `${result.name} has been unassigned`, data: result });
     } catch (err) {
       next(err);
     }
   };
 
-  getAssignedEmployeesByOutlet = async (req: Request, res: Response, next: NextFunction) => {
+  getAssignedEmployeesByOutlet = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
     try {
       const { id: outletId } = req.params;
-      const result = await this.assignmentService.getAssignedEmployeesByOutlet(outletId);
+      const result =
+        await this.assignmentService.getAssignedEmployeesByOutlet(outletId);
       res.status(200).json({ data: result });
     } catch (err) {
       next(err);
@@ -118,5 +139,5 @@ export class OutletController {
     } catch (error) {
       next(error);
     }
-  }
+  };
 }

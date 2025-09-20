@@ -43,7 +43,7 @@ enum OrderStatus {
   READY_FOR_DELIVERY        @map("ready_for_delivery")
   OUT_FOR_DELIVERY          @map("out_for_delivery")
   DELIVERED_TO_CUSTOMER     @map("delivered_to_customer")
-  CANCELLED                  @map("cancelled")
+  CANCELLED                 @map("cancelled")
   COMPLETED                 @map("completed")
 
   @@map("order_status")
@@ -362,8 +362,11 @@ model Outlet {
   name         String
   address      String
   phoneNumber  String  @map("phone_number")
-  city         String
+
+  cityId       String? @map("city_id")
+  cityName     String?  @map("city_name")
   postalCode   String  @map("postal_code")
+
   latitude     Float
   longitude    Float
   coverageArea Int     @map("coverage_area")
@@ -429,20 +432,20 @@ model Service {
 }
 
 model OrderHeader {
-  id          String      @id @default(uuid())
-  customerId  String      @map("customer_id")
-  handledById String?     @map("handled_by_id")
-  outletId    String      @map("outlet_id")
-  invoiceNo   String?     @unique @map("invoice_no")
-  status      OrderStatus @default(WAITING_FOR_CONFIRMATION)
-  notes       String
-  estHours    Int?        @map("est_hours")
-  createdAt   DateTime    @default(now()) @map("created_at")
-  updatedAt   DateTime    @updatedAt @map("updated_at")
-  deletedAt   DateTime?   @map("deleted_at")
-  deliveredAt       DateTime? @map("delivered_at")
-customerConfirmedAt DateTime? @map("customer_confirmed_at")
-autoConfirmedAt     DateTime? @map("auto_confirmed_at")
+  id                  String      @id @default(uuid())
+  customerId          String      @map("customer_id")
+  handledById         String?     @map("handled_by_id")
+  outletId            String      @map("outlet_id")
+  invoiceNo           String?     @unique @map("invoice_no")
+  status              OrderStatus @default(WAITING_FOR_CONFIRMATION)
+  notes               String
+  estHours            Int?        @map("est_hours")
+  createdAt           DateTime    @default(now()) @map("created_at")
+  updatedAt           DateTime    @updatedAt @map("updated_at")
+  deletedAt           DateTime?   @map("deleted_at")
+  deliveredAt         DateTime?   @map("delivered_at")
+  customerConfirmedAt DateTime?   @map("customer_confirmed_at")
+  autoConfirmedAt     DateTime?   @map("auto_confirmed_at")
 
   customers Customer  @relation(fields: [customerId], references: [id])
   employees Employee? @relation(fields: [handledById], references: [id])
@@ -516,23 +519,22 @@ model InvoiceCounter {
 }
 
 model Payment {
-  id               String         @id @default(uuid())
-  orderHeaderId    String         @map("order_header_id")
-  method           PaymentMethod? 
-  amount           Int
-  status           PaymentStatus  @default(WAITING)
-  providerRef      String?        @map("provider_ref") 
-  provider         String?        
-  snapToken        String?        
-  snapRedirectUrl  String?        
-  paidAt           DateTime?      @map("paid_at")      
-  createdAt        DateTime       @default(now()) @map("created_at")
-  updatedAt        DateTime       @updatedAt @map("updated_at")
-  deletedAt        DateTime?      @map("deleted_at")
+  id              String         @id @default(uuid())
+  orderHeaderId   String         @map("order_header_id")
+  method          PaymentMethod?
+  amount          Int
+  status          PaymentStatus  @default(WAITING)
+  providerRef     String?        @map("provider_ref")
+  provider        String?
+  snapToken       String?
+  snapRedirectUrl String?
+  paidAt          DateTime?      @map("paid_at")
+  createdAt       DateTime       @default(now()) @map("created_at")
+  updatedAt       DateTime       @updatedAt @map("updated_at")
+  deletedAt       DateTime?      @map("deleted_at")
 
   orderHeader OrderHeader @relation(fields: [orderHeaderId], references: [id])
 
-  @@index([orderHeaderId, status]) 
+  @@index([orderHeaderId, status])
   @@map("payments")
-
 }

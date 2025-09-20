@@ -1,4 +1,5 @@
-import { IsString, IsNumber, MaxLength, Min, MinLength, Max } from "class-validator";
+import { Type } from "class-transformer";
+import { IsString, IsNumber, MaxLength, Min, MinLength, Max, IsNotEmpty } from "class-validator";
 
 export class CreateOutletDTO {
   @IsString()
@@ -14,21 +15,26 @@ export class CreateOutletDTO {
   @MaxLength(15, {message: "Phone number must not be longer than 15 characters"})
   phoneNumber!: string;
 
+ @IsNotEmpty()
   @IsString()
-  city!: string;
+  cityId: string; 
 
+  @IsNotEmpty()
   @IsString()
-  @MinLength(5, { message: "Postal code must be at least 5 characters" })
-  postalCode!: string;
+  postalCode: string
 
   @IsNumber()
+  @Type(() => Number)
   latitude!: number;
 
   @IsNumber()
+  @Type(() => Number)
   longitude!: number;
 
   @IsNumber()
   @Min(1, { message: "Coverage area must be at least 1 km" })
   @Max(3, { message: "Coverage area must not be longer than 3 km" })
+  @Type(() => Number)
   coverageArea!: number;
 }
+
