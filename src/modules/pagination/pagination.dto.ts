@@ -1,6 +1,6 @@
 import { Transform } from "class-transformer";
 import { IsEnum, IsNumber, IsOptional, IsString } from "class-validator";
-import { OrderStatus } from "../../generated/prisma";
+import { OrderStatus, PickupStatus } from "../../generated/prisma";
 
 export class PaginationQueryParams {
   @IsOptional()
@@ -48,4 +48,28 @@ export class CustomerOrderQueryParams {
   @IsOptional()
   @IsString()
   dateTo?: string;   
+}
+
+export class CustomerPickupQueryParams {
+  @IsOptional()
+  @Transform(({ value }) => parseInt(value, 10))
+  @IsNumber()
+  take: number = 5;
+
+  @IsOptional()
+  @Transform(({ value }) => parseInt(value, 10))
+  @IsNumber()
+  page: number = 1;
+
+  @IsOptional()
+  @IsEnum(PickupStatus, { message: "Invalid pickup status" })
+  status?: PickupStatus;
+
+  @IsOptional()
+  @IsString()
+  dateFrom?: string;
+
+  @IsOptional()
+  @IsString()
+  dateTo?: string;
 }

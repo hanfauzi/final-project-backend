@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { OrderService } from "./order.service";
-import { CustomerOrderQueryParams } from "../pagination/pagination.dto";
+import { CustomerOrderQueryParams, CustomerPickupQueryParams } from "../pagination/pagination.dto";
 import { plainToInstance } from "class-transformer";
 
 export class OrderController {
@@ -42,6 +42,20 @@ export class OrderController {
     );
     res.status(200).json(result);
   };
+
+  getCustomerPickUpOrders = async (req: Request, res: Response) => {
+    const customerId = res.locals.payload.id;
+    const query = plainToInstance(CustomerPickupQueryParams , req.query);
+    const result = await this.orderService.getCustomerPickUpOrders(customerId, query);
+    res.status(200).json(result);
+  }
+
+  getCustomerPickUpOrderById = async (req: Request, res: Response) => {
+    const customerId = res.locals.payload.id;
+    const { id } = req.params;
+    const result = await this.orderService.getCustomerPickUpOrderById(customerId, id);
+    res.status(200).json(result);
+  }
 
   getCustomerOrders = async (req: Request, res: Response) => {
     const customerId = res.locals.payload.id;

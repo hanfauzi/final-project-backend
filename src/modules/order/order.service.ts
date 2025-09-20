@@ -2,8 +2,8 @@ import { OutletService } from "./outlet/outlet.service";
 import prisma from "../prisma/prisma.service";
 import { PickUpOrderDTO } from "./dto/pickup-order.dto";
 import { AppError } from "../../utils/app.error";
-import { OrderStatus, Prisma } from "../../generated/prisma";
-import { CustomerOrderQueryParams } from "../pagination/pagination.dto";
+import { OrderStatus, PickupStatus, Prisma } from "../../generated/prisma";
+import { CustomerOrderQueryParams, CustomerPickupQueryParams } from "../pagination/pagination.dto";
 
 export class OrderService {
   private outletService: OutletService;
@@ -44,134 +44,224 @@ export class OrderService {
         customerAddressId,
       });
 
-      const now = new Date();
-      const dateKey = now.toISOString().slice(0, 10).replace(/-/g, "");
-      const counter = await tx.invoiceCounter.upsert({
-        where: { dateKey_outletId: { dateKey, outletId: chosen.id } },
-        create: { dateKey, outletId: chosen.id, seq: 1 },
-        update: { seq: { increment: 1 } },
-      });
+      const distanceKm = Math.min(Math.round(chosen.distanceKm), 5);
+      const pickupPrice = distanceKm * 3000;
 
-      const outlet = await tx.outlet.findFirst({
-        where: { id: chosen.id },
-        select: { code: true },
-      });
-
-      const outletCode = outlet?.code ?? "OUTLET";
-      const invoiceNo = `INV-${dateKey}-${outletCode}-${String(counter.seq).padStart(4, "0")}`;
-
-      const order = await tx.orderHeader.create({
+      const pickUpOrder = await tx.pickUpOrder.create({
         data: {
           customerId,
           outletId: chosen.id,
-          status: "WAITING_FOR_CONFIRMATION",
+          customerAddressId,
           notes,
-          estHours: null,
-          invoiceNo,
+          distance: distanceKm,
+          price: pickupPrice,
+          status: "WAITING_FOR_DRIVER",
         },
         select: {
           id: true,
           outletId: true,
-          status: true,
           notes: true,
-          estHours: true,
+          distance: true,
+          price: true,
           createdAt: true,
-          invoiceNo: true,
-          outlets: { select: { name: true } },
+          status: true,
         },
       });
 
       return {
-        message: "Order request created",
-        data: { ...order, distanceOutletKm: Math.round(chosen.distanceKm) },
+        message: "Pick up order created",
+        data: pickUpOrder,
       };
     });
   };
 
-  cancelPickUpOrderRequest = async (customerId: string, id: string) => {
-    const order = await prisma.orderHeader.findFirst({
-      where: { id, customerId },
-      select: { status: true },
+  cancelPickUpOrderRequest = async (
+    customerId: string,
+    pickUpOrderId: string
+  ) => {
+    const pickUpOrder = await prisma.pickUpOrder.findFirst({
+      where: { id: pickUpOrderId, customerId },
+      include: { orderHeaders: true },
     });
-    if (!order) {
-      throw new AppError("Order not found");
-    }
-    if (order.status !== "WAITING_FOR_CONFIRMATION") {
+    if (!pickUpOrder) throw new AppError("Pick up order not found");
+
+    if (pickUpOrder.status !== "WAITING_FOR_DRIVER") {
       throw new AppError(
-        "Only orders with status 'WAITING_FOR_CONFIRMATION' can be cancelled"
+        "Only pick up orders with status 'WAITING_FOR_DRIVER' can be cancelled",
+        400
       );
     }
 
-    await prisma.orderHeader.update({
-      where: { id },
+    await prisma.pickUpOrder.update({
+      where: { id: pickUpOrderId },
       data: { status: "CANCELLED" },
     });
-    return { message: "Order cancelled" };
+
+    return { message: "Pick up order cancelled" };
   };
 
- getCustomerOrders = async (customerId: string ,query: CustomerOrderQueryParams) => {
-  const {
-    page = 1,
-    take = 5,
-    status,
-    invoiceNo,
-    dateFrom,
-    dateTo,
-  } = query;
+  getCustomerPickUpOrders = async (
+    customerId: string,
+    query: CustomerPickupQueryParams 
+  ) => {
+    const { page = 1, take = 5, status, dateFrom, dateTo } = query;
 
-  const where: Prisma.OrderHeaderWhereInput = {
-    customerId,
-    deletedAt: null,
-  };
-
-  if (status) where.status = status;
-
-  if (invoiceNo) {
-    where.invoiceNo = { contains: invoiceNo, mode: "insensitive" };
-  }
-
-  if (dateFrom || dateTo) {
-    const start = dateFrom ? new Date(`${dateFrom}T00:00:00.000Z`) : undefined;
-    const endExclusive = dateTo
-      ? new Date(new Date(`${dateTo}T00:00:00.000Z`).getTime() + 24 * 60 * 60 * 1000)
-      : undefined;
-
-    where.createdAt = {
-      ...(start && { gte: start }),
-      ...(endExclusive && { lt: endExclusive }),
+    const where: Prisma.PickUpOrderWhereInput = {
+      customerId,
+      deletedAt: null,
     };
-  }
 
-  const [orders, total] = await prisma.$transaction([
-    prisma.orderHeader.findMany({
-      where,
-      skip: (page - 1) * take,
-      take,
-      orderBy: { createdAt: "desc" },
+    const isPickupStatus = (s: string): s is PickupStatus =>
+      Object.values(PickupStatus).includes(s as PickupStatus);
+    if (status && isPickupStatus(status)) where.status = status;
+
+    if (dateFrom || dateTo) {
+      const start = dateFrom
+        ? new Date(`${dateFrom}T00:00:00.000Z`)
+        : undefined;
+      const endExclusive = dateTo
+        ? new Date(
+            new Date(`${dateTo}T00:00:00.000Z`).getTime() + 24 * 60 * 60 * 1000
+          )
+        : undefined;
+
+      where.createdAt = {
+        ...(start && { gte: start }),
+        ...(endExclusive && { lt: endExclusive }),
+      };
+    }
+
+    const [pickUpOrders, total] = await prisma.$transaction([
+      prisma.pickUpOrder.findMany({
+        where,
+        skip: (page - 1) * take,
+        take,
+        orderBy: { createdAt: "desc" },
+        select: {
+          id: true,
+          outletId: true,
+          outlet: { select: { id: true, name: true, cityName: true } },
+          customerAddressId: true,
+          notes: true,
+          distance: true,
+          price: true,
+          status: true,
+          createdAt: true,
+          updatedAt: true,
+          orderHeaders: {
+            select: {
+              id: true,
+              invoiceNo: true,
+              status: true,
+              createdAt: true,
+            },
+            orderBy: { createdAt: "asc" },
+            take: 3,
+          },
+          _count: { select: { orderHeaders: true } },
+        },
+      }),
+      prisma.pickUpOrder.count({ where }),
+    ]);
+
+    return {
+      data: pickUpOrders,
+      meta: {
+        page,
+        take,
+        total,
+        totalPages: Math.max(Math.ceil(total / take), 1),
+      },
+    };
+  };
+
+  getCustomerPickUpOrderById = async (customerId: string, id: string) => {
+    const pickup = await prisma.pickUpOrder.findFirst({
+      where: { id, customerId, deletedAt: null },
       select: {
         id: true,
-        invoiceNo: true,
         status: true,
         notes: true,
+        distance: true,
+        price: true,
+        scheduledAt: true,
+        pickedUpAt: true,
+        arrivedAtOutlet: true,
         createdAt: true,
-        estHours: true,
-        outlets: { select: { id: true, name: true } },
+        updatedAt: true,
+        outlet: {
+          select: { id: true, name: true, cityName: true, address: true },
+        },
+        driver: { select: { id: true, name: true, phoneNumber: true } },
       },
-    }),
-    prisma.orderHeader.count({ where }),
-  ]);
+    });
 
-  return {
-    data: orders,
-    meta: {
-      page,
-      take,
-      total,
-      totalPages: Math.max(Math.ceil(total / take), 1),
-    },
+    if (!pickup) throw new AppError("Pick up order not found", 404);
+    return pickup;
   };
-};
 
+  getCustomerOrders = async (
+    customerId: string,
+    query: CustomerOrderQueryParams
+  ) => {
+    const { page = 1, take = 5, status, invoiceNo, dateFrom, dateTo } = query;
+
+    const where: Prisma.OrderHeaderWhereInput = {
+      customerId,
+      deletedAt: null,
+    };
+
+    if (status) where.status = status;
+
+    if (invoiceNo) {
+      where.invoiceNo = { contains: invoiceNo, mode: "insensitive" };
+    }
+
+    if (dateFrom || dateTo) {
+      const start = dateFrom
+        ? new Date(`${dateFrom}T00:00:00.000Z`)
+        : undefined;
+      const endExclusive = dateTo
+        ? new Date(
+            new Date(`${dateTo}T00:00:00.000Z`).getTime() + 24 * 60 * 60 * 1000
+          )
+        : undefined;
+
+      where.createdAt = {
+        ...(start && { gte: start }),
+        ...(endExclusive && { lt: endExclusive }),
+      };
+    }
+
+    const [orders, total] = await prisma.$transaction([
+      prisma.orderHeader.findMany({
+        where,
+        skip: (page - 1) * take,
+        take,
+        orderBy: { createdAt: "desc" },
+        select: {
+          id: true,
+          invoiceNo: true,
+          status: true,
+          notes: true,
+          createdAt: true,
+          estHours: true,
+          outlets: { select: { id: true, name: true } },
+        },
+      }),
+      prisma.orderHeader.count({ where }),
+    ]);
+
+    return {
+      data: orders,
+      meta: {
+        page,
+        take,
+        total,
+        totalPages: Math.max(Math.ceil(total / take), 1),
+      },
+    };
+  };
 
   getCustomerOrderById = async (customerId: string, id: string) => {
     const order = await prisma.orderHeader.findFirst({
