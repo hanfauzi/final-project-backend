@@ -43,7 +43,7 @@ enum OrderStatus {
   READY_FOR_DELIVERY        @map("ready_for_delivery")
   OUT_FOR_DELIVERY          @map("out_for_delivery")
   DELIVERED_TO_CUSTOMER     @map("delivered_to_customer")
-  CANCELLED                  @map("cancelled")
+  CANCELLED                 @map("cancelled")
   COMPLETED                 @map("completed")
 
   @@map("order_status")
@@ -118,6 +118,7 @@ enum PickupStatus {
   ON_THE_WAY_TO_CUSTOMER
   ON_THE_WAY_TO_OUTLET
   RECEIVED_BY_OUTLET
+  CANCELLED
 
   @@map("pickup_status")
 }
@@ -128,6 +129,7 @@ enum DeliveryStatus {
   ON_THE_WAY_TO_OUTLET
   ON_THE_WAY_TO_CUSTOMER
   RECEIVED_BY_CUSTOMER
+  COMPLETED
 
   @@map("delivery_status")
 }
@@ -155,6 +157,7 @@ model Customer {
   deletedAt       DateTime?         @map("deleted_at")
   customerAddress CustomerAddress[]
   orderHeader     OrderHeader[]
+  PickUpOrder     PickUpOrder[]
 
   @@map("customers")
 }
@@ -176,9 +179,9 @@ model CustomerAddress {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  customers    Customer       @relation(fields: [customerId], references: [id])
-  PickUpTask   PickUpTask[]
-  DeliveryTask DeliveryTask[]
+  customer      Customer        @relation(fields: [customerId], references: [id])
+  PickUpOrder   PickUpOrder[]
+  DeliveryOrder DeliveryOrder[]
 
   @@map("customer_addresses")
 }
@@ -201,18 +204,19 @@ model Employee {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  shift               Shift          @relation(fields: [shiftId], references: [id])
-  outlet              Outlet?        @relation(fields: [outletId], references: [id])
+  shift               Shift         @relation(fields: [shiftId], references: [id])
+  outlet              Outlet?       @relation(fields: [outletId], references: [id])
   Attendance          Attendance[]
   orderHeader         OrderHeader[]
   WorkStation         WorkStation[]
-  workerTasks         workerTask[]   @relation("WorkerTaskEmployee") // pasangan dari workerTask.employee
-  assignedTasks       workerTask[]   @relation("WorkerTaskAssignedBy")
-  approvedAttendances Attendance[]   @relation("Approver") // back-relation approver
-  pickUpDriver        PickUpTask[]   @relation("PickUpDriver")
-  pickupAssignedBy    PickUpTask[]   @relation("PickUpAdmin")
-  deliveryDriver      DeliveryTask[] @relation("DeliveryDriver")
-  deliveryAssignedBy  DeliveryTask[] @relation("DeliveryAdmin")
+  workerTasks         workerTask[]  @relation("WorkerTaskEmployee")
+  assignedTasks       workerTask[]  @relation("WorkerTaskAssignedBy")
+  approvedAttendances Attendance[]  @relation("Approver")
+
+  pickUpDriver       PickUpOrder[]   @relation("PickUpDriver")
+  pickUpAssignedBy   PickUpOrder[]   @relation("PickUpAdmin")
+  deliveryDriver     DeliveryOrder[] @relation("DeliveryDriver")
+  deliveryAssignedBy DeliveryOrder[] @relation("DeliveryAdmin")
 
   @@map("employees")
 }
@@ -280,52 +284,62 @@ model workerTask {
   @@map("worker_tasks")
 }
 
-model PickUpTask {
+model PickUpOrder {
   id                String       @id @default(uuid())
-  driverId          String       @map("driver_id")
+  customerId        String       @map("customer_id")
+  driverId          String?      @map("driver_id")
   outletId          String       @map("outlet_id")
   customerAddressId String       @map("customer_address_id")
-  assignedByAdminId String       @map("assigned_by_admin_id")
-  orderHeaderId     String       @map("order_header_id")
+  assignedByAdminId String?      @map("assigned_by_admin_id")
   status            PickupStatus @default(WAITING_FOR_DRIVER)
+  notes             String
   distance          Int
   price             Int
+
+  scheduledAt     DateTime? @map("scheduled_at")
+  pickedUpAt      DateTime? @map("picked_up_at")
+  arrivedAtOutlet DateTime? @map("arrived_at_outlet")
 
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  driver          Employee        @relation("PickUpDriver", fields: [driverId], references: [id])
-  assignedBy      Employee?       @relation("PickUpAdmin", fields: [assignedByAdminId], references: [id])
-  outlets         Outlet          @relation(fields: [outletId], references: [id])
+  driver          Employee?       @relation("PickUpDriver", fields: [driverId], references: [id])
+  assignedByAdmin Employee?       @relation("PickUpAdmin", fields: [assignedByAdminId], references: [id])
+  outlet          Outlet          @relation(fields: [outletId], references: [id])
   customerAddress CustomerAddress @relation(fields: [customerAddressId], references: [id])
-  orderHeader     OrderHeader     @relation(fields: [orderHeaderId], references: [id])
+  customer        Customer?       @relation(fields: [customerId], references: [id])
 
-  @@map("pickup_tasks")
+  orderHeaders OrderHeader[]
+
+  @@map("pickup_orders")
 }
 
-model DeliveryTask {
+model DeliveryOrder {
   id                String         @id @default(uuid())
   driverId          String         @map("driver_id")
   outletId          String         @map("outlet_id")
   customerAddressId String         @map("customer_address_id")
-  assignedByAdminId String         @map("assigned_by_admin_id")
-  orderHeaderId     String         @map("order_header_id")
+  assignedByAdminId String?        @map("assigned_by_admin_id")
+  orderHeaderId     String         @unique @map("order_header_id")
   status            DeliveryStatus
   distance          Int
   price             Int
+
+  scheduledAt DateTime? @map("scheduled_at")
+  deliveredAt DateTime? @map("delivered_at")
 
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
   driver          Employee        @relation("DeliveryDriver", fields: [driverId], references: [id])
-  assignedBy      Employee?       @relation("DeliveryAdmin", fields: [assignedByAdminId], references: [id])
-  outlets         Outlet          @relation(fields: [outletId], references: [id])
+  assignedByAdmin Employee?       @relation("DeliveryAdmin", fields: [assignedByAdminId], references: [id])
+  outlet          Outlet          @relation(fields: [outletId], references: [id])
   customerAddress CustomerAddress @relation(fields: [customerAddressId], references: [id])
   orderHeader     OrderHeader     @relation(fields: [orderHeaderId], references: [id])
 
-  @@map("delivery_tasks")
+  @@map("delivery_orders")
 }
 
 model Attendance {
@@ -362,7 +376,8 @@ model Outlet {
   name         String
   address      String
   phoneNumber  String  @map("phone_number")
-  city         String
+  cityId       String  @map("city_id")
+  cityName     String  @map("city_name")
   postalCode   String  @map("postal_code")
   latitude     Float
   longitude    Float
@@ -377,8 +392,9 @@ model Outlet {
   OutletSchedule OutletSchedule[]
   orderHeader    OrderHeader[]
   workerTasks    workerTask[]
-  PickUpTask     PickUpTask[]
-  DeliveryTask   DeliveryTask[]
+
+  PickUpOrder   PickUpOrder[]
+  DeliveryOrder DeliveryOrder[]
 
   @@map("outlets")
 }
@@ -440,19 +456,23 @@ model OrderHeader {
   createdAt   DateTime    @default(now()) @map("created_at")
   updatedAt   DateTime    @updatedAt @map("updated_at")
   deletedAt   DateTime?   @map("deleted_at")
-  deliveredAt       DateTime? @map("delivered_at")
-customerConfirmedAt DateTime? @map("customer_confirmed_at")
-autoConfirmedAt     DateTime? @map("auto_confirmed_at")
+
+  deliveredAt         DateTime? @map("delivered_at")
+  customerConfirmedAt DateTime? @map("customer_confirmed_at")
+  autoConfirmedAt     DateTime? @map("auto_confirmed_at")
+
+  pickUpOrderId String?      @map("pickup_order_id")
+  pickUpOrder   PickUpOrder? @relation(fields: [pickUpOrderId], references: [id])
 
   customers Customer  @relation(fields: [customerId], references: [id])
   employees Employee? @relation(fields: [handledById], references: [id])
   outlets   Outlet    @relation(fields: [outletId], references: [id])
 
-  OrderItem    OrderItem[]
-  Payment      Payment[]
-  workerTasks  workerTask[]
-  PickUpTask   PickUpTask[]
-  DeliveryTask DeliveryTask[]
+  OrderItem   OrderItem[]
+  Payment     Payment[]
+  workerTasks workerTask[]
+
+  deliveryOrder DeliveryOrder?
 
   @@map("order_headers")
 }
@@ -516,23 +536,22 @@ model InvoiceCounter {
 }
 
 model Payment {
-  id               String         @id @default(uuid())
-  orderHeaderId    String         @map("order_header_id")
-  method           PaymentMethod? 
-  amount           Int
-  status           PaymentStatus  @default(WAITING)
-  providerRef      String?        @map("provider_ref") 
-  provider         String?        
-  snapToken        String?        
-  snapRedirectUrl  String?        
-  paidAt           DateTime?      @map("paid_at")      
-  createdAt        DateTime       @default(now()) @map("created_at")
-  updatedAt        DateTime       @updatedAt @map("updated_at")
-  deletedAt        DateTime?      @map("deleted_at")
+  id              String         @id @default(uuid())
+  orderHeaderId   String         @map("order_header_id")
+  method          PaymentMethod?
+  amount          Int
+  status          PaymentStatus  @default(WAITING)
+  providerRef     String?        @map("provider_ref")
+  provider        String?
+  snapToken       String?
+  snapRedirectUrl String?
+  paidAt          DateTime?      @map("paid_at")
+  createdAt       DateTime       @default(now()) @map("created_at")
+  updatedAt       DateTime       @updatedAt @map("updated_at")
+  deletedAt       DateTime?      @map("deleted_at")
 
   orderHeader OrderHeader @relation(fields: [orderHeaderId], references: [id])
 
-  @@index([orderHeaderId, status]) 
+  @@index([orderHeaderId, status])
   @@map("payments")
-
 }

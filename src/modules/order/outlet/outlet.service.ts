@@ -32,6 +32,8 @@ pickOutletForAddress = async ({
         latitude: true,
         longitude: true,
         coverageArea: true,
+        cityId: true,
+        cityName: true,
       },
     });
 
