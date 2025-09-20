@@ -21,7 +21,7 @@ import { PaymentRouter } from "./modules/payment/payment.router";
 import { AttendanceRouter } from "./modules/attendance/attendance.router";
 import { EmployeeRouter } from "./modules/employee/employee.router";
 import startAutoConfirmOrdersJob from "./jobs/autoConfirmOrderJob";
-
+import { CityRouter } from "./modules/city/city.router";
 
 export default class App {
   private app: Express;
@@ -31,7 +31,7 @@ export default class App {
     this.configure();
     this.routes();
     this.handleError();
-    this.jobs()
+    this.jobs();
   }
 
   private configure(): void {
@@ -64,6 +64,7 @@ export default class App {
     const paymentRouter = new PaymentRouter();
     const attendanceRouter = new AttendanceRouter();
     const employeeRouter = new EmployeeRouter();
+    const cityRouter = new CityRouter();
 
     this.app.get("/api", (req: Request, res: Response) => {
       res.send(
@@ -80,9 +81,10 @@ export default class App {
     this.app.use("/api/payments", paymentRouter.getRouter());
     this.app.use("/api/attendance", attendanceRouter.getRouter());
     this.app.use("/api/employee", employeeRouter.getRouter());
+    this.app.use("/api", cityRouter.getRouter());
   }
 
-     private jobs(): void {
+  private jobs(): void {
     startAutoConfirmOrdersJob();
   }
   public start(): void {
