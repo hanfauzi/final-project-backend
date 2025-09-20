@@ -6,7 +6,7 @@ export class LaundryItemService {
   getAllLaundryItems = async () => {
     return await prisma.laundryItem.findMany({
       where: { deletedAt: null },
-      orderBy: { createdAt: "desc" },
+      orderBy: { name : "asc"},
     });
   };
 
