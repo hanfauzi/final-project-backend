@@ -131,37 +131,4 @@ export class EmployeeController {
       next(error);
     }
   };
-
-  assignEmployeeToOutlet = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) => {
-    try {
-      const { id: employeeId } = req.params;
-      const { outletId } = req.body;
-      const result = await this.assignmentService.assignEmployeeToOutlet(
-        employeeId,
-        outletId
-      );
-      res.status(200).json({ message: `${result.name} has been assigned to outlet ${result.outlet?.name}` ,data: result });
-    } catch (err) {
-      next(err);
-    }
-  };
-
-  unnasignEmployeeFromOutlet = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) => {
-    try {
-      const { id: employeeId } = req.params;
-      const result =
-        await this.assignmentService.unassignEmployeeFromOutlet(employeeId);
-      res.status(200).json({message: `${result.name} has been unassigned`, data: result });
-    } catch (err) {
-      next(err);
-    }
-  };
 }

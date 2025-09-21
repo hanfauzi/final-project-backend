@@ -93,27 +93,6 @@ export class OutletController {
     }
   };
 
-  unassignEmployee = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) => {
-    try {
-      const { id: outletId } = req.params;
-      const { employeeId } = req.body;
-      // unassign sama dengan assign outletId = null
-      const result = await this.assignmentService.unassignEmployeeFromOutlet(
-        employeeId,
-        outletId
-      );
-      res
-        .status(200)
-        .json({ message: `${result.name} has been unassigned`, data: result });
-    } catch (err) {
-      next(err);
-    }
-  };
-
   getAssignedEmployeesByOutlet = async (
     req: Request,
     res: Response,
