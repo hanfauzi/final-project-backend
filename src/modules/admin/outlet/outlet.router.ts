@@ -54,18 +54,13 @@ export class OutletRouter {
       JwtVerify.verifyRole(["SUPER_ADMIN"]),
       this.outletController.getAssignedEmployeesByOutlet
     );
-    this.router.post(
-      "/:id/assign-employees",
+    this.router.patch(
+      "/:id/assign",
       JwtVerify.verifyToken,
       JwtVerify.verifyRole(["SUPER_ADMIN"]),
       this.outletController.assignEmployee
     );
-    this.router.patch(
-      "/:id/unassign-employees",
-      JwtVerify.verifyToken,
-      JwtVerify.verifyRole(["SUPER_ADMIN"]),
-      this.outletController.unassignEmployee
-    );
+
     this.router.patch(
       "/:id/restore",
       JwtVerify.verifyToken,

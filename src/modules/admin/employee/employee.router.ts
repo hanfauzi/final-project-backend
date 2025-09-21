@@ -61,19 +61,6 @@ export class EmployeeRouter {
       this.employeeController.deleteEmployeeBySuperAdmin
     );
 
-    this.router.patch(
-      "/:id/outlet",
-      JwtVerify.verifyToken,
-      JwtVerify.verifyRole(["SUPER_ADMIN"]),
-      this.employeeController.assignEmployeeToOutlet
-    );
-
-    this.router.patch(
-      "/:id/outlet/unassign",
-      JwtVerify.verifyToken,
-      JwtVerify.verifyRole(["SUPER_ADMIN"]),
-      this.employeeController.unnasignEmployeeFromOutlet
-    );
   }
 
   getRouter(): Router {

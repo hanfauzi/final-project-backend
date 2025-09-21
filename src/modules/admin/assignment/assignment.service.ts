@@ -36,38 +36,6 @@ export class AssignmentService {
     return updatedEmployee;
   };
 
-  unassignEmployeeFromOutlet = async (
-    employeeId: string,
-    outletId?: string
-  ) => {
-    const employee = await prisma.employee.findFirst({
-    where: {
-      id: employeeId,
-      role: { notIn: ["SUPER_ADMIN", "CUSTOMER"] },
-      deletedAt: null,
-    },
-    include: { outlet: true },
-  });
-
-  if (!employee) {
-    throw new AppError("Employee not found or cannot unassign SUPER ADMIN", 404);
-  }
-
-  if (!employee.outletId) {
-    throw new AppError(`Employee ${employee.name} is not assigned to any outlet`, 400);
-  }
-
-  if (outletId && employee.outletId !== outletId) {
-    throw new AppError(`Employee ${employee.name} is not assigned to this outlet`, 400);
-  }
-
-  return await prisma.employee.update({
-    where: { id: employeeId },
-    data: { outletId: null },
-    include: { outlet: true },
-  });
-  };
-
   getAssignedEmployeesByOutlet = async (outletId: string) => {
     const outlet = await prisma.outlet.findUnique({
       where: { id: outletId, deletedAt: null },
