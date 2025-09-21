@@ -22,6 +22,7 @@ import { AttendanceRouter } from "./modules/attendance/attendance.router";
 import { EmployeeRouter } from "./modules/employee/employee.router";
 import startAutoConfirmOrdersJob from "./jobs/autoConfirmOrderJob";
 import { CityRouter } from "./modules/city/city.router";
+import { PickUpOrderRouter } from "./modules/pickup-order/pickUpOrder.router";
 
 export default class App {
   private app: Express;
@@ -64,6 +65,7 @@ export default class App {
     const paymentRouter = new PaymentRouter();
     const attendanceRouter = new AttendanceRouter();
     const employeeRouter = new EmployeeRouter();
+    const pickUpOrderRouter = new PickUpOrderRouter();
     const cityRouter = new CityRouter();
 
     this.app.get("/api", (req: Request, res: Response) => {
@@ -81,6 +83,7 @@ export default class App {
     this.app.use("/api/payments", paymentRouter.getRouter());
     this.app.use("/api/attendance", attendanceRouter.getRouter());
     this.app.use("/api/employee", employeeRouter.getRouter());
+    this.app.use("/api/pickup-order", pickUpOrderRouter.getRouter());
     this.app.use("/api", cityRouter.getRouter());
   }
 

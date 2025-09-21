@@ -198,6 +198,8 @@ model Employee {
   address            String
   photoUrl           String? @map("photo_url")
   isActive           Boolean @default(false) @map("is_active")
+  takenTaskId        String? @map("taken_task_id")
+  takenTaskType      String? @map("taken_task_type")
   resetPasswordToken String? @map("reset_password_token")
 
   createdAt DateTime  @default(now()) @map("created_at")
