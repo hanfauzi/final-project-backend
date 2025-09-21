@@ -1,21 +1,11 @@
 import { AppError } from "../../../utils/app.error";
 import { getMeta, getPagination } from "../../../utils/pagination.helper";
 import prisma from "../../prisma/prisma.service";
-import { AddOrderItemsDto } from "./dto/create-order-items.dto";
 import { GetAllOrdersDto } from "./dto/get-all-orders.dto";
-import { CreateOrderItem } from "./types/order-items-response.type";
 
 export class OrderAdminService {
   getAllOrders = async (query: GetAllOrdersDto) => {
     const { page, limit, outletId, sortBy, sortOrder } = query;
-
-    const superAdmin = await prisma.employee.findFirst({
-      where: { role: "SUPER_ADMIN", deletedAt: null },
-    });
-
-    if (!superAdmin) {
-      throw new AppError("Super admin access only", 404);
-    }
 
     const { skip, take } = getPagination(page, limit);
 
