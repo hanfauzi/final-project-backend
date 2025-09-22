@@ -2,8 +2,17 @@ import { OutletService } from "./outlet/outlet.service";
 import prisma from "../prisma/prisma.service";
 import { PickUpOrderDTO } from "./dto/pickup-order.dto";
 import { AppError } from "../../utils/app.error";
-import { OrderStatus, PickupStatus, Prisma } from "../../generated/prisma";
-import { CustomerOrderQueryParams, CustomerPickupQueryParams } from "../pagination/pagination.dto";
+import {
+  DeliveryStatus,
+  OrderStatus,
+  PickupStatus,
+  Prisma,
+} from "../../generated/prisma";
+import {
+  CustomerDeliveryQueryParams,
+  CustomerOrderQueryParams,
+  CustomerPickupQueryParams,
+} from "../pagination/pagination.dto";
 
 export class OrderService {
   private outletService: OutletService;
@@ -102,7 +111,7 @@ export class OrderService {
 
   getCustomerPickUpOrders = async (
     customerId: string,
-    query: CustomerPickupQueryParams 
+    query: CustomerPickupQueryParams
   ) => {
     const { page = 1, take = 5, status, dateFrom, dateTo } = query;
 
@@ -247,6 +256,7 @@ export class OrderService {
           createdAt: true,
           estHours: true,
           outlets: { select: { id: true, name: true } },
+          deliveryOrder: { select: { id: true, status: true } },
         },
       }),
       prisma.orderHeader.count({ where }),
@@ -265,7 +275,7 @@ export class OrderService {
 
   getCustomerOrderById = async (customerId: string, id: string) => {
     const order = await prisma.orderHeader.findFirst({
-      where: { id, customerId },
+      where: { id, customerId,deletedAt: null },
       select: {
         id: true,
         outletId: true,
@@ -276,9 +286,139 @@ export class OrderService {
         updatedAt: true,
         invoiceNo: true,
         outlets: { select: { name: true } },
+          deliveryOrder: { select: { id: true, status: true } },
+
       },
     });
     return order;
+  };
+
+  getCustomerDeliveryOrders = async (
+    customerId: string,
+    query: CustomerDeliveryQueryParams
+  ) => {
+    const { page = 1, take = 5, status, invoiceNo, dateFrom, dateTo } = query;
+
+    const orderHeaderWhere: Prisma.OrderHeaderWhereInput = { customerId };
+
+    if (invoiceNo) {
+      orderHeaderWhere.invoiceNo = { contains: invoiceNo, mode: "insensitive" };
+    }
+
+    let createdAtFilter: Prisma.DateTimeFilter | undefined;
+    if (dateFrom || dateTo) {
+      const start = dateFrom
+        ? new Date(`${dateFrom}T00:00:00.000Z`)
+        : undefined;
+      const endExclusive = dateTo
+        ? new Date(
+            new Date(`${dateTo}T00:00:00.000Z`).getTime() + 24 * 60 * 60 * 1000
+          )
+        : undefined;
+
+      createdAtFilter = {
+        ...(start && { gte: start }),
+        ...(endExclusive && { lt: endExclusive }),
+      };
+    }
+
+    const where: Prisma.DeliveryOrderWhereInput = {
+      deletedAt: null,
+      orderHeader: { is: orderHeaderWhere },
+      ...(createdAtFilter && { createdAt: createdAtFilter }),
+    };
+
+    const isDeliveryStatus = (s: string): s is DeliveryStatus =>
+      Object.values(DeliveryStatus).includes(s as DeliveryStatus);
+    if (status && isDeliveryStatus(status as any)) {
+      where.status = status as DeliveryStatus;
+    }
+
+    const [deliveries, total] = await prisma.$transaction([
+      prisma.deliveryOrder.findMany({
+        where,
+        skip: (page - 1) * take,
+        take,
+        orderBy: { createdAt: "desc" },
+        select: {
+          id: true,
+          outletId: true,
+          outlet: { select: { id: true, name: true, cityName: true } },
+          customerAddressId: true,
+          orderHeaderId: true,
+          distance: true,
+          price: true,
+          status: true,
+          scheduledAt: true,
+          deliveredAt: true,
+          createdAt: true,
+          updatedAt: true,
+          driver: { select: { id: true, name: true, phoneNumber: true } },
+          orderHeader: {
+            select: {
+              id: true,
+              invoiceNo: true,
+              status: true,
+              createdAt: true,
+            },
+          },
+        },
+      }),
+      prisma.deliveryOrder.count({ where }),
+    ]);
+
+    return {
+      data: deliveries,
+      meta: {
+        page,
+        take,
+        total,
+        totalPages: Math.max(Math.ceil(total / take), 1),
+      },
+    };
+  };
+
+  getCustomerDeliveryOrderById = async (customerId: string, id: string) => {
+    const delivery = await prisma.deliveryOrder.findFirst({
+      where: {
+        id,
+        deletedAt: null,
+        orderHeader: { customerId },
+      },
+      select: {
+        id: true,
+        status: true,
+        distance: true,
+        price: true,
+        scheduledAt: true,
+        deliveredAt: true,
+        createdAt: true,
+        updatedAt: true,
+        outlet: {
+          select: { id: true, name: true, cityName: true, address: true },
+        },
+        driver: {
+          select: { id: true, name: true, phoneNumber: true },
+        },
+        customerAddress: {
+          select: {
+            id: true,
+            label: true,
+            address: true,
+            city: true,
+            latitude: true,
+            longitude: true,
+            phoneNumber: true,
+          },
+        },
+        orderHeader: {
+          select: { id: true, invoiceNo: true, status: true, createdAt: true },
+        },
+      },
+    });
+
+    if (!delivery) throw new AppError("Delivery order not found", 404);
+    return delivery;
   };
 
   confirmRecivedByCustomer = async (

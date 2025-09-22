@@ -67,6 +67,20 @@ export class OrderRouter {
       this.orderController.getCustomerOrderById
     );
 
+    this.router.get(
+      "/deliveries",
+      JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["CUSTOMER"]),
+      this.orderController.getCustomerDeliveryOrders
+    );
+
+    this.router.get(
+      "/delivery/:id",
+      JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["CUSTOMER"]),
+      this.orderController.getCustomerDeliveryOrderById
+    );
+
     this.router.patch(
       "/confirm/:orderHeaderId",
       JwtVerify.verifyToken,

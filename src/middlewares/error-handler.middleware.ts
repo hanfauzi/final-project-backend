@@ -12,7 +12,6 @@ export class ErrorHandlerMiddleware {
         error.name === "JsonWebTokenError";
 
       const statusCode = error.statusCode || (isJwtError ? 401 : 500);
-console.log(error);
 
       const message =
         error instanceof AppError || error.isOperational
