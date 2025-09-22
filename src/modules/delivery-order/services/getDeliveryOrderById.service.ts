@@ -1,10 +1,10 @@
 import prisma from "../../prisma/prisma.service";
 import { AppError } from "../../../utils/app.error";
 
-export class GetPickUpOrderByIdService {
-  getPickUpOrderById = async (
+export class GetDeliveryOrderByIdService {
+  getDeliveryOrderById = async (
     authUser: { id: string; role: string },
-    pickUpOrderId: string
+    deliveryOrderId: string
   ) => {
     try {
       const allowedRoles = ["DRIVER"];
@@ -12,8 +12,8 @@ export class GetPickUpOrderByIdService {
         throw new AppError("You are not a driver", 400);
       }
 
-      const pickUpOrder = await prisma.pickUpOrder.findFirst({
-        where: { id: pickUpOrderId },
+      const deliveryOrder = await prisma.deliveryOrder.findFirst({
+        where: { id: deliveryOrderId },
         include: {
           outlet: {
             select: {
@@ -30,32 +30,37 @@ export class GetPickUpOrderByIdService {
               longitude: true,
             },
           },
-          customer: {
+          assignedByAdmin: {
             select: {
               name: true,
             }
           },
-          assignedByAdmin: {
+          orderHeader: {
             select: {
-              name: true,
+              id: true,
+              customers: {
+                select: {
+                  name: true,
+                }
+              }
             }
           }
         },
       });
 
-      if (!pickUpOrder) {
-        throw new AppError("Pick-up order not found", 404);
+      if (!deliveryOrder) {
+        throw new AppError("Delivery order not found", 404);
       }
       
       return {
-        message: "Get pick-up order success!",
-        data: pickUpOrder,
+        message: "Get delivery order success!",
+        data: deliveryOrder,
       };
 
     } catch (error) {
       console.error("Error : ", error);
       if (error instanceof AppError) throw error;
-      throw new AppError("Failed to get pick-up order", 500);
+      throw new AppError("Failed to get delivery order", 500);
     }
   };
 }
