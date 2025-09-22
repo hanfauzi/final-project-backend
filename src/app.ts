@@ -24,6 +24,7 @@ import startAutoConfirmOrdersJob from "./jobs/autoConfirmOrderJob";
 import { CityRouter } from "./modules/city/city.router";
 import { PickUpOrderRouter } from "./modules/pickup-order/pickUpOrder.router";
 import { GeocodeRouter } from "./modules/geocode/geocode.router";
+import { DeliveryOrderRouter } from "./modules/delivery-order/deliveryOrder.router";
 
 export default class App {
   private app: Express;
@@ -67,8 +68,9 @@ export default class App {
     const attendanceRouter = new AttendanceRouter();
     const employeeRouter = new EmployeeRouter();
     const pickUpOrderRouter = new PickUpOrderRouter();
+    const deliveryOrderRouter = new DeliveryOrderRouter();
     const cityRouter = new CityRouter();
-      const geocodeRouter = new GeocodeRouter();
+    const geocodeRouter = new GeocodeRouter();
 
     this.app.get("/api", (req: Request, res: Response) => {
       res.send(
@@ -86,6 +88,7 @@ export default class App {
     this.app.use("/api/attendance", attendanceRouter.getRouter());
     this.app.use("/api/employee", employeeRouter.getRouter());
     this.app.use("/api/pickup-order", pickUpOrderRouter.getRouter());
+    this.app.use("/api/delivery-order", deliveryOrderRouter.getRouter());
     this.app.use("/api", cityRouter.getRouter());
     this.app.use("/api/geocode", geocodeRouter.getRouter());
   }

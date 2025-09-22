@@ -61,7 +61,7 @@ export class UpdatePickUpOrderService {
           };
         }
 
-        const updatedPickUpTask = await tx.pickUpOrder.update({
+        const updatedPickUpOrder = await tx.pickUpOrder.update({
           where: { id: pickUpOrderId },
           data: { 
             status: pickUpOrderStatus, 
@@ -76,7 +76,7 @@ export class UpdatePickUpOrderService {
           omit: { password: true, resetPasswordToken: true },
         });
 
-        return { updatedDriver, updatedPickUpTask };
+        return { updatedDriver, updatedPickUpOrder };
       });
       
       return { message: "Pick-up order processed successfully!", data: result };
@@ -84,7 +84,7 @@ export class UpdatePickUpOrderService {
     } catch (error) {
       console.error("Error : ", error);
       if (error instanceof AppError) throw error;
-      throw new AppError("Failed to update pick-up task", 500);
+      throw new AppError("Failed to process pick-up order", 500);
     }
   }
 }
