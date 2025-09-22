@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { OrderService } from "./order.service";
-import { CustomerOrderQueryParams, CustomerPickupQueryParams } from "../pagination/pagination.dto";
+import { CustomerDeliveryQueryParams, CustomerOrderQueryParams, CustomerPickupQueryParams } from "../pagination/pagination.dto";
 import { plainToInstance } from "class-transformer";
 
 export class OrderController {
@@ -66,11 +66,25 @@ export class OrderController {
   };
 
   getCustomerOrderById = async (req: Request, res: Response) => {
-    const cutomerId = res.locals.payload.id;
+    const customerId = res.locals.payload.id;
     const { id } = req.params;
-    const result = await this.orderService.getCustomerOrderById(cutomerId, id);
+    const result = await this.orderService.getCustomerOrderById(customerId, id);
     res.status(200).json(result);
   };
+
+  getCustomerDeliveryOrders = async (req: Request, res: Response) => {
+    const cutomerId = res.locals.payload.id;
+    const query = plainToInstance(CustomerDeliveryQueryParams, req.query);
+    const result = await this.orderService.getCustomerDeliveryOrders(cutomerId, query);
+    res.status(200).json(result);
+  }
+
+  getCustomerDeliveryOrderById = async (req: Request, res: Response) => {
+    const customerId = res.locals.payload.id;
+    const { id } = req.params;
+    const result = await this.orderService.getCustomerDeliveryOrderById(customerId, id);
+    res.status(200).json(result);
+  }
 
   confirmRecivedByCustomer = async (req: Request, res: Response) => {
     const customerId = res.locals.payload.id;
