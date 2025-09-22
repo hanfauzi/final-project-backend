@@ -242,7 +242,7 @@ export class OrderService {
       };
     }
 
-    const [orders, total] = await prisma.$transaction([
+    const [rows, total] = await prisma.$transaction([
       prisma.orderHeader.findMany({
         where,
         skip: (page - 1) * take,
@@ -252,15 +252,43 @@ export class OrderService {
           id: true,
           invoiceNo: true,
           status: true,
-          notes: true,
           createdAt: true,
           estHours: true,
           outlets: { select: { id: true, name: true } },
           deliveryOrder: { select: { id: true, status: true } },
+          _count: { select: { OrderItem: true } },
+          OrderItem: {
+            take: 1,
+            orderBy: { createdAt: "asc" },
+            select: {
+              service: { select: { name: true } },
+            },
+          },
         },
       }),
       prisma.orderHeader.count({ where }),
     ]);
+
+    const orders = rows.map((o) => {
+      const firstName = o.OrderItem[0]?.service?.name ?? null;
+      const extra = (o._count?.OrderItem ?? 0) - 1;
+      const serviceLabel = firstName
+        ? extra > 0
+          ? `${firstName} +${extra} layanan`
+          : firstName
+        : "Tanpa layanan";
+
+      return {
+        id: o.id,
+        invoiceNo: o.invoiceNo,
+        status: o.status,
+        createdAt: o.createdAt,
+        estHours: o.estHours,
+        outlets: o.outlets,
+        deliveryOrder: o.deliveryOrder,
+        serviceLabel,
+      };
+    });
 
     return {
       data: orders,
@@ -274,8 +302,8 @@ export class OrderService {
   };
 
   getCustomerOrderById = async (customerId: string, id: string) => {
-    const order = await prisma.orderHeader.findFirst({
-      where: { id, customerId,deletedAt: null },
+    const row = await prisma.orderHeader.findFirst({
+      where: { id, customerId, deletedAt: null },
       select: {
         id: true,
         outletId: true,
@@ -286,11 +314,54 @@ export class OrderService {
         updatedAt: true,
         invoiceNo: true,
         outlets: { select: { name: true } },
-          deliveryOrder: { select: { id: true, status: true } },
-
+        deliveryOrder: { select: { id: true, status: true } },
+        OrderItem: {
+          orderBy: { createdAt: "asc" },
+          select: {
+            id: true,
+            qty: true,
+            unitPrice: true,
+            subTotal: true,
+            service: { select: { id: true, name: true, unit: true } },
+          },
+        },
       },
     });
-    return order;
+
+     if (!row) return null;
+
+  const firstName = row.OrderItem[0]?.service?.name ?? null;
+  const extra = row.OrderItem.length - 1;
+  const serviceLabel = firstName
+    ? extra > 0
+      ? `${firstName} +${extra} layanan`
+      : firstName
+    : "Tanpa layanan";
+
+  return {
+    id: row.id,
+    outletId: row.outletId,
+    status: row.status,
+    estHours: row.estHours,
+    createdAt: row.createdAt,
+    updatedAt: row.updatedAt,
+    invoiceNo: row.invoiceNo,
+    outlets: row.outlets,
+    deliveryOrder: row.deliveryOrder,
+    items: row.OrderItem.map((it) => ({
+      id: it.id,
+      qty: it.qty,
+      unitPrice: it.unitPrice,
+      subTotal: it.subTotal,
+      service: {
+        id: it.service.id,
+        name: it.service.name,
+        unit: it.service.unit,
+      },
+    })),
+    serviceLabel, 
+  };
+    
   };
 
   getCustomerDeliveryOrders = async (
