@@ -1,36 +1,53 @@
-import { IsString, IsUUID, IsNumber, Min, ValidateNested, ArrayMinSize, IsOptional } from "class-validator";
+// src/controllers/order/dto/CreateOrderFromPickup.dto.ts
+import { IsString, IsUUID, IsArray, ValidateNested, IsOptional, IsInt, Min } from "class-validator";
 import { Type } from "class-transformer";
 
-export class LaundryItemDto {
+class LaundryItemDTO {
   @IsUUID()
-  laundryItemId: string;
+  laundryItemId!: string;
 
-  @IsNumber()
+  @IsInt()
   @Min(1)
-  qty: number;
+  qty!: number;
 }
 
-export class OrderItemDto {
+class OrderItemDTO {
   @IsUUID()
-  serviceId: string;
+  serviceId!: string;
 
-  @IsNumber()
+  @IsInt()
   @Min(1)
-  qty: number;
+  qty!: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  unitPrice?: number;
+
+  @IsOptional()
+  @IsString()
+  note?: string; //
+
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => LaundryItemDTO)
+  laundryItems?: LaundryItemDTO[];
+}
+
+export class CreateOrderFromPickupDTO {
+  @IsUUID()
+  pickupOrderId!: string;
 
   @IsString()
+  notes!: string; // optional descriptive notes from admin
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => OrderItemDTO)
+  items!: OrderItemDTO[];
+
   @IsOptional()
-  note?: string;
-
-  @ValidateNested({ each: true })
-  @Type(() => LaundryItemDto)
-  @ArrayMinSize(1)
-  laundryItems: LaundryItemDto[];
-}
-
-export class AddOrderItemsDto {
-  @ValidateNested({ each: true })
-  @Type(() => OrderItemDto)
-  @ArrayMinSize(1)
-  items: OrderItemDto[];
+  @IsString()
+  paymentMethod?: string; // e.g. CASH, DEBIT
 }

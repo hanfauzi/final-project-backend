@@ -22,11 +22,11 @@ export class CityService {
     });
 
     return records
-  .filter((r: any) => r.id) // filter dulu yang ada id
+  .filter((r: any) => r.id) 
   .map((r: any) => ({
     cityId: String(r.id),
     cityName: r.name,
-    postalCode: "", // bisa dikosongkan
+    postalCode: "", 
   }));
   };
   };

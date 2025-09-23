@@ -6,8 +6,8 @@ import { GetAllOrdersDto } from "./dto/get-all-orders.dto";
 import { OrderTrackingService } from "./order-tracking.service";
 import { OrderAdminService } from "./order.service";
 import { OrderStatus } from "../../../generated/prisma";
-import { AddOrderItemsDto } from "./dto/create-order-items.dto";
 import { CreateOrderAdminService } from "./create-order.service";
+import { CreateOrderFromPickupDTO } from "./dto/create-order-items.dto";
 
 export class OrderAdminController {
   private orderAdminService: OrderAdminService;
@@ -79,14 +79,29 @@ export class OrderAdminController {
       .json({ message: "Orders tracking loaded successfully", ...result });
   };
 
-  createOrderItemsByOutletAdmin = async (req: Request, res: Response) => {
-    const { orderHeaderId } = req.params;
-    const handledById = res.locals.payload.id;
-    const dto: AddOrderItemsDto = req.body;
-    console.log("REQ BODY:", dto);
+  showPickupOrders = async (req: Request, res: Response) => { 
+    const outletId = res.locals.payload.outletId;
+    const pickups = await this.createOrderAdminService.showPickupOrders(outletId);
+    res.status(200).json({ message: "Pickup orders loaded successfully", data: pickups });
+  }
 
-    const result = await this.createOrderAdminService.createOrderItems(
-      orderHeaderId,
+  showPickUpOrderDetailById = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const pickup = await this.createOrderAdminService.showPickUpOrderDetailById(id);
+    res.status(200).json({ message: "Pickup order detail loaded successfully", data: pickup });
+  }
+
+  createOrderFromPickUp = async (req: Request, res: Response) => {
+    const { pickUpOrderId } = req.params;
+    const handledById = res.locals.payload.id;
+     const dto = plainToInstance(CreateOrderFromPickupDTO, {
+        ...req.body,
+        pickUpOrderId,
+      });
+
+      await validateOrReject(dto);
+
+    const result = await this.createOrderAdminService.createOrderFromPickup(
       handledById,
       dto
     );
