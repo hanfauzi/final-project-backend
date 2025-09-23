@@ -33,7 +33,7 @@ export class CreateOutletDTO {
 
   @IsNumber()
   @Min(1, { message: "Coverage area must be at least 1 km" })
-  @Max(3, { message: "Coverage area must not be longer than 3 km" })
+  @Max(5, { message: "Coverage area must not be longer than 5 km" })
   @Type(() => Number)
   coverageArea!: number;
 }

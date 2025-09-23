@@ -4,7 +4,7 @@ import { JwtVerify } from "../../../middlewares/jwt-verify.middleware";
 import { validateQuery } from "../../../middlewares/validate-query.middleware";
 import { GetAllOrdersDto } from "./dto/get-all-orders.dto";
 import { validateBody } from "../../../middlewares/validate.middleware";
-import { AddOrderItemsDto } from "./dto/create-order-items.dto";
+import { CreateOrderFromPickupDTO } from "./dto/create-order-items.dto";
 
 export class OrderAdminRouter {
   private orderAdminController: OrderAdminController;
@@ -37,17 +37,29 @@ export class OrderAdminRouter {
       this.orderAdminController.getOrdersTracking
     );
     this.router.get(
+      "/pickup-orders",
+      JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["OUTLET_ADMIN"]),
+      this.orderAdminController.showPickupOrders
+    );
+    this.router.get(
+      "/pickup-orders/:id",
+      JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["OUTLET_ADMIN"]),
+      this.orderAdminController.showPickUpOrderDetailById
+    );
+    this.router.get(
       "/:id",
       JwtVerify.verifyToken,
       JwtVerify.verifyRole(["SUPER_ADMIN", "OUTLET_ADMIN"]),
       this.orderAdminController.getOrderDetailById
     );
     this.router.post(
-      "/:orderHeaderId/items",
+      "/:pickUpOrderId/create",
       JwtVerify.verifyToken,
       JwtVerify.verifyRole(["OUTLET_ADMIN"]),
-      validateBody(AddOrderItemsDto),
-      this.orderAdminController.createOrderItemsByOutletAdmin
+      validateBody(CreateOrderFromPickupDTO),
+      this.orderAdminController.createOrderFromPickUp
     );
   }
 

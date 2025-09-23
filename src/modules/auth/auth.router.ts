@@ -64,15 +64,9 @@ export class AuthRouter {
     );
 
     this.router.post(
-      "/super-admin/login",
+      "/employee/login",
       validateBody(LoginDTO),
-      this.authController.superAdminLogin
-    );
-
-    this.router.post(
-      "/outlet-admin/login",
-      validateBody(LoginDTO),
-      this.authController.outletAdminLogin
+      this.authController.employeeLogin
     );
   };
 

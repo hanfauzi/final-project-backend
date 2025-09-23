@@ -2,16 +2,16 @@ import { NextFunction, Request, Response } from "express";
 import { AuthService } from "./auth.service";
 import { GoogleService } from "./oauth/google.service";
 import { AppError } from "../../utils/app.error";
-import { AuthAdminService } from "./auth-admin.service";
+import { AuthEmployeeService } from "./auth-employee.service";
 
 export class AuthController {
   private authService: AuthService;
   private googleService: GoogleService;
-  private authAdminService: AuthAdminService
+  private authEmployeeService: AuthEmployeeService;
   constructor() {
     this.authService = new AuthService();
     this.googleService = new GoogleService();
-    this.authAdminService = new AuthAdminService();
+    this.authEmployeeService = new AuthEmployeeService()
   }
 
   customerRegister = async (req: Request, res: Response) => {
@@ -76,11 +76,11 @@ export class AuthController {
     res.status(200).json(result);
   };
 
-   superAdminLogin = async (req: Request, res: Response, next: NextFunction) => {
+   employeeLogin = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const result = await this.authAdminService.superAdminLogin(req.body);
+      const result = await this.authEmployeeService.employeeLogin(req.body);
       return res.status(200).json({
-        message: "Super admin logged in successfully",
+        message: "Employee logged in successfully",
         data: result,
       });
     } catch (error) {
@@ -88,15 +88,5 @@ export class AuthController {
     }
   };
   
-  outletAdminLogin = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const result = await this.authAdminService.outletAdminLogin(req.body);
-      return res.status(200).json({
-        message: "Outlet admin logged in successfully",
-        data: result,
-      });
-    } catch (error) {
-      next(error); 
-    }
-  }
+  
 }

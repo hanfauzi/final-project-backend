@@ -18,13 +18,13 @@ export class LaundryItemRouter {
     this.router.get(
       "/",
       JwtVerify.verifyToken,
-      JwtVerify.verifyRole(["SUPER_ADMIN"]),
+      JwtVerify.verifyRole(["SUPER_ADMIN", "OUTLET_ADMIN"]),
       this.laundryItemController.getAllLaundryItems
     );
     this.router.get(
       "/:id",
       JwtVerify.verifyToken,
-      JwtVerify.verifyRole(["SUPER_ADMIN"]),
+      JwtVerify.verifyRole(["SUPER_ADMIN", "OUTLET_ADMIN"]),
       this.laundryItemController.getLaundryItemDetailById
     );
     this.router.post(

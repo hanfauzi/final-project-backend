@@ -47,7 +47,7 @@ export class UpdateOutletDTO {
   @IsOptional()
   @IsInt()
   @Min(1, { message: "Coverage area must be at least 1 km" })
-  @Max(3, { message: "Coverage area must not be longer than 3 km" })
+  @Max(5, { message: "Coverage area must not be longer than 5 km" })
   coverageArea?: number;
 
   @IsOptional()
