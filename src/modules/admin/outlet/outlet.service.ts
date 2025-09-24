@@ -11,7 +11,7 @@ import { UpdateOutletDTO } from "./dto/update.outlet.dto";
 export class OutletService {
   private cityService: CityService;
   constructor() {
-    this.cityService = new CityService()
+    this.cityService = new CityService();
   }
   getAllOutlets = async (query: {
     page: number;
@@ -77,7 +77,8 @@ export class OutletService {
     try {
       const normalizedName = data.name.trim().toUpperCase();
       const normalizedAddress = data.address.trim().toLowerCase();
-      const cities = await this.cityService.getCities()
+      const normalizedCode = data.code?.trim().toUpperCase();
+      const cities = await this.cityService.getCities();
       const selectedCity = cities.find((c) => c.cityId === String(data.cityId));
       if (!selectedCity) {
         throw new AppError("Invalid City ID", 400);
@@ -103,6 +104,12 @@ export class OutletService {
           throw new AppError("Outlet phone number already exists", 400);
         }
       }
+      const existingCode = await prisma.outlet.findFirst({
+        where: { code: normalizedCode },
+      });
+      if (existingCode) {
+        throw new AppError("Outlet code already exists, use another!", 400);
+      }
 
       let latitude = data.latitude;
       let longitude = data.longitude;
@@ -125,6 +132,7 @@ export class OutletService {
           longitude,
           coverageArea: data.coverageArea,
           isActive: true,
+          code: normalizedCode,
         },
       });
 

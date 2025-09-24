@@ -3,6 +3,12 @@ import { IsString, IsNumber, MaxLength, Min, MinLength, Max, IsNotEmpty } from "
 
 export class CreateOutletDTO {
   @IsString()
+  @IsNotEmpty()
+  @MinLength(3, { message: "Code must be at least 3 characters" })
+  @MaxLength(3, { message: "Code must not be longer than 3 characters" })
+  code!: string;
+
+  @IsString()
   @MaxLength(60, { message: "Name must not be longer than 60 characters" })
   name!: string;
 

@@ -6,6 +6,7 @@ import { LaundryItemRouter } from "./laundry-item/laundry-item.router";
 import { OrderAdminRouter } from "./order/order.router";
 import { ShiftRouter } from "./shift/shift.router";
 import { LaundryServiceRouter } from "./laundry-service/laundry-service.router";
+import { SalesReportRouter } from "./sales-report/sales-report.router";
 
 export class AdminRouter {
   private router: Router;
@@ -15,6 +16,7 @@ export class AdminRouter {
   private orderAdminRouter: OrderAdminRouter;
   private shiftRouter: ShiftRouter;
   private laundryServiceRouter: LaundryServiceRouter;
+  private salesReportRouter: SalesReportRouter;
 
 
   constructor() {
@@ -25,6 +27,7 @@ export class AdminRouter {
     this.orderAdminRouter = new OrderAdminRouter();
     this.shiftRouter = new ShiftRouter()
     this.laundryServiceRouter = new LaundryServiceRouter();
+    this.salesReportRouter = new SalesReportRouter();
 
     this.initializeRoutes();
   }
@@ -36,6 +39,8 @@ export class AdminRouter {
     this.router.use("/orders", this.orderAdminRouter.getRouter());
     this.router.use("/shifts", this.shiftRouter.getRouter())
     this.router.use("/laundry-services", this.laundryServiceRouter.getRouter())
+    this.router.use("/sales-reports", this.salesReportRouter.getRouter())
+
   }
 
   getRouter(): Router {
