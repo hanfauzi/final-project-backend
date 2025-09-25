@@ -90,7 +90,7 @@ export class OrderAdminService {
   ) => {
     const {
       page,
-      limit,
+      limit = 2,
       sortBy,
       sortOrder,
       status,

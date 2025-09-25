@@ -30,7 +30,7 @@ export class EmployeeRouter {
     this.router.get(
       "/:id",
       JwtVerify.verifyToken,
-      JwtVerify.verifyRole(["SUPER_ADMIN"]),
+      JwtVerify.verifyRole(["SUPER_ADMIN", "OUTLET_ADMIN"]),
       this.employeeController.getEmployeeDetailById
     );
 

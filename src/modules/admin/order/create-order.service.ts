@@ -53,6 +53,7 @@ export class CreateOrderAdminService {
   }
 
   showPickupOrders = async (outletId: string) => {
+     try {
     const pickups = await prisma.pickUpOrder.findMany({
       where: {
         outletId,
@@ -62,6 +63,10 @@ export class CreateOrderAdminService {
       include: { customer: true, outlet: true, orderHeaders: true },
     });
     return pickups;
+  } catch (err) {
+    console.error("Error fetching pickup orders:", err);
+    throw err; // biar frontend tetap tahu ada error
+  }
   };
 
   showPickUpOrderDetailById = async (id: string) => {
