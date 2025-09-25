@@ -294,9 +294,10 @@ model PickUpOrder {
   customerAddressId String       @map("customer_address_id")
   assignedByAdminId String?      @map("assigned_by_admin_id")
   status            PickupStatus @default(WAITING_FOR_DRIVER)
-  notes             String
+  notes             String?
   distance          Int
   price             Int
+  services          String[]     @default([]) @map("services")
 
   scheduledAt     DateTime? @map("scheduled_at")
   pickedUpAt      DateTime? @map("picked_up_at")
@@ -328,9 +329,9 @@ model DeliveryOrder {
   distance          Int
   price             Int
 
-  scheduledAt DateTime? @map("scheduled_at")
+  scheduledAt     DateTime? @map("scheduled_at")
   takenByDriverAt DateTime? @map("taken_by_driver_at")
-  deliveredAt DateTime? @map("delivered_at")
+  deliveredAt     DateTime? @map("delivered_at")
 
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")

@@ -22,12 +22,12 @@ export class OrderController {
 
   createPickUpOrderRequest = async (req: Request, res: Response) => {
     const customerId = res.locals.payload.id;
-    const { customerAddressId, notes } = req.body;
+    const { customerAddressId, services } = req.body;
 
     const result = await this.orderService.createPickUpOrderRequest({
       customerId,
       customerAddressId,
-      notes,
+      services
     });
 
     res.status(201).json(result);
