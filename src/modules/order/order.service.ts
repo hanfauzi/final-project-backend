@@ -45,7 +45,7 @@ export class OrderService {
   createPickUpOrderRequest = async ({
     customerId,
     customerAddressId,
-    notes,
+    services
   }: PickUpOrderDTO & { customerId: string }) => {
     return prisma.$transaction(async (tx) => {
       const chosen = await this.outletService.pickOutletForAddress({
@@ -56,24 +56,39 @@ export class OrderService {
       const distanceKm = Math.min(Math.round(chosen.distanceKm), 5);
       const pickupPrice = distanceKm * 3000;
 
+       const serviceids = Array.from(new Set((services ?? []).filter(Boolean)));
+    if (serviceids.length === 0) {
+      throw new AppError("Pilih minimal 1 service.", 400);
+    }
+
+    const existing = await tx.service.findMany({
+      where: { id: { in: serviceids } },
+      select: { id: true },
+    });
+    if (existing.length !== serviceids.length) {
+      const found = new Set(existing.map(s => s.id));
+      const missing = serviceids.filter(id => !found.has(id));
+      throw new AppError(`Service tidak ditemukan: ${missing.join(", ")}`, 400);
+    }
+
       const pickUpOrder = await tx.pickUpOrder.create({
         data: {
           customerId,
           outletId: chosen.id,
           customerAddressId,
-          notes,
           distance: distanceKm,
           price: pickupPrice,
           status: "WAITING_FOR_DRIVER",
+          services: serviceids,
         },
         select: {
           id: true,
           outletId: true,
-          notes: true,
           distance: true,
           price: true,
           createdAt: true,
           status: true,
+          services: true
         },
       });
 
