@@ -54,17 +54,17 @@ export class OrderRouter {
     );
 
     this.router.get(
+      "/pending-payments",
+      JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["CUSTOMER"]),
+      this.orderController.getPendingPaymentOrders
+    );
+
+    this.router.get(
       "/",
       JwtVerify.verifyToken,
       JwtVerify.verifyRole(["CUSTOMER"]),
       this.orderController.getCustomerOrders
-    );
-
-    this.router.get(
-      "/:id",
-      JwtVerify.verifyToken,
-      JwtVerify.verifyRole(["CUSTOMER"]),
-      this.orderController.getCustomerOrderById
     );
 
     this.router.get(
@@ -86,6 +86,13 @@ export class OrderRouter {
       JwtVerify.verifyToken,
       JwtVerify.verifyRole(["CUSTOMER"]),
       this.orderController.confirmRecivedByCustomer
+    );
+
+    this.router.get(
+      "/:id",
+      JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["CUSTOMER"]),
+      this.orderController.getCustomerOrderById
     );
   };
 

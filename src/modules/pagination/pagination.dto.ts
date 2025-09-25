@@ -1,4 +1,4 @@
-import { Transform } from "class-transformer";
+import { Transform, Type } from "class-transformer";
 import { IsEnum, IsNumber, IsOptional, IsString } from "class-validator";
 import { DeliveryStatus, OrderStatus, PickupStatus } from "../../generated/prisma";
 
@@ -100,4 +100,11 @@ export class CustomerDeliveryQueryParams {
   @IsOptional()
   @IsString()
   dateTo?: string;
+}
+
+export class CustomerNotificationQueryParams {
+  @IsOptional()
+  @Transform(({ value }) => parseInt(value, 10))
+  @IsNumber()
+  take: number = 5;
 }
