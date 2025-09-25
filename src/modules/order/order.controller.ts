@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { OrderService } from "./order.service";
-import { CustomerDeliveryQueryParams, CustomerOrderQueryParams, CustomerPickupQueryParams } from "../pagination/pagination.dto";
+import { CustomerDeliveryQueryParams, CustomerNotificationQueryParams, CustomerOrderQueryParams, CustomerPickupQueryParams } from "../pagination/pagination.dto";
 import { plainToInstance } from "class-transformer";
 
 export class OrderController {
@@ -73,9 +73,9 @@ export class OrderController {
   };
 
   getCustomerDeliveryOrders = async (req: Request, res: Response) => {
-    const cutomerId = res.locals.payload.id;
+    const customerId = res.locals.payload.id;
     const query = plainToInstance(CustomerDeliveryQueryParams, req.query);
-    const result = await this.orderService.getCustomerDeliveryOrders(cutomerId, query);
+    const result = await this.orderService.getCustomerDeliveryOrders(customerId, query);
     res.status(200).json(result);
   }
 
@@ -99,5 +99,12 @@ export class OrderController {
   autoConfirmDueOrders = async () => {
     const result = await this.orderService.autoConfirmDueOrders();
     return result;
+  }
+
+  getPendingPaymentOrders = async (req: Request, res: Response ) => {
+    const customerId = res.locals.payload.id;
+    const query = plainToInstance(CustomerNotificationQueryParams, req.query);
+    const result = await this.orderService.getPendingPaymentOrders(customerId, query);
+    res.status(200).json(result);
   }
 }

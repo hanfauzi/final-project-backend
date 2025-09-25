@@ -10,6 +10,7 @@ import {
 } from "../../generated/prisma";
 import {
   CustomerDeliveryQueryParams,
+  CustomerNotificationQueryParams,
   CustomerOrderQueryParams,
   CustomerPickupQueryParams,
 } from "../pagination/pagination.dto";
@@ -619,5 +620,41 @@ getCustomerOrderById = async (customerId: string, id: string) => {
       )
     );
     return { message: "Auto-confirmed", count: toConfirm.length };
+  };
+
+ getPendingPaymentOrders = async (
+    customerId: string,
+    query: CustomerNotificationQueryParams
+  ) => {
+    const take = query?.take ?? 5; 
+
+    const where: Prisma.OrderHeaderWhereInput = {
+      customerId,
+      deletedAt: null,
+      status: "WAITING_FOR_PAYMENT",
+    };
+
+    const rows = await prisma.orderHeader.findMany({
+      where,
+      take,
+      orderBy: { updatedAt: "desc" },
+      select: {
+        id: true,
+        invoiceNo: true,
+        createdAt: true,
+        updatedAt: true,
+        outlets: { select: { name: true } },
+      },
+    });
+
+    
+
+    return rows.map((r) => ({
+      id: r.id,
+      invoiceNo: r.invoiceNo,
+      createdAt: r.createdAt,
+      updatedAt: r.updatedAt,
+      outletName: r.outlets?.name ?? null,
+    }));
   };
 }
