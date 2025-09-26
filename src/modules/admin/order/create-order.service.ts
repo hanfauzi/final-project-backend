@@ -2,11 +2,15 @@ import {
   OrderStatus,
   PaymentStatus,
   PickupStatus,
+  Station,
   TaskStatus,
 } from "../../../generated/prisma";
 import { AppError } from "../../../utils/app.error";
 import prisma from "../../prisma/prisma.service";
-import { CreateOrderFromPickupDTO } from "./dto/create-order-items.dto";
+import {
+  CreateOrderFromPickupDTO,
+  OrderItemDTO,
+} from "./dto/create-order-items.dto";
 
 export class CreateOrderAdminService {
   private async generateInvoiceNo(
@@ -54,20 +58,33 @@ export class CreateOrderAdminService {
   }
 
   showPickupOrders = async (outletId: string) => {
-     try {
-    const pickups = await prisma.pickUpOrder.findMany({
-      where: {
-        outletId,
-        deletedAt: null,
-        status: { not: PickupStatus.CANCELLED },
-      },
-      include: { customer: true, outlet: true, orderHeaders: true },
-    });
-    return pickups;
-  } catch (err) {
-    console.error("Error fetching pickup orders:", err);
-    throw err; // biar frontend tetap tahu ada error
-  }
+    try {
+      const pickups = await prisma.pickUpOrder.findMany({
+        where: {
+          outletId,
+          deletedAt: null,
+          status: { not: PickupStatus.CANCELLED },
+        },
+        include: { customer: true, outlet: true, orderHeaders: true },
+      });
+
+      const allServiceIds = pickups.flatMap((p) => p.services);
+      const serviceDetails = await prisma.service.findMany({
+        where: { id: { in: allServiceIds }, deletedAt: null },
+      });
+
+      const serviceMap = new Map(serviceDetails.map((s) => [s.id, s]));
+
+      const pickupsWithServiceDetails = pickups.map((pickup) => ({
+        ...pickup,
+        services: pickup.services.map((serviceId) => serviceMap.get(serviceId)),
+      }));
+
+      return pickupsWithServiceDetails;
+    } catch (err) {
+      console.error("Error fetching pickup orders:", err);
+      throw err;
+    }
   };
 
   showPickUpOrderDetailById = async (id: string) => {
@@ -89,6 +106,12 @@ export class CreateOrderAdminService {
       where: { id: dto.pickupOrderId, deletedAt: null },
       include: { outlet: true },
     });
+
+    const serviceDetails = await prisma.service.findMany({
+      where: { id: { in: pickup?.services } },
+    });
+
+    const serviceMap = new Map(serviceDetails.map((svc) => [svc.id, svc]));
 
     if (!pickup) {
       throw new AppError("PickUpOrder not found", 404);
@@ -123,17 +146,20 @@ export class CreateOrderAdminService {
       let totalAmount = 0;
       let maxEstHours = 0;
 
-      for (const item of dto.items) {
+      for (const item of dto.items as OrderItemDTO[]) {
+        if (!pickup.services.includes(item.serviceId)) {
+          throw new AppError(
+            `Service ${item.serviceId} is not part of pickup order`,
+            400
+          );
+        }
+
         if (item.qty <= 0) {
           throw new AppError("Quantity must be greater than 0", 400);
         }
 
-        const service = await tx.service.findFirst({
-          where: { id: item.serviceId, deletedAt: null },
-        });
-        if (!service) {
-          throw new AppError("Invalid service selected", 404);
-        }
+        const service = serviceMap.get(item.serviceId);
+        if (!service) throw new AppError("Invalid service selected", 404);
 
         const unitPrice = await this.calculateUnitPrice(
           item.serviceId,
@@ -174,6 +200,13 @@ export class CreateOrderAdminService {
 
         totalAmount += subTotal;
       }
+
+      await tx.workerTask.create({
+        data: {
+          orderHeaderId: orderHeader.id,
+          station: Station.WASHING,
+        },
+      });
 
       await tx.orderHeader.update({
         where: { id: orderHeader.id },
