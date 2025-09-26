@@ -1,8 +1,7 @@
 // services/city.service.ts
-import axios from "axios";
+import { parse } from "csv-parse/sync";
 import fs from "fs";
 import path from "path";
-import {parse} from "csv-parse/sync"
 
 
 export interface City {

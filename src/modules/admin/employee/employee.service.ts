@@ -13,54 +13,60 @@ export class EmployeeService {
   constructor() {
     this.passwordService = new PasswordService();
   }
-  getAllEmployees = async (query: { page: number; limit: number; sortBy?: string; sortOrder?: "asc" | "desc"; search?: string }) => {
-    const { page, limit, sortBy = "createdAt", sortOrder = "desc", search } = query;
-  const { skip, take } = getPagination(page, limit);
+  getAllEmployees = async (query: {
+    page: number;
+    limit: number;
+    sortBy?: string;
+    sortOrder?: "asc" | "desc";
+    search?: string;
+    role?: Role;
+    outletId?: string;
+  }) => {
+    const {
+      page,
+      limit,
+      sortBy = "createdAt",
+      sortOrder = "desc",
+      search,
+      role,
+      outletId,
+    } = query;
+    const { skip, take } = getPagination(page, limit);
 
-  
-const whereCondition: Prisma.EmployeeWhereInput = {
+    const whereCondition: Prisma.EmployeeWhereInput = {
       NOT: { role: Role.CUSTOMER },
       deletedAt: null,
-      ...(search
-        ? {
-            OR: [
-              { name: { contains: search, mode: "insensitive" } },
-              { email: { contains: search, mode: "insensitive" } },
-            ],
-          }
-        : {}),
+      ...(search && {
+        OR: [
+          { name: { contains: search, mode: "insensitive" } },
+          { email: { contains: search, mode: "insensitive" } },
+        ],
+      }),
+      ...(role && { role }),
+      ...(outletId && { outletId }),
     };
-    
-    const [employees, total] = await prisma.$transaction([
-    prisma.employee.findMany({
-      where: whereCondition,
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        role: true,
-        outletId: true,
-        shiftId: true,
-        phoneNumber: true,
-        address: true,
-        photoUrl: true,
-        createdAt: true,
-      },
-      skip,
-      take,
-      orderBy: {
-        [sortBy]: sortOrder,
-      },
-    }),
-    prisma.employee.count({
-      where: whereCondition,
-    }),
-  ]);
 
-  return {
-    data: employees,
-    meta: getMeta(total, page, limit),
-  };
+    const [employees, total] = await prisma.$transaction([
+      prisma.employee.findMany({
+        where: whereCondition,
+        include: {
+          outlet: true
+        },
+        skip,
+        take,
+        orderBy: {
+          [sortBy]: sortOrder,
+        },
+      }),
+      prisma.employee.count({
+        where: whereCondition,
+      }),
+    ]);
+
+    return {
+      data: employees,
+      meta: getMeta(total, page, limit),
+    };
   };
 
   getEmployeeDetailById = async (employeeId: string) => {
@@ -116,7 +122,7 @@ const whereCondition: Prisma.EmployeeWhereInput = {
 
     const employee = await prisma.employee.create({
       data: {
-        outletId: body.role === "SUPER_ADMIN" ? null : body.outletId ,
+        outletId: body.role === "SUPER_ADMIN" ? null : body.outletId,
         shiftId: body.shiftId,
         role: body.role,
         name: body.name,
