@@ -11,7 +11,7 @@ class LaundryItemDTO {
   qty!: number;
 }
 
-class OrderItemDTO {
+export class OrderItemDTO {
   @IsUUID()
   serviceId!: string;
 

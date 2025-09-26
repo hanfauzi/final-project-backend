@@ -11,9 +11,6 @@ export class BypassRequestController {
     const requests = await this.service.getRequests(
       res.locals.payload.outletId
     );
-
-    console.log("OutletId:", res.locals.payload.outletId)
-    
     res
       .status(200)
       .json({ message: "Get bypass requests successfully", data: requests });
