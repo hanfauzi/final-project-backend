@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import { AuthService } from "./auth.service";
-import { GoogleService } from "./oauth/google.service";
 import { AppError } from "../../utils/app.error";
 import { AuthEmployeeService } from "./auth-employee.service";
+import { AuthService } from "./auth.service";
+import { GoogleService } from "./oauth/google.service";
 
 export class AuthController {
   private authService: AuthService;
@@ -11,7 +11,7 @@ export class AuthController {
   constructor() {
     this.authService = new AuthService();
     this.googleService = new GoogleService();
-    this.authEmployeeService = new AuthEmployeeService()
+    this.authEmployeeService = new AuthEmployeeService();
   }
 
   customerRegister = async (req: Request, res: Response) => {
@@ -24,11 +24,11 @@ export class AuthController {
     res.status(200).json(result);
   };
 
-  googleLoginRegister = async (req: Request, res: Response) => {
-    const idToken = req.body.idToken as string; 
+  googleSignIn = async (req: Request, res: Response) => {
+    const idToken = req.body.idToken as string;
 
     if (!idToken) throw new AppError("Google ID token is required", 400);
-    const result = await this.googleService.googleLoginRegister(idToken);
+    const result = await this.googleService.googleSignIn(idToken);
     res.status(200).json(result);
   };
 
@@ -45,11 +45,6 @@ export class AuthController {
     });
 
     return res.status(200).json(result);
-  };
-
-  resendSetPasswordEmail = async (req: Request, res: Response) => {
-    const result = await this.googleService.resendSetPasswordEmail(req.body);
-    res.status(200).json(result);
   };
 
   customerLogin = async (req: Request, res: Response) => {
@@ -76,7 +71,7 @@ export class AuthController {
     res.status(200).json(result);
   };
 
-   employeeLogin = async (req: Request, res: Response, next: NextFunction) => {
+  employeeLogin = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const result = await this.authEmployeeService.employeeLogin(req.body);
       return res.status(200).json({
@@ -84,9 +79,7 @@ export class AuthController {
         data: result,
       });
     } catch (error) {
-      next(error); 
+      next(error);
     }
   };
-  
-  
 }

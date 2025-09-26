@@ -1,11 +1,9 @@
 import { Router } from "express";
-import { AuthController } from "./auth.controller";
 import { validateBody } from "../../middlewares/validate.middleware";
-import { RegisterDTO } from "./dto/register.dto";
-import { GoogleIdTokenDTO } from "./dto/google.dto";
-import { JwtVerify } from "../../middlewares/jwt-verify.middleware";
-import { SetPasswordDTO } from "./dto/setPassword.dto";
+import { AuthController } from "./auth.controller";
 import { LoginDTO } from "./dto/login.dto";
+import { RegisterDTO } from "./dto/register.dto";
+import { SetPasswordDTO } from "./dto/setPassword.dto";
 
 export class AuthRouter {
   private router: Router;
@@ -28,15 +26,10 @@ export class AuthRouter {
       validateBody(RegisterDTO),
       this.authController.resendVerificationEmail
     );
-    this.router.post(
-      "/customer/google/resend",
-      validateBody(RegisterDTO),
-      this.authController.resendSetPasswordEmail
-    );
 
     this.router.post(
       "/customer/google",
-      this.authController.googleLoginRegister
+      this.authController.googleSignIn
     );
 
     this.router.post(

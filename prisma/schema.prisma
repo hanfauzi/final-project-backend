@@ -298,6 +298,8 @@ model PickUpOrder {
   distance          Int
   price             Int
   services          String[]     @default([]) @map("services")
+  receiverName      String?      @map("receiver_name")
+  receiverPhone     String?      @map("receiver_phone")
 
   scheduledAt     DateTime? @map("scheduled_at")
   pickedUpAt      DateTime? @map("picked_up_at")

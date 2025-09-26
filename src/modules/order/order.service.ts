@@ -1,19 +1,14 @@
-import { OutletService } from "./outlet/outlet.service";
-import prisma from "../prisma/prisma.service";
-import { PickUpOrderDTO } from "./dto/pickup-order.dto";
+import { DeliveryStatus, PickupStatus, Prisma } from "../../generated/prisma";
 import { AppError } from "../../utils/app.error";
-import {
-  DeliveryStatus,
-  OrderStatus,
-  PickupStatus,
-  Prisma,
-} from "../../generated/prisma";
 import {
   CustomerDeliveryQueryParams,
   CustomerNotificationQueryParams,
   CustomerOrderQueryParams,
   CustomerPickupQueryParams,
 } from "../pagination/pagination.dto";
+import prisma from "../prisma/prisma.service";
+import { PickUpOrderDTO } from "./dto/pickup-order.dto";
+import { OutletService } from "./outlet/outlet.service";
 
 export class OrderService {
   private outletService: OutletService;
@@ -51,12 +46,25 @@ export class OrderService {
     customerId,
     customerAddressId,
     services,
+    receiverName,
+    receiverPhone,
   }: PickUpOrderDTO & { customerId: string }) => {
     return prisma.$transaction(async (tx) => {
       const chosen = await this.outletService.pickOutletForAddress({
         customerId,
         customerAddressId,
       });
+
+      const [cust, addr] = await Promise.all([
+        tx.customer.findUnique({
+          where: { id: customerId },
+          select: { name: true },
+        }),
+        tx.customerAddress.findUnique({
+          where: { id: customerAddressId },
+          select: { phoneNumber: true },
+        }),
+      ]);
 
       const distanceKm = Math.min(Math.round(chosen.distanceKm), 5);
       const pickupPrice = distanceKm * 3000;
@@ -79,6 +87,11 @@ export class OrderService {
         );
       }
 
+      const resolvedReceiverName =
+        receiverName?.trim() || cust?.name || "Customer";
+      const resolvedReceiverPhone =
+        receiverPhone?.trim() || addr?.phoneNumber || null;
+
       const pickUpOrder = await tx.pickUpOrder.create({
         data: {
           customerId,
@@ -88,6 +101,8 @@ export class OrderService {
           price: pickupPrice,
           status: "WAITING_FOR_DRIVER",
           services: serviceids,
+          receiverName: resolvedReceiverName,
+          receiverPhone: resolvedReceiverPhone ?? undefined,
         },
         select: {
           id: true,
@@ -97,6 +112,8 @@ export class OrderService {
           createdAt: true,
           status: true,
           services: true,
+          receiverName: true,
+          receiverPhone: true,
         },
       });
 
@@ -180,6 +197,8 @@ export class OrderService {
           status: true,
           createdAt: true,
           updatedAt: true,
+          receiverName: true,
+          receiverPhone: true,
           orderHeaders: {
             select: {
               id: true,
@@ -221,6 +240,8 @@ export class OrderService {
         arrivedAtOutlet: true,
         createdAt: true,
         updatedAt: true,
+        receiverName: true,
+        receiverPhone: true,
         outlet: {
           select: { id: true, name: true, cityName: true, address: true },
         },
@@ -232,121 +253,243 @@ export class OrderService {
     return pickup;
   };
 
-getCustomerOrders = async (
-  customerId: string,
-  query: CustomerOrderQueryParams
-) => {
-  const { page = 1, take = 5, status, invoiceNo, dateFrom, dateTo } = query;
+  getCustomerOrders = async (
+    customerId: string,
+    query: CustomerOrderQueryParams
+  ) => {
+    const { page = 1, take = 5, status, invoiceNo, dateFrom, dateTo } = query;
 
-  const where: Prisma.OrderHeaderWhereInput = {
-    customerId,
-    deletedAt: null,
+    const where: Prisma.OrderHeaderWhereInput = {
+      customerId,
+      deletedAt: null,
+    };
+
+    if (status) where.status = status;
+    if (invoiceNo)
+      where.invoiceNo = { contains: invoiceNo, mode: "insensitive" };
+
+    if (dateFrom || dateTo) {
+      const start = dateFrom
+        ? new Date(`${dateFrom}T00:00:00.000Z`)
+        : undefined;
+      const endExclusive = dateTo
+        ? new Date(
+            new Date(`${dateTo}T00:00:00.000Z`).getTime() + 24 * 60 * 60 * 1000
+          )
+        : undefined;
+      where.createdAt = {
+        ...(start && { gte: start }),
+        ...(endExclusive && { lt: endExclusive }),
+      };
+    }
+
+    const [rows, total] = await prisma.$transaction([
+      prisma.orderHeader.findMany({
+        where,
+        skip: (page - 1) * take,
+        take,
+        orderBy: { createdAt: "desc" },
+        select: {
+          id: true,
+          invoiceNo: true,
+          status: true,
+          createdAt: true,
+          estHours: true,
+          pickUpOrderId: true,
+          pickUpOrder: { select: { id: true, price: true } },
+          deliveryOrder: { select: { id: true, status: true, price: true } },
+          outlets: { select: { id: true, name: true } },
+        },
+      }),
+      prisma.orderHeader.count({ where }),
+    ]);
+
+    const ids = rows.map((r) => r.id);
+    if (ids.length === 0) {
+      return {
+        data: [],
+        meta: {
+          page,
+          take,
+          total,
+          totalPages: Math.max(Math.ceil(total / take), 1),
+        },
+      };
+    }
+
+    const itemsByOrder = await prisma.orderItem.groupBy({
+      by: ["orderHeaderId"],
+      where: { orderHeaderId: { in: ids }, deletedAt: null },
+      _sum: { subTotal: true },
+    });
+    const sumMap = new Map(
+      itemsByOrder.map((x) => [x.orderHeaderId, x._sum.subTotal ?? 0])
+    );
+
+    const pickupIds = Array.from(
+      new Set(rows.map((r) => r.pickUpOrderId).filter(Boolean))
+    ) as string[];
+    const firstOrderIdByPickup = new Map<string, string>();
+    if (pickupIds.length) {
+      const pickRows = await prisma.orderHeader.findMany({
+        where: { pickUpOrderId: { in: pickupIds }, deletedAt: null },
+        select: { id: true, pickUpOrderId: true, createdAt: true },
+        orderBy: [
+          { pickUpOrderId: "asc" },
+          { createdAt: "asc" },
+          { id: "asc" },
+        ],
+      });
+      for (const r of pickRows) {
+        const pid = r.pickUpOrderId!;
+        if (!firstOrderIdByPickup.has(pid)) firstOrderIdByPickup.set(pid, r.id);
+      }
+    }
+
+    const svcRows = await prisma.orderItem.findMany({
+      where: { orderHeaderId: { in: ids }, deletedAt: null },
+      select: {
+        orderHeaderId: true,
+        service: { select: { name: true } },
+      },
+      orderBy: { createdAt: "asc" },
+    });
+    const svcNameMap = new Map<string, string[]>();
+    for (const r of svcRows) {
+      const name = r.service?.name ?? null;
+      if (!name) continue;
+      const arr = svcNameMap.get(r.orderHeaderId) ?? [];
+      if (!arr.includes(name)) arr.push(name);
+      svcNameMap.set(r.orderHeaderId, arr);
+    }
+
+    const orders = rows.map((o) => {
+      const serviceNames = svcNameMap.get(o.id) ?? [];
+      const serviceLabel = serviceNames.length
+        ? serviceNames.join(", ")
+        : "Tanpa layanan";
+
+      const itemsTotal = sumMap.get(o.id) ?? 0;
+      const isFirstOfPickup = o.pickUpOrderId
+        ? firstOrderIdByPickup.get(o.pickUpOrderId) === o.id
+        : false;
+
+      const pickupFee = isFirstOfPickup ? (o.pickUpOrder?.price ?? 0) : 0;
+      const deliveryFee = o.deliveryOrder?.price ?? 0;
+      const amount = itemsTotal + pickupFee + deliveryFee;
+
+      return {
+        id: o.id,
+        invoiceNo: o.invoiceNo,
+        status: o.status,
+        createdAt: o.createdAt,
+        estHours: o.estHours,
+        outlets: o.outlets,
+        deliveryOrder: o.deliveryOrder,
+        serviceNames,
+        serviceLabel,
+        amount,
+        breakdown: {
+          itemsTotal,
+          pickupFeeApplied: pickupFee,
+          deliveryFee,
+        },
+      };
+    });
+
+    return {
+      data: orders,
+      meta: {
+        page,
+        take,
+        total,
+        totalPages: Math.max(Math.ceil(total / take), 1),
+      },
+    };
   };
 
-  if (status) where.status = status;
-  if (invoiceNo) where.invoiceNo = { contains: invoiceNo, mode: "insensitive" };
-
-  if (dateFrom || dateTo) {
-    const start = dateFrom ? new Date(`${dateFrom}T00:00:00.000Z`) : undefined;
-    const endExclusive = dateTo
-      ? new Date(new Date(`${dateTo}T00:00:00.000Z`).getTime() + 24 * 60 * 60 * 1000)
-      : undefined;
-    where.createdAt = {
-      ...(start && { gte: start }),
-      ...(endExclusive && { lt: endExclusive }),
-    };
-  }
-
-  const [rows, total] = await prisma.$transaction([
-    prisma.orderHeader.findMany({
-      where,
-      skip: (page - 1) * take,
-      take,
-      orderBy: { createdAt: "desc" },
+  getCustomerOrderById = async (customerId: string, id: string) => {
+    const row = await prisma.orderHeader.findFirst({
+      where: { id, customerId, deletedAt: null },
       select: {
         id: true,
-        invoiceNo: true,
+        outletId: true,
         status: true,
-        createdAt: true,
+        notes: true,
         estHours: true,
+        createdAt: true,
+        updatedAt: true,
+        invoiceNo: true,
+
         pickUpOrderId: true,
         pickUpOrder: { select: { id: true, price: true } },
         deliveryOrder: { select: { id: true, status: true, price: true } },
-        outlets: { select: { id: true, name: true} },
+
+        outlets: { select: { name: true } },
+        OrderItem: {
+          orderBy: { createdAt: "asc" },
+          select: {
+            id: true,
+            qty: true,
+            unitPrice: true,
+            subTotal: true,
+            service: { select: { id: true, name: true, unit: true } },
+          },
+        },
       },
-    }),
-    prisma.orderHeader.count({ where }),
-  ]);
-
-  const ids = rows.map(r => r.id);
-  if (ids.length === 0) {
-    return {
-      data: [],
-      meta: { page, take, total, totalPages: Math.max(Math.ceil(total / take), 1) },
-    };
-  }
-
-  const itemsByOrder = await prisma.orderItem.groupBy({
-    by: ["orderHeaderId"],
-    where: { orderHeaderId: { in: ids }, deletedAt: null },
-    _sum: { subTotal: true },
-  });
-  const sumMap = new Map(itemsByOrder.map(x => [x.orderHeaderId, x._sum.subTotal ?? 0]));
-
-  const pickupIds = Array.from(new Set(rows.map(r => r.pickUpOrderId).filter(Boolean))) as string[];
-  const firstOrderIdByPickup = new Map<string, string>();
-  if (pickupIds.length) {
-    const pickRows = await prisma.orderHeader.findMany({
-      where: { pickUpOrderId: { in: pickupIds }, deletedAt: null },
-      select: { id: true, pickUpOrderId: true, createdAt: true },
-      orderBy: [{ pickUpOrderId: "asc" }, { createdAt: "asc" }, { id: "asc" }],
     });
-    for (const r of pickRows) {
-      const pid = r.pickUpOrderId!;
-      if (!firstOrderIdByPickup.has(pid)) firstOrderIdByPickup.set(pid, r.id);
+
+    if (!row) return null;
+
+    const itemsTotal = row.OrderItem.reduce(
+      (s, it) => s + (it.subTotal ?? 0),
+      0
+    );
+
+    let isFirstOfPickup = false;
+    if (row.pickUpOrderId) {
+      const first = await prisma.orderHeader.findFirst({
+        where: { pickUpOrderId: row.pickUpOrderId, deletedAt: null },
+        orderBy: { createdAt: "asc" },
+        select: { id: true },
+      });
+      isFirstOfPickup = first?.id === row.id;
     }
-  }
 
-  const svcRows = await prisma.orderItem.findMany({
-    where: { orderHeaderId: { in: ids }, deletedAt: null },
-    select: {
-      orderHeaderId: true,
-      service: { select: { name: true } },
-    },
-    orderBy: { createdAt: "asc" },
-  });
-  const svcNameMap = new Map<string, string[]>();
-  for (const r of svcRows) {
-    const name = r.service?.name ?? null;
-    if (!name) continue;
-    const arr = svcNameMap.get(r.orderHeaderId) ?? [];
-    if (!arr.includes(name)) arr.push(name);
-    svcNameMap.set(r.orderHeaderId, arr);
-  }
-
-  const orders = rows.map((o) => {
-    const serviceNames = svcNameMap.get(o.id) ?? [];
-    const serviceLabel = serviceNames.length ? serviceNames.join(", ") : "Tanpa layanan";
-
-    const itemsTotal = sumMap.get(o.id) ?? 0;
-    const isFirstOfPickup = o.pickUpOrderId
-      ? firstOrderIdByPickup.get(o.pickUpOrderId) === o.id
-      : false;
-
-    const pickupFee = isFirstOfPickup ? (o.pickUpOrder?.price ?? 0) : 0;
-    const deliveryFee = o.deliveryOrder?.price ?? 0;
+    const pickupFee = isFirstOfPickup ? (row.pickUpOrder?.price ?? 0) : 0;
+    const deliveryFee = row.deliveryOrder?.price ?? 0;
     const amount = itemsTotal + pickupFee + deliveryFee;
 
+    const serviceNames = Array.from(
+      new Set(row.OrderItem.map((it) => it.service.name))
+    );
+    const serviceLabel = serviceNames.length
+      ? serviceNames.join(", ")
+      : "Tanpa layanan";
+
     return {
-      id: o.id,
-      invoiceNo: o.invoiceNo,
-      status: o.status,
-      createdAt: o.createdAt,
-      estHours: o.estHours,
-      outlets: o.outlets,
-      deliveryOrder: o.deliveryOrder,
-      serviceNames,          
-      serviceLabel,        
+      id: row.id,
+      outletId: row.outletId,
+      status: row.status,
+      estHours: row.estHours,
+      createdAt: row.createdAt,
+      updatedAt: row.updatedAt,
+      invoiceNo: row.invoiceNo,
+      outlets: row.outlets,
+      deliveryOrder: row.deliveryOrder,
+      items: row.OrderItem.map((it) => ({
+        id: it.id,
+        qty: it.qty,
+        unitPrice: it.unitPrice,
+        subTotal: it.subTotal,
+        service: {
+          id: it.service.id,
+          name: it.service.name,
+          unit: it.service.unit,
+        },
+      })),
+      serviceNames,
+      serviceLabel,
       amount,
       breakdown: {
         itemsTotal,
@@ -354,99 +497,7 @@ getCustomerOrders = async (
         deliveryFee,
       },
     };
-  });
-
-  return {
-    data: orders,
-    meta: { page, take, total, totalPages: Math.max(Math.ceil(total / take), 1) },
   };
-};
-
-getCustomerOrderById = async (customerId: string, id: string) => {
-  const row = await prisma.orderHeader.findFirst({
-    where: { id, customerId, deletedAt: null },
-    select: {
-      id: true,
-      outletId: true,
-      status: true,
-      notes: true,
-      estHours: true,
-      createdAt: true,
-      updatedAt: true,
-      invoiceNo: true,
-
-      pickUpOrderId: true,
-      pickUpOrder: { select: { id: true, price: true } },
-      deliveryOrder: { select: { id: true, status: true, price: true } },
-
-      outlets: { select: { name: true } },
-      OrderItem: {
-        orderBy: { createdAt: "asc" },
-        select: {
-          id: true,
-          qty: true,
-          unitPrice: true,
-          subTotal: true,
-          service: { select: { id: true, name: true, unit: true } },
-        },
-      },
-    },
-  });
-
-  if (!row) return null;
-
-  const itemsTotal = row.OrderItem.reduce((s, it) => s + (it.subTotal ?? 0), 0);
-
-  let isFirstOfPickup = false;
-  if (row.pickUpOrderId) {
-    const first = await prisma.orderHeader.findFirst({
-      where: { pickUpOrderId: row.pickUpOrderId, deletedAt: null },
-      orderBy: { createdAt: "asc" },
-      select: { id: true },
-    });
-    isFirstOfPickup = first?.id === row.id;
-  }
-
-  const pickupFee = isFirstOfPickup ? (row.pickUpOrder?.price ?? 0) : 0;
-  const deliveryFee = row.deliveryOrder?.price ?? 0;
-  const amount = itemsTotal + pickupFee + deliveryFee;
-
-  const serviceNames = Array.from(
-    new Set(row.OrderItem.map(it => it.service.name))
-  );
-  const serviceLabel = serviceNames.length ? serviceNames.join(", ") : "Tanpa layanan";
-
-  return {
-    id: row.id,
-    outletId: row.outletId,
-    status: row.status,
-    estHours: row.estHours,
-    createdAt: row.createdAt,
-    updatedAt: row.updatedAt,
-    invoiceNo: row.invoiceNo,
-    outlets: row.outlets,
-    deliveryOrder: row.deliveryOrder,
-    items: row.OrderItem.map((it) => ({
-      id: it.id,
-      qty: it.qty,
-      unitPrice: it.unitPrice,
-      subTotal: it.subTotal,
-      service: {
-        id: it.service.id,
-        name: it.service.name,
-        unit: it.service.unit,
-      },
-    })),
-    serviceNames,   
-    serviceLabel,   
-    amount,
-    breakdown: {
-      itemsTotal,
-      pickupFeeApplied: pickupFee,
-      deliveryFee,
-    },
-  };
-};
 
   getCustomerDeliveryOrders = async (
     customerId: string,
@@ -622,11 +673,11 @@ getCustomerOrderById = async (customerId: string, id: string) => {
     return { message: "Auto-confirmed", count: toConfirm.length };
   };
 
- getPendingPaymentOrders = async (
+  getPendingPaymentOrders = async (
     customerId: string,
     query: CustomerNotificationQueryParams
   ) => {
-    const take = query?.take ?? 5; 
+    const take = query?.take ?? 5;
 
     const where: Prisma.OrderHeaderWhereInput = {
       customerId,
@@ -646,8 +697,6 @@ getCustomerOrderById = async (customerId: string, id: string) => {
         outlets: { select: { name: true } },
       },
     });
-
-    
 
     return rows.map((r) => ({
       id: r.id,

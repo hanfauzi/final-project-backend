@@ -225,6 +225,8 @@ export class AuthService {
       id: customer.id,
       role: customer.role,
       email: customer.email,
+      name: customer.name,
+      phoneNumber: customer.phoneNumber
     };
     const token = createToken({
       payload,
