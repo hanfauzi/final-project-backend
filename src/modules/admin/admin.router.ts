@@ -8,6 +8,7 @@ import { ShiftRouter } from "./shift/shift.router";
 import { LaundryServiceRouter } from "./laundry-service/laundry-service.router";
 import { SalesReportRouter } from "./sales-report/sales-report.router";
 import { PerformanceReportRouter } from "./performance-report/performance-report.router";
+import { BypassRequestRouter } from "./bypass-request/bypass-request.router";
 
 export class AdminRouter {
   private router: Router;
@@ -19,6 +20,7 @@ export class AdminRouter {
   private laundryServiceRouter: LaundryServiceRouter;
   private salesReportRouter: SalesReportRouter;
   private performanceReportRouter: PerformanceReportRouter;
+  private bypassRequestRouter: BypassRequestRouter;
 
 
   constructor() {
@@ -31,6 +33,7 @@ export class AdminRouter {
     this.laundryServiceRouter = new LaundryServiceRouter();
     this.salesReportRouter = new SalesReportRouter();
     this.performanceReportRouter = new PerformanceReportRouter();
+    this.bypassRequestRouter = new BypassRequestRouter();
 
 
     this.initializeRoutes();
@@ -45,6 +48,7 @@ export class AdminRouter {
     this.router.use("/laundry-services", this.laundryServiceRouter.getRouter())
     this.router.use("/sales-reports", this.salesReportRouter.getRouter());
     this.router.use("/performance-reports", this.performanceReportRouter.getRouter());
+    this.router.use("/bypass-requests", this.bypassRequestRouter.getRouter());
   }
 
   getRouter(): Router {
