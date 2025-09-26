@@ -2,6 +2,7 @@ import {
   OrderStatus,
   PaymentStatus,
   PickupStatus,
+  TaskStatus,
 } from "../../../generated/prisma";
 import { AppError } from "../../../utils/app.error";
 import prisma from "../../prisma/prisma.service";

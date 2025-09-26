@@ -254,20 +254,23 @@ model WorkStation {
 }
 
 model workerTask {
-  id             String     @id @default(uuid())
-  employeeId     String     @map("employee_id")
-  orderHeaderId  String     @map("order_header_id")
-  orderItemId    String     @map("order_item_id")
-  outletId       String     @map("outlet_id")
-  shiftId        String     @map("shift_id")
-  workStationId  String     @map("work_station_id")
-  status         TaskStatus @default(PENDING)
-  itemQty        Int?
-  itemUnit       String?
-  bypassReqNote  String?
-  bypassReq      Boolean?   @default(false)
-  isReqAprooved  Boolean?   @default(false) @map("is_req_aprooved")
-  itemPassedNote String?    @map("item_passed")
+  id               String     @id @default(uuid())
+  employeeId       String?    @map("employee_id")
+  orderHeaderId    String     @map("order_header_id")
+  orderItemId      String?    @map("order_item_id")
+  outletId         String?    @map("outlet_id")
+  shiftId          String?    @map("shift_id")
+  workStationId    String?    @map("work_station_id")
+  station          Station
+  status           TaskStatus @default(PENDING)
+  itemQty          Int?
+  itemUnit         String?
+  isItemValidated  Boolean?   @default(false) @map("is_item_validated")
+  isBypassRequired Boolean?   @default(false) @map("is_bypass_required")
+  bypassReqNote    String?
+  bypassReq        Boolean?   @default(false)
+  isReqAprooved    Boolean?   @default(false) @map("is_req_aprooved")
+  itemPassedNote   String?    @map("item_passed")
 
   assignedById String? @map("assigned_by_id")
 
@@ -275,13 +278,13 @@ model workerTask {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  employee    Employee     @relation("WorkerTaskEmployee", fields: [employeeId], references: [id])
+  employee    Employee?    @relation("WorkerTaskEmployee", fields: [employeeId], references: [id])
   assignedBy  Employee?    @relation("WorkerTaskAssignedBy", fields: [assignedById], references: [id])
   orderHeader OrderHeader? @relation(fields: [orderHeaderId], references: [id])
   orderItem   OrderItem?   @relation(fields: [orderItemId], references: [id])
-  outlet      Outlet       @relation(fields: [outletId], references: [id])
-  shift       Shift        @relation(fields: [shiftId], references: [id])
-  workStation WorkStation  @relation(fields: [workStationId], references: [id])
+  outlet      Outlet?      @relation(fields: [outletId], references: [id])
+  shift       Shift?       @relation(fields: [shiftId], references: [id])
+  workStation WorkStation? @relation(fields: [workStationId], references: [id])
 
   @@map("worker_tasks")
 }
@@ -298,6 +301,8 @@ model PickUpOrder {
   distance          Int
   price             Int
   services          String[]     @default([]) @map("services")
+  receiverName      String?      @map("receiver_name")
+  receiverPhone     String?      @map("receiver_phone")
 
   scheduledAt     DateTime? @map("scheduled_at")
   pickedUpAt      DateTime? @map("picked_up_at")
