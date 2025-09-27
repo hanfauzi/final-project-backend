@@ -70,18 +70,32 @@ export class OrderAdminService {
             },
           },
         },
-        workerTasks: { include: {employee: true, workStation: true} },
+        workerTasks: { include: { employee: true, workStation: true } },
         Payment: true,
+        pickUpOrder: true,
       },
     });
     if (!order) {
       throw new AppError("Order not found", 404);
     }
     const estimatedDoneAt = order.estHours
-    ? new Date(order.createdAt.getTime() + order.estHours * 60 * 60 * 1000)
-    : null;
+      ? new Date(order.createdAt.getTime() + order.estHours * 60 * 60 * 1000)
+      : null;
+    const itemsTotal = order.OrderItem.reduce((sum: number, item) => {
+      return sum + item.subTotal;
+    }, 0);
 
-    return {...order, estimatedDoneAt};
+    const pickupPrice = order.pickUpOrder?.price ?? 0;
+
+    const total = itemsTotal + pickupPrice;
+
+    return {
+      ...order,
+      estimatedDoneAt,
+      itemsTotal,
+      pickupPrice,
+      total,
+    };
   };
 
   getAllOrdersForOutletAdmin = async (
@@ -90,7 +104,7 @@ export class OrderAdminService {
   ) => {
     const {
       page,
-      limit = 2,
+      limit = 10,
       sortBy,
       sortOrder,
       status,
@@ -149,8 +163,8 @@ export class OrderAdminService {
           pickUpOrder: true,
           Payment: { select: { id: true, amount: true, status: true } },
           workerTasks: {
-            include: {employee: true, workStation: true}
-          }
+            include: { employee: true, workStation: true },
+          },
         },
       }),
       prisma.orderHeader.count({ where: { outletId } }),
