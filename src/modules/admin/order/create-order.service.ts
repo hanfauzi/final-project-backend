@@ -66,6 +66,7 @@ export class CreateOrderAdminService {
           status: { not: PickupStatus.CANCELLED },
         },
         include: { customer: true, outlet: true, orderHeaders: true },
+        orderBy: {createdAt: "desc"}
       });
 
       const allServiceIds = pickups.flatMap((p) => p.services);
