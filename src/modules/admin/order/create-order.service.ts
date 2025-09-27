@@ -205,6 +205,7 @@ export class CreateOrderAdminService {
         data: {
           orderHeaderId: orderHeader.id,
           station: Station.WASHING,
+          outletId: outlet.id
         },
       });
 
