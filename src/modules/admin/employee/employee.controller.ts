@@ -3,6 +3,7 @@ import { EmployeeService } from "./employee.service";
 import { CloudinaryService } from "../../../cloudinary/cloudinary.service";
 import { AppError } from "../../../utils/app.error";
 import { AssignmentService } from "../assignment/assignment.service";
+import { Role } from "../../../generated/prisma";
 
 export class EmployeeController {
   private employeeService: EmployeeService;
@@ -16,13 +17,15 @@ export class EmployeeController {
 
   getAllEmployees = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { page = "1", limit = "10", sortBy = "createdAt", sortOrder = "desc", search } = req.query;
+      const { page = "1", limit = "10", sortBy = "createdAt", sortOrder = "desc", search, role, outletId } = req.query;
       const result = await this.employeeService.getAllEmployees({
       page: Number(page),
       limit: Number(limit),
       sortBy: String(sortBy),
       sortOrder: sortOrder === "asc" ? "asc" : "desc",
       search: search ? String(search) : undefined,
+      role: role as Role,
+      outletId: outletId ? String(outletId) : undefined,
     });
       res.status(200).json(result);
     } catch (error) {
