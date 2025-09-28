@@ -25,6 +25,7 @@ import { CityRouter } from "./modules/city/city.router";
 import { PickUpOrderRouter } from "./modules/pickup-order/pickUpOrder.router";
 import { GeocodeRouter } from "./modules/geocode/geocode.router";
 import { DeliveryOrderRouter } from "./modules/delivery-order/deliveryOrder.router";
+import { WorkerTaskRouter } from "./modules/worker-task/workerTask.router";
 
 export default class App {
   private app: Express;
@@ -71,6 +72,7 @@ export default class App {
     const deliveryOrderRouter = new DeliveryOrderRouter();
     const cityRouter = new CityRouter();
     const geocodeRouter = new GeocodeRouter();
+    const workerTaskRouter = new WorkerTaskRouter();
 
     this.app.get("/api", (req: Request, res: Response) => {
       res.send(
@@ -91,6 +93,7 @@ export default class App {
     this.app.use("/api/delivery-order", deliveryOrderRouter.getRouter());
     this.app.use("/api", cityRouter.getRouter());
     this.app.use("/api/geocode", geocodeRouter.getRouter());
+    this.app.use("/api/worker-task", workerTaskRouter.getRouter());
   }
 
   private jobs(): void {
