@@ -44,9 +44,8 @@ export class BypassRequestService {
       where: { id: taskId },
       data: {
         isReqAprooved: approve,
-        itemPassedNote: note ?? task.bypassReqNote,
+        itemPassedNote: note,
         assignedById: adminId, 
-        status: approve ? TaskStatus.IN_PROGRESS : TaskStatus.PENDING,
       },
     });
   };
