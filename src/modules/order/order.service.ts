@@ -648,31 +648,43 @@ export class OrderService {
       data: { status: "COMPLETED", customerConfirmedAt: new Date() },
     });
 
+     await prisma.deliveryOrder.updateMany({
+    where: { orderHeaderId },
+    data: { status: "COMPLETED"},
+  });
+
     return { message: "Order confirmed as received by customer" };
   };
 
-  autoConfirmDueOrders = async () => {
-    const cutoff = new Date(Date.now() - 48 * 60 * 60 * 1000);
-    const toConfirm = await prisma.orderHeader.findMany({
-      where: {
-        status: "DELIVERED_TO_CUSTOMER",
-        deliveredAt: { lte: cutoff },
-        deletedAt: null,
-      },
-      select: { id: true },
-    });
-    if (!toConfirm.length) return { message: "No orders", count: 0 };
-    await prisma.$transaction(
-      toConfirm.map((o) =>
-        prisma.orderHeader.update({
-          where: { id: o.id },
-          data: { status: "COMPLETED", autoConfirmedAt: new Date() },
-        })
-      )
-    );
-    return { message: "Auto-confirmed", count: toConfirm.length };
-  };
+autoConfirmDueOrders = async () => {
+  const cutoff = new Date(Date.now() - 48 * 60 * 60 * 1000);
+  const toConfirm = await prisma.orderHeader.findMany({
+    where: {
+      status: "DELIVERED_TO_CUSTOMER",
+      deliveredAt: { lte: cutoff },
+      deletedAt: null,
+    },
+    select: { id: true },
+  });
+  if (!toConfirm.length) return { message: "No orders", count: 0 };
 
+  const ids = toConfirm.map((o) => o.id);
+
+  await prisma.$transaction([
+    ...toConfirm.map((o) =>
+      prisma.orderHeader.update({
+        where: { id: o.id },
+        data: { status: "COMPLETED", autoConfirmedAt: new Date() },
+      })
+    ),
+    prisma.deliveryOrder.updateMany({
+      where: { orderHeaderId: { in: ids } },
+      data: { status: "COMPLETED"},
+    }),
+  ]);
+
+  return { message: "Auto-confirmed", count: toConfirm.length };
+};
   getPendingPaymentOrders = async (
     customerId: string,
     query: CustomerNotificationQueryParams

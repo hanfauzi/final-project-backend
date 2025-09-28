@@ -153,13 +153,17 @@ createOrReusePayment = async (orderHeaderId: string) => {
       },
     });
 
-    if (newStatus === "PAID") {
-      await prisma.orderHeader.update({
-        where: { id: existing.orderHeaderId },
-        data: { status: "READY_FOR_DELIVERY" },
-      });
-    }
+     if (newStatus === "PAID") {
+    await prisma.orderHeader.update({
+      where: { id: existing.orderHeaderId },
+      data: { status: "READY_FOR_DELIVERY" },
+    });
+    await prisma.deliveryOrder.updateMany({
+      where: { orderHeaderId: existing.orderHeaderId },
+      data: { status: "WAITING_FOR_DRIVER"},
+    });
+  } 
 
-    return { message: "Payment updated", status: newStatus };
-  };
+  return { message: "Payment updated", status: newStatus };
+};
 }
