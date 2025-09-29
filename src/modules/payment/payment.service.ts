@@ -1,88 +1,96 @@
 import prisma from "../prisma/prisma.service";
 import { AppError } from "../../utils/app.error";
 import { makeSnap, SnapPayload } from "../../lib/midtrans";
+import { PAYABLE_STATUSES } from "../../types/PaymentStatuses";
+import { OrderStatus } from "../../generated/prisma";
 
 export class PaymentService {
-createOrReusePayment = async (orderHeaderId: string) => {
-  const order = await prisma.orderHeader.findUnique({
-    where: { id: orderHeaderId },
-    select: {
-      id: true,
-      invoiceNo: true,
-      status: true,
-      customers: { select: { name: true, email: true, phoneNumber: true } },
-      OrderItem: true,
-      pickUpOrderId: true,
-      pickUpOrder: { select: { id: true, price: true } },
-      deliveryOrder: { select: { price: true } },
-      Payment: {
-        where: { status: "WAITING", snapToken: { not: null } },
-        take: 1,
+  createOrReusePayment = async (orderHeaderId: string) => {
+    const order = await prisma.orderHeader.findUnique({
+      where: { id: orderHeaderId },
+      select: {
+        id: true,
+        invoiceNo: true,
+        status: true,
+        customers: { select: { name: true, email: true, phoneNumber: true } },
+        OrderItem: true,
+        pickUpOrderId: true,
+        pickUpOrder: { select: { id: true, price: true } },
+        deliveryOrder: { select: { price: true } },
+        Payment: {
+          where: { status: "WAITING", snapToken: { not: null } },
+          take: 1,
+        },
       },
-    },
-  });
-
-  if (!order) throw new AppError("Order not found", 404);
-  if (order.status !== "WAITING_FOR_PAYMENT") {
-    throw new AppError("Order is not ready for payment", 400);
-  }
-  if (!order.invoiceNo) throw new AppError("Order has no invoice number", 400);
-
-  if (order.Payment.length) return order.Payment[0];
-
-  const totalItems = order.OrderItem.reduce((s, it) => s + it.subTotal, 0);
-
-  let pickup = 0;
-  if (order.pickUpOrderId) {
-    const orderHeaders = await prisma.orderHeader.findMany({
-      where: { pickUpOrderId: order.pickUpOrderId },
-      orderBy: { createdAt: "asc" },
-      select: { id: true },
     });
-    if (orderHeaders.length && orderHeaders[0].id === order.id) {
-      pickup = order.pickUpOrder?.price ?? 0;
+
+    if (!order) throw new AppError("Order not found", 404);
+    if (!PAYABLE_STATUSES.has(order.status as OrderStatus)) {
+      if (order.status === "READY_FOR_DELIVERY") {
+        throw new AppError(
+          "Order is already ready for delivery (must be paid).",
+          400
+        );
+      }
+      throw new AppError("Order is not in a payable state", 400);
     }
-  }
+    if (!order.invoiceNo)
+      throw new AppError("Order has no invoice number", 400);
 
-  const delivery = order.deliveryOrder?.price ?? 0;
+    if (order.Payment.length) return order.Payment[0];
 
-  const amount = totalItems + pickup + delivery;
-  if (amount <= 0) throw new AppError("Invalid amount", 400);
+    const totalItems = order.OrderItem.reduce((s, it) => s + it.subTotal, 0);
 
-  const payload: SnapPayload = {
-    transaction_details: {
-      order_id: order.invoiceNo,
-      gross_amount: amount,
-    },
-    customer_details: {
-      first_name: order.customers?.name ?? "Customer",
-      email: order.customers?.email,
-      phone: order.customers?.phoneNumber ?? undefined,
-    },
-  };
+    let pickup = 0;
+    if (order.pickUpOrderId) {
+      const orderHeaders = await prisma.orderHeader.findMany({
+        where: { pickUpOrderId: order.pickUpOrderId },
+        orderBy: { createdAt: "asc" },
+        select: { id: true },
+      });
+      if (orderHeaders.length && orderHeaders[0].id === order.id) {
+        pickup = order.pickUpOrder?.price ?? 0;
+      }
+    }
 
-  return prisma.$transaction(async (tx) => {
-    const payment = await tx.payment.create({
-      data: {
-        orderHeaderId,
-        amount,
-        status: "WAITING",
-        provider: "MIDTRANS",
+    const delivery = order.deliveryOrder?.price ?? 0;
+
+    const amount = totalItems + pickup + delivery;
+    if (amount <= 0) throw new AppError("Invalid amount", 400);
+
+    const payload: SnapPayload = {
+      transaction_details: {
+        order_id: order.invoiceNo,
+        gross_amount: amount,
       },
+      customer_details: {
+        first_name: order.customers?.name ?? "Customer",
+        email: order.customers?.email,
+        phone: order.customers?.phoneNumber ?? undefined,
+      },
+    };
+
+    return prisma.$transaction(async (tx) => {
+      const payment = await tx.payment.create({
+        data: {
+          orderHeaderId,
+          amount,
+          status: "WAITING",
+          provider: "MIDTRANS",
+        },
+      });
+
+      const snap = makeSnap();
+      const snapTx = await snap.createTransaction(payload);
+
+      const updated = await tx.payment.update({
+        where: { id: payment.id },
+        data: { snapToken: snapTx.token, snapRedirectUrl: snapTx.redirect_url },
+      });
+
+      return updated;
     });
-
-    const snap = makeSnap();
-    const snapTx = await snap.createTransaction(payload);
-
-    const updated = await tx.payment.update({
-      where: { id: payment.id },
-      data: { snapToken: snapTx.token, snapRedirectUrl: snapTx.redirect_url },
-    });
-
-    return updated;
-  });
-};
-
+  };
 
   getPayment = async (query: { id?: string; orderHeaderId?: string }) => {
     const { id, orderHeaderId } = query;
@@ -128,8 +136,8 @@ createOrReusePayment = async (orderHeaderId: string) => {
       newStatus = "PAID";
     else if (transaction_status === "pending") newStatus = "WAITING";
     else if (transaction_status === "expire") newStatus = "EXPIRED";
-    else if (["deny", "cancel"].includes(transaction_status))
-      newStatus = "FAILED";
+    else if (transaction_status === "cancel") newStatus = "CANCELED";
+    else if (transaction_status === "deny") newStatus = "FAILED";
     else newStatus = "FAILED";
 
     const method =
@@ -143,27 +151,47 @@ createOrReusePayment = async (orderHeaderId: string) => {
               ? "BANK_TRANSFER"
               : null;
 
-    await prisma.payment.update({
-      where: { id: existing.id },
-      data: {
-        status: newStatus,
-        method: method as any,
-        providerRef: transaction_id ?? undefined,
-        paidAt: newStatus === "PAID" ? new Date() : null,
-      },
-    });
+    return prisma.$transaction(async (tx) => {
+      const current = await tx.payment.findUnique({
+        where: { id: existing.id },
+      });
+      if (
+        current &&
+        current.status === newStatus &&
+        current.providerRef === transaction_id
+      ) {
+        return { message: "Payment unchanged", status: newStatus };
+      }
 
-     if (newStatus === "PAID") {
-    await prisma.orderHeader.update({
-      where: { id: existing.orderHeaderId },
-      data: { status: "READY_FOR_DELIVERY" },
-    });
-    await prisma.deliveryOrder.updateMany({
-      where: { orderHeaderId: existing.orderHeaderId },
-      data: { status: "WAITING_FOR_DRIVER"},
-    });
-  } 
+      await tx.payment.update({
+        where: { id: existing.id },
+        data: {
+          status: newStatus,
+          method: method as any,
+          providerRef: transaction_id ?? undefined,
+          paidAt: newStatus === "PAID" ? (current?.paidAt ?? new Date()) : null,
+        },
+      });
 
-  return { message: "Payment updated", status: newStatus };
-};
+      if (newStatus === "PAID") {
+        const order = await tx.orderHeader.findUnique({
+          where: { id: existing.orderHeaderId },
+          select: { status: true },
+        });
+
+        if (order?.status === "WAITING_FOR_PAYMENT") {
+          await tx.orderHeader.update({
+            where: { id: existing.orderHeaderId },
+            data: { status: "READY_FOR_DELIVERY" },
+          });
+          await tx.deliveryOrder.updateMany({
+            where: { orderHeaderId: existing.orderHeaderId },
+            data: { status: "WAITING_FOR_DRIVER" },
+          });
+        }
+      }
+
+      return { message: "Payment updated", status: newStatus };
+    });
+  };
 }
