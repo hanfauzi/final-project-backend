@@ -1,9 +1,7 @@
-// src/modules/payment/payment.controller.ts
 import { Request, Response } from "express";
 import crypto from "crypto";
 import { PaymentService } from "./payment.service";
-import prisma from "../prisma/prisma.service"; // optional kalau mau cek kepemilikan order
-
+import prisma from "../prisma/prisma.service"; 
 export class PaymentController {
   private paymentService: PaymentService;
 

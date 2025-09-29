@@ -317,6 +317,30 @@ export class OrderService {
       };
     }
 
+    const payRows = await prisma.payment.findMany({
+      where: { orderHeaderId: { in: ids } },
+      orderBy: { createdAt: "desc" },
+      select: {
+        orderHeaderId: true,
+        status: true,
+        paidAt: true,
+        createdAt: true,
+      },
+    });
+
+    const latestPayByOrder = new Map<
+      string,
+      { status: string; paidAt: Date | null }
+    >();
+    for (const p of payRows) {
+      if (!latestPayByOrder.has(p.orderHeaderId)) {
+        latestPayByOrder.set(p.orderHeaderId, {
+          status: p.status,
+          paidAt: p.paidAt ?? null,
+        });
+      }
+    }
+
     const itemsByOrder = await prisma.orderItem.groupBy({
       by: ["orderHeaderId"],
       where: { orderHeaderId: { in: ids }, deletedAt: null },
@@ -369,6 +393,10 @@ export class OrderService {
         ? serviceNames.join(", ")
         : "Tanpa layanan";
 
+      const latestPay = latestPayByOrder.get(o.id);
+      const isPaid = latestPay?.status === "PAID";
+      const paidAt = latestPay?.paidAt ?? null;
+
       const itemsTotal = sumMap.get(o.id) ?? 0;
       const isFirstOfPickup = o.pickUpOrderId
         ? firstOrderIdByPickup.get(o.pickUpOrderId) === o.id
@@ -394,6 +422,8 @@ export class OrderService {
           pickupFeeApplied: pickupFee,
           deliveryFee,
         },
+        isPaid,
+        paidAt,
       };
     });
 
@@ -420,7 +450,6 @@ export class OrderService {
         createdAt: true,
         updatedAt: true,
         invoiceNo: true,
-
         pickUpOrderId: true,
         pickUpOrder: { select: { id: true, price: true } },
         deliveryOrder: { select: { id: true, status: true, price: true } },
@@ -460,6 +489,14 @@ export class OrderService {
     const deliveryFee = row.deliveryOrder?.price ?? 0;
     const amount = itemsTotal + pickupFee + deliveryFee;
 
+    const latestPayment = await prisma.payment.findFirst({
+      where: { orderHeaderId: row.id },
+      orderBy: { createdAt: "desc" },
+      select: { status: true, paidAt: true },
+    });
+    const isPaid = latestPayment?.status === "PAID";
+    const paidAt = latestPayment?.paidAt ?? null;
+
     const serviceNames = Array.from(
       new Set(row.OrderItem.map((it) => it.service.name))
     );
@@ -496,6 +533,8 @@ export class OrderService {
         pickupFeeApplied: pickupFee,
         deliveryFee,
       },
+      isPaid,
+      paidAt,
     };
   };
 
@@ -648,43 +687,43 @@ export class OrderService {
       data: { status: "COMPLETED", customerConfirmedAt: new Date() },
     });
 
-     await prisma.deliveryOrder.updateMany({
-    where: { orderHeaderId },
-    data: { status: "COMPLETED"},
-  });
+    await prisma.deliveryOrder.updateMany({
+      where: { orderHeaderId },
+      data: { status: "COMPLETED" },
+    });
 
     return { message: "Order confirmed as received by customer" };
   };
 
-autoConfirmDueOrders = async () => {
-  const cutoff = new Date(Date.now() - 48 * 60 * 60 * 1000);
-  const toConfirm = await prisma.orderHeader.findMany({
-    where: {
-      status: "DELIVERED_TO_CUSTOMER",
-      deliveredAt: { lte: cutoff },
-      deletedAt: null,
-    },
-    select: { id: true },
-  });
-  if (!toConfirm.length) return { message: "No orders", count: 0 };
+  autoConfirmDueOrders = async () => {
+    const cutoff = new Date(Date.now() - 48 * 60 * 60 * 1000);
+    const toConfirm = await prisma.orderHeader.findMany({
+      where: {
+        status: "DELIVERED_TO_CUSTOMER",
+        deliveredAt: { lte: cutoff },
+        deletedAt: null,
+      },
+      select: { id: true },
+    });
+    if (!toConfirm.length) return { message: "No orders", count: 0 };
 
-  const ids = toConfirm.map((o) => o.id);
+    const ids = toConfirm.map((o) => o.id);
 
-  await prisma.$transaction([
-    ...toConfirm.map((o) =>
-      prisma.orderHeader.update({
-        where: { id: o.id },
-        data: { status: "COMPLETED", autoConfirmedAt: new Date() },
-      })
-    ),
-    prisma.deliveryOrder.updateMany({
-      where: { orderHeaderId: { in: ids } },
-      data: { status: "COMPLETED"},
-    }),
-  ]);
+    await prisma.$transaction([
+      ...toConfirm.map((o) =>
+        prisma.orderHeader.update({
+          where: { id: o.id },
+          data: { status: "COMPLETED", autoConfirmedAt: new Date() },
+        })
+      ),
+      prisma.deliveryOrder.updateMany({
+        where: { orderHeaderId: { in: ids } },
+        data: { status: "COMPLETED" },
+      }),
+    ]);
 
-  return { message: "Auto-confirmed", count: toConfirm.length };
-};
+    return { message: "Auto-confirmed", count: toConfirm.length };
+  };
   getPendingPaymentOrders = async (
     customerId: string,
     query: CustomerNotificationQueryParams
