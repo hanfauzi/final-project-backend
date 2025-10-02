@@ -1,0 +1,31 @@
+import { Request, Response, NextFunction } from "express";
+import { AppError } from "../utils/app.error";
+import prisma from "../modules/prisma/prisma.service";
+
+export class AttendanceMiddleware {
+  static checkClockIn = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const authUser = res.locals.payload;
+
+      const today = new Date();
+      const startOfDay = new Date(today.setHours(0, 0, 0, 0));
+      const endOfDay = new Date(today.setHours(23, 59, 59, 999));
+
+      const attendance = await prisma.attendance.findFirst({
+        where: {
+          employeeId: authUser.id,
+          date: { gte: startOfDay, lte: endOfDay },
+          deletedAt: null,
+        },
+      });
+
+      if (!attendance || !attendance.clockInAt) {
+        throw new AppError("You must clock in before processing tasks", 400);
+      }
+
+      next();
+    } catch (error) {
+      next(error);
+    }
+  };
+}

@@ -39,7 +39,12 @@ export class GetPickUpOrderByIdService {
             select: {
               name: true,
             }
-          }
+          },
+          driver: {
+            select: {
+              name: true,
+            }
+          },
         },
       });
 
