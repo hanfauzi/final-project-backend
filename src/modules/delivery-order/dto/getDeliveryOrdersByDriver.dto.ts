@@ -1,5 +1,10 @@
-import { IsOptional, IsString } from "class-validator";
+import { IsEnum, IsOptional, IsString } from "class-validator";
 import { PaginationQueryParams } from "../../pagination/pagination.dto";
+
+export enum DeliveryOrderMode {
+  HISTORY = "HISTORY",
+  AVAILABLE_TASK = "AVAILABLE_TASK",
+}
 
 export class GetDeliveryOrdersByDriverDTO extends PaginationQueryParams {
   @IsOptional()
@@ -13,6 +18,10 @@ export class GetDeliveryOrdersByDriverDTO extends PaginationQueryParams {
   @IsOptional()
   @IsString()
   yearMonth?: string;
+
+  @IsOptional()
+  @IsEnum(DeliveryOrderMode)
+  mode?: DeliveryOrderMode; 
 
   take: number = 10;
 }

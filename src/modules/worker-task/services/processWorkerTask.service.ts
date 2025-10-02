@@ -31,6 +31,9 @@ export class ProcessWorkerTaskService {
               select: {
                 id: true,
                 status: true,
+                Payment: {
+                  select: { status: true }
+                },
                 pickUpOrder: {
                   select: {
                     customerAddressId: true,
@@ -148,25 +151,39 @@ export class ProcessWorkerTaskService {
               });
             }
           } else {
+            let isFullyPaid = workerTask.orderHeader.Payment.every(
+              (p) => p.status === "PAID"
+            );
+
+            updatedOrderHeaderStatus = isFullyPaid
+              ? "READY_FOR_DELIVERY"
+              : "WAITING_FOR_PAYMENT";
+
             await tx.orderHeader.update({
               where: { id: workerTask.orderHeaderId },
-              data: { status: "WAITING_FOR_PAYMENT" },
+              data: { status: updatedOrderHeaderStatus },
             });
 
-            newDeliveryOrder = await tx.deliveryOrder.create({
-              data: {
-                orderHeaderId: workerTask.orderHeaderId,
-                outletId: workerTask.outletId,
-                customerAddressId: workerTask.orderHeader?.pickUpOrder?.customerAddressId,
-                status: DeliveryStatus.NOT_READY_TO_DELIVER,
-                distance: workerTask.orderHeader?.pickUpOrder?.distance,
-                price: workerTask.orderHeader?.pickUpOrder?.price,
-              },
-            })
-          }
-          
-        }
+            const existingDeliveryOrder = await tx.deliveryOrder.findFirst({
+              where: { orderHeaderId: workerTask.orderHeaderId },
+            });
 
+            if (!existingDeliveryOrder) {
+              newDeliveryOrder = await tx.deliveryOrder.create({
+                data: {
+                  orderHeaderId: workerTask.orderHeaderId,
+                  outletId: workerTask.outletId,
+                  customerAddressId: workerTask.orderHeader?.pickUpOrder?.customerAddressId,
+                  status: isFullyPaid 
+                    ? DeliveryStatus.WAITING_FOR_DRIVER 
+                    : DeliveryStatus.NOT_READY_TO_DELIVER,
+                  distance: workerTask.orderHeader?.pickUpOrder?.distance,
+                  price: workerTask.orderHeader?.pickUpOrder?.price,
+                },
+              })
+            }
+          }
+        }
         return { updatedWorker, updatedWorkerTask, updatedOrderHeader, nextWorkerTask, newDeliveryOrder };
       });
       

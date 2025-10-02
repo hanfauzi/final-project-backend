@@ -3,6 +3,18 @@ import { AppError } from "../../../utils/app.error";
 import { AttendanceStatus, Prisma } from "../../../generated/prisma";
 import { GetAttendanceByEmployeeDTO } from "../dto/getAttendanceByEmployee";
 
+function toLocalStart(dateStr: string) {
+  const d = new Date(dateStr);
+  d.setHours(0, 0, 0, 0);
+  return d;
+}
+
+function toLocalEnd(dateStr: string) {
+  const d = new Date(dateStr);
+  d.setHours(23, 59, 59, 999);
+  return d;
+}
+
 export class GetAttendanceByEmployeeService {
   getAttendanceByEmployee = async (
     authUser: { id: string; role: string },
@@ -27,22 +39,23 @@ export class GetAttendanceByEmployeeService {
     }
     
     if (yearMonth) {
-      const [year, month] = yearMonth.split("-").map(Number);
-      const start = new Date(Date.UTC(year, month - 1, 1, 0, 0, 0, 0));
-      const end = new Date(Date.UTC(year, month, 0, 23, 59, 59, 999));
+        const [year, month] = yearMonth.split("-").map(Number);
 
-      whereClause.date = { gte: start, lte: end };
-    } else if (fromDate || toDate) {
-      whereClause.date = {};
-      if (fromDate) {
-        whereClause.date.gte = new Date(fromDate);
+        const start = new Date(year, month - 1, 1, 0, 0, 0, 0);
+
+        const lastDay = new Date(year, month, 0).getDate();
+        const end = new Date(year, month - 1, lastDay, 23, 59, 59, 999);
+
+        whereClause.createdAt = { gte: start, lte: end };
+      } else if (fromDate || toDate) {
+        whereClause.createdAt = {};
+        if (fromDate) {
+          whereClause.createdAt.gte = toLocalStart(fromDate);
+        }
+        if (toDate) {
+          whereClause.createdAt.lte = toLocalEnd(toDate);
+        }
       }
-      if (toDate) {
-        const end = new Date(toDate);
-        end.setUTCHours(23, 59, 59, 999);
-        whereClause.date.lte = end;
-      }
-    }
 
     try {
       const attendance = await prisma.attendance.findMany({

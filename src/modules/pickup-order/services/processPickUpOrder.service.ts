@@ -1,7 +1,7 @@
 import prisma from "../../prisma/prisma.service";
 import { AppError } from "../../../utils/app.error";
 
-export class UpdatePickUpOrderService {
+export class ProcessPickUpOrderService {
   processPickUpOrder = async (
     authUser: { id: string; role: string }, 
     pickUpOrderId: string
@@ -28,6 +28,9 @@ export class UpdatePickUpOrderService {
         })
         if(!pickUpOrder) {
           throw new AppError("Pick-up order not found", 404);
+        }
+        if (pickUpOrder.driverId && pickUpOrder.driverId !== authUser.id) {
+          throw new AppError("This pick-up order is already assigned to another driver", 403);
         }
         
         let pickUpOrderStatus = pickUpOrder.status;
@@ -67,6 +70,7 @@ export class UpdatePickUpOrderService {
             status: pickUpOrderStatus, 
             pickedUpAt: updatedPickUpAt,
             arrivedAtOutlet: updatedArivedAtOutletAt,
+            driverId: pickUpOrder.driverId ?? authUser.id,
           },
         });
 

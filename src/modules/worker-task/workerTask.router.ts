@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { JwtVerify } from "../../middlewares/jwt-verify.middleware";
 import { WorkerTaskController } from "./workerTask.controller";
+import { AttendanceMiddleware } from "../../middlewares/attendance.middleware";
 
 export class WorkerTaskRouter {
   private router: Router;
@@ -27,18 +28,21 @@ export class WorkerTaskRouter {
     this.router.post(
       "/validate-worker-recount",
       JwtVerify.verifyToken,
+      AttendanceMiddleware.checkClockIn,
       this.workerTaskController.validateWorkerReCount
     );
 
     this.router.patch(
       "/:id/process-worker-task",
       JwtVerify.verifyToken,
+      AttendanceMiddleware.checkClockIn,
       this.workerTaskController.processWorkerTask
     );
 
     this.router.patch(
       "/:id/request-bypass",
       JwtVerify.verifyToken,
+      AttendanceMiddleware.checkClockIn,
       this.workerTaskController.reqWorkerTaskBypass
     );
   };

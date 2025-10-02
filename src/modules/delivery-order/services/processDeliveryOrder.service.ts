@@ -38,15 +38,18 @@ export class ProcessDeliveryOrderService {
         if(!deliveryOrder) {
           throw new AppError("Delivery order not found", 404);
         }
+        if (deliveryOrder.driverId && deliveryOrder.driverId !== authUser.id) {
+          throw new AppError("This pick-up order is already assigned to another driver", 403);
+        }
         
         let deliveryOrderStatus = deliveryOrder.status;
         let updatedTakenByDriverAt = deliveryOrder.takenByDriverAt;
         let updatedDeliveredtAt = deliveryOrder.deliveredAt;
         let updatedOrderHeaderStatus = deliveryOrder.orderHeader.status;
 
-        console.log(updatedOrderHeaderStatus)
-
-        if (deliveryOrder.status === "WAITING_FOR_DRIVER") {
+        if (deliveryOrder.status === "NOT_READY_TO_DELIVER") {
+          throw new AppError("This task is not ready to deliver", 400);
+        } else if (deliveryOrder.status === "WAITING_FOR_DRIVER"){
           deliveryOrderStatus = "ON_THE_WAY_TO_OUTLET";
         } else if (deliveryOrder.status === "ON_THE_WAY_TO_OUTLET") {
           deliveryOrderStatus = "ON_THE_WAY_TO_CUSTOMER";
@@ -81,6 +84,7 @@ export class ProcessDeliveryOrderService {
             status: deliveryOrderStatus, 
             takenByDriverAt: updatedTakenByDriverAt,
             deliveredAt: updatedDeliveredtAt,
+            driverId: deliveryOrder.driverId ?? authUser.id,
           },
         });
 

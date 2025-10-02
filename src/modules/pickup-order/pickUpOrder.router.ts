@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { JwtVerify } from "../../middlewares/jwt-verify.middleware";
 import { PickUpOrderController } from "./pickUpOrder.controller";
+import { AttendanceMiddleware } from "../../middlewares/attendance.middleware";
 
 export class PickUpOrderRouter {
   private router: Router;
@@ -27,6 +28,7 @@ export class PickUpOrderRouter {
     this.router.patch(
       "/:id/process-pickup-order",
       JwtVerify.verifyToken,
+      AttendanceMiddleware.checkClockIn,
       this.pickUpOrderController.processPickUpOrder
     );
   };

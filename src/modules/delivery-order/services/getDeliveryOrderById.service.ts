@@ -44,6 +44,11 @@ export class GetDeliveryOrderByIdService {
                 }
               }
             }
+          },
+          driver: {
+            select: {
+              name: true,
+            }
           }
         },
       });

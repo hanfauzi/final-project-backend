@@ -19,7 +19,8 @@ export class DeliveryOrderController {
   getDeliveryOrdersByDriver = async (req: Request, res: Response) => {
     const authUser = res.locals.payload;
     const query = plainToInstance(GetDeliveryOrdersByDriverDTO, req.query);
-    const result = await this.getDeliveryOrdersByDriverService.getDeliveryOrdersByDriver(authUser, query);
+    const mode = query.mode ?? "AVAILABLE_TASK";
+    const result = await this.getDeliveryOrdersByDriverService.getDeliveryOrdersByDriver(authUser, query, mode);
     res.status(200).json(result);
   };
 
