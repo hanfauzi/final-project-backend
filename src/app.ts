@@ -39,7 +39,7 @@ export default class App {
   }
 
   private configure(): void {
-    this.app.use(cors());
+    this.app.use(cors({ origin: [/\.vercel\.app$/, "http://localhost:3000"], credentials: true }));
     this.app.use(json());
     this.app.use(urlencoded({ extended: true }));
   }
@@ -97,8 +97,17 @@ export default class App {
   }
 
   private jobs(): void {
-    startAutoConfirmOrdersJob();
+    const isVercel = !!process.env.VERCEL;    
+    const allowJobs = process.env.RUN_JOBS === "true";
+    if (!isVercel && allowJobs) {
+      startAutoConfirmOrdersJob();
+    }
   }
+
+    public getExpress(): Express {
+    return this.app;
+  }
+
   public start(): void {
     this.app.listen(PORT, () => {
       console.log(`➜ [API] Local: http://localhost:${PORT}/`);
