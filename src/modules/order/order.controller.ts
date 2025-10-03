@@ -24,6 +24,7 @@ export class OrderController {
     const customerId = res.locals.payload.id;
     const { customerAddressId, services } = req.body;
 
+
     const result = await this.orderService.createPickUpOrderRequest({
       customerId,
       customerAddressId,

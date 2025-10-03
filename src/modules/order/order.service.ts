@@ -49,49 +49,41 @@ export class OrderService {
     receiverName,
     receiverPhone,
   }: PickUpOrderDTO & { customerId: string }) => {
-    return prisma.$transaction(async (tx) => {
-      const chosen = await this.outletService.pickOutletForAddress({
-        customerId,
-        customerAddressId,
-      });
+    const chosen = await this.outletService.pickOutletForAddress({ customerId, customerAddressId });
+  if (!chosen) throw new AppError("Tidak ada outlet dalam coverage area.", 400);
 
-      const [cust, addr] = await Promise.all([
-        tx.customer.findUnique({
-          where: { id: customerId },
-          select: { name: true },
-        }),
-        tx.customerAddress.findUnique({
-          where: { id: customerAddressId },
-          select: { phoneNumber: true },
-        }),
-      ]);
+  const [cust, addr] = await Promise.all([
+    prisma.customer.findUnique({ where: { id: customerId }, select: { name: true } }),
+    prisma.customerAddress.findUnique({ where: { id: customerAddressId }, select: { phoneNumber: true, customerId: true } }),
+  ]);
 
-      const distanceKm = Math.min(Math.round(chosen.distanceKm), 5);
-      const pickupPrice = distanceKm * 3000;
+  if (!addr || addr.customerId !== customerId) {
+    throw new AppError("Alamat tidak valid.", 400);
+  }
 
-      const serviceids = Array.from(new Set((services ?? []).filter(Boolean)));
-      if (serviceids.length === 0) {
-        throw new AppError("Pilih minimal 1 service.", 400);
-      }
+  const serviceids = Array.from(new Set((services ?? []).filter(Boolean)));
+  if (serviceids.length === 0) throw new AppError("Pilih minimal 1 service.", 400);
 
-      const existing = await tx.service.findMany({
-        where: { id: { in: serviceids } },
-        select: { id: true },
-      });
-      if (existing.length !== serviceids.length) {
-        const found = new Set(existing.map((s) => s.id));
-        const missing = serviceids.filter((id) => !found.has(id));
-        throw new AppError(
-          `Service tidak ditemukan: ${missing.join(", ")}`,
-          400
-        );
-      }
+  const existing = await prisma.service.findMany({
+    where: { id: { in: serviceids } },
+    select: { id: true },
+  });
+  if (existing.length !== serviceids.length) {
+    const found = new Set(existing.map((s) => s.id));
+    const missing = serviceids.filter((id) => !found.has(id));
+    throw new AppError(`Service tidak ditemukan: ${missing.join(", ")}`, 400);
+  }
 
-      const resolvedReceiverName =
-        receiverName?.trim() || cust?.name || "Customer";
-      const resolvedReceiverPhone =
-        receiverPhone?.trim() || addr?.phoneNumber || null;
+  const raw = Number(chosen?.distanceKm);
+  if (!Number.isFinite(raw)) throw new AppError("Jarak outlet tidak valid.", 400);
+  const distanceKm = Math.min(Math.max(Math.round(raw), 0), 5);
+  const pickupPrice = distanceKm * 3000;
 
+  const resolvedReceiverName = receiverName?.trim() || cust?.name || "Customer";
+  const resolvedReceiverPhone = receiverPhone?.trim() || addr?.phoneNumber || undefined;
+
+  return prisma.$transaction(
+    async (tx) => {
       const pickUpOrder = await tx.pickUpOrder.create({
         data: {
           customerId,
@@ -102,7 +94,7 @@ export class OrderService {
           status: "WAITING_FOR_DRIVER",
           services: serviceids,
           receiverName: resolvedReceiverName,
-          receiverPhone: resolvedReceiverPhone ?? undefined,
+          receiverPhone: resolvedReceiverPhone,
         },
         select: {
           id: true,
@@ -117,12 +109,11 @@ export class OrderService {
         },
       });
 
-      return {
-        message: "Pick up order created",
-        data: pickUpOrder,
-      };
-    });
-  };
+      return { message: "Pick up order created", data: pickUpOrder };
+    },
+    { maxWait: 5_000, timeout: 15_000, isolationLevel: "ReadCommitted" as any }
+  );
+};
 
   cancelPickUpOrderRequest = async (
     customerId: string,
