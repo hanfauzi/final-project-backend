@@ -168,7 +168,12 @@ export class ProcessWorkerTaskService {
         }
 
         return { updatedWorker, updatedWorkerTask, updatedOrderHeader, nextWorkerTask, newDeliveryOrder };
-      });
+      },
+      {
+    maxWait: 7_000,             
+    timeout: 15_000,            
+    isolationLevel: "ReadCommitted" as any
+  });
       
       return { message: "Worker task processed successfully!", data: result };
 
