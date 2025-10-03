@@ -45,7 +45,8 @@ export class BypassRequestService {
       data: {
         isReqAprooved: approve,
         itemPassedNote: note,
-        assignedById: adminId, 
+        assignedById: adminId,
+        bypassReq: approve,
       },
     });
   };

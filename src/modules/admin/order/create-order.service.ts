@@ -234,7 +234,7 @@ export class CreateOrderAdminService {
         });
       },
       {
-        maxWait: 5_000, // boleh disesuaikan
+        maxWait: 5_000, 
         timeout: 15_000,
         isolationLevel: "ReadCommitted" as any,
       }
