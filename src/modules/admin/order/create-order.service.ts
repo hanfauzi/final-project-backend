@@ -66,7 +66,7 @@ export class CreateOrderAdminService {
           status: { not: PickupStatus.CANCELLED },
         },
         include: { customer: true, outlet: true, orderHeaders: true },
-        orderBy: {createdAt: "desc"}
+        orderBy: { createdAt: "desc" },
       });
 
       const allServiceIds = pickups.flatMap((p) => p.services);
@@ -124,113 +124,120 @@ export class CreateOrderAdminService {
     const outlet = pickup.outlet;
     const now = new Date();
 
-    return await prisma.$transaction(async (tx) => {
-      const invoiceNo = await this.generateInvoiceNo(
-        tx,
-        outlet.id,
-        outlet.code ?? undefined
-      );
-
-      const orderHeader = await tx.orderHeader.create({
-        data: {
-          customerId: pickup.customerId ?? undefined,
-          handledById,
-          outletId: outlet.id,
-          invoiceNo,
-          status: OrderStatus.ARRIVED_AT_OUTLET,
-          notes: dto.notes ?? pickup.notes ?? "",
-          estHours: null,
-          pickUpOrderId: pickup.id,
-        },
-      });
-
-      let totalAmount = 0;
-      let maxEstHours = 0;
-
-      for (const item of dto.items as OrderItemDTO[]) {
-        if (!pickup.services.includes(item.serviceId)) {
-          throw new AppError(
-            `Service ${item.serviceId} is not part of pickup order`,
-            400
-          );
-        }
-
-        if (item.qty <= 0) {
-          throw new AppError("Quantity must be greater than 0", 400);
-        }
-
-        const service = serviceMap.get(item.serviceId);
-        if (!service) throw new AppError("Invalid service selected", 404);
-
-        const unitPrice = await this.calculateUnitPrice(
-          item.serviceId,
-          item.unitPrice
+    return await prisma.$transaction(
+      async (tx) => {
+        const invoiceNo = await this.generateInvoiceNo(
+          tx,
+          outlet.id,
+          outlet.code ?? undefined
         );
-        const subTotal = unitPrice * item.qty;
 
-        const createdItem = await tx.orderItem.create({
+        const orderHeader = await tx.orderHeader.create({
           data: {
-            orderHeaderId: orderHeader.id,
-            serviceId: item.serviceId,
-            qty: item.qty,
-            unitPrice,
-            subTotal,
-            note: item.note ?? null,
+            customerId: pickup.customerId ?? undefined,
+            handledById,
+            outletId: outlet.id,
+            invoiceNo,
+            status: OrderStatus.ARRIVED_AT_OUTLET,
+            notes: dto.notes ?? pickup.notes ?? "",
+            estHours: null,
+            pickUpOrderId: pickup.id,
           },
         });
 
-        if (item.laundryItems?.length) {
-          await tx.orderItemLaundry.createMany({
-            data: item.laundryItems.map((li) => {
-              if (li.qty <= 0) {
-                throw new AppError(
-                  "Laundry item quantity must be greater than 0",
-                  400
-                );
-              }
-              return {
-                orderItemId: createdItem.id,
-                laundryItemId: li.laundryItemId,
-                qty: li.qty,
-              };
-            }),
+        let totalAmount = 0;
+        let maxEstHours = 0;
+
+        for (const item of dto.items as OrderItemDTO[]) {
+          if (!pickup.services.includes(item.serviceId)) {
+            throw new AppError(
+              `Service ${item.serviceId} is not part of pickup order`,
+              400
+            );
+          }
+
+          if (item.qty <= 0) {
+            throw new AppError("Quantity must be greater than 0", 400);
+          }
+
+          const service = serviceMap.get(item.serviceId);
+          if (!service) throw new AppError("Invalid service selected", 404);
+
+          const unitPrice = await this.calculateUnitPrice(
+            item.serviceId,
+            item.unitPrice
+          );
+          const subTotal = unitPrice * item.qty;
+
+          const createdItem = await tx.orderItem.create({
+            data: {
+              orderHeaderId: orderHeader.id,
+              serviceId: item.serviceId,
+              qty: item.qty,
+              unitPrice,
+              subTotal,
+              note: item.note ?? null,
+            },
           });
+
+          if (item.laundryItems?.length) {
+            await tx.orderItemLaundry.createMany({
+              data: item.laundryItems.map((li) => {
+                if (li.qty <= 0) {
+                  throw new AppError(
+                    "Laundry item quantity must be greater than 0",
+                    400
+                  );
+                }
+                return {
+                  orderItemId: createdItem.id,
+                  laundryItemId: li.laundryItemId,
+                  qty: li.qty,
+                };
+              }),
+            });
+          }
+
+          if (service.estHours > maxEstHours) maxEstHours = service.estHours;
+
+          totalAmount += subTotal;
         }
 
-        if (service.estHours > maxEstHours) maxEstHours = service.estHours;
+        await tx.workerTask.create({
+          data: {
+            orderHeaderId: orderHeader.id,
+            station: Station.WASHING,
+            outletId: outlet.id,
+          },
+        });
 
-        totalAmount += subTotal;
+        await tx.orderHeader.update({
+          where: { id: orderHeader.id },
+          data: { estHours: maxEstHours },
+        });
+
+        await tx.pickUpOrder.update({
+          where: { id: pickup.id },
+          data: {
+            status: PickupStatus.RECEIVED_BY_OUTLET,
+            arrivedAtOutlet: now,
+          },
+        });
+
+        return await tx.orderHeader.findUnique({
+          where: { id: orderHeader.id },
+          include: {
+            OrderItem: { include: { orderItemLaundry: true, service: true } },
+            pickUpOrder: true,
+            Payment: true,
+          },
+        });
+      },
+      {
+        maxWait: 5_000, // boleh disesuaikan
+        timeout: 15_000,
+        isolationLevel: "ReadCommitted" as any,
       }
-
-      await tx.workerTask.create({
-        data: {
-          orderHeaderId: orderHeader.id,
-          station: Station.WASHING,
-          outletId: outlet.id
-        },
-      });
-
-      await tx.orderHeader.update({
-        where: { id: orderHeader.id },
-        data: { estHours: maxEstHours },
-      });
-
-      await tx.pickUpOrder.update({
-        where: { id: pickup.id },
-        data: {
-          status: PickupStatus.RECEIVED_BY_OUTLET,
-          arrivedAtOutlet: now,
-        },
-      });
-
-      return await tx.orderHeader.findUnique({
-        where: { id: orderHeader.id },
-        include: {
-          OrderItem: { include: { orderItemLaundry: true, service: true } },
-          pickUpOrder: true,
-          Payment: true,
-        },
-      });
-    });
+    );
   };
 }
