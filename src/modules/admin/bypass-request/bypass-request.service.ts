@@ -12,7 +12,18 @@ export class BypassRequestService {
       include: {
         employee: true,
         workStation: true,
-        orderHeader: true,
+        orderHeader: {
+          include: {
+            OrderItem: {
+              include: {
+                orderItemLaundry: {
+                  include: { laundryItem: true },
+                },
+                service: true,
+              },
+            },
+          },
+        },
         orderItem: true,
       },
       orderBy: {
