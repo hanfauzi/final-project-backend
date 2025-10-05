@@ -167,7 +167,7 @@ export class OrderAdminService {
           },
         },
       }),
-      prisma.orderHeader.count({ where: { outletId } }),
+      prisma.orderHeader.count({ where: whereClause }),
     ]);
 
     // Hitung totalPrice tiap order

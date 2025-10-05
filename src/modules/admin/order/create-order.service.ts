@@ -6,6 +6,7 @@ import {
   TaskStatus,
 } from "../../../generated/prisma";
 import { AppError } from "../../../utils/app.error";
+import { getMeta, getPagination } from "../../../utils/pagination.helper";
 import prisma from "../../prisma/prisma.service";
 import {
   CreateOrderFromPickupDTO,
@@ -57,16 +58,21 @@ export class CreateOrderAdminService {
     return svc.basePrice;
   }
 
-  showPickupOrders = async (outletId: string) => {
+  showPickupOrders = async (outletId: string, page = 1, limit = 10) => {
     try {
+      const { skip, take } = getPagination(page, limit);
+
       const pickups = await prisma.pickUpOrder.findMany({
         where: {
           outletId,
           deletedAt: null,
           status: { not: PickupStatus.CANCELLED },
+          orderHeaders: { none: {} },
         },
         include: { customer: true, outlet: true, orderHeaders: true },
         orderBy: { createdAt: "desc" },
+        skip,
+        take,
       });
 
       const allServiceIds = pickups.flatMap((p) => p.services);
@@ -81,7 +87,19 @@ export class CreateOrderAdminService {
         services: pickup.services.map((serviceId) => serviceMap.get(serviceId)),
       }));
 
-      return pickupsWithServiceDetails;
+      const total = await prisma.pickUpOrder.count({
+        where: {
+          outletId,
+          deletedAt: null,
+          status: { not: PickupStatus.CANCELLED },
+          orderHeaders: { none: {} },
+        },
+      });
+
+      return {
+        data: pickupsWithServiceDetails,
+        meta: getMeta(total, page, limit),
+      };
     } catch (err) {
       console.error("Error fetching pickup orders:", err);
       throw err;
@@ -105,7 +123,7 @@ export class CreateOrderAdminService {
   ) => {
     const pickup = await prisma.pickUpOrder.findFirst({
       where: { id: dto.pickupOrderId, deletedAt: null },
-      include: { outlet: true },
+      include: { outlet: true, orderHeaders: true },
     });
 
     const serviceDetails = await prisma.service.findMany({
@@ -119,6 +137,9 @@ export class CreateOrderAdminService {
     }
     if (!pickup.outlet) {
       throw new AppError("Pickup has no associated outlet", 400);
+    }
+    if (pickup.orderHeaders.length > 0) {
+      throw new AppError("Order already created for this pickup", 400);
     }
 
     const outlet = pickup.outlet;
@@ -234,7 +255,7 @@ export class CreateOrderAdminService {
         });
       },
       {
-        maxWait: 5_000, 
+        maxWait: 5_000,
         timeout: 15_000,
         isolationLevel: "ReadCommitted" as any,
       }
