@@ -81,7 +81,9 @@ export class OrderAdminController {
 
   showPickupOrders = async (req: Request, res: Response) => { 
     const outletId = res.locals.payload.outletId;
-    const pickups = await this.createOrderAdminService.showPickupOrders(outletId);
+    const page = req.query.page ? parseInt(req.query.page as string, 10) : 1;
+    const limit = req.query.limit ? parseInt(req.query.limit as string, 10) : 10;
+    const pickups = await this.createOrderAdminService.showPickupOrders(outletId, page, limit);
     res.status(200).json({ message: "Pickup orders loaded successfully", data: pickups });
   }
 
