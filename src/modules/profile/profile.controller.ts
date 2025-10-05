@@ -57,4 +57,15 @@ export class ProfileController {
 
     res.status(200).json(result);
   };
+
+  customerPasswordUpdate = async (req: Request, res: Response ) => {
+    const customerId = res.locals.payload.id; 
+    const {oldPassword, newPassword} = req.body
+    const result = await this.profileService.customerPasswordUpdate({
+      customerId,
+      oldPassword,
+      newPassword
+    });
+    res.status(200).json(result);
+  }
 }

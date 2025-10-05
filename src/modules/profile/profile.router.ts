@@ -5,6 +5,7 @@ import { UploaderMiddleware } from "../../middlewares/uploader.middleware";
 import { validateBody } from "../../middlewares/validate.middleware";
 import { CustomerProfileUpdateDTO } from "./dto/customer.dto";
 import { CustomerEmailUpdateDTO } from "./dto/customer.email.dto";
+import { CustomerPasswordDTO } from "./dto/customer.password.dto";
 
 export class ProfileRouter {
   private router: Router;
@@ -37,13 +38,23 @@ export class ProfileRouter {
       "/edit/email",
       JwtVerify.verifyToken,
       JwtVerify.verifyRole(["CUSTOMER"]),
+      validateBody(CustomerEmailUpdateDTO),
       this.profileController.customerEmailUpdate
+    );
+    
+    this.router.patch(
+      "/edit/password",
+      JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["CUSTOMER"]),
+      validateBody(CustomerPasswordDTO),
+      this.profileController.customerPasswordUpdate
     );
 
     this.router.post(
       "/email/:token",
       this.profileController.verifyEmailByToken
     );
+
   };
   getRouter = () => {
     return this.router;

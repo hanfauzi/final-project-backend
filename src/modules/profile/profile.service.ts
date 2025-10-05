@@ -7,6 +7,7 @@ import { CustomerProfileUpdateDTO } from "./dto/customer.dto";
 import fs from "fs";
 import Handlebars from "handlebars";
 import { CustomerEmailUpdateDTO } from "./dto/customer.email.dto";
+import { CustomerPasswordDTO } from "./dto/customer.password.dto";
 
 export class ProfileService {
   private passwordService: PasswordService;
@@ -143,4 +144,35 @@ export class ProfileService {
         "Email change successfully and your account has been verified. You can login with new email now!",
     };
   };
-}
+
+  customerPasswordUpdate = async ({ 
+    customerId,oldPassword, newPassword}: CustomerPasswordDTO & {customerId: string}) =>{
+ const customer = await prisma.customer.findFirst({ where: { id: customerId,}})
+    
+      if (!customer) {
+        throw new AppError("Customer not found!", 404);
+      }
+
+      if(customer.password === null){ throw new AppError ("This account can't change their password!",401)}
+
+      if(customer.selectProvider){ throw new AppError ("This account can't change their password!",401)}
+
+      const isPasswordValid = await this.passwordService.comparePassword(oldPassword, customer.password)
+
+      if (!isPasswordValid){
+        throw new AppError("Old password is incorrect!", 400);
+      }
+
+      const hashedPassword = await this.passwordService.hashPassword(newPassword)
+    
+        await prisma.customer.update({
+      where: { id: customer.id},
+      data: { password: hashedPassword}
+    })
+
+    return { message: "Password changed succesfully!"}
+    }
+
+
+  }
+
