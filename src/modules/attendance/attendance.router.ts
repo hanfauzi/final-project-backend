@@ -19,6 +19,7 @@ export class AttendanceRouter {
       "/clock-in",
       validateBody(ClockInAttendanceDTO),
       JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["SUPER_ADMIN", "OUTLET_ADMIN", "DRIVER", "WORKER"]),
       this.attendanceController.clockInAttendance
     );
 
@@ -26,18 +27,21 @@ export class AttendanceRouter {
       "/clock-out",
       validateBody(ClockOutAttendanceDTO),
       JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["SUPER_ADMIN", "OUTLET_ADMIN", "DRIVER", "WORKER"]),
       this.attendanceController.clockOutAttendance
     );
 
     this.router.get(
       "/get-attendance-by-employee",
       JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["SUPER_ADMIN", "OUTLET_ADMIN", "DRIVER", "WORKER"]),
       this.attendanceController.getAttendanceByEmployee
     );
 
     this.router.get(
       "/get-attendance-by-admin",
       JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["SUPER_ADMIN", "OUTLET_ADMIN"]),
       this.attendanceController.getAttendanceByAdmin
     );
   };

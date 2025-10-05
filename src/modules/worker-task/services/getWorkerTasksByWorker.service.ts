@@ -5,6 +5,18 @@ import { GetWorkerTasksDTO } from "../dto/getWorkerTasks.dto";
 
 type WorkerTaskMode = "HISTORY" | "AVAILABLE_TASK";
 
+function toLocalStart(dateStr: string) {
+  const d = new Date(dateStr);
+  d.setHours(0, 0, 0, 0);
+  return d;
+}
+
+function toLocalEnd(dateStr: string) {
+  const d = new Date(dateStr);
+  d.setHours(23, 59, 59, 999);
+  return d;
+}
+
 export class GetWorkerTasksByWorkerService {
   getWorkerTasksByWorker = async (
     authUser: { id: string; role: string },
@@ -12,11 +24,6 @@ export class GetWorkerTasksByWorkerService {
     mode: WorkerTaskMode
   ) => {
     try {
-      const allowedRoles = ["WORKER"];
-      if (!allowedRoles.includes(authUser.role)) {
-        throw new AppError("You are not a worker", 400);
-      }
-
       const worker = await prisma.employee.findUnique({
         where: { id: authUser.id },
         include: {
@@ -42,19 +49,20 @@ export class GetWorkerTasksByWorkerService {
 
       if (yearMonth) {
         const [year, month] = yearMonth.split("-").map(Number);
-        const start = new Date(Date.UTC(year, month - 1, 1, 0, 0, 0, 0));
-        const end = new Date(Date.UTC(year, month, 0, 23, 59, 59, 999));
+
+        const start = new Date(year, month - 1, 1, 0, 0, 0, 0);
+
+        const lastDay = new Date(year, month, 0).getDate();
+        const end = new Date(year, month - 1, lastDay, 23, 59, 59, 999);
 
         whereClause.createdAt = { gte: start, lte: end };
       } else if (fromDate || toDate) {
         whereClause.createdAt = {};
         if (fromDate) {
-          whereClause.createdAt.gte = new Date(fromDate);
+          whereClause.createdAt.gte = toLocalStart(fromDate);
         }
         if (toDate) {
-          const end = new Date(toDate);
-          end.setUTCHours(23, 59, 59, 999);
-          whereClause.createdAt.lte = end;
+          whereClause.createdAt.lte = toLocalEnd(toDate);
         }
       }
 
@@ -76,6 +84,23 @@ export class GetWorkerTasksByWorkerService {
         orderBy: { [sortBy]: sortOrder},
         skip: (page - 1) * take,
         take: take,
+        include: {
+          orderHeader: {
+            select: {
+              OrderItem: {
+                select: {
+                  qty: true,
+                  service: {
+                    select: {
+                      name: true,
+                      unit: true,
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       });
 
       const total = await prisma.workerTask.count({

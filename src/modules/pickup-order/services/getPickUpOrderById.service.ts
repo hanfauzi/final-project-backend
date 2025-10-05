@@ -7,11 +7,6 @@ export class GetPickUpOrderByIdService {
     pickUpOrderId: string
   ) => {
     try {
-      const allowedRoles = ["DRIVER"];
-      if (!allowedRoles.includes(authUser.role)) {
-        throw new AppError("You are not a driver", 400);
-      }
-
       const pickUpOrder = await prisma.pickUpOrder.findFirst({
         where: { id: pickUpOrderId },
         include: {

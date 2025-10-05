@@ -8,11 +8,6 @@ export class ClockOutAttendanceService {
     body: ClockOutAttendanceDTO,
     authUser: { id: string; role: string }
   ) => {
-    const allowedRoles = ["SUPER_ADMIN", "OUTLET_ADMIN", "DRIVER", "WORKER"];
-    if (!allowedRoles.includes(authUser.role)) {
-      throw new AppError("You are not an employee", 400);
-    }
-
     const employee = await prisma.employee.findUnique({
       where: { id: authUser.id },
       include: { shift: true, outlet: true },

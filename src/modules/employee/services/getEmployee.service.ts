@@ -13,6 +13,7 @@ export class GetEmployeeService {
         where: { id: authUser.id },
         include: {
           shift: { select: { name: true, startTime: true, endTime: true } },
+          outlet: { select: { name: true } },
         },
         omit: { password: true, resetPasswordToken: true },
       });

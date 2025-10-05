@@ -24,11 +24,6 @@ export class GetDeliveryOrdersByDriverService {
     mode: DeliveryOrderMode,
   ) => {
     try {
-      const allowedRoles = ["DRIVER"];
-      if (!allowedRoles.includes(authUser.role)) {
-        throw new AppError("You are not a driver", 400);
-      }
-
       const driver = await prisma.employee.findUnique({
         where: { id: authUser.id },
       });
