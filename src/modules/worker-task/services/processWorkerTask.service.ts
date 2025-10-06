@@ -146,9 +146,8 @@ export class ProcessWorkerTaskService {
               });
             }
           } else {
-            let isFullyPaid = workerTask.orderHeader.Payment.every(
-              (p) => p.status === "PAID"
-            );
+            const payments = workerTask.orderHeader.Payment;
+            const isFullyPaid = payments.length > 0 && payments.every(p => p.status === "PAID");
 
             updatedOrderHeaderStatus = isFullyPaid
               ? "READY_FOR_DELIVERY"
