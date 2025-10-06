@@ -7,7 +7,7 @@ export class BypassRequestService {
       where: {
         outletId,
         bypassReq: true,
-        isReqAprooved: false,
+        isReqAprooved: null,
       },
       include: {
         employee: true,
@@ -49,7 +49,7 @@ export class BypassRequestService {
 
     if (!task) throw new Error("Task not found");
     if (!task.bypassReq) throw new Error("Task is not requesting bypass");
-    if (task.isReqAprooved !== false) throw new Error("Task already reviewed");
+    if (task.isReqAprooved !== null) throw new Error("Task already reviewed");
 
     return prisma.workerTask.update({
       where: { id: taskId },
@@ -57,7 +57,6 @@ export class BypassRequestService {
         isReqAprooved: approve,
         itemPassedNote: note,
         assignedById: adminId,
-        bypassReq: approve,
       },
     });
   };

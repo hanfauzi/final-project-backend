@@ -7,11 +7,6 @@ export class GetWorkerTaskByIdService {
     workerTaskId: string
   ) => {
     try {
-      const allowedRoles = ["WORKER"];
-      if (!allowedRoles.includes(authUser.role)) {
-        throw new AppError("You are not a worker", 400);
-      }
-
       const workerTask = await prisma.workerTask.findFirst({
         where: { id: workerTaskId },
         include: {

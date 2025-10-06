@@ -16,18 +16,21 @@ export class PickUpOrderRouter {
     this.router.get(
       "/get-pickup-orders-by-driver",
       JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["DRIVER"]),
       this.pickUpOrderController.getPickUpOrdersByDriver
     );
 
     this.router.get(
       "/:id",
       JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["DRIVER"]),
       this.pickUpOrderController.getPickUpOrderById
     );
 
     this.router.patch(
       "/:id/process-pickup-order",
       JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["DRIVER"]),
       AttendanceMiddleware.checkClockIn,
       this.pickUpOrderController.processPickUpOrder
     );

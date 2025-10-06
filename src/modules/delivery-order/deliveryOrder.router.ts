@@ -16,18 +16,21 @@ export class DeliveryOrderRouter {
     this.router.get(
       "/get-delivery-orders-by-driver",
       JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["DRIVER"]),
       this.deliveryOrderController.getDeliveryOrdersByDriver
     );
 
     this.router.get(
       "/:id",
       JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["DRIVER"]),
       this.deliveryOrderController.getDeliveryOrderById
     );
 
     this.router.patch(
       "/:id/process-delivery-order",
       JwtVerify.verifyToken,
+      JwtVerify.verifyRole(["DRIVER"]),
       AttendanceMiddleware.checkClockIn,
       this.deliveryOrderController.processDeliveryOrder
     );

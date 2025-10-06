@@ -1,6 +1,6 @@
 import prisma from "../../prisma/prisma.service";
 import { AppError } from "../../../utils/app.error";
-import { DeliveryStatus, Station } from "../../../generated/prisma";
+import { DeliveryStatus, Role, Station } from "../../../generated/prisma";
 
 export class ProcessWorkerTaskService {
   processWorkerTask = async (
@@ -8,11 +8,6 @@ export class ProcessWorkerTaskService {
     workerTaskId: string
   ) => {
     try {
-      const allowedRoles = ["WORKER"]
-      if (!allowedRoles.includes(authUser.role)) {
-        throw new AppError("You are not a worker", 400);
-      }
-
       const result = await prisma.$transaction(async (tx) => {
         const worker = await tx.employee.findUnique({
           where: { id: authUser.id }
@@ -49,10 +44,10 @@ export class ProcessWorkerTaskService {
           throw new AppError("Worker task not found", 404);
         }
         if (!workerTask.outletId) {
-          throw new AppError("Outlet  missing for delivery order", 400);
+          throw new AppError("Outlet not found for worker task", 400);
         }
         if (!workerTask.orderHeader?.pickUpOrder?.customerAddressId) {
-          throw new AppError("Customer address missing for delivery order", 400);
+          throw new AppError("Customer address not found for worker task", 400);
         }
         
         let workerTaskStatus = workerTask.status;
@@ -187,10 +182,10 @@ export class ProcessWorkerTaskService {
         return { updatedWorker, updatedWorkerTask, updatedOrderHeader, nextWorkerTask, newDeliveryOrder };
       },
       {
-    maxWait: 7_000,             
-    timeout: 15_000,            
-    isolationLevel: "ReadCommitted" as any
-  });
+        maxWait: 7_000,             
+        timeout: 15_000,            
+        isolationLevel: "ReadCommitted" as any
+      });
       
       return { message: "Worker task processed successfully!", data: result };
 

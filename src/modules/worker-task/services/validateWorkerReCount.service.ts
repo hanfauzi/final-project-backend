@@ -8,11 +8,6 @@ export class ValidateWorkerReCountService {
     body: ValidateWorkerReCountDTO
   ) => {
     try {
-      const allowedRoles = ["WORKER"];
-      if (!allowedRoles.includes(authUser.role)) {
-        throw new AppError("You are not a worker", 400);
-      }
-
       const workerTask = await prisma.workerTask.findUnique({
         where: { id: body.workerTaskId },
         include: {

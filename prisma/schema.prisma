@@ -269,7 +269,7 @@ model workerTask {
   isBypassRequired Boolean?   @default(false) @map("is_bypass_required")
   bypassReqNote    String?
   bypassReq        Boolean?   @default(false)
-  isReqAprooved    Boolean?   @default(false) @map("is_req_aprooved")
+  isReqAprooved    Boolean?   @map("is_req_aprooved")
   itemPassedNote   String?    @map("item_passed")
 
   assignedById String? @map("assigned_by_id")
@@ -304,9 +304,10 @@ model PickUpOrder {
   receiverName      String?      @map("receiver_name")
   receiverPhone     String?      @map("receiver_phone")
 
-  scheduledAt     DateTime? @map("scheduled_at")
-  pickedUpAt      DateTime? @map("picked_up_at")
-  arrivedAtOutlet DateTime? @map("arrived_at_outlet")
+  scheduledAt      DateTime? @map("scheduled_at")
+  assignByDriverAt DateTime? @map("assign_by_driver_at")
+  pickedUpAt       DateTime? @map("picked_up_at")
+  arrivedAtOutlet  DateTime? @map("arrived_at_outlet")
 
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
@@ -325,7 +326,7 @@ model PickUpOrder {
 
 model DeliveryOrder {
   id                String         @id @default(uuid())
-  driverId          String?         @map("driver_id")
+  driverId          String?        @map("driver_id")
   outletId          String         @map("outlet_id")
   customerAddressId String         @map("customer_address_id")
   assignedByAdminId String?        @map("assigned_by_admin_id")
@@ -335,6 +336,7 @@ model DeliveryOrder {
   price             Int
 
   scheduledAt     DateTime? @map("scheduled_at")
+  assignByDriverAt DateTime? @map("assign_by_driver_at")
   takenByDriverAt DateTime? @map("taken_by_driver_at")
   deliveredAt     DateTime? @map("delivered_at")
 
@@ -342,7 +344,7 @@ model DeliveryOrder {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  driver          Employee?        @relation("DeliveryDriver", fields: [driverId], references: [id])
+  driver          Employee?       @relation("DeliveryDriver", fields: [driverId], references: [id])
   assignedByAdmin Employee?       @relation("DeliveryAdmin", fields: [assignedByAdminId], references: [id])
   outlet          Outlet          @relation(fields: [outletId], references: [id])
   customerAddress CustomerAddress @relation(fields: [customerAddressId], references: [id])

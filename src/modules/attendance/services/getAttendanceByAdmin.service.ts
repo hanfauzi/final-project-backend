@@ -3,18 +3,35 @@ import { AppError } from "../../../utils/app.error";
 import { GetAttendanceByAdminDTO } from "../dto/getAttendanceByAdmin.dto";
 import { AttendanceStatus, Prisma } from "../../../generated/prisma";
 
+function toLocalStart(dateStr: string) {
+  const d = new Date(dateStr);
+  d.setHours(0, 0, 0, 0);
+  return d;
+}
+
+function toLocalEnd(dateStr: string) {
+  const d = new Date(dateStr);
+  d.setHours(23, 59, 59, 999);
+  return d;
+}
+
 export class GetAttendanceByAdminService {
   getAttendanceByAdmin = async (
     authUser: { id: string; role: string },
     query: GetAttendanceByAdminDTO
   ) => {
-    const allowedRoles = ["SUPER_ADMIN", "OUTLET_ADMIN"];
-    if (!allowedRoles.includes(authUser.role)) {
-      throw new AppError("You are not an admin!", 400);
+    const admin = await prisma.employee.findUnique({
+      where: { id: authUser.id },
+    })
+    if (!admin) {
+      throw new AppError("Admin not found", 404);
+    }
+    if(!admin.outletId){
+      throw new AppError("Admin not assigned to any outlet", 404);
     }
 
     const { take, page, sortBy, sortOrder, search, attendanceStatus, fromDate, toDate, yearMonth } = query;
-    const whereClause: Prisma.AttendanceWhereInput = {};
+    const whereClause: Prisma.AttendanceWhereInput = {outletId: admin.outletId};
 
     if (search) {
       whereClause.OR = [
@@ -35,19 +52,20 @@ export class GetAttendanceByAdminService {
 
     if (yearMonth) {
       const [year, month] = yearMonth.split("-").map(Number);
-      const start = new Date(Date.UTC(year, month - 1, 1, 0, 0, 0, 0));
-      const end = new Date(Date.UTC(year, month, 0, 23, 59, 59, 999));
 
-      whereClause.date = { gte: start, lte: end };
+      const start = new Date(year, month - 1, 1, 0, 0, 0, 0);
+
+      const lastDay = new Date(year, month, 0).getDate();
+      const end = new Date(year, month - 1, lastDay, 23, 59, 59, 999);
+
+      whereClause.createdAt = { gte: start, lte: end };
     } else if (fromDate || toDate) {
-      whereClause.date = {};
+      whereClause.createdAt = {};
       if (fromDate) {
-        whereClause.date.gte = new Date(fromDate);
+        whereClause.createdAt.gte = toLocalStart(fromDate);
       }
       if (toDate) {
-        const end = new Date(toDate);
-        end.setUTCHours(23, 59, 59, 999);
-        whereClause.date.lte = end;
+        whereClause.createdAt.lte = toLocalEnd(toDate);
       }
     }
 
@@ -78,6 +96,7 @@ export class GetAttendanceByAdminService {
       };
     } catch (error) {
       console.error("Error : ", error);
+      if (error instanceof AppError) throw error;
       throw new AppError("Failed to get attendance", 500);
     }
   };

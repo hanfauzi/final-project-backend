@@ -20,11 +20,6 @@ export class GetAttendanceByEmployeeService {
     authUser: { id: string; role: string },
     query: GetAttendanceByEmployeeDTO
   ) => {
-    const allowedRoles = ["SUPER_ADMIN", "OUTLET_ADMIN", "DRIVER", "WORKER"];
-    if (!allowedRoles.includes(authUser.role)) {
-      throw new AppError("You are not an employee", 400);
-    }
-
     const { take, page, sortBy, sortOrder, attendanceStatus, fromDate, toDate, yearMonth } = query;
     const whereClause: Prisma.AttendanceWhereInput = { employeeId: authUser.id, };
 
@@ -84,6 +79,7 @@ export class GetAttendanceByEmployeeService {
       };
     } catch (error) {
       console.error("Error : ", error);
+      if (error instanceof AppError) throw error;
       throw new AppError("Failed to get attendance", 500);
     }
   };
